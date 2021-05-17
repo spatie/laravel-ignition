@@ -1,8 +1,8 @@
 <?php
 
-namespace Facade\Ignition\Solutions;
+namespace Spatie\Ignition\Solutions;
 
-use Facade\IgnitionContracts\Solution;
+use Spatie\IgnitionContracts\Solution;
 
 class SuggestCorrectVariableNameSolution implements Solution
 {

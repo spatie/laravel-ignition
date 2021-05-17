@@ -1,8 +1,8 @@
 <?php
 
-namespace Facade\Ignition\Context;
+namespace Spatie\Ignition\Context;
 
-use Facade\FlareClient\Context\RequestContext;
+use Spatie\FlareClient\Context\RequestContext;
 use Illuminate\Http\Request;
 use Throwable;
 

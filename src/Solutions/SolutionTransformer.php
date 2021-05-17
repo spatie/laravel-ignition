@@ -1,15 +1,15 @@
 <?php
 
-namespace Facade\Ignition\Solutions;
+namespace Spatie\Ignition\Solutions;
 
-use Facade\IgnitionContracts\RunnableSolution;
-use Facade\IgnitionContracts\Solution;
+use Spatie\IgnitionContracts\RunnableSolution;
+use Spatie\IgnitionContracts\Solution;
 use Illuminate\Contracts\Support\Arrayable;
 use Throwable;
 
 class SolutionTransformer implements Arrayable
 {
-    /** @var \Facade\IgnitionContracts\Solution */
+    /** @var \Spatie\IgnitionContracts\Solution */
     protected $solution;
 
     public function __construct(Solution $solution)
@@ -37,7 +37,7 @@ class SolutionTransformer implements Arrayable
     protected function executeEndpoint(): string
     {
         try {
-            return action('\Facade\Ignition\Http\Controllers\ExecuteSolutionController');
+            return action('\Spatie\Ignition\Http\Controllers\ExecuteSolutionController');
         } catch (Throwable $exception) {
             return '';
         }

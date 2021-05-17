@@ -1,6 +1,6 @@
 <?php
 
-namespace Facade\Ignition\Tests;
+namespace Spatie\Ignition\Tests;
 
 use Exception;
 use Illuminate\Support\Facades\Route;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\Context;
+namespace Spatie\Ignition\Context;
 
-use Facade\FlareClient\Context\ContextDetectorInterface;
-use Facade\FlareClient\Context\ContextInterface;
+use Spatie\FlareClient\Context\ContextDetectorInterface;
+use Spatie\FlareClient\Context\ContextInterface;
 use Illuminate\Http\Request;
 
 class LaravelContextDetector implements ContextDetectorInterface

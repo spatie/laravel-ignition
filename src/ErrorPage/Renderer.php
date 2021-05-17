@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\ErrorPage;
+namespace Spatie\Ignition\ErrorPage;
 
 use Exception;
-use Facade\Ignition\Exceptions\ViewException;
+use Spatie\Ignition\Exceptions\ViewException;
 
 class Renderer
 {

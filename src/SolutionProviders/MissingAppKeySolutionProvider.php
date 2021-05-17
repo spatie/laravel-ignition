@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\SolutionProviders;
+namespace Spatie\Ignition\SolutionProviders;
 
-use Facade\Ignition\Solutions\GenerateAppKeySolution;
-use Facade\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Solutions\GenerateAppKeySolution;
+use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use RuntimeException;
 use Throwable;
 

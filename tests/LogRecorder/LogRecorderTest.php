@@ -1,10 +1,10 @@
 <?php
 
-namespace Facade\Ignition\Tests\LogRecorder;
+namespace Spatie\Ignition\Tests\LogRecorder;
 
 use Exception;
-use Facade\Ignition\LogRecorder\LogRecorder;
-use Facade\Ignition\Tests\TestCase;
+use Spatie\Ignition\LogRecorder\LogRecorder;
+use Spatie\Ignition\Tests\TestCase;
 use Illuminate\Log\Events\MessageLogged;
 
 class LogRecorderTest extends TestCase

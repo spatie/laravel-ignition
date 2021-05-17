@@ -1,10 +1,10 @@
 <?php
 
-namespace Facade\Ignition\Tests\Solutions;
+namespace Spatie\Ignition\Tests\Solutions;
 
-use Facade\Ignition\Solutions\MakeViewVariableOptionalSolution;
-use Facade\Ignition\Support\ComposerClassMap;
-use Facade\Ignition\Tests\TestCase;
+use Spatie\Ignition\Solutions\MakeViewVariableOptionalSolution;
+use Spatie\Ignition\Support\ComposerClassMap;
+use Spatie\Ignition\Tests\TestCase;
 use Illuminate\Support\Facades\View;
 
 class MakeViewVariableOptionalSolutionTest extends TestCase

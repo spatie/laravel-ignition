@@ -1,6 +1,6 @@
 <?php
 
-namespace Facade\Ignition\Tests\stubs\Controllers;
+namespace Spatie\Ignition\Tests\stubs\Controllers;
 
 class TestTypoController
 {

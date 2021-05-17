@@ -1,6 +1,6 @@
 <?php
 
-namespace Facade\Ignition\Tests\Support\Models;
+namespace Spatie\Ignition\Tests\Support\Models;
 
 class Car
 {

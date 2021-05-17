@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\SolutionProviders;
+namespace Spatie\Ignition\SolutionProviders;
 
-use Facade\Ignition\Solutions\LivewireDiscoverSolution;
-use Facade\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Solutions\LivewireDiscoverSolution;
+use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Livewire\Exceptions\ComponentNotFoundException;
 use Livewire\LivewireComponentsFinder;
 use Throwable;

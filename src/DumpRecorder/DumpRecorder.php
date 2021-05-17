@@ -1,6 +1,6 @@
 <?php
 
-namespace Facade\Ignition\DumpRecorder;
+namespace Spatie\Ignition\DumpRecorder;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Arr;

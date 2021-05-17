@@ -1,6 +1,6 @@
 <?php
 
-namespace Facade\Ignition\Exceptions;
+namespace Spatie\Ignition\Exceptions;
 
 use Exception;
 

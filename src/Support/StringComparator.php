@@ -1,6 +1,6 @@
 <?php
 
-namespace Facade\Ignition\Support;
+namespace Spatie\Ignition\Support;
 
 use Illuminate\Support\Collection;
 

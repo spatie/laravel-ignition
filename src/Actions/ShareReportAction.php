@@ -1,11 +1,11 @@
 <?php
 
-namespace Facade\Ignition\Actions;
+namespace Spatie\Ignition\Actions;
 
 use Exception;
-use Facade\FlareClient\Http\Client;
-use Facade\FlareClient\Truncation\ReportTrimmer;
-use Facade\Ignition\Exceptions\UnableToShareErrorException;
+use Spatie\FlareClient\Http\Client;
+use Spatie\FlareClient\Truncation\ReportTrimmer;
+use Spatie\Ignition\Exceptions\UnableToShareErrorException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
@@ -14,7 +14,7 @@ class ShareReportAction
     /** @var array */
     protected $tabs;
 
-    /** @var \Facade\FlareClient\Http\Client */
+    /** @var \Spatie\FlareClient\Http\Client */
     protected $client;
 
     public function __construct(Client $client)

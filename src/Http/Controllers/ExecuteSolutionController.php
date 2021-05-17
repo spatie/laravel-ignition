@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\Http\Controllers;
+namespace Spatie\Ignition\Http\Controllers;
 
-use Facade\Ignition\Http\Requests\ExecuteSolutionRequest;
-use Facade\IgnitionContracts\SolutionProviderRepository;
+use Spatie\Ignition\Http\Requests\ExecuteSolutionRequest;
+use Spatie\IgnitionContracts\SolutionProviderRepository;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class ExecuteSolutionController

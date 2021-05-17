@@ -1,13 +1,13 @@
 <?php
 
-namespace Facade\Ignition\Tests;
+namespace Spatie\Ignition\Tests;
 
-use Facade\Ignition\SolutionProviders\BadMethodCallSolutionProvider;
-use Facade\Ignition\SolutionProviders\MissingAppKeySolutionProvider;
-use Facade\Ignition\SolutionProviders\SolutionProviderRepository;
-use Facade\Ignition\Tests\Exceptions\AlwaysFalseSolutionProvider;
-use Facade\Ignition\Tests\Exceptions\AlwaysTrueSolutionProvider;
-use Facade\IgnitionContracts\BaseSolution;
+use Spatie\Ignition\SolutionProviders\BadMethodCallSolutionProvider;
+use Spatie\Ignition\SolutionProviders\MissingAppKeySolutionProvider;
+use Spatie\Ignition\SolutionProviders\SolutionProviderRepository;
+use Spatie\Ignition\Tests\Exceptions\AlwaysFalseSolutionProvider;
+use Spatie\Ignition\Tests\Exceptions\AlwaysTrueSolutionProvider;
+use Spatie\IgnitionContracts\BaseSolution;
 use Illuminate\Foundation\Auth\User;
 use RuntimeException;
 

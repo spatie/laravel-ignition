@@ -1,8 +1,8 @@
 <?php
 
-namespace Facade\Ignition\Tests\Commands;
+namespace Spatie\Ignition\Tests\Commands;
 
-use Facade\Ignition\Tests\TestCase;
+use Spatie\Ignition\Tests\TestCase;
 
 class TestCommandTest extends TestCase
 {

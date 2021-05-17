@@ -1,12 +1,12 @@
 <?php
 
-namespace Facade\Ignition\DumpRecorder;
+namespace Spatie\Ignition\DumpRecorder;
 
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 
 class DumpHandler
 {
-    /** @var \Facade\Ignition\DumpRecorder\DumpRecorder */
+    /** @var \Spatie\Ignition\DumpRecorder\DumpRecorder */
     protected $dumpRecorder;
 
     public function __construct(DumpRecorder $dumpRecorder)

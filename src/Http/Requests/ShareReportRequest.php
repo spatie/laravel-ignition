@@ -1,6 +1,6 @@
 <?php
 
-namespace Facade\Ignition\Http\Requests;
+namespace Spatie\Ignition\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

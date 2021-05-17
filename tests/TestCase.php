@@ -1,13 +1,13 @@
 <?php
 
-namespace Facade\Ignition\Tests;
+namespace Spatie\Ignition\Tests;
 
-use Facade\FlareClient\Api;
-use Facade\FlareClient\Glows\Glow;
-use Facade\FlareClient\Report;
-use Facade\Ignition\Facades\Flare;
-use Facade\Ignition\IgnitionServiceProvider;
-use Facade\Ignition\Tests\TestClasses\FakeTime;
+use Spatie\FlareClient\Api;
+use Spatie\FlareClient\Glows\Glow;
+use Spatie\FlareClient\Report;
+use Spatie\Ignition\Facades\Flare;
+use Spatie\Ignition\IgnitionServiceProvider;
+use Spatie\Ignition\Tests\TestClasses\FakeTime;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {

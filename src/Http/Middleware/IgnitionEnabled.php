@@ -1,6 +1,6 @@
 <?php
 
-namespace Facade\Ignition\Http\Middleware;
+namespace Spatie\Ignition\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;

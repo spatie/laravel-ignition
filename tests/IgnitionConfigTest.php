@@ -1,8 +1,8 @@
 <?php
 
-namespace Facade\Ignition\Tests;
+namespace Spatie\Ignition\Tests;
 
-use Facade\Ignition\IgnitionConfig;
+use Spatie\Ignition\IgnitionConfig;
 use Illuminate\Container\Container;
 
 class IgnitionConfigTest extends TestCase

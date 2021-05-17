@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\Tests\Solutions;
+namespace Spatie\Ignition\Tests\Solutions;
 
-use Facade\Ignition\SolutionProviders\ViewNotFoundSolutionProvider;
-use Facade\Ignition\Tests\TestCase;
+use Spatie\Ignition\SolutionProviders\ViewNotFoundSolutionProvider;
+use Spatie\Ignition\Tests\TestCase;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
@@ -28,7 +28,7 @@ class ViewNotFoundSolutionProviderTest extends TestCase
     /** @test */
     public function it_can_recommend_changing_a_typo_in_the_view_name()
     {
-        /** @var \Facade\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\IgnitionContracts\Solution $solution */
         $solution = app(ViewNotFoundSolutionProvider::class)->getSolutions($this->getViewNotFoundException())[0];
 
         $this->assertTrue(Str::contains($solution->getSolutionDescription(), 'Did you mean `php-exception`?'));
@@ -39,7 +39,7 @@ class ViewNotFoundSolutionProviderTest extends TestCase
     {
         $unknownView = 'a-view-that-doesnt-exist-and-is-not-a-typo';
 
-        /** @var \Facade\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\IgnitionContracts\Solution $solution */
         $solution = app(ViewNotFoundSolutionProvider::class)->getSolutions($this->getViewNotFoundException($unknownView))[0];
 
         $this->assertFalse(Str::contains($solution->getSolutionDescription(), 'Did you mean'));

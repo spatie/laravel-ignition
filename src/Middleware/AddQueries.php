@@ -1,13 +1,13 @@
 <?php
 
-namespace Facade\Ignition\Middleware;
+namespace Spatie\Ignition\Middleware;
 
-use Facade\FlareClient\Report;
-use Facade\Ignition\QueryRecorder\QueryRecorder;
+use Spatie\FlareClient\Report;
+use Spatie\Ignition\QueryRecorder\QueryRecorder;
 
 class AddQueries
 {
-    /** @var \Facade\Ignition\QueryRecorder\QueryRecorder */
+    /** @var \Spatie\Ignition\QueryRecorder\QueryRecorder */
     protected $queryRecorder;
 
     public function __construct(QueryRecorder $queryRecorder)

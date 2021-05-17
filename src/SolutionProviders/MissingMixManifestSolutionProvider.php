@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Facade\Ignition\SolutionProviders;
+namespace Spatie\Ignition\SolutionProviders;
 
-use Facade\IgnitionContracts\BaseSolution;
-use Facade\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\IgnitionContracts\BaseSolution;
+use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Illuminate\Support\Str;
 use Throwable;
 

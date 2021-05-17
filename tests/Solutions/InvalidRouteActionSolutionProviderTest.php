@@ -1,11 +1,11 @@
 <?php
 
-namespace Facade\Ignition\Tests\Solutions;
+namespace Spatie\Ignition\Tests\Solutions;
 
-use Facade\Ignition\SolutionProviders\InvalidRouteActionSolutionProvider;
-use Facade\Ignition\Support\ComposerClassMap;
-use Facade\Ignition\Tests\stubs\Controllers\TestTypoController;
-use Facade\Ignition\Tests\TestCase;
+use Spatie\Ignition\SolutionProviders\InvalidRouteActionSolutionProvider;
+use Spatie\Ignition\Support\ComposerClassMap;
+use Spatie\Ignition\Tests\stubs\Controllers\TestTypoController;
+use Spatie\Ignition\Tests\TestCase;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use UnexpectedValueException;
@@ -37,7 +37,7 @@ class InvalidRouteActionSolutionProviderTest extends TestCase
     {
         Route::get('/test', TestTypoController::class);
 
-        /** @var \Facade\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\IgnitionContracts\Solution $solution */
         $solution = app(InvalidRouteActionSolutionProvider::class)->getSolutions($this->getInvalidRouteActionException())[0];
 
         $this->assertTrue(Str::contains($solution->getSolutionDescription(), 'Did you mean `TestTypoController`'));
@@ -50,7 +50,7 @@ class InvalidRouteActionSolutionProviderTest extends TestCase
 
         $invalidController = 'UnrelatedTestTypoController';
 
-        /** @var \Facade\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\IgnitionContracts\Solution $solution */
         $solution = app(InvalidRouteActionSolutionProvider::class)->getSolutions($this->getInvalidRouteActionException($invalidController))[0];
 
         $this->assertFalse(Str::contains($solution->getSolutionDescription(), 'Did you mean `TestTypoController`'));

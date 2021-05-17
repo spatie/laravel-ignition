@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition;
+namespace Spatie\Ignition;
 
 use Closure;
-use Facade\Ignition\Tabs\Tab;
+use Spatie\Ignition\Tabs\Tab;
 
 class Ignition
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Facade\Ignition\Tests\Actions;
+namespace Spatie\Ignition\Tests\Actions;
 
-use Facade\FlareClient\Flare;
-use Facade\FlareClient\Glows\Glow;
-use Facade\Ignition\Actions\ShareReportAction;
-use Facade\Ignition\Tests\Mocks\FakeClient;
-use Facade\Ignition\Tests\TestCase;
+use Spatie\FlareClient\Flare;
+use Spatie\FlareClient\Glows\Glow;
+use Spatie\Ignition\Actions\ShareReportAction;
+use Spatie\Ignition\Tests\Mocks\FakeClient;
+use Spatie\Ignition\Tests\TestCase;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Arr;

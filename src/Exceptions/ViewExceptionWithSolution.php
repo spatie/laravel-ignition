@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\Exceptions;
+namespace Spatie\Ignition\Exceptions;
 
-use Facade\IgnitionContracts\ProvidesSolution;
-use Facade\IgnitionContracts\Solution;
+use Spatie\IgnitionContracts\ProvidesSolution;
+use Spatie\IgnitionContracts\Solution;
 
 class ViewExceptionWithSolution extends ViewException implements ProvidesSolution
 {

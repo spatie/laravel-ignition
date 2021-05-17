@@ -1,11 +1,11 @@
 <?php
 
-namespace Facade\Ignition\Tests\Solutions;
+namespace Spatie\Ignition\Tests\Solutions;
 
-use Facade\Ignition\Exceptions\ViewException;
-use Facade\Ignition\SolutionProviders\UndefinedVariableSolutionProvider;
-use Facade\Ignition\Support\ComposerClassMap;
-use Facade\Ignition\Tests\TestCase;
+use Spatie\Ignition\Exceptions\ViewException;
+use Spatie\Ignition\SolutionProviders\UndefinedVariableSolutionProvider;
+use Spatie\Ignition\Support\ComposerClassMap;
+use Spatie\Ignition\Tests\TestCase;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
@@ -49,7 +49,7 @@ class UndefinedVariableSolutionProviderTest extends TestCase
         $canSolve = app(UndefinedVariableSolutionProvider::class)->canSolve($viewException);
         $this->assertTrue($canSolve);
 
-        /** @var \Facade\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\IgnitionContracts\Solution $solution */
         $solutions = app(UndefinedVariableSolutionProvider::class)->getSolutions($viewException);
         $this->assertTrue(Str::contains($solutions[0]->getSolutionDescription(), 'Did you mean `$footerDescription`?'));
     }

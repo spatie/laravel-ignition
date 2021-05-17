@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\Tests;
+namespace Spatie\Ignition\Tests;
 
-use Facade\FlareClient\Flare;
-use Facade\Ignition\Tests\Mocks\FakeClient;
+use Spatie\FlareClient\Flare;
+use Spatie\Ignition\Tests\Mocks\FakeClient;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;

@@ -1,11 +1,11 @@
 <?php
 
-namespace Facade\Ignition\SolutionProviders;
+namespace Spatie\Ignition\SolutionProviders;
 
-use Facade\Ignition\Exceptions\ViewException;
-use Facade\Ignition\Support\StringComparator;
-use Facade\IgnitionContracts\BaseSolution;
-use Facade\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Exceptions\ViewException;
+use Spatie\Ignition\Support\StringComparator;
+use Spatie\IgnitionContracts\BaseSolution;
+use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use InvalidArgumentException;

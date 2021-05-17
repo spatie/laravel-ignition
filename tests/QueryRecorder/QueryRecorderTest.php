@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\Tests\QueryRecorder;
+namespace Spatie\Ignition\Tests\QueryRecorder;
 
-use Facade\Ignition\QueryRecorder\QueryRecorder;
-use Facade\Ignition\Tests\TestCase;
+use Spatie\Ignition\QueryRecorder\QueryRecorder;
+use Spatie\Ignition\Tests\TestCase;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Events\QueryExecuted;
 

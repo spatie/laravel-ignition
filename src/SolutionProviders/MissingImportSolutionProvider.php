@@ -1,10 +1,10 @@
 <?php
 
-namespace Facade\Ignition\SolutionProviders;
+namespace Spatie\Ignition\SolutionProviders;
 
-use Facade\Ignition\Solutions\SuggestImportSolution;
-use Facade\Ignition\Support\ComposerClassMap;
-use Facade\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Solutions\SuggestImportSolution;
+use Spatie\Ignition\Support\ComposerClassMap;
+use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Throwable;
 
 class MissingImportSolutionProvider implements HasSolutionsForThrowable
@@ -12,7 +12,7 @@ class MissingImportSolutionProvider implements HasSolutionsForThrowable
     /** @var string */
     protected $foundClass;
 
-    /** @var \Facade\Ignition\Support\ComposerClassMap */
+    /** @var \Spatie\Ignition\Support\ComposerClassMap */
     protected $composerClassMap;
 
     public function canSolve(Throwable $throwable): bool

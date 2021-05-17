@@ -1,6 +1,6 @@
 <?php
 
-namespace Facade\Ignition\ErrorPage;
+namespace Spatie\Ignition\ErrorPage;
 
 use Error;
 use ErrorException;
@@ -8,7 +8,7 @@ use Whoops\Handler\Handler;
 
 class IgnitionWhoopsHandler extends Handler
 {
-    /** @var \Facade\Ignition\ErrorPage\ErrorPageHandler */
+    /** @var \Spatie\Ignition\ErrorPage\ErrorPageHandler */
     protected $errorPageHandler;
 
     /** @var \Throwable */

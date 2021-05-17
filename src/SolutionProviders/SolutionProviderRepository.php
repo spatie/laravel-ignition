@@ -1,11 +1,11 @@
 <?php
 
-namespace Facade\Ignition\SolutionProviders;
+namespace Spatie\Ignition\SolutionProviders;
 
-use Facade\IgnitionContracts\HasSolutionsForThrowable;
-use Facade\IgnitionContracts\ProvidesSolution;
-use Facade\IgnitionContracts\Solution;
-use Facade\IgnitionContracts\SolutionProviderRepository as SolutionProviderRepositoryContract;
+use Spatie\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\IgnitionContracts\ProvidesSolution;
+use Spatie\IgnitionContracts\Solution;
+use Spatie\IgnitionContracts\SolutionProviderRepository as SolutionProviderRepositoryContract;
 use Illuminate\Support\Collection;
 use Throwable;
 

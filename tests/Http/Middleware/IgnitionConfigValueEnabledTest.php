@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\Tests\Http\Middleware;
+namespace Spatie\Ignition\Tests\Http\Middleware;
 
-use Facade\Ignition\Http\Middleware\IgnitionConfigValueEnabled;
-use Facade\Ignition\Tests\TestCase;
+use Spatie\Ignition\Http\Middleware\IgnitionConfigValueEnabled;
+use Spatie\Ignition\Tests\TestCase;
 use Illuminate\Support\Facades\Route;
 
 class IgnitionConfigValueEnabledTest extends TestCase

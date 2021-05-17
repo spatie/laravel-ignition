@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\Tests\Mocks;
+namespace Spatie\Ignition\Tests\Mocks;
 
-use Facade\FlareClient\Http\Client;
-use Facade\FlareClient\Http\Response;
+use Spatie\FlareClient\Http\Client;
+use Spatie\FlareClient\Http\Response;
 use Illuminate\Support\Arr;
 use PHPUnit\Framework\Assert;
 

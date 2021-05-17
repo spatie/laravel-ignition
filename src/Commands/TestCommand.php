@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\Commands;
+namespace Spatie\Ignition\Commands;
 
 use Exception;
-use Facade\FlareClient\Flare;
+use Spatie\FlareClient\Flare;
 use Illuminate\Config\Repository;
 use Illuminate\Console\Command;
 use Illuminate\Log\LogManager;

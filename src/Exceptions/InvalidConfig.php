@@ -1,11 +1,11 @@
 <?php
 
-namespace Facade\Ignition\Exceptions;
+namespace Spatie\Ignition\Exceptions;
 
 use Exception;
-use Facade\IgnitionContracts\BaseSolution;
-use Facade\IgnitionContracts\ProvidesSolution;
-use Facade\IgnitionContracts\Solution;
+use Spatie\IgnitionContracts\BaseSolution;
+use Spatie\IgnitionContracts\ProvidesSolution;
+use Spatie\IgnitionContracts\Solution;
 use Monolog\Logger;
 
 class InvalidConfig extends Exception implements ProvidesSolution

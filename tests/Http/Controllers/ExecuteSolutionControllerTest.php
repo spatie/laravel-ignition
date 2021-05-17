@@ -1,8 +1,8 @@
 <?php
 
-namespace Facade\Ignition\Tests\Http\Controllers;
+namespace Spatie\Ignition\Tests\Http\Controllers;
 
-use Facade\Ignition\Tests\TestCase;
+use Spatie\Ignition\Tests\TestCase;
 
 class ExecuteSolutionControllerTest extends TestCase
 {
@@ -62,7 +62,7 @@ class ExecuteSolutionControllerTest extends TestCase
                 'variableName' => 'test',
                 'viewFile' => 'resources/views/welcome.blade.php',
             ],
-            'solution' => 'Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution',
+            'solution' => 'Spatie\\Ignition\\Solutions\\MakeViewVariableOptionalSolution',
         ];
     }
 }

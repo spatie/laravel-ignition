@@ -1,6 +1,6 @@
 <?php
 
-namespace Facade\Ignition\LogRecorder;
+namespace Spatie\Ignition\LogRecorder;
 
 use Illuminate\Log\Events\MessageLogged;
 

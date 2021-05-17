@@ -1,12 +1,12 @@
 <?php
 
-namespace Facade\Ignition\SolutionProviders;
+namespace Spatie\Ignition\SolutionProviders;
 
-use Facade\Ignition\Exceptions\ViewException;
-use Facade\Ignition\Solutions\MakeViewVariableOptionalSolution;
-use Facade\Ignition\Solutions\SuggestCorrectVariableNameSolution;
-use Facade\IgnitionContracts\BaseSolution;
-use Facade\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Exceptions\ViewException;
+use Spatie\Ignition\Solutions\MakeViewVariableOptionalSolution;
+use Spatie\Ignition\Solutions\SuggestCorrectVariableNameSolution;
+use Spatie\IgnitionContracts\BaseSolution;
+use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Throwable;
 
 class UndefinedVariableSolutionProvider implements HasSolutionsForThrowable

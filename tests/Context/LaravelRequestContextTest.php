@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\Tests\Context;
+namespace Spatie\Ignition\Tests\Context;
 
-use Facade\Ignition\Context\LaravelRequestContext;
-use Facade\Ignition\Tests\TestCase;
+use Spatie\Ignition\Context\LaravelRequestContext;
+use Spatie\Ignition\Tests\TestCase;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;

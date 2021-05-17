@@ -1,10 +1,10 @@
 <?php
 
-namespace Facade\Ignition\Views\Engines;
+namespace Spatie\Ignition\Views\Engines;
 
 use Exception;
-use Facade\Ignition\Exceptions\ViewException;
-use Facade\Ignition\Views\Concerns\CollectsViewExceptions;
+use Spatie\Ignition\Exceptions\ViewException;
+use Spatie\Ignition\Views\Concerns\CollectsViewExceptions;
 use Throwable;
 
 class PhpEngine extends \Illuminate\View\Engines\PhpEngine

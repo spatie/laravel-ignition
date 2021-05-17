@@ -1,26 +1,26 @@
 <?php
 
-namespace Facade\Ignition\ErrorPage;
+namespace Spatie\Ignition\ErrorPage;
 
-use Facade\FlareClient\Flare;
-use Facade\FlareClient\Report;
-use Facade\Ignition\IgnitionConfig;
-use Facade\IgnitionContracts\SolutionProviderRepository;
+use Spatie\FlareClient\Flare;
+use Spatie\FlareClient\Report;
+use Spatie\Ignition\IgnitionConfig;
+use Spatie\IgnitionContracts\SolutionProviderRepository;
 use Illuminate\Foundation\Application;
 use Throwable;
 
 class ErrorPageHandler
 {
-    /** @var \Facade\Ignition\IgnitionConfig */
+    /** @var \Spatie\Ignition\IgnitionConfig */
     protected $ignitionConfig;
 
-    /** @var \Facade\FlareClient\Flare */
+    /** @var \Spatie\FlareClient\Flare */
     protected $flareClient;
 
-    /** @var \Facade\Ignition\ErrorPage\Renderer */
+    /** @var \Spatie\Ignition\ErrorPage\Renderer */
     protected $renderer;
 
-    /** @var \Facade\IgnitionContracts\SolutionProviderRepository */
+    /** @var \Spatie\IgnitionContracts\SolutionProviderRepository */
     protected $solutionProviderRepository;
 
     public function __construct(

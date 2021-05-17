@@ -1,13 +1,13 @@
 <?php
 
-namespace Facade\Ignition\Middleware;
+namespace Spatie\Ignition\Middleware;
 
-use Facade\FlareClient\Report;
-use Facade\IgnitionContracts\SolutionProviderRepository;
+use Spatie\FlareClient\Report;
+use Spatie\IgnitionContracts\SolutionProviderRepository;
 
 class AddSolutions
 {
-    /** @var \Facade\IgnitionContracts\SolutionProviderRepository */
+    /** @var \Spatie\IgnitionContracts\SolutionProviderRepository */
     protected $solutionProviderRepository;
 
     public function __construct(SolutionProviderRepository $solutionProviderRepository)

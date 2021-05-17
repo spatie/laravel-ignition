@@ -1,18 +1,18 @@
 <?php
 
-namespace Facade\Ignition\Logger;
+namespace Spatie\Ignition\Logger;
 
-use Facade\FlareClient\Flare;
-use Facade\FlareClient\Report;
-use Facade\Ignition\Ignition;
-use Facade\Ignition\Tabs\Tab;
+use Spatie\FlareClient\Flare;
+use Spatie\FlareClient\Report;
+use Spatie\Ignition\Ignition;
+use Spatie\Ignition\Tabs\Tab;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 use Throwable;
 
 class FlareHandler extends AbstractProcessingHandler
 {
-    /** @var \Facade\FlareClient\Flare */
+    /** @var \Spatie\FlareClient\Flare */
     protected $flare;
 
     protected $minimumReportLogLevel = Logger::ERROR;

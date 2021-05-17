@@ -1,11 +1,11 @@
 <?php
 
-namespace Facade\Ignition\SolutionProviders;
+namespace Spatie\Ignition\SolutionProviders;
 
-use Facade\Ignition\Support\ComposerClassMap;
-use Facade\Ignition\Support\StringComparator;
-use Facade\IgnitionContracts\BaseSolution;
-use Facade\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Support\ComposerClassMap;
+use Spatie\Ignition\Support\StringComparator;
+use Spatie\IgnitionContracts\BaseSolution;
+use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Illuminate\Support\Str;
 use Throwable;
 use UnexpectedValueException;

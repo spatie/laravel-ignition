@@ -1,7 +1,7 @@
 <?php
 
-use Facade\Ignition\SolutionProviders\UndefinedPropertySolutionProvider;
-use Facade\Ignition\Tests\TestCase;
+use Spatie\Ignition\SolutionProviders\UndefinedPropertySolutionProvider;
+use Spatie\Ignition\Tests\TestCase;
 
 class UndefinedPropertySolutionProviderTest extends TestCase
 {
@@ -24,16 +24,16 @@ class UndefinedPropertySolutionProviderTest extends TestCase
     /** @test */
     public function it_can_recommend_a_property_name_when_there_is_a_similar_property()
     {
-        /** @var \Facade\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\IgnitionContracts\Solution $solution */
         $solution = app(UndefinedPropertySolutionProvider::class)->getSolutions($this->getUndefinedPropertyException())[0];
 
-        $this->assertEquals('Did you mean Facade\Ignition\Tests\Support\Models\Car::$color ?', $solution->getSolutionDescription());
+        $this->assertEquals('Did you mean Spatie\Ignition\Tests\Support\Models\Car::$color ?', $solution->getSolutionDescription());
     }
 
     /** @test */
     public function it_cannot_recommend_a_property_name_when_there_is_no_similar_property()
     {
-        /** @var \Facade\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\IgnitionContracts\Solution $solution */
         $solution = app(UndefinedPropertySolutionProvider::class)->getSolutions($this->getUndefinedPropertyException('balance'))[0];
 
         $this->assertEquals('', $solution->getSolutionDescription());
@@ -41,6 +41,6 @@ class UndefinedPropertySolutionProviderTest extends TestCase
 
     protected function getUndefinedPropertyException(string $property = 'colro'): ErrorException
     {
-        return new ErrorException("Undefined property: Facade\Ignition\Tests\Support\Models\Car::$$property ");
+        return new ErrorException("Undefined property: Spatie\Ignition\Tests\Support\Models\Car::$$property ");
     }
 }

@@ -7,14 +7,14 @@
         "laravel",
         "flare"
     ],
-    "homepage": "https://github.com/facade/ignition",
+    "homepage": "https://flareapp.io/ignition",
     "license": "MIT",
     "require": {
         "php": "^7.2.5|^8.0",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "facade/flare-client-php": "^1.6",
-        "facade/ignition-contracts": "^1.0.2",
+        "spatie/flare-client-php": "^1.6",
+        "spatie/ignition-contracts": "^1.0.2",
         "filp/whoops": "^2.4",
         "illuminate/support": "^7.0|^8.0",
         "monolog/monolog": "^2.0",
@@ -39,16 +39,16 @@
         },
         "laravel": {
             "providers": [
-                "Facade\\Ignition\\IgnitionServiceProvider"
+                "Spatie\\Ignition\\IgnitionServiceProvider"
             ],
             "aliases": {
-                "Flare": "Facade\\Ignition\\Facades\\Flare"
+                "Flare": "Spatie\\Ignition\\Facades\\Flare"
             }
         }
     },
     "autoload": {
         "psr-4": {
-            "Facade\\Ignition\\": "src"
+            "Spatie\\Ignition\\": "src"
         },
         "files": [
             "src/helpers.php"
@@ -56,7 +56,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Facade\\Ignition\\Tests\\": "tests"
+            "Spatie\\Ignition\\Tests\\": "tests"
         }
     },
     "minimum-stability": "dev",

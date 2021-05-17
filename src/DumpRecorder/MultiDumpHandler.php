@@ -1,6 +1,6 @@
 <?php
 
-namespace Facade\Ignition\DumpRecorder;
+namespace Spatie\Ignition\DumpRecorder;
 
 class MultiDumpHandler
 {

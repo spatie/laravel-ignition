@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\Tests\TestClasses;
+namespace Spatie\Ignition\Tests\TestClasses;
 
 use DateTimeImmutable;
-use Facade\FlareClient\Time\Time;
+use Spatie\FlareClient\Time\Time;
 
 class FakeTime implements Time
 {

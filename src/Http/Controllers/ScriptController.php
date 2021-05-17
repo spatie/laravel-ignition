@@ -1,8 +1,8 @@
 <?php
 
-namespace Facade\Ignition\Http\Controllers;
+namespace Spatie\Ignition\Http\Controllers;
 
-use Facade\Ignition\Ignition;
+use Spatie\Ignition\Ignition;
 use Illuminate\Http\Request;
 
 class ScriptController

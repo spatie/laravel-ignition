@@ -1,12 +1,12 @@
 <?php
 
-namespace Facade\Ignition\Tests;
+namespace Spatie\Ignition\Tests;
 
-use Facade\Ignition\Exceptions\ViewException;
-use Facade\Ignition\Exceptions\ViewExceptionWithSolution;
-use Facade\IgnitionContracts\BaseSolution;
-use Facade\IgnitionContracts\ProvidesSolution;
-use Facade\IgnitionContracts\Solution;
+use Spatie\Ignition\Exceptions\ViewException;
+use Spatie\Ignition\Exceptions\ViewExceptionWithSolution;
+use Spatie\IgnitionContracts\BaseSolution;
+use Spatie\IgnitionContracts\ProvidesSolution;
+use Spatie\IgnitionContracts\Solution;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\View;
 

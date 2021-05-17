@@ -1,14 +1,14 @@
 <?php
 
-namespace Facade\Ignition\Http\Middleware;
+namespace Spatie\Ignition\Http\Middleware;
 
 use Closure;
-use Facade\Ignition\IgnitionConfig;
+use Spatie\Ignition\IgnitionConfig;
 use Illuminate\Http\Request;
 
 class IgnitionConfigValueEnabled
 {
-    /** @var \Facade\Ignition\IgnitionConfig */
+    /** @var \Spatie\Ignition\IgnitionConfig */
     protected $ignitionConfig;
 
     public function __construct(IgnitionConfig $ignitionConfig)

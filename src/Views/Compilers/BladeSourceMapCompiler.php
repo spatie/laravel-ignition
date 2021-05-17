@@ -1,6 +1,6 @@
 <?php
 
-namespace Facade\Ignition\Views\Compilers;
+namespace Spatie\Ignition\Views\Compilers;
 
 use ErrorException;
 use Illuminate\View\Compilers\BladeCompiler;
@@ -14,7 +14,7 @@ class BladeSourceMapCompiler extends BladeCompiler
         } catch (ErrorException $e) {
             return 1;
         }
-        
+
         $map = explode("\n", $map);
 
         $line = $map[$exceptionLineNumber - 1] ?? $exceptionLineNumber;

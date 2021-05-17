@@ -1,13 +1,13 @@
 <?php
 
-namespace Facade\Ignition\Middleware;
+namespace Spatie\Ignition\Middleware;
 
-use Facade\FlareClient\Report;
-use Facade\Ignition\DumpRecorder\DumpRecorder;
+use Spatie\FlareClient\Report;
+use Spatie\Ignition\DumpRecorder\DumpRecorder;
 
 class AddDumps
 {
-    /** @var \Facade\Ignition\DumpRecorder\DumpRecorder */
+    /** @var \Spatie\Ignition\DumpRecorder\DumpRecorder */
     protected $dumpRecorder;
 
     public function __construct(DumpRecorder $dumpRecorder)

@@ -1,6 +1,6 @@
 <?php
 
-namespace Facade\Ignition\Tests\stubs\Controllers;
+namespace Spatie\Ignition\Tests\stubs\Controllers;
 
 /**
  * This has an intentional Git conflict

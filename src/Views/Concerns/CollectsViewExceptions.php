@@ -1,6 +1,6 @@
 <?php
 
-namespace Facade\Ignition\Views\Concerns;
+namespace Spatie\Ignition\Views\Concerns;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;

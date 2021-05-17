@@ -1,6 +1,6 @@
 <?php
 
-namespace Facade\Ignition\Support\Packagist;
+namespace Spatie\Ignition\Support\Packagist;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;

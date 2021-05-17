@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\Tests\Solutions;
+namespace Spatie\Ignition\Tests\Solutions;
 
-use Facade\Ignition\SolutionProviders\RouteNotDefinedSolutionProvider;
-use Facade\Ignition\Tests\TestCase;
+use Spatie\Ignition\SolutionProviders\RouteNotDefinedSolutionProvider;
+use Spatie\Ignition\Tests\TestCase;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
@@ -23,7 +23,7 @@ class RouteNotDefinedSolutionProviderTest extends TestCase
     {
         Route::get('/test', 'TestController@typo')->name('test.typo');
 
-        /** @var \Facade\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\IgnitionContracts\Solution $solution */
         $solution = app(RouteNotDefinedSolutionProvider::class)->getSolutions($this->getRouteNotDefinedException())[0];
 
         $this->assertTrue(Str::contains($solution->getSolutionDescription(), 'Did you mean `test.typo`?'));
@@ -34,7 +34,7 @@ class RouteNotDefinedSolutionProviderTest extends TestCase
     {
         Route::get('/test', 'TestController@typo')->name('test.typo');
 
-        /** @var \Facade\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\IgnitionContracts\Solution $solution */
         $solution = app(RouteNotDefinedSolutionProvider::class)->getSolutions($this->getRouteNotDefinedException('test.is-too-different'))[0];
 
         $this->assertFalse(Str::contains($solution->getSolutionDescription(), 'Did you mean'));

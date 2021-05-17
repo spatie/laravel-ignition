@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\Tests\Support;
+namespace Spatie\Ignition\Tests\Support;
 
-use Facade\Ignition\Support\ComposerClassMap;
-use Facade\Ignition\Tests\TestCase;
+use Spatie\Ignition\Support\ComposerClassMap;
+use Spatie\Ignition\Tests\TestCase;
 
 class ComposerClassMapTest extends TestCase
 {

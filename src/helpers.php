@@ -1,6 +1,6 @@
 <?php
 
-use Facade\FlareClient\Flare;
+use Spatie\FlareClient\Flare;
 
 if (! function_exists('ddd')) {
     function ddd()
@@ -13,7 +13,7 @@ if (! function_exists('ddd')) {
 
         call_user_func_array('dump', $args);
 
-        $handler = app(\Facade\Ignition\ErrorPage\ErrorPageHandler::class);
+        $handler = app(\Spatie\Ignition\ErrorPage\ErrorPageHandler::class);
 
         $client = app()->make(Flare::class);
 

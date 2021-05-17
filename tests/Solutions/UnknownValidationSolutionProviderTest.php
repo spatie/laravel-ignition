@@ -1,11 +1,11 @@
 <?php
 
-namespace Facade\Ignition\Tests\Solutions;
+namespace Spatie\Ignition\Tests\Solutions;
 
 use BadMethodCallException;
 use Exception;
-use Facade\Ignition\SolutionProviders\UnknownValidationSolutionProvider;
-use Facade\Ignition\Tests\TestCase;
+use Spatie\Ignition\SolutionProviders\UnknownValidationSolutionProvider;
+use Spatie\Ignition\Tests\TestCase;
 use Illuminate\Support\Facades\Validator;
 
 class UnknownValidationSolutionProviderTest extends TestCase
@@ -43,7 +43,7 @@ class UnknownValidationSolutionProviderTest extends TestCase
             return $value == 'bar';
         });
 
-        /** @var \Facade\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\IgnitionContracts\Solution $solution */
         $solution = app(UnknownValidationSolutionProvider::class)->getSolutions($this->getBadMethodCallException($invalidRule))[0];
 
         $this->assertEquals("Did you mean `{$recommendedRule}` ?", $solution->getSolutionDescription());

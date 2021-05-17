@@ -1,10 +1,10 @@
 <?php
 
-namespace Facade\Ignition\Exceptions;
+namespace Spatie\Ignition\Exceptions;
 
 use ErrorException;
-use Facade\FlareClient\Contracts\ProvidesFlareContext;
-use Facade\Ignition\DumpRecorder\HtmlDumper;
+use Spatie\FlareClient\Contracts\ProvidesFlareContext;
+use Spatie\Ignition\DumpRecorder\HtmlDumper;
 
 class ViewException extends ErrorException implements ProvidesFlareContext
 {

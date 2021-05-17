@@ -1,8 +1,8 @@
 <?php
 
-namespace Facade\Ignition\Context;
+namespace Spatie\Ignition\Context;
 
-use Facade\FlareClient\Context\ConsoleContext;
+use Spatie\FlareClient\Context\ConsoleContext;
 
 class LaravelConsoleContext extends ConsoleContext
 {

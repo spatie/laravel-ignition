@@ -1,13 +1,13 @@
 <?php
 
-namespace Facade\Ignition\Middleware;
+namespace Spatie\Ignition\Middleware;
 
-use Facade\FlareClient\Report;
-use Facade\Ignition\LogRecorder\LogRecorder;
+use Spatie\FlareClient\Report;
+use Spatie\Ignition\LogRecorder\LogRecorder;
 
 class AddLogs
 {
-    /** @var \Facade\Ignition\LogRecorder\LogRecorder */
+    /** @var \Spatie\Ignition\LogRecorder\LogRecorder */
     protected $logRecorder;
 
     public function __construct(LogRecorder $logRecorder)

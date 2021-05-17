@@ -1,13 +1,13 @@
 <?php
 
-namespace Facade\Ignition\QueryRecorder;
+namespace Spatie\Ignition\QueryRecorder;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Events\QueryExecuted;
 
 class QueryRecorder
 {
-    /** @var \Facade\Ignition\QueryRecorder\Query|[] */
+    /** @var \Spatie\Ignition\QueryRecorder\Query|[] */
     protected $queries = [];
 
     /** @var \Illuminate\Contracts\Foundation\Application */

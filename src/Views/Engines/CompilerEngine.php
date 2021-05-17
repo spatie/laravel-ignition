@@ -1,13 +1,13 @@
 <?php
 
-namespace Facade\Ignition\Views\Engines;
+namespace Spatie\Ignition\Views\Engines;
 
 use Exception;
-use Facade\Ignition\Exceptions\ViewException;
-use Facade\Ignition\Exceptions\ViewExceptionWithSolution;
-use Facade\Ignition\Views\Compilers\BladeSourceMapCompiler;
-use Facade\Ignition\Views\Concerns\CollectsViewExceptions;
-use Facade\IgnitionContracts\ProvidesSolution;
+use Spatie\Ignition\Exceptions\ViewException;
+use Spatie\Ignition\Exceptions\ViewExceptionWithSolution;
+use Spatie\Ignition\Views\Compilers\BladeSourceMapCompiler;
+use Spatie\Ignition\Views\Concerns\CollectsViewExceptions;
+use Spatie\IgnitionContracts\ProvidesSolution;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;

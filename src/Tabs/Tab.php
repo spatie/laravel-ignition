@@ -1,8 +1,8 @@
 <?php
 
-namespace Facade\Ignition\Tabs;
+namespace Spatie\Ignition\Tabs;
 
-use Facade\FlareClient\Flare;
+use Spatie\FlareClient\Flare;
 use Illuminate\Support\Str;
 use JsonSerializable;
 use Throwable;
@@ -13,7 +13,7 @@ abstract class Tab implements JsonSerializable
 
     public $styles = [];
 
-    /** @var \Facade\FlareClient\Flare */
+    /** @var \Spatie\FlareClient\Flare */
     protected $flare;
 
     /** @var Throwable */

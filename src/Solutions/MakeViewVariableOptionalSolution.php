@@ -1,8 +1,8 @@
 <?php
 
-namespace Facade\Ignition\Solutions;
+namespace Spatie\Ignition\Solutions;
 
-use Facade\IgnitionContracts\RunnableSolution;
+use Spatie\IgnitionContracts\RunnableSolution;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Str;
 

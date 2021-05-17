@@ -1,13 +1,13 @@
 <?php
 
-namespace Facade\Ignition\Support\Packagist;
+namespace Spatie\Ignition\Support\Packagist;
 
 class Packagist
 {
     /**
      * @param string $className
      *
-     * @return \Facade\Ignition\Support\Packagist\Package[]
+     * @return \Spatie\Ignition\Support\Packagist\Package[]
      */
     public static function findPackagesForClassName(string $className): array
     {

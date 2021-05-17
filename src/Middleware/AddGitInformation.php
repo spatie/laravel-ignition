@@ -1,8 +1,8 @@
 <?php
 
-namespace Facade\Ignition\Middleware;
+namespace Spatie\Ignition\Middleware;
 
-use Facade\FlareClient\Report;
+use Spatie\FlareClient\Report;
 use ReflectionClass;
 use Symfony\Component\Process\Process;
 

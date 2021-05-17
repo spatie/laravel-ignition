@@ -1,11 +1,11 @@
 <?php
 
-namespace Facade\Ignition\Tests;
+namespace Spatie\Ignition\Tests;
 
-use Facade\FlareClient\Flare;
-use Facade\FlareClient\Report;
-use Facade\Ignition\ErrorPage\ErrorPageViewModel;
-use Facade\Ignition\IgnitionConfig;
+use Spatie\FlareClient\Flare;
+use Spatie\FlareClient\Report;
+use Spatie\Ignition\ErrorPage\ErrorPageViewModel;
+use Spatie\Ignition\IgnitionConfig;
 
 class ErrorPageViewModelTest extends TestCase
 {

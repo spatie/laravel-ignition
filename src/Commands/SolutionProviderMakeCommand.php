@@ -1,6 +1,6 @@
 <?php
 
-namespace Facade\Ignition\Commands;
+namespace Spatie\Ignition\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 

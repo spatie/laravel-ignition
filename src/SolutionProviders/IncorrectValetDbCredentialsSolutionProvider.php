@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\SolutionProviders;
+namespace Spatie\Ignition\SolutionProviders;
 
-use Facade\Ignition\Solutions\UseDefaultValetDbCredentialsSolution;
-use Facade\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Solutions\UseDefaultValetDbCredentialsSolution;
+use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Illuminate\Database\QueryException;
 use Throwable;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Facade\Ignition\Tests;
+namespace Spatie\Ignition\Tests;
 
 class DddTest extends TestCase
 {

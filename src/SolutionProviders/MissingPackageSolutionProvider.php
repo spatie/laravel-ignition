@@ -1,17 +1,17 @@
 <?php
 
-namespace Facade\Ignition\SolutionProviders;
+namespace Spatie\Ignition\SolutionProviders;
 
-use Facade\Ignition\Solutions\MissingPackageSolution;
-use Facade\Ignition\Support\Packagist\Package;
-use Facade\Ignition\Support\Packagist\Packagist;
-use Facade\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Solutions\MissingPackageSolution;
+use Spatie\Ignition\Support\Packagist\Package;
+use Spatie\Ignition\Support\Packagist\Packagist;
+use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Illuminate\Support\Str;
 use Throwable;
 
 class MissingPackageSolutionProvider implements HasSolutionsForThrowable
 {
-    /** @var \Facade\Ignition\Support\Packagist\Package|null */
+    /** @var \Spatie\Ignition\Support\Packagist\Package|null */
     protected $package;
 
     public function canSolve(Throwable $throwable): bool

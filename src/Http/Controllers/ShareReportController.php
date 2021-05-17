@@ -1,10 +1,10 @@
 <?php
 
-namespace Facade\Ignition\Http\Controllers;
+namespace Spatie\Ignition\Http\Controllers;
 
-use Facade\Ignition\Actions\ShareReportAction;
-use Facade\Ignition\Exceptions\UnableToShareErrorException;
-use Facade\Ignition\Http\Requests\ShareReportRequest;
+use Spatie\Ignition\Actions\ShareReportAction;
+use Spatie\Ignition\Exceptions\UnableToShareErrorException;
+use Spatie\Ignition\Http\Requests\ShareReportRequest;
 
 class ShareReportController
 {

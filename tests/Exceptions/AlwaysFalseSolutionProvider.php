@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\Tests\Exceptions;
+namespace Spatie\Ignition\Tests\Exceptions;
 
-use Facade\IgnitionContracts\BaseSolution;
-use Facade\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\IgnitionContracts\BaseSolution;
+use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Throwable;
 
 class AlwaysFalseSolutionProvider implements HasSolutionsForThrowable

@@ -1,6 +1,6 @@
 <?php
 
-namespace Facade\Ignition\Http\Controllers;
+namespace Spatie\Ignition\Http\Controllers;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;

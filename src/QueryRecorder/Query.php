@@ -1,6 +1,6 @@
 <?php
 
-namespace Facade\Ignition\QueryRecorder;
+namespace Spatie\Ignition\QueryRecorder;
 
 use Illuminate\Database\Events\QueryExecuted;
 

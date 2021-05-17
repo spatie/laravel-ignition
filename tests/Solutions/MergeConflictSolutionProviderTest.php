@@ -1,10 +1,10 @@
 <?php
 
-namespace Facade\Ignition\Tests\Solutions;
+namespace Spatie\Ignition\Tests\Solutions;
 
-use Facade\Ignition\SolutionProviders\MergeConflictSolutionProvider;
-use Facade\Ignition\Tests\stubs\Controllers\GitConflictController;
-use Facade\Ignition\Tests\TestCase;
+use Spatie\Ignition\SolutionProviders\MergeConflictSolutionProvider;
+use Spatie\Ignition\Tests\stubs\Controllers\GitConflictController;
+use Spatie\Ignition\Tests\TestCase;
 use Illuminate\Support\Facades\View;
 use ParseError;
 

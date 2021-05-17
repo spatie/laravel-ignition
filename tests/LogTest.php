@@ -1,15 +1,15 @@
 <?php
 
-namespace Facade\Ignition\Tests;
+namespace Spatie\Ignition\Tests;
 
-use Facade\FlareClient\Flare;
-use Facade\Ignition\Tests\Mocks\FakeClient;
+use Spatie\FlareClient\Flare;
+use Spatie\Ignition\Tests\Mocks\FakeClient;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 class LogTest extends TestCase
 {
-    /** @var \Facade\Ignition\Tests\Mocks\FakeClient */
+    /** @var \Spatie\Ignition\Tests\Mocks\FakeClient */
     protected $fakeClient;
 
     public function setUp(): void

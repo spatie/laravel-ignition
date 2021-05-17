@@ -1,10 +1,10 @@
 <?php
 
-namespace Facade\Ignition\Http\Requests;
+namespace Spatie\Ignition\Http\Requests;
 
-use Facade\IgnitionContracts\RunnableSolution;
-use Facade\IgnitionContracts\Solution;
-use Facade\IgnitionContracts\SolutionProviderRepository;
+use Spatie\IgnitionContracts\RunnableSolution;
+use Spatie\IgnitionContracts\Solution;
+use Spatie\IgnitionContracts\SolutionProviderRepository;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ExecuteSolutionRequest extends FormRequest

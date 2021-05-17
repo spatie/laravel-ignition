@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\Solutions;
+namespace Spatie\Ignition\Solutions;
 
-use Facade\Ignition\Support\Packagist\Package;
-use Facade\IgnitionContracts\Solution;
+use Spatie\Ignition\Support\Packagist\Package;
+use Spatie\IgnitionContracts\Solution;
 
 class MissingPackageSolution implements Solution
 {

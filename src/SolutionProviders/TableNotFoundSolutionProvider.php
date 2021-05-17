@@ -1,9 +1,9 @@
 <?php
 
-namespace Facade\Ignition\SolutionProviders;
+namespace Spatie\Ignition\SolutionProviders;
 
-use Facade\Ignition\Solutions\RunMigrationsSolution;
-use Facade\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Solutions\RunMigrationsSolution;
+use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Illuminate\Database\QueryException;
 use Throwable;
 
