@@ -1,0 +1,32 @@
+.level-emergency {
+    @apply bg-red-100;
+    @apply text-red-400;
+}
+.level-alert {
+    @apply bg-yellow-100;
+    @apply text-yellow-400;
+}
+.level-critical {
+    @apply bg-red-100;
+    @apply text-red-400;
+}
+.level-error {
+    @apply bg-red-100;
+    @apply text-red-400;
+}
+.level-warning {
+    @apply bg-yellow-100;
+    @apply text-yellow-400;
+}
+.level-notice {
+    @apply bg-blue-100;
+    @apply text-blue-400;
+}
+.level-info {
+    @apply bg-purple-100;
+    @apply text-purple-400;
+}
+.level-debug {
+    @apply bg-purple-100;
+    @apply text-purple-400;
+}

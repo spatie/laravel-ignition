@@ -40,23 +40,16 @@
             'appDebug' => $appDebug,
         ])
     ?>;
-
-    window.tabs = <?=$tabs?>;
 </script>
 
 <noscript><pre><?=$throwableString?></pre></noscript>
 
 <div id="app"></div>
 
+<style><?= $getAssetContents('ignition.css') ?></style>
 <script><?= $getAssetContents('ignition.js') ?></script>
 <script>
-    window.Ignition = window.ignite(window.data);
-</script>
-<?php foreach ($scripts as $script): ?>
-    <script src="<?=$housekeepingEndpoint?>/scripts/<?=$script?>"></script>
-<?php endforeach; ?>
-<script>
-    Ignition.start();
+    window.ignite(window.data);
 </script>
 <!--
 <?=$throwableString?>

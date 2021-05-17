@@ -1,0 +1,41 @@
+.upload {
+    /* @apply w-full; */
+    @apply flex;
+    @apply items-center;
+    @apply cursor-pointer;
+    @apply border;
+    @apply border-transparent;
+    @apply rounded-sm;
+    @apply ml-8;
+    @apply border;
+    @apply border-dashed;
+    @apply border-tint-200;
+    @apply bg-tint-50;
+}
+
+@screen lg {
+    .upload {
+        @apply w-full;
+    }
+}
+
+.upload-drag,
+.upload:hover {
+    @apply bg-green-100;
+}
+
+.upload-avatar {
+    @apply transition-opacity;
+    @apply w-16;
+    @apply h-16;
+    @apply -ml-8;
+    @apply -my-1;
+}
+
+.upload-hint {
+    @apply flex-grow;
+    @apply text-gray-500;
+    @apply text-center;
+    @apply px-3;
+    @apply py-1;
+}

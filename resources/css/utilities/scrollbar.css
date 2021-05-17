@@ -30,7 +30,7 @@
 }
 
 .scrollbar-lg::-webkit-scrollbar-track {
-    @apply bg-gray-50;
+    @apply bg-gray-100;
 }
 
 .scrollbar-lg::-webkit-scrollbar-thumb {

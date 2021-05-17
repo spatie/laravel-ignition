@@ -1,0 +1,76 @@
+.toggle {
+    @apply text-left;
+}
+
+@screen md {
+    .toggle {
+        @apply flex;
+        @apply items-center;
+        @apply justify-start;
+    }
+}
+
+.toggle-button {
+    @apply flex-none;
+    @apply inline-flex;
+    @apply items-center;
+    @apply h-8;
+    width: 3.5rem;
+    @apply px-1;
+    @apply rounded-full;
+    @apply bg-tint-100;
+    @apply border;
+    @apply border-tint-200;
+    @apply shadow-input;
+    transition: background-color 0.3s ease;
+}
+
+.toggle:disabled {
+    @apply cursor-default;
+}
+
+.toggle:disabled .toggle-button {
+    @apply opacity-25;
+}
+
+.toggle:not(:disabled) .toggle-button:hover {
+    @apply bg-tint-200;
+}
+
+.toggle-button:after {
+    content: '';
+    @apply absolute;
+    @apply h-6;
+    @apply w-6;
+    @apply rounded-full;
+    @apply bg-white;
+    @apply shadow;
+    transition: transform 0.3s ease-out;
+}
+
+.toggle-label {
+    @apply text-tint-600;
+    @apply mb-0 !important;
+}
+
+@screen md {
+    .toggle-label {
+        @apply ml-4;
+    }
+}
+
+.toggle:not(:disabled).toggle-on .toggle-button {
+    @apply bg-green-400;
+}
+
+.toggle:not(:disabled).toggle-on .toggle-button:hover {
+    @apply bg-green-500;
+}
+
+.toggle-on .toggle-button:after {
+    transform: translateX(1.5rem);
+}
+
+.toggle-on .toggle-label {
+    @apply text-tint-700;
+}

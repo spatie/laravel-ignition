@@ -1,0 +1,76 @@
+.form-grid {
+    @apply grid;
+    @apply gap-y-4;
+}
+
+.form-row {
+    @apply grid;
+    @apply items-start;
+    @apply gap-2;
+    @apply mb-2;
+}
+
+.form-buttons {
+    @apply grid;
+    @apply justify-start;
+    @apply items-center;
+}
+
+@screen sm {
+    .form-buttons {
+        @apply grid-cols-auto;
+        @apply grid-flow-col;
+    }
+}
+
+.form-buttons-modal {
+    @apply grid;
+    @apply grid-cols-auto;
+    @apply grid-flow-col;
+    @apply justify-end;
+    @apply items-center;
+}
+
+.form-error {
+    @apply text-xs;
+    @apply text-red-400;
+    @apply flex;
+}
+
+.form-error:before {
+    content: '↓ ';
+    @apply inline-block;
+    @apply self-start;
+    @apply mr-1;
+    @apply text-red-300;
+}
+
+.horizontal-row-error.form-error:before {
+    content: '↑ ';
+}
+
+@screen lg {
+    .form-row {
+        grid-template-columns: minmax(min-content, 10rem) 1fr;
+        @apply gap-x-0;
+        @apply mb-0;
+    }
+
+    .form-buttons {
+        margin-left: 10rem;
+    }
+
+    .form-error {
+        @apply col-start-2;
+        order: 3;
+        @apply flex;
+    }
+
+    .form-error:before {
+        content: '↑ ';
+    }
+
+    .horizontal-row-error.form-error {
+        grid-column-start: 1;
+    }
+}

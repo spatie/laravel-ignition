@@ -43,7 +43,8 @@
         @apply grid;
         @apply items-center;
         @apply justify-between;
-        @apply cols-auto;
+        @apply grid-cols-auto;
+        @apply grid-flow-col;
         @apply py-4;
         @apply bg-gray-100;
     }
@@ -51,7 +52,7 @@
 
 .stack-nav-arrows {
     @apply grid;
-    @apply cols-2;
+    @apply grid-cols-2;
     @apply justify-center;
     @apply items-center;
     @apply gap-1;
@@ -252,7 +253,7 @@
 
 .stack-code-line .editor-link {
     @apply inline-block;
-    @apply px-2;
+    @apply px-4;
     @apply opacity-0;
     @apply text-purple-400;
 }

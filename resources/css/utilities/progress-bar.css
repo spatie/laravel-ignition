@@ -1,0 +1,11 @@
+.progress-bar {
+    @apply h-3;
+    @apply rounded-full;
+    @apply overflow-hidden;
+    @apply shadow-input;
+}
+
+.progress-bar-value {
+    @apply h-full;
+    @apply shadow-inner;
+}
