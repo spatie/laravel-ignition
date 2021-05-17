@@ -2,10 +2,10 @@
 
 namespace Spatie\Ignition\Tests\Solutions;
 
-use Spatie\Ignition\SolutionProviders\RouteNotDefinedSolutionProvider;
-use Spatie\Ignition\Tests\TestCase;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use Spatie\Ignition\SolutionProviders\RouteNotDefinedSolutionProvider;
+use Spatie\Ignition\Tests\TestCase;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class RouteNotDefinedSolutionProviderTest extends TestCase

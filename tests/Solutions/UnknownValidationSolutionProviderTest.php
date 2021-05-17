@@ -4,9 +4,9 @@ namespace Spatie\Ignition\Tests\Solutions;
 
 use BadMethodCallException;
 use Exception;
+use Illuminate\Support\Facades\Validator;
 use Spatie\Ignition\SolutionProviders\UnknownValidationSolutionProvider;
 use Spatie\Ignition\Tests\TestCase;
-use Illuminate\Support\Facades\Validator;
 
 class UnknownValidationSolutionProviderTest extends TestCase
 {

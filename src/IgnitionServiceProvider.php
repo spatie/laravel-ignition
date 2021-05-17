@@ -3,6 +3,18 @@
 namespace Spatie\Ignition;
 
 use Exception;
+use Illuminate\Foundation\Application;
+use Illuminate\Log\Events\MessageLogged;
+use Illuminate\Log\LogManager;
+use Illuminate\Queue\QueueManager;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Engines\CompilerEngine as LaravelCompilerEngine;
+use Illuminate\View\Engines\PhpEngine as LaravelPhpEngine;
+use Livewire\CompilerEngineForIgnition;
+use Monolog\Logger;
 use Spatie\FlareClient\Api;
 use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\Http\Client;
@@ -52,18 +64,6 @@ use Spatie\Ignition\SolutionProviders\ViewNotFoundSolutionProvider;
 use Spatie\Ignition\Views\Engines\CompilerEngine;
 use Spatie\Ignition\Views\Engines\PhpEngine;
 use Spatie\IgnitionContracts\SolutionProviderRepository as SolutionProviderRepositoryContract;
-use Illuminate\Foundation\Application;
-use Illuminate\Log\Events\MessageLogged;
-use Illuminate\Log\LogManager;
-use Illuminate\Queue\QueueManager;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\View\Engines\CompilerEngine as LaravelCompilerEngine;
-use Illuminate\View\Engines\PhpEngine as LaravelPhpEngine;
-use Livewire\CompilerEngineForIgnition;
-use Monolog\Logger;
 use Throwable;
 use Whoops\Handler\HandlerInterface;
 

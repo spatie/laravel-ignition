@@ -3,14 +3,14 @@
 namespace Spatie\Ignition\SolutionProviders;
 
 use BadMethodCallException;
-use Spatie\Ignition\Support\StringComparator;
-use Spatie\IgnitionContracts\BaseSolution;
-use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Validator;
 use ReflectionClass;
 use ReflectionMethod;
+use Spatie\Ignition\Support\StringComparator;
+use Spatie\IgnitionContracts\BaseSolution;
+use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Throwable;
 
 class UnknownValidationSolutionProvider implements HasSolutionsForThrowable

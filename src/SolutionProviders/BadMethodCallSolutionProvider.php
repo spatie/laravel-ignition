@@ -3,11 +3,11 @@
 namespace Spatie\Ignition\SolutionProviders;
 
 use BadMethodCallException;
-use Spatie\IgnitionContracts\BaseSolution;
-use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Illuminate\Support\Collection;
 use ReflectionClass;
 use ReflectionMethod;
+use Spatie\IgnitionContracts\BaseSolution;
+use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Throwable;
 
 class BadMethodCallSolutionProvider implements HasSolutionsForThrowable

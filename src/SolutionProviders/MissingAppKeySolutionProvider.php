@@ -2,9 +2,9 @@
 
 namespace Spatie\Ignition\SolutionProviders;
 
+use RuntimeException;
 use Spatie\Ignition\Solutions\GenerateAppKeySolution;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
-use RuntimeException;
 use Throwable;
 
 class MissingAppKeySolutionProvider implements HasSolutionsForThrowable

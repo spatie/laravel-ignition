@@ -2,13 +2,13 @@
 
 namespace Spatie\Ignition\SolutionProviders;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\View;
+use InvalidArgumentException;
 use Spatie\Ignition\Exceptions\ViewException;
 use Spatie\Ignition\Support\StringComparator;
 use Spatie\IgnitionContracts\BaseSolution;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\View;
-use InvalidArgumentException;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Throwable;

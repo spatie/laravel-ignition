@@ -2,8 +2,8 @@
 
 namespace Spatie\Ignition\Middleware;
 
-use Spatie\FlareClient\Report;
 use ReflectionClass;
+use Spatie\FlareClient\Report;
 use Symfony\Component\Process\Process;
 
 class AddGitInformation

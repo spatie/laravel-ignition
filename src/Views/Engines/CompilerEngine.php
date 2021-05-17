@@ -3,15 +3,15 @@
 namespace Spatie\Ignition\Views\Engines;
 
 use Exception;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use ReflectionProperty;
 use Spatie\Ignition\Exceptions\ViewException;
 use Spatie\Ignition\Exceptions\ViewExceptionWithSolution;
 use Spatie\Ignition\Views\Compilers\BladeSourceMapCompiler;
 use Spatie\Ignition\Views\Concerns\CollectsViewExceptions;
 use Spatie\IgnitionContracts\ProvidesSolution;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use ReflectionProperty;
 use Throwable;
 
 class CompilerEngine extends \Illuminate\View\Engines\CompilerEngine

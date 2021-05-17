@@ -2,10 +2,10 @@
 
 namespace Spatie\Ignition\SolutionProviders;
 
-use Spatie\IgnitionContracts\BaseSolution;
-use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Illuminate\Support\Str;
 use ParseError;
+use Spatie\IgnitionContracts\BaseSolution;
+use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Throwable;
 
 class MergeConflictSolutionProvider implements HasSolutionsForThrowable

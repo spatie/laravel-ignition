@@ -2,10 +2,10 @@
 
 namespace Spatie\Ignition\Tests\QueryRecorder;
 
-use Spatie\Ignition\QueryRecorder\QueryRecorder;
-use Spatie\Ignition\Tests\TestCase;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Events\QueryExecuted;
+use Spatie\Ignition\QueryRecorder\QueryRecorder;
+use Spatie\Ignition\Tests\TestCase;
 
 class QueryRecorderTest extends TestCase
 {

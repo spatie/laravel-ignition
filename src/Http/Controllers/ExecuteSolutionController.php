@@ -2,9 +2,9 @@
 
 namespace Spatie\Ignition\Http\Controllers;
 
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Spatie\Ignition\Http\Requests\ExecuteSolutionRequest;
 use Spatie\IgnitionContracts\SolutionProviderRepository;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class ExecuteSolutionController
 {

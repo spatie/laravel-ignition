@@ -2,8 +2,8 @@
 
 namespace Spatie\Ignition\Solutions;
 
-use Spatie\IgnitionContracts\RunnableSolution;
 use Illuminate\Support\Str;
+use Spatie\IgnitionContracts\RunnableSolution;
 
 class UseDefaultValetDbCredentialsSolution implements RunnableSolution
 {

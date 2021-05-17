@@ -2,9 +2,9 @@
 
 namespace Spatie\Ignition\SolutionProviders;
 
+use Illuminate\Database\QueryException;
 use Spatie\Ignition\Solutions\UseDefaultValetDbCredentialsSolution;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
-use Illuminate\Database\QueryException;
 use Throwable;
 
 class IncorrectValetDbCredentialsSolutionProvider implements HasSolutionsForThrowable

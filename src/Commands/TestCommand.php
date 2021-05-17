@@ -3,10 +3,10 @@
 namespace Spatie\Ignition\Commands;
 
 use Exception;
-use Spatie\FlareClient\Flare;
 use Illuminate\Config\Repository;
 use Illuminate\Console\Command;
 use Illuminate\Log\LogManager;
+use Spatie\FlareClient\Flare;
 
 class TestCommand extends Command
 {

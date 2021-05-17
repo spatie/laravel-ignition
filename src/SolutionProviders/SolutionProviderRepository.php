@@ -2,11 +2,11 @@
 
 namespace Spatie\Ignition\SolutionProviders;
 
+use Illuminate\Support\Collection;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Spatie\IgnitionContracts\ProvidesSolution;
 use Spatie\IgnitionContracts\Solution;
 use Spatie\IgnitionContracts\SolutionProviderRepository as SolutionProviderRepositoryContract;
-use Illuminate\Support\Collection;
 use Throwable;
 
 class SolutionProviderRepository implements SolutionProviderRepositoryContract

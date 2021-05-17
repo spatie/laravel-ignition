@@ -2,9 +2,9 @@
 
 namespace Spatie\Ignition\Tests\Http\Middleware;
 
+use Illuminate\Support\Facades\Route;
 use Spatie\Ignition\Http\Middleware\IgnitionConfigValueEnabled;
 use Spatie\Ignition\Tests\TestCase;
-use Illuminate\Support\Facades\Route;
 
 class IgnitionConfigValueEnabledTest extends TestCase
 {

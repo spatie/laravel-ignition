@@ -2,11 +2,11 @@
 
 namespace Spatie\Ignition\Tests\Context;
 
-use Spatie\Ignition\Context\LaravelRequestContext;
-use Spatie\Ignition\Tests\TestCase;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Spatie\Ignition\Context\LaravelRequestContext;
+use Spatie\Ignition\Tests\TestCase;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 class LaravelRequestContextTest extends TestCase

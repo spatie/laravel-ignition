@@ -2,9 +2,9 @@
 
 namespace Spatie\Ignition\Tests\Http\Middleware;
 
+use Illuminate\Support\Facades\Route;
 use Spatie\Ignition\Http\Middleware\IgnitionEnabled;
 use Spatie\Ignition\Tests\TestCase;
-use Illuminate\Support\Facades\Route;
 
 class IgnitionEnabledTest extends TestCase
 {

@@ -4,9 +4,9 @@
 namespace Spatie\Ignition\Tests\Solutions;
 
 use Exception;
+use Illuminate\Support\Str;
 use Spatie\Ignition\SolutionProviders\MissingMixManifestSolutionProvider;
 use Spatie\Ignition\Tests\TestCase;
-use Illuminate\Support\Str;
 
 class MixManifestNotFoundSolutionProviderTest extends TestCase
 {

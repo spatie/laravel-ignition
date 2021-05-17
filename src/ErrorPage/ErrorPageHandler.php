@@ -2,11 +2,11 @@
 
 namespace Spatie\Ignition\ErrorPage;
 
+use Illuminate\Foundation\Application;
 use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\Report;
 use Spatie\Ignition\IgnitionConfig;
 use Spatie\IgnitionContracts\SolutionProviderRepository;
-use Illuminate\Foundation\Application;
 use Throwable;
 
 class ErrorPageHandler

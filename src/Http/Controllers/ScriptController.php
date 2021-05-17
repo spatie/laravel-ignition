@@ -2,8 +2,8 @@
 
 namespace Spatie\Ignition\Http\Controllers;
 
-use Spatie\Ignition\Ignition;
 use Illuminate\Http\Request;
+use Spatie\Ignition\Ignition;
 
 class ScriptController
 {
