@@ -22,5 +22,4 @@
 /postcss.config.js  export-ignore
 /tailwind.config.js export-ignore
 /tsconfig.json      export-ignore
-/webpack.config.js  export-ignore
 /yarn.lock          export-ignore

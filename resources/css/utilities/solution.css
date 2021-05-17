@@ -50,13 +50,16 @@
     @apply absolute;
     @apply inset-0;
     top: -6px;
-    margin: 0 10px;
     @apply bg-green-300;
     @apply shadow;
     @apply border;
-    @apply border-tint-300;
+    @apply border-tint-200;
     @apply overflow-hidden;
     @apply rounded-b-sm;
+}
+
+.solution-background-inset {
+    margin: 0 10px;
 }
 
 .solution-title {

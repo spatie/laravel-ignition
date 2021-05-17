@@ -1,8 +1,11 @@
 {
     "compilerOptions": {
         "allowJs": true,
+        "declaration": false,
+        "declarationDir": null,
         "allowSyntheticDefaultImports": true,
-        "lib": ["dom", "es2017"],
+        "jsx": "react",
+        "lib": ["dom", "es2020"],
         "noEmit": true,
         "module": "esnext",
         "moduleResolution": "node",
@@ -19,5 +22,5 @@
             "*": ["*", "resources/js/*"]
         }
     },
-    "include": ["resources/**/*"]
+    "include": ["resources/**/*", "node_modules/microbundle/index.d.ts"]
 }

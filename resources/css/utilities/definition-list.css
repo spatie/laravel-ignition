@@ -1,7 +1,7 @@
 .definition-list {
     @apply grid;
-    @apply gapx-6;
-    @apply gapy-2;
+    @apply gap-x-6;
+    @apply gap-y-2;
 }
 
 .definition-list .definition-list {
@@ -79,10 +79,10 @@
 
 @screen sm {
     .definition-list-empty {
-        @apply start-2;
+        @apply col-start-2;
     }
 
     .definition-list .definition-list .definition-list-empty {
-        @apply start-1;
+        @apply col-start-1;
     }
 }

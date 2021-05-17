@@ -1,0 +1,52 @@
+.occurrence-toolbar {
+    @apply grid;
+    @apply grid-cols-auto;
+    @apply grid-flow-col;
+    @apply justify-center;
+    @apply items-center;
+    @apply gap-8;
+    @apply text-base;
+    @apply leading-none;
+}
+
+.occurrence-toolbar-group {
+    @apply grid;
+    @apply items-center;
+    @apply gap-4;
+    @apply grid-cols-auto;
+    @apply grid-flow-col;
+}
+
+.occurrence-toolbar-label {
+    @apply text-gray-400;
+}
+
+.occurrence-toolbar-button {
+    @apply flex;
+    @apply items-center;
+    @apply link;
+    @apply no-underline;
+    @apply font-normal;
+}
+
+.occurrence-toolbar-button:hover {
+    @apply text-purple-500;
+}
+
+.occurrence-toolbar-button-active,
+.occurrence-toolbar-button-active:hover {
+    @apply font-semibold;
+}
+
+.occurrence-toolbar-button-active:after {
+    content: '';
+    @apply absolute;
+    @apply block;
+    @apply w-1;
+    @apply h-1;
+    left: 50%;
+    bottom: -0.5rem;
+    transform: translateX(-50%);
+    @apply bg-green-400;
+    @apply rounded-full;
+}

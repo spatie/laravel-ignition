@@ -36,7 +36,8 @@
     position: -webkit-sticky;
     @apply grid;
     @apply justify-center;
-    @apply cols-auto;
+    @apply grid-cols-auto;
+    @apply grid-flow-col;
     @apply gap-2;
     @apply top-0;
     @apply w-full;
@@ -50,7 +51,8 @@
 
 .tab-bar {
     @apply grid;
-    @apply cols-auto;
+    @apply grid-cols-auto;
+    @apply grid-flow-col;
     @apply justify-start;
     @apply gap-1;
     @apply overflow-x-auto;
@@ -70,7 +72,7 @@
 .tab {
     @apply px-4;
     @apply text-gray-300;
-    @apply whitespace-no-wrap;
+    @apply whitespace-nowrap;
     @apply rounded-sm;
     @apply h-10;
     @apply text-sm;

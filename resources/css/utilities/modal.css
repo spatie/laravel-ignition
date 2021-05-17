@@ -1,0 +1,150 @@
+.modal-backdrop {
+    @apply fixed;
+    @apply flex;
+    @apply place-center;
+    @apply z-40;
+    @apply inset-0;
+    @apply h-full;
+    @apply w-full;
+    background-color: rgba(0, 0, 10, 0.65);
+}
+
+.modal-wrapper {
+    @apply h-full;
+    @apply w-full;
+    @apply bg-white;
+}
+
+@screen md {
+    .modal-wrapper {
+        @apply h-auto;
+        @apply w-auto;
+        @apply max-w-xl;
+        @apply shadow-xl;
+        @apply rounded-sm;
+        @apply border;
+        @apply border-tint-700;
+    }
+
+    .modal-wrapper-md {
+        @apply max-w-4xl !important;
+    }
+
+    .modal-wrapper-lg {
+        width: calc(100vw - 4rem) !important;
+        max-width: none;
+        @apply rounded-none !important;
+    }
+}
+
+@screen lg {
+    .modal-wrapper-lg {
+        width: calc(100vw - 8rem) !important;
+        @apply max-w-6xl !important;
+    }
+}
+
+.modal-close {
+    @apply absolute;
+    @apply z-40;
+    top: 0.5rem;
+    right: 0.5rem;
+    @apply w-8;
+    @apply h-8;
+    @apply rounded-full;
+    @apply text-gray-600;
+}
+
+.modal {
+    @apply flex;
+    @apply flex-col;
+    @apply h-full;
+}
+
+@screen md {
+    .modal {
+        max-height: calc(100vh - 2rem);
+    }
+
+    .modal-wrapper-lg .modal {
+        height: 100vh;
+        max-height: none;
+    }
+}
+
+.modal-header {
+    @apply flex-none;
+    @apply grid;
+    @apply items-center;
+    @apply px-6;
+    @apply py-4;
+    height: var(--tab-bar-height);
+    @apply bg-gray-200;
+}
+
+@screen md {
+    .modal-header {
+        @apply px-12;
+    }
+}
+
+.modal-title {
+    @apply font-semibold;
+    @apply uppercase;
+    @apply text-gray-600;
+    @apply text-xs;
+    @apply tracking-wider;
+}
+
+.modal-content {
+    @apply flex-grow;
+    @apply overflow-x-hidden;
+    @apply p-6;
+    max-width: 100vw;
+}
+
+@screen md {
+    .modal-content {
+        @apply px-12;
+    }
+}
+
+.modal-wrapper-lg .modal-content {
+    @apply p-0 !important;
+}
+
+.modal-nav {
+    @apply fixed;
+    bottom: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    @apply grid;
+    @apply gap-2;
+    @apply items-center;
+    @apply justify-between;
+    padding: 2px;
+    @apply bg-gray-700;
+    @apply border;
+    @apply border-tint-200;
+    @apply rounded-sm;
+    @apply shadow-lg;
+    @apply z-40;
+    @apply leading-none;
+    @apply text-sm;
+    @apply text-gray-200;
+    grid-template-columns: repeat(3, auto);
+}
+
+.modal-nav-arrow {
+    @apply w-6;
+    @apply h-6;
+    @apply flex;
+    @apply place-center;
+    @apply rounded-sm;
+    @apply text-gray-200;
+}
+
+.modal-nav-arrow:hover {
+    @apply bg-tint-400;
+    @apply text-white;
+}

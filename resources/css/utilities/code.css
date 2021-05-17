@@ -5,11 +5,9 @@
 
 .code-inline {
     @apply inline-block;
-    @apply -my-1;
     @apply px-2;
-    @apply py-1;
     @apply rounded-sm;
-    @apply bg-gray-100;
+    @apply bg-tint-100;
     @apply border;
     @apply border-tint-100;
     @apply font-mono;
@@ -22,7 +20,7 @@
     @apply px-4;
     @apply py-2;
     @apply rounded-sm;
-    @apply bg-gray-100;
+    @apply bg-tint-100;
     @apply border;
     @apply border-tint-100;
     @apply font-mono;
@@ -31,5 +29,5 @@
 
 .code-inline pre,
 .code-block pre {
-    white-space: pre-wrap;
+    @apply whitespace-pre-wrap;
 }

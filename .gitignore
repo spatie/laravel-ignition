@@ -1,7 +1,6 @@
 /build
 /coverage
 /node_modules
-/resources/compiled/index.html
 /vendor
 composer.lock
 .php_cs.cache
