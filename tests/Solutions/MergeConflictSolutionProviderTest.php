@@ -2,11 +2,11 @@
 
 namespace Spatie\Ignition\Tests\Solutions;
 
+use Illuminate\Support\Facades\View;
+use ParseError;
 use Spatie\Ignition\SolutionProviders\MergeConflictSolutionProvider;
 use Spatie\Ignition\Tests\stubs\Controllers\GitConflictController;
 use Spatie\Ignition\Tests\TestCase;
-use Illuminate\Support\Facades\View;
-use ParseError;
 
 class MergeConflictSolutionProviderTest extends TestCase
 {

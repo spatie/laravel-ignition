@@ -2,10 +2,10 @@
 
 namespace Spatie\Ignition\SolutionProviders;
 
-use Spatie\Ignition\Solutions\LivewireDiscoverSolution;
-use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Livewire\Exceptions\ComponentNotFoundException;
 use Livewire\LivewireComponentsFinder;
+use Spatie\Ignition\Solutions\LivewireDiscoverSolution;
+use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Throwable;
 
 class MissingLivewireComponentSolutionProvider implements HasSolutionsForThrowable

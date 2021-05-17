@@ -2,13 +2,13 @@
 
 namespace Spatie\Ignition\SolutionProviders;
 
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
+use InvalidArgumentException;
 use Spatie\Ignition\Exceptions\ViewException;
 use Spatie\Ignition\Support\StringComparator;
 use Spatie\IgnitionContracts\BaseSolution;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
-use InvalidArgumentException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Throwable;
 

@@ -2,11 +2,11 @@
 
 namespace Spatie\Ignition\Tests\Solutions;
 
-use Spatie\Ignition\SolutionProviders\ViewNotFoundSolutionProvider;
-use Spatie\Ignition\Tests\TestCase;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use Spatie\Ignition\SolutionProviders\ViewNotFoundSolutionProvider;
+use Spatie\Ignition\Tests\TestCase;
 
 class ViewNotFoundSolutionProviderTest extends TestCase
 {

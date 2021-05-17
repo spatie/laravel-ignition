@@ -2,10 +2,10 @@
 
 namespace Spatie\Ignition\Tests\Mocks;
 
-use Spatie\FlareClient\Http\Client;
-use Spatie\FlareClient\Http\Response;
 use Illuminate\Support\Arr;
 use PHPUnit\Framework\Assert;
+use Spatie\FlareClient\Http\Client;
+use Spatie\FlareClient\Http\Response;
 
 class FakeClient extends Client
 {

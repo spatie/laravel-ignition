@@ -2,13 +2,13 @@
 
 namespace Spatie\Ignition\Tests;
 
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\View;
 use Spatie\Ignition\Exceptions\ViewException;
 use Spatie\Ignition\Exceptions\ViewExceptionWithSolution;
 use Spatie\IgnitionContracts\BaseSolution;
 use Spatie\IgnitionContracts\ProvidesSolution;
 use Spatie\IgnitionContracts\Solution;
-use Illuminate\Foundation\Auth\User;
-use Illuminate\Support\Facades\View;
 
 class ViewTest extends TestCase
 {

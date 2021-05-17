@@ -2,10 +2,10 @@
 
 namespace Spatie\Ignition\Tests\Solutions;
 
+use Illuminate\Support\Facades\View;
 use Spatie\Ignition\Solutions\MakeViewVariableOptionalSolution;
 use Spatie\Ignition\Support\ComposerClassMap;
 use Spatie\Ignition\Tests\TestCase;
-use Illuminate\Support\Facades\View;
 
 class MakeViewVariableOptionalSolutionTest extends TestCase
 {

@@ -3,9 +3,9 @@
 
 namespace Spatie\Ignition\SolutionProviders;
 
+use Illuminate\Support\Str;
 use Spatie\IgnitionContracts\BaseSolution;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
-use Illuminate\Support\Str;
 use Throwable;
 
 class MissingMixManifestSolutionProvider implements HasSolutionsForThrowable

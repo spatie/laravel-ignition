@@ -2,8 +2,8 @@
 
 namespace Spatie\Ignition\Context;
 
-use Spatie\FlareClient\Context\RequestContext;
 use Illuminate\Http\Request;
+use Spatie\FlareClient\Context\RequestContext;
 use Throwable;
 
 class LaravelRequestContext extends RequestContext

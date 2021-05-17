@@ -2,11 +2,11 @@
 
 namespace Spatie\Ignition\SolutionProviders;
 
+use Illuminate\Support\Str;
 use Spatie\Ignition\Solutions\MissingPackageSolution;
 use Spatie\Ignition\Support\Packagist\Package;
 use Spatie\Ignition\Support\Packagist\Packagist;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
-use Illuminate\Support\Str;
 use Throwable;
 
 class MissingPackageSolutionProvider implements HasSolutionsForThrowable

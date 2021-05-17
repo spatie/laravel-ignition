@@ -2,14 +2,14 @@
 
 namespace Spatie\Ignition\Tests\Actions;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Arr;
 use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\Glows\Glow;
 use Spatie\Ignition\Actions\ShareReportAction;
 use Spatie\Ignition\Tests\Mocks\FakeClient;
 use Spatie\Ignition\Tests\TestCase;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User;
-use Illuminate\Support\Arr;
 
 class ShareReportActionTest extends TestCase
 {

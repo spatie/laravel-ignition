@@ -3,11 +3,11 @@
 namespace Spatie\Ignition\SolutionProviders;
 
 use ErrorException;
-use Spatie\IgnitionContracts\BaseSolution;
-use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Illuminate\Support\Collection;
 use ReflectionClass;
 use ReflectionProperty;
+use Spatie\IgnitionContracts\BaseSolution;
+use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Throwable;
 
 class UndefinedPropertySolutionProvider implements HasSolutionsForThrowable

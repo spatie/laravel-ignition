@@ -2,9 +2,9 @@
 
 namespace Spatie\Ignition\Tabs;
 
-use Spatie\FlareClient\Flare;
 use Illuminate\Support\Str;
 use JsonSerializable;
+use Spatie\FlareClient\Flare;
 use Throwable;
 
 abstract class Tab implements JsonSerializable

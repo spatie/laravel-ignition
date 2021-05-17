@@ -2,9 +2,9 @@
 
 namespace Spatie\Ignition\Solutions;
 
-use Spatie\IgnitionContracts\RunnableSolution;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Str;
+use Spatie\IgnitionContracts\RunnableSolution;
 
 class MakeViewVariableOptionalSolution implements RunnableSolution
 {

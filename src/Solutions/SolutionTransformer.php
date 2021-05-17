@@ -2,9 +2,9 @@
 
 namespace Spatie\Ignition\Solutions;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Spatie\IgnitionContracts\RunnableSolution;
 use Spatie\IgnitionContracts\Solution;
-use Illuminate\Contracts\Support\Arrayable;
 use Throwable;
 
 class SolutionTransformer implements Arrayable

@@ -3,10 +3,10 @@
 namespace Spatie\Ignition\Exceptions;
 
 use Exception;
+use Monolog\Logger;
 use Spatie\IgnitionContracts\BaseSolution;
 use Spatie\IgnitionContracts\ProvidesSolution;
 use Spatie\IgnitionContracts\Solution;
-use Monolog\Logger;
 
 class InvalidConfig extends Exception implements ProvidesSolution
 {

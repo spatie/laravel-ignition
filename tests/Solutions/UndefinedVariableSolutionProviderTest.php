@@ -2,12 +2,12 @@
 
 namespace Spatie\Ignition\Tests\Solutions;
 
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 use Spatie\Ignition\Exceptions\ViewException;
 use Spatie\Ignition\SolutionProviders\UndefinedVariableSolutionProvider;
 use Spatie\Ignition\Support\ComposerClassMap;
 use Spatie\Ignition\Tests\TestCase;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
 
 class UndefinedVariableSolutionProviderTest extends TestCase
 {

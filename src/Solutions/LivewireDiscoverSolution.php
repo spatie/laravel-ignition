@@ -2,8 +2,8 @@
 
 namespace Spatie\Ignition\Solutions;
 
-use Spatie\IgnitionContracts\RunnableSolution;
 use Livewire\LivewireComponentsFinder;
+use Spatie\IgnitionContracts\RunnableSolution;
 
 class LivewireDiscoverSolution implements RunnableSolution
 {

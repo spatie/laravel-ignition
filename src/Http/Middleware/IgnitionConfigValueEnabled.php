@@ -3,8 +3,8 @@
 namespace Spatie\Ignition\Http\Middleware;
 
 use Closure;
-use Spatie\Ignition\IgnitionConfig;
 use Illuminate\Http\Request;
+use Spatie\Ignition\IgnitionConfig;
 
 class IgnitionConfigValueEnabled
 {

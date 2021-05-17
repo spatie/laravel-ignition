@@ -3,11 +3,11 @@
 namespace Spatie\Ignition\Actions;
 
 use Exception;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Spatie\FlareClient\Http\Client;
 use Spatie\FlareClient\Truncation\ReportTrimmer;
 use Spatie\Ignition\Exceptions\UnableToShareErrorException;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
 
 class ShareReportAction
 {

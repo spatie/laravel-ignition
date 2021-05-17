@@ -2,8 +2,8 @@
 
 namespace Spatie\Ignition\Tests;
 
-use Spatie\Ignition\IgnitionConfig;
 use Illuminate\Container\Container;
+use Spatie\Ignition\IgnitionConfig;
 
 class IgnitionConfigTest extends TestCase
 {

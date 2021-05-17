@@ -2,10 +2,10 @@
 
 namespace Spatie\Ignition\Http\Requests;
 
+use Illuminate\Foundation\Http\FormRequest;
 use Spatie\IgnitionContracts\RunnableSolution;
 use Spatie\IgnitionContracts\Solution;
 use Spatie\IgnitionContracts\SolutionProviderRepository;
-use Illuminate\Foundation\Http\FormRequest;
 
 class ExecuteSolutionRequest extends FormRequest
 {

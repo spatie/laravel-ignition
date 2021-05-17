@@ -2,12 +2,12 @@
 
 namespace Spatie\Ignition\Logger;
 
+use Monolog\Handler\AbstractProcessingHandler;
+use Monolog\Logger;
 use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\Report;
 use Spatie\Ignition\Ignition;
 use Spatie\Ignition\Tabs\Tab;
-use Monolog\Handler\AbstractProcessingHandler;
-use Monolog\Logger;
 use Throwable;
 
 class FlareHandler extends AbstractProcessingHandler
