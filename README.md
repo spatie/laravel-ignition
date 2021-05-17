@@ -1,8 +1,8 @@
 # Ignition: a beautiful error page for Laravel apps
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/facade/ignition.svg?style=flat-square)](https://packagist.org/packages/facade/ignition)
-![Tests](https://github.com/facade/ignition/workflows/Run%20tests/badge.svg)
-[![Total Downloads](https://img.shields.io/packagist/dt/facade/ignition.svg?style=flat-square)](https://packagist.org/packages/facade/ignition)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-ignition.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-ignition)
+![Tests](https://github.com/spatie/laravel-ignition/workflows/Run%20tests/badge.svg)
+[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-ignition.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-ignition)
 
 [Ignition](https://flareapp.io/docs/ignition-for-laravel/introduction) is a beautiful and customizable error page for Laravel applications running on Laravel 5.5 and newer. It is the default error page for all Laravel 6 applications. It also allows to publicly share your errors on [Flare](https://flareapp.io). If configured with a valid Flare API key, your errors in production applications will be tracked, and you'll get notified when they happen.
 

@@ -1,5 +1,5 @@
 {
-    "name": "facade/ignition",
+    "name": "spatie/laravel-ignition",
     "description": "A beautiful error page for Laravel applications.",
     "keywords": [
         "error",
@@ -68,9 +68,9 @@
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
     },
     "support": {
-        "issues": "https://github.com/facade/ignition/issues",
+        "issues": "https://github.com/spatie/laravel-ignition/issues",
         "forum": "https://twitter.com/flareappio",
-        "source": "https://github.com/facade/ignition",
+        "source": "https://github.com/spatie/laravel-ignition",
         "docs": "https://flareapp.io/docs/ignition-for-laravel/introduction"
     }
 }
