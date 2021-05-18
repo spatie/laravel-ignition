@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ErrorCard from 'resources/js/ignition/components/ErrorCard';
+import SolutionCard from 'resources/js/ignition/components/SolutionCard';
 import { igniteDataContext } from 'resources/js/ignition/igniteDataContext';
 import ErrorUI from 'resources/js/shared/ErrorUI';
 import { ErrorOccurrenceWithFrames, IgnitionErrorOccurrence } from 'resources/js/shared/types';
@@ -16,11 +17,11 @@ window.ignite = (data) => {
             <div className="layout-col mt-12">
                 <ErrorCard errorOccurrence={errorOccurrence} />
 
-                {/* {data.report.solutions.length > 0 && (
+                {data.report.solutions.length > 0 && (
                     <div className="layout-col z-1">
                         <SolutionCard flareErrorSolutions={data.report.solutions} />
                     </div>
-                )} */}
+                )}
 
                 <ErrorUI errorOccurrence={errorOccurrence} />
             </div>
