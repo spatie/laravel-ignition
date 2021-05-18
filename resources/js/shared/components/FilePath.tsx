@@ -7,7 +7,7 @@ type Props = {
 };
 
 export default function FilePath({ path, className = '', ...props }: Props) {
-    const segments = path.split('/');
+    const segments = path.replace(/^\/Users/, '~').split('/');
     const file = segments.pop() || '';
     const fileSegments = file.split('.');
 

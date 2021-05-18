@@ -1,4 +1,5 @@
 import React from 'react';
+import CardHeader from 'resources/js/ignition/components/CardHeader';
 import FormattedExceptionMessage from 'resources/js/ignition/components/FormattedExceptionMessage';
 import ExceptionClass from 'resources/js/shared/components/ExceptionClass';
 import { ErrorOccurrence } from 'resources/js/shared/types';
@@ -9,7 +10,9 @@ type Props = {
 
 export default function ErrorCard({ errorOccurrence }: Props) {
     return (
-        <div className="card block mb-12">
+        <div className="card card-has-header block mb-12">
+            <CardHeader errorOccurrence={errorOccurrence} />
+
             <div className="card-details">
                 <div className="card-details-overflow scrollbar">
                     <div className="overflow-hidden text-2xl">

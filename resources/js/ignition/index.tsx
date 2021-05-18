@@ -1,15 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ErrorCard from 'resources/js/ignition/components/ErrorCard';
+import { igniteDataContext } from 'resources/js/ignition/igniteDataContext';
+import ErrorUI from 'resources/js/shared/ErrorUI';
+import { ErrorOccurrenceWithFrames, IgnitionErrorOccurrence } from 'resources/js/shared/types';
 
-import ErrorUI from '../shared/ErrorUI';
-import { ErrorOccurrenceWithFrames, IgnitionErrorOccurrence } from '../shared/types';
+import './symfony/symfony';
+import './symfony/symfony.css';
 
 window.ignite = (data) => {
     const errorOccurrence = transformIgnitionError(data.report);
 
     ReactDOM.render(
-        <div>
+        <igniteDataContext.Provider value={data}>
             <div className="layout-col mt-12">
                 <ErrorCard errorOccurrence={errorOccurrence} />
 
@@ -21,7 +24,7 @@ window.ignite = (data) => {
 
                 <ErrorUI errorOccurrence={errorOccurrence} />
             </div>
-        </div>,
+        </igniteDataContext.Provider>,
         document.querySelector('#app'),
     );
 };
@@ -85,37 +88,37 @@ function transformIgnitionError(ignitionError: IgnitionErrorOccurrence): ErrorOc
                 name: String(i),
                 value,
             })),
-            headers: Object.entries(ignitionError.context.headers).map(([name, [value]]) => ({
+            headers: Object.entries(ignitionError.context.headers || {}).map(([name, [value]]) => ({
                 group: 'headers',
                 name,
                 value,
             })),
-            cookies: Object.entries(ignitionError.context.cookies).map(([name, value]) => ({
+            cookies: Object.entries(ignitionError.context.cookies || {}).map(([name, value]) => ({
                 group: 'headers',
                 name,
                 value,
             })),
-            session: Object.entries(ignitionError.context.session).map(([name, value]) => ({
+            session: Object.entries(ignitionError.context.session || {}).map(([name, value]) => ({
                 group: 'session',
                 name,
                 value,
             })),
-            env: Object.entries(ignitionError.context.env).map(([name, value]) => ({
+            env: Object.entries(ignitionError.context.env || {}).map(([name, value]) => ({
                 group: 'env',
                 name,
                 value,
             })),
-            user: Object.entries(ignitionError.context.user).map(([name, value]) => ({
+            user: Object.entries(ignitionError.context.user || {}).map(([name, value]) => ({
                 group: 'user',
                 name,
                 value,
             })),
-            route: Object.entries(ignitionError.context.route).map(([name, value]) => ({
+            route: Object.entries(ignitionError.context.route || {}).map(([name, value]) => ({
                 group: 'route',
                 name,
                 value,
             })),
-            git: Object.entries(ignitionError.context.git).map(([name, value]) => ({
+            git: Object.entries(ignitionError.context.git || {}).map(([name, value]) => ({
                 group: 'git',
                 name,
                 value,

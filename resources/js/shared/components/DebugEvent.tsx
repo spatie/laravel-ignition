@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     DebugEventType,
     DumpDebugEvent,
@@ -38,6 +38,20 @@ export default function DebugEvent({ event }: Props) {
 }
 
 function DumpEvent(props: DumpDebugEvent) {
+    useEffect(() => {
+        /* Symfony dumps, only used in ignition */
+        function detectDumpId(dumpHtml: string) {
+            const pattern = /sf-dump-([0-9]+)/gm;
+            const matches = pattern.exec(dumpHtml);
+            return matches?.[0];
+        }
+
+        const dumpId = detectDumpId(props.label);
+        if (dumpId && (window as any).Sfdump) {
+            (window as any).Sfdump(dumpId);
+        }
+    }, []);
+
     return (
         <div className="mb-2 pb-4 border-b border-dashed border-gray-300">
             <div className="mb-2 font-semibold text-xs">Dump</div>

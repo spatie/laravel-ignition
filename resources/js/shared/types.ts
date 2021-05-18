@@ -1,8 +1,28 @@
-export declare type ErrorOccurrenceWithFrames = ErrorOccurrence & {
+export type IgniteData = {
+    report: IgnitionErrorOccurrence;
+    config: {
+        editor: string;
+        remoteSitesPath: string;
+        localSitesPath: string;
+        theme: 'light' | 'dark';
+        enableShareButton: boolean;
+        enableRunnableSolutions: boolean;
+        directorySeparator: string;
+    };
+    solutions: Array<any>;
+    telescopeUrl: string | null;
+    shareEndpoint: string | null;
+    defaultTab: string;
+    defaultTabProps: Array<any> | {};
+    appEnv: string;
+    appDebug: boolean;
+};
+
+export type ErrorOccurrenceWithFrames = ErrorOccurrence & {
     frames: Array<ErrorFrame>;
 };
 
-export declare type ErrorFrame = {
+export type ErrorFrame = {
     class?: string;
     method: string;
     code_snippet: Record<string | number, string>;
@@ -11,7 +31,7 @@ export declare type ErrorFrame = {
     line_number: number;
 };
 
-export declare type ErrorOccurrence = {
+export type ErrorOccurrence = {
     id: number;
     error_id: number;
     occurrence_number: number;
@@ -42,13 +62,13 @@ export declare type ErrorOccurrence = {
         group_details?: string;
     };
 };
-export declare type ContextItem = {
+export type ContextItem = {
     group: string;
     name: string;
     value: any;
 };
 
-export declare type ErrorGlow = {
+export type ErrorGlow = {
     id: number;
     received_at: string;
     name: string;
@@ -57,7 +77,7 @@ export declare type ErrorGlow = {
     meta_data: {};
 };
 
-export declare type ErrorSolution = {
+export type ErrorSolution = {
     id: number;
     class: string;
     title: string;
