@@ -267,7 +267,7 @@ class IgnitionServiceProvider extends ServiceProvider
 
         $this->app['log'] instanceof LogManager
 
-            ? Log::extend('flare', fn($app) => $app['flare.logger'])
+            ? Log::extend('flare', fn ($app) => $app['flare.logger'])
             : $this->bindLogListener();
 
         return $this;
@@ -414,7 +414,7 @@ class IgnitionServiceProvider extends ServiceProvider
     protected function bindLogListener()
     {
         $this->app['log']->listen(function (MessageLogged $messageLogged) {
-            if (!config('flare.key')) {
+            if (! config('flare.key')) {
                 return;
             }
 
