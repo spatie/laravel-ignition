@@ -72,11 +72,11 @@ class IgnitionServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/flare.php' => config_path('flare.php'),
+                __DIR__ . '/../config/flare.php' => config_path('flare.php'),
             ], 'flare-config');
 
             $this->publishes([
-                __DIR__.'/../config/ignition.php' => config_path('ignition.php'),
+                __DIR__ . '/../config/ignition.php' => config_path('ignition.php'),
             ], 'ignition-config');
 
             if (isset($_SERVER['argv']) && ['artisan', 'tinker'] === $_SERVER['argv']) {
@@ -107,8 +107,8 @@ class IgnitionServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/flare.php', 'flare');
-        $this->mergeConfigFrom(__DIR__.'/../config/ignition.php', 'ignition');
+        $this->mergeConfigFrom(__DIR__ . '/../config/flare.php', 'flare');
+        $this->mergeConfigFrom(__DIR__ . '/../config/ignition.php', 'ignition');
 
         $this
             ->registerSolutionProviderRepository()
@@ -137,7 +137,7 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function registerViewEngines()
     {
-        if (! $this->hasCustomViewEnginesRegistered()) {
+        if (!$this->hasCustomViewEnginesRegistered()) {
             return $this;
         }
 
@@ -170,7 +170,7 @@ class IgnitionServiceProvider extends ServiceProvider
             Route::get('health-check', HealthCheckController::class)->name('healthCheck');
 
             Route::post('execute-solution', ExecuteSolutionController::class)
-                ->middleware(IgnitionConfigValueEnabled::class.':enableRunnableSolutions')
+                ->middleware(IgnitionConfigValueEnabled::class . ':enableRunnableSolutions')
                 ->name('executeSolution');
 
             Route::get('scripts/{script}', ScriptController::class)->name('scripts');
@@ -180,7 +180,7 @@ class IgnitionServiceProvider extends ServiceProvider
         return $this;
     }
 
-    protected function registerSolutionProviderRepository()
+    protected function registerSolutionProviderRepository(): self
     {
         $this->app->singleton(SolutionProviderRepositoryContract::class, function () {
             $defaultSolutions = $this->getDefaultSolutions();
@@ -191,25 +191,21 @@ class IgnitionServiceProvider extends ServiceProvider
         return $this;
     }
 
-    protected function registerExceptionRenderer()
+    protected function registerExceptionRenderer(): self
     {
-        $this->app->bind(Renderer::class, function () {
-            return new Renderer(__DIR__.'/../resources/views/');
-        });
+        $this->app->bind(Renderer::class, fn() => new Renderer(__DIR__ . '/../resources/views/'));
 
         return $this;
     }
 
-    protected function registerWhoopsHandler()
+    protected function registerWhoopsHandler(): self
     {
-        $this->app->bind(HandlerInterface::class, function (Application $app) {
-            return $app->make(IgnitionWhoopsHandler::class);
-        });
+        $this->app->bind(HandlerInterface::class, fn(Application $app) => $app->make(IgnitionWhoopsHandler::class));
 
         return $this;
     }
 
-    protected function registerIgnitionConfig()
+    protected function registerIgnitionConfig(): self
     {
         $this->app->singleton(IgnitionConfig::class, function () {
             $options = [];
@@ -228,15 +224,15 @@ class IgnitionServiceProvider extends ServiceProvider
         return $this;
     }
 
-    protected function registerFlare()
+    protected function registerFlare(): self
     {
-        $this->app->singleton('flare.http', function () {
-            return new Client(
+        $this->app->singleton('flare.http',
+            fn() => new Client(
                 config('flare.key'),
                 config('flare.secret'),
                 config('flare.base_url', 'https://flareapp.io/api')
-            );
-        });
+            )
+        );
 
         $this->app->alias('flare.http', Client::class);
 
@@ -251,7 +247,7 @@ class IgnitionServiceProvider extends ServiceProvider
         return $this;
     }
 
-    protected function registerLogHandler()
+    protected function registerLogHandler(): self
     {
         $this->app->singleton('flare.logger', function ($app) {
             $handler = new FlareHandler($app->make(Flare::class));
@@ -268,13 +264,9 @@ class IgnitionServiceProvider extends ServiceProvider
             return $logger;
         });
 
-        if ($this->app['log'] instanceof LogManager) {
-            Log::extend('flare', function ($app) {
-                return $app['flare.logger'];
-            });
-        } else {
-            $this->bindLogListener();
-        }
+        $this->app['log'] instanceof LogManager
+            ?  Log::extend('flare', fn($app) => $app['flare.logger'])
+            : $this->bindLogListener();
 
         return $this;
     }
@@ -283,7 +275,7 @@ class IgnitionServiceProvider extends ServiceProvider
     {
         $logLevel = Logger::getLevels()[strtoupper($logLevelString)] ?? null;
 
-        if (! $logLevel) {
+        if (!$logLevel) {
             throw InvalidConfig::invalidLogLevel($logLevelString);
         }
 
@@ -302,7 +294,7 @@ class IgnitionServiceProvider extends ServiceProvider
         return $this;
     }
 
-    protected function registerDumpCollector()
+    protected function registerDumpCollector(): self
     {
         $dumpCollector = $this->app->make(DumpRecorder::class);
 
@@ -313,7 +305,7 @@ class IgnitionServiceProvider extends ServiceProvider
         return $this;
     }
 
-    protected function registerCommands()
+    protected function registerCommands(): self
     {
         $this->app->bind('command.flare:test', TestCommand::class);
         $this->app->bind('command.make:solution', SolutionMakeCommand::class);
@@ -344,7 +336,7 @@ class IgnitionServiceProvider extends ServiceProvider
         return $this;
     }
 
-    protected function registerBuiltInMiddleware()
+    protected function registerBuiltInMiddleware(): self
     {
         $middlewares = [
             SetNotifierName::class,
@@ -402,15 +394,15 @@ class IgnitionServiceProvider extends ServiceProvider
         ];
     }
 
-    protected function hasCustomViewEnginesRegistered()
+    protected function hasCustomViewEnginesRegistered(): bool
     {
         $resolver = $this->app->make('view.engine.resolver');
 
-        if (! $resolver->resolve('php') instanceof LaravelPhpEngine) {
+        if (!$resolver->resolve('php') instanceof LaravelPhpEngine) {
             return false;
         }
 
-        if (! $resolver->resolve('blade') instanceof LaravelCompilerEngine) {
+        if (!$resolver->resolve('blade') instanceof LaravelCompilerEngine) {
             return false;
         }
 
@@ -436,13 +428,13 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function getConfigFileLocation(): ?string
     {
-        $configFullPath = base_path().DIRECTORY_SEPARATOR.'.ignition';
+        $configFullPath = base_path() . DIRECTORY_SEPARATOR . '.ignition';
 
         if (file_exists($configFullPath)) {
             return $configFullPath;
         }
 
-        $configFullPath = Arr::get($_SERVER, 'HOME', '').DIRECTORY_SEPARATOR.'.ignition';
+        $configFullPath = Arr::get($_SERVER, 'HOME', '') . DIRECTORY_SEPARATOR . '.ignition';
 
         if (file_exists($configFullPath)) {
             return $configFullPath;
