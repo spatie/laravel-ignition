@@ -65,6 +65,8 @@ use Spatie\Ignition\Views\Engines\PhpEngine;
 use Spatie\IgnitionContracts\SolutionProviderRepository as SolutionProviderRepositoryContract;
 use Throwable;
 use Whoops\Handler\HandlerInterface;
+use Spatie\Ignition\ErrorPage\IgnitionExceptionRenderer;
+use Illuminate\Contracts\Foundation\ExceptionRenderer;
 
 class IgnitionServiceProvider extends ServiceProvider
 {
@@ -107,13 +109,15 @@ class IgnitionServiceProvider extends ServiceProvider
 
     public function register()
     {
+
+
         $this->mergeConfigFrom(__DIR__ . '/../config/flare.php', 'flare');
         $this->mergeConfigFrom(__DIR__ . '/../config/ignition.php', 'ignition');
 
         $this
             ->registerSolutionProviderRepository()
+            ->registerRenderer()
             ->registerExceptionRenderer()
-            ->registerWhoopsHandler()
             ->registerIgnitionConfig()
             ->registerFlare()
             ->registerDumpCollector();
@@ -191,16 +195,28 @@ class IgnitionServiceProvider extends ServiceProvider
         return $this;
     }
 
-    protected function registerExceptionRenderer(): self
+    protected function registerRenderer(): self
     {
         $this->app->bind(Renderer::class, fn () => new Renderer(__DIR__ . '/../resources/views/'));
 
         return $this;
     }
 
-    protected function registerWhoopsHandler(): self
+    protected function registerExceptionRenderer(): self
     {
-        $this->app->bind(HandlerInterface::class, fn (Application $app) => $app->make(IgnitionWhoopsHandler::class));
+        if (interface_exists(HandlerInterface::class)) {
+            $this->app->bind(
+                HandlerInterface::class,
+                fn(Application $app) => $app->make(IgnitionWhoopsHandler::class)
+            );
+        }
+
+        if (interface_exists(ExceptionRenderer::class)) {
+            $this->app->bind(
+                ExceptionRenderer::class,
+                fn(Application $app) => $app->make(IgnitionExceptionRenderer::class)
+            );
+        }
 
         return $this;
     }
