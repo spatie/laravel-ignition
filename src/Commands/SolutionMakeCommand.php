@@ -7,56 +7,25 @@ use Symfony\Component\Console\Input\InputOption;
 
 class SolutionMakeCommand extends GeneratorCommand
 {
-    /**
-     * The console command name.
-     *
-     * @var string
-     */
     protected $name = 'ignition:make-solution';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Create a new custom Ignition solution class';
 
-    /**
-     * The type of class being generated.
-     *
-     * @var string
-     */
     protected $type = 'Solution';
 
-    /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getStub()
+    protected function getStub(): string
     {
         return $this->option('runnable')
             ? __DIR__.'/stubs/runnable-solution.stub'
             : __DIR__.'/stubs/solution.stub';
     }
 
-    /**
-     * Get the default namespace for the class.
-     *
-     * @param  string  $rootNamespace
-     * @return string
-     */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Solutions';
+        return "{$rootNamespace}\\Solutions";
     }
 
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
+    protected function getOptions(): array
     {
         return [
             ['runnable', null, InputOption::VALUE_NONE, 'Create runnable solution'],

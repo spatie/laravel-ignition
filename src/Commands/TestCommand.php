@@ -14,8 +14,7 @@ class TestCommand extends Command
 
     protected $description = 'Send a test notification to Flare';
 
-    /** @var \Illuminate\Config\Repository */
-    protected $config;
+    protected Repository $config;
 
     public function handle(Repository $config)
     {
@@ -41,7 +40,7 @@ class TestCommand extends Command
         return $this;
     }
 
-    public function checkFlareLogger()
+    public function checkFlareLogger(): self
     {
         $defaultLogChannel = $this->config->get('logging.default');
 
@@ -68,7 +67,7 @@ class TestCommand extends Command
         return $this;
     }
 
-    protected function sendTestException()
+    protected function sendTestException(): void
     {
         $testException = new Exception('This is an exception to test if the integration with Flare works.');
 
