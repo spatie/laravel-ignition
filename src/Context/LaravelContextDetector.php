@@ -3,7 +3,6 @@
 namespace Spatie\Ignition\Context;
 
 use Illuminate\Http\Request;
-use Spatie\FlareClient\Context\ConsoleContext;
 use Spatie\FlareClient\Context\ContextDetectorInterface;
 use Spatie\FlareClient\Context\ContextInterface;
 

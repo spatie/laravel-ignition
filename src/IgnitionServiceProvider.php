@@ -29,7 +29,6 @@ use Spatie\Ignition\Exceptions\InvalidConfig;
 use Spatie\Ignition\Http\Controllers\ExecuteSolutionController;
 use Spatie\Ignition\Http\Controllers\HealthCheckController;
 use Spatie\Ignition\Http\Controllers\ScriptController;
-use Spatie\Ignition\Http\Controllers\ShareReportController;
 use Spatie\Ignition\Http\Controllers\StyleController;
 use Spatie\Ignition\Http\Middleware\IgnitionConfigValueEnabled;
 use Spatie\Ignition\Http\Middleware\IgnitionEnabled;
