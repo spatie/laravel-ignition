@@ -30,8 +30,9 @@ class ExecuteSolutionControllerTest extends TestCase
         $this->app['env'] = 'production';
         $this->app['config']->set('app.debug', true);
 
-        $this->postJson(route('ignition.executeSolution'), $this->solutionPayload())
-            ->assertForbidden();
+        $this
+            ->postJson(route('ignition.executeSolution'), $this->solutionPayload())
+            ->assertStatus(500);
     }
 
     /** @test */
@@ -40,7 +41,8 @@ class ExecuteSolutionControllerTest extends TestCase
         $this->app['env'] = 'local';
         $this->app['config']->set('app.debug', false);
 
-        $this->postJson(route('ignition.executeSolution'), $this->solutionPayload())
+        $this
+            ->postJson(route('ignition.executeSolution'), $this->solutionPayload())
             ->assertNotFound();
     }
 
@@ -51,8 +53,9 @@ class ExecuteSolutionControllerTest extends TestCase
         $this->app['config']->set('app.debug', true);
         $this->withServerVariables(['REMOTE_ADDR' => '138.197.187.74']);
 
-        $this->postJson(route('ignition.executeSolution'), $this->solutionPayload())
-            ->assertForbidden();
+        $this
+            ->postJson(route('ignition.executeSolution'), $this->solutionPayload())
+            ->assertStatus(500);
     }
 
     protected function solutionPayload(): array

@@ -14,7 +14,7 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "spatie/flare-client-php": "^1.6",
-        "spatie/ignition-contracts": "^1.0.2",
+        "spatie/ignition-contracts": "^1.0.3",
         "filp/whoops": "^2.4",
         "illuminate/support": "^7.0|^8.0",
         "monolog/monolog": "^2.0",

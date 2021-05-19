@@ -3,6 +3,8 @@
 namespace Spatie\Ignition\Http\Controllers;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Spatie\Ignition\Exceptions\CannotExecuteSolutionForNonLocalEnvironment;
+use Spatie\Ignition\Exceptions\CannotExecuteSolutionForNonLocalIp;
 use Spatie\Ignition\Http\Requests\ExecuteSolutionRequest;
 use Spatie\IgnitionContracts\SolutionProviderRepository;
 
@@ -14,8 +16,9 @@ class ExecuteSolutionController
         ExecuteSolutionRequest $request,
         SolutionProviderRepository $solutionProviderRepository
     ) {
-        $this->ensureLocalEnvironment();
-        $this->ensureLocalRequest();
+        $this
+            ->ensureLocalEnvironment()
+            ->ensureLocalRequest();
 
         $solution = $request->getRunnableSolution();
 
@@ -24,14 +27,16 @@ class ExecuteSolutionController
         return response()->noContent();
     }
 
-    public function ensureLocalEnvironment()
+    public function ensureLocalEnvironment(): self
     {
         if (! app()->environment('local')) {
-            abort(403, "Runnable solutions are disabled in non-local environments. Please make sure `APP_ENV` is set correctly. Additionally please make sure `APP_DEBUG` is set to false on ANY production environment!");
+            throw CannotExecuteSolutionForNonLocalEnvironment::make();
         }
+
+        return $this;
     }
 
-    public function ensureLocalRequest()
+    public function ensureLocalRequest(): self
     {
         $ipIsPublic = filter_var(
             request()->ip(),
@@ -40,7 +45,10 @@ class ExecuteSolutionController
         );
 
         if ($ipIsPublic) {
-            abort(403, "Solutions can only be executed by requests from a local IP address. Please also make sure `APP_DEBUG` is set to false on ANY production environment.");
+            throw CannotExecuteSolutionForNonLocalIp::make();
+
         }
+
+        return $this;
     }
 }
