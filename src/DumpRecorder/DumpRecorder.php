@@ -12,10 +12,9 @@ use Symfony\Component\VarDumper\VarDumper;
 
 class DumpRecorder
 {
-    protected $dumps = [];
+    protected array $dumps = [];
 
-    /** @var \Illuminate\Contracts\Foundation\Application */
-    protected $app;
+    protected Application $app;
 
     public function __construct(Application $app)
     {
@@ -26,28 +25,20 @@ class DumpRecorder
     {
         $multiDumpHandler = new MultiDumpHandler();
 
-        $this->app->singleton(MultiDumpHandler::class, function () use ($multiDumpHandler) {
-            return $multiDumpHandler;
-        });
+        $this->app->singleton(MultiDumpHandler::class, fn() => $multiDumpHandler);
 
-        $previousHandler = VarDumper::setHandler(function ($var) use ($multiDumpHandler) {
-            $multiDumpHandler->dump($var);
-        });
+        $previousHandler = VarDumper::setHandler(fn($var) => $multiDumpHandler->dump($var));
 
-        if ($previousHandler) {
-            $multiDumpHandler->addHandler($previousHandler);
-        } else {
-            $multiDumpHandler->addHandler($this->getDefaultHandler());
-        }
+        $previousHandler
+            ? $multiDumpHandler->addHandler($previousHandler)
+            : $multiDumpHandler->addHandler($this->getDefaultHandler());
 
-        $multiDumpHandler->addHandler(function ($var) {
-            (new DumpHandler($this))->dump($var);
-        });
+        $multiDumpHandler->addHandler(fn($var) => (new DumpHandler($this))->dump($var));
 
         return $this;
     }
 
-    public function record(Data $data)
+    public function record(Data $data): void
     {
         $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 8);
         $file = (string)Arr::get($backtrace, '6.file');
@@ -84,7 +75,7 @@ class DumpRecorder
         return $dumps;
     }
 
-    protected function getDefaultHandler()
+    protected function getDefaultHandler(): callable
     {
         return function ($value) {
             $data = (new VarCloner)->cloneVar($value);

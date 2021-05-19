@@ -4,17 +4,13 @@ namespace Spatie\Ignition\DumpRecorder;
 
 class Dump
 {
-    /** @var string */
-    protected $htmlDump;
+    protected string $htmlDump;
 
-    /** @var ?string */
-    protected $file;
+    protected ?string $file;
 
-    /** @var ?int */
-    protected $lineNumber;
+    protected ?int $lineNumber;
 
-    /** @var float */
-    protected $microtime;
+    protected float $microtime;
 
     public function __construct(string $htmlDump, ?string $file, ?int $lineNumber, ?float $microtime = null)
     {

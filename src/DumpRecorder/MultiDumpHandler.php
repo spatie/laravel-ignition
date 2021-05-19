@@ -4,10 +4,9 @@ namespace Spatie\Ignition\DumpRecorder;
 
 class MultiDumpHandler
 {
-    /** @var array */
-    protected $handlers = [];
+    protected array $handlers = [];
 
-    public function dump($value)
+    public function dump($value): void
     {
         foreach ($this->handlers as $handler) {
             $handler($value);
