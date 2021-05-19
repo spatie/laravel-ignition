@@ -2,6 +2,7 @@
 
 namespace Spatie\Ignition\Logger;
 
+use InvalidArgumentException;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 use Spatie\FlareClient\Flare;
@@ -12,10 +13,9 @@ use Throwable;
 
 class FlareHandler extends AbstractProcessingHandler
 {
-    /** @var \Spatie\FlareClient\Flare */
-    protected $flare;
+    protected Flare $flare;
 
-    protected $minimumReportLogLevel = Logger::ERROR;
+    protected int $minimumReportLogLevel = Logger::ERROR;
 
     public function __construct(Flare $flare, $level = Logger::DEBUG, $bubble = true)
     {
@@ -27,7 +27,7 @@ class FlareHandler extends AbstractProcessingHandler
     public function setMinimumReportLogLevel(int $level)
     {
         if (! in_array($level, Logger::getLevels())) {
-            throw new \InvalidArgumentException('The given minimum log level is not supported.');
+            throw new InvalidArgumentException('The given minimum log level is not supported.');
         }
 
         $this->minimumReportLogLevel = $level;
@@ -44,9 +44,7 @@ class FlareHandler extends AbstractProcessingHandler
             $throwable = $report['context']['exception'];
 
             collect(Ignition::$tabs)
-                ->each(function (Tab $tab) use ($throwable) {
-                    $tab->beforeRenderingErrorPage($this->flare, $throwable);
-                });
+                ->each(fn(Tab $tab) => $tab->beforeRenderingErrorPage($this->flare, $throwable));
 
             $this->flare->report($report['context']['exception']);
 

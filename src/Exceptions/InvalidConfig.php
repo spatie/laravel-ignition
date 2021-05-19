@@ -17,13 +17,12 @@ class InvalidConfig extends Exception implements ProvidesSolution
 
     public function getSolution(): Solution
     {
-        $validLogLevels = array_map(function (string $level) {
-            return strtolower($level);
-        }, array_keys(Logger::getLevels()));
+        $validLogLevels = array_map(fn(string $level) => strtolower($level), array_keys(Logger::getLevels()));
 
         $validLogLevelsString = implode(',', $validLogLevels);
 
-        return BaseSolution::create('You provided an invalid log level')
+        return BaseSolution::create()
+            ->setSolutionTitle('You provided an invalid log level')
             ->setSolutionDescription("Please change the log level in your `config/logging.php` file. Valid log levels are {$validLogLevelsString}.");
     }
 }

@@ -9,17 +9,16 @@ use Throwable;
 class LogRecorder
 {
     /** @var \Spatie\Ignition\LogRecorder\LogMessage[] */
-    protected $logMessages = [];
+    protected array $logMessages = [];
 
-    /** @var \Illuminate\Contracts\Foundation\Application */
-    protected $app;
+    protected Application $app;
 
-    /** @var int|null */
-    private $maxLogs;
+    protected ?int $maxLogs;
 
     public function __construct(Application $app, ?int $maxLogs = null)
     {
         $this->app = $app;
+
         $this->maxLogs = $maxLogs;
     }
 

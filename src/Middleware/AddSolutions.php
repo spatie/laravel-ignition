@@ -7,8 +7,7 @@ use Spatie\IgnitionContracts\SolutionProviderRepository;
 
 class AddSolutions
 {
-    /** @var \Spatie\IgnitionContracts\SolutionProviderRepository */
-    protected $solutionProviderRepository;
+    protected SolutionProviderRepository $solutionProviderRepository;
 
     public function __construct(SolutionProviderRepository $solutionProviderRepository)
     {

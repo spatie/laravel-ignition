@@ -7,8 +7,7 @@ use Spatie\Ignition\QueryRecorder\QueryRecorder;
 
 class AddQueries
 {
-    /** @var \Spatie\Ignition\QueryRecorder\QueryRecorder */
-    protected $queryRecorder;
+    protected QueryRecorder $queryRecorder;
 
     public function __construct(QueryRecorder $queryRecorder)
     {

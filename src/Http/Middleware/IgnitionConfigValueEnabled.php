@@ -8,8 +8,7 @@ use Spatie\Ignition\IgnitionConfig;
 
 class IgnitionConfigValueEnabled
 {
-    /** @var \Spatie\Ignition\IgnitionConfig */
-    protected $ignitionConfig;
+    protected IgnitionConfig $ignitionConfig;
 
     public function __construct(IgnitionConfig $ignitionConfig)
     {

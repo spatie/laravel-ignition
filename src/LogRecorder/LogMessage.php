@@ -6,17 +6,13 @@ use Illuminate\Log\Events\MessageLogged;
 
 class LogMessage
 {
-    /** @var string */
-    protected $message;
+    protected ?string $message;
 
-    /** @var array */
-    protected $context;
+    protected string $level;
 
-    /** @var string */
-    protected $level;
+    protected array $context = [];
 
-    /** @var float */
-    protected $microtime;
+    protected ?float $microtime;
 
     public function __construct(?string $message, string $level, array $context = [], ?float $microtime = null)
     {
@@ -35,7 +31,7 @@ class LogMessage
         );
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'message' => $this->message,

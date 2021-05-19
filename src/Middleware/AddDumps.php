@@ -7,8 +7,7 @@ use Spatie\Ignition\DumpRecorder\DumpRecorder;
 
 class AddDumps
 {
-    /** @var \Spatie\Ignition\DumpRecorder\DumpRecorder */
-    protected $dumpRecorder;
+    protected DumpRecorder $dumpRecorder;
 
     public function __construct(DumpRecorder $dumpRecorder)
     {

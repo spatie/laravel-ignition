@@ -9,10 +9,12 @@ class StyleController
 {
     public function __invoke(Request $request)
     {
-        return response(
-            file_get_contents(Ignition::styles()[$request->style]),
-            200,
-            ['Content-Type' => 'text/css']
-        );
+        $filePath = Ignition::scripts()[$request->style];
+
+        $content = file_get_contents($filePath);
+
+        return response($content, 200, [
+            'Content-Type' => 'text/css',
+        ]);
     }
 }

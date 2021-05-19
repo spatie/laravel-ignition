@@ -9,12 +9,12 @@ class ScriptController
 {
     public function __invoke(Request $request)
     {
-        return response(
-            file_get_contents(
-                Ignition::scripts()[$request->script]
-            ),
-            200,
-            ['Content-Type' => 'application/javascript']
-        );
+        $filePath = Ignition::scripts()[$request->script];
+
+        $content = file_get_contents($filePath);
+
+        return response($content, 200, [
+            'Content-Type' => 'application/javascript',
+        ]);
     }
 }

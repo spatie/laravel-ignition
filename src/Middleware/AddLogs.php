@@ -7,8 +7,7 @@ use Spatie\Ignition\LogRecorder\LogRecorder;
 
 class AddLogs
 {
-    /** @var \Spatie\Ignition\LogRecorder\LogRecorder */
-    protected $logRecorder;
+    protected LogRecorder $logRecorder;
 
     public function __construct(LogRecorder $logRecorder)
     {
