@@ -174,10 +174,6 @@ class IgnitionServiceProvider extends ServiceProvider
                 ->middleware(IgnitionConfigValueEnabled::class.':enableRunnableSolutions')
                 ->name('executeSolution');
 
-            Route::post('share-report', ShareReportController::class)
-                ->middleware(IgnitionConfigValueEnabled::class.':enableShareButton')
-                ->name('shareReport');
-
             Route::get('scripts/{script}', ScriptController::class)->name('scripts');
             Route::get('styles/{style}', StyleController::class)->name('styles');
         });
