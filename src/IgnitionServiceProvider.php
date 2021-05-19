@@ -3,6 +3,7 @@
 namespace Spatie\Ignition;
 
 use Exception;
+use Illuminate\Contracts\Foundation\ExceptionRenderer;
 use Illuminate\Foundation\Application;
 use Illuminate\Log\Events\MessageLogged;
 use Illuminate\Log\LogManager;
@@ -23,6 +24,7 @@ use Spatie\Ignition\Commands\SolutionProviderMakeCommand;
 use Spatie\Ignition\Commands\TestCommand;
 use Spatie\Ignition\Context\LaravelContextDetector;
 use Spatie\Ignition\DumpRecorder\DumpRecorder;
+use Spatie\Ignition\ErrorPage\IgnitionExceptionRenderer;
 use Spatie\Ignition\ErrorPage\IgnitionWhoopsHandler;
 use Spatie\Ignition\ErrorPage\Renderer;
 use Spatie\Ignition\Exceptions\InvalidConfig;
@@ -65,8 +67,6 @@ use Spatie\Ignition\Views\Engines\PhpEngine;
 use Spatie\IgnitionContracts\SolutionProviderRepository as SolutionProviderRepositoryContract;
 use Throwable;
 use Whoops\Handler\HandlerInterface;
-use Spatie\Ignition\ErrorPage\IgnitionExceptionRenderer;
-use Illuminate\Contracts\Foundation\ExceptionRenderer;
 
 class IgnitionServiceProvider extends ServiceProvider
 {
@@ -109,8 +109,6 @@ class IgnitionServiceProvider extends ServiceProvider
 
     public function register()
     {
-
-
         $this->mergeConfigFrom(__DIR__ . '/../config/flare.php', 'flare');
         $this->mergeConfigFrom(__DIR__ . '/../config/ignition.php', 'ignition');
 
@@ -207,14 +205,14 @@ class IgnitionServiceProvider extends ServiceProvider
         if (interface_exists(HandlerInterface::class)) {
             $this->app->bind(
                 HandlerInterface::class,
-                fn(Application $app) => $app->make(IgnitionWhoopsHandler::class)
+                fn (Application $app) => $app->make(IgnitionWhoopsHandler::class)
             );
         }
 
         if (interface_exists(ExceptionRenderer::class)) {
             $this->app->bind(
                 ExceptionRenderer::class,
-                fn(Application $app) => $app->make(IgnitionExceptionRenderer::class)
+                fn (Application $app) => $app->make(IgnitionExceptionRenderer::class)
             );
         }
 
