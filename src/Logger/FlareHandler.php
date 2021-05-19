@@ -44,7 +44,7 @@ class FlareHandler extends AbstractProcessingHandler
             $throwable = $report['context']['exception'];
 
             collect(Ignition::$tabs)
-                ->each(fn(Tab $tab) => $tab->beforeRenderingErrorPage($this->flare, $throwable));
+                ->each(fn (Tab $tab) => $tab->beforeRenderingErrorPage($this->flare, $throwable));
 
             $this->flare->report($report['context']['exception']);
 
