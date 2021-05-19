@@ -8,8 +8,7 @@ use Throwable;
 
 class LaravelRequestContext extends RequestContext
 {
-    /** @var \Symfony\Component\HttpFoundation\Request|null */
-    protected $request;
+    protected ?\Symfony\Component\HttpFoundation\Request $request;
 
     public function __construct(Request $request)
     {
