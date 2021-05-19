@@ -2,6 +2,8 @@
 
 namespace Spatie\Ignition\Support\Packagist;
 
+use Exception;
+
 class Packagist
 {
     /**
@@ -18,12 +20,10 @@ class Packagist
 
         try {
             $packages = json_decode(file_get_contents($url));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return [];
         }
 
-        return array_map(function ($packageProperties) {
-            return new Package((array) $packageProperties);
-        }, $packages->results);
+        return array_map(fn($packageProperties) => new Package((array) $packageProperties), $packages->results);
     }
 }

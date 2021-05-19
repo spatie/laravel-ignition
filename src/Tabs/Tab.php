@@ -9,15 +9,13 @@ use Throwable;
 
 abstract class Tab implements JsonSerializable
 {
-    public $scripts = [];
+    public array $scripts = [];
 
-    public $styles = [];
+    public array $styles = [];
 
-    /** @var \Spatie\FlareClient\Flare */
-    protected $flare;
+    protected Flare $flare;
 
-    /** @var Throwable */
-    protected $throwable;
+    protected Throwable $throwable;
 
     public function __construct()
     {
@@ -34,21 +32,21 @@ abstract class Tab implements JsonSerializable
         return Str::snake(class_basename(get_called_class()), '-');
     }
 
-    public function beforeRenderingErrorPage(Flare $flare, Throwable $throwable)
+    public function beforeRenderingErrorPage(Flare $flare, Throwable $throwable): void
     {
         $this->flare = $flare;
 
         $this->throwable = $throwable;
     }
 
-    public function script(string $name, string $path)
+    public function script(string $name, string $path): self
     {
         $this->scripts[$name] = $path;
 
         return $this;
     }
 
-    public function style(string $name, string $path)
+    public function style(string $name, string $path): self
     {
         $this->styles[$name] = $path;
 
@@ -62,7 +60,7 @@ abstract class Tab implements JsonSerializable
         return [];
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'title' => $this->name(),

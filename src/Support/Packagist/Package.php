@@ -7,14 +7,11 @@ use Illuminate\Support\Str;
 
 class Package
 {
-    /** @var string */
-    public $name;
+    public string $name;
 
-    /** @var string */
-    public $url;
+    public string $url;
 
-    /** @var string */
-    public $repository;
+    public string $repository;
 
     public function __construct(array $properties)
     {
@@ -27,9 +24,9 @@ class Package
 
     public function hasNamespaceThatContainsClassName(string $className): bool
     {
-        return $this->getNamespaces()->contains(function ($namespace) use ($className) {
-            return Str::startsWith(strtolower($className), strtolower($namespace));
-        });
+        return $this
+            ->getNamespaces()
+            ->contains(fn($namespace) => Str::startsWith(strtolower($className), strtolower($namespace)));
     }
 
     protected function getNamespaces(): Collection
@@ -39,9 +36,7 @@ class Package
         return collect($details['package']['versions'])
             ->map(function ($version) {
                 return collect($version['autoload'] ?? [])
-                    ->map(function ($autoload) {
-                        return array_keys($autoload);
-                    })
+                    ->map(fn($autoload) => array_keys($autoload))
                     ->flatten();
             })
             ->flatten()

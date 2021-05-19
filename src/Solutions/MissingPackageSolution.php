@@ -7,8 +7,7 @@ use Spatie\IgnitionContracts\Solution;
 
 class MissingPackageSolution implements Solution
 {
-    /** @var Package */
-    protected $possiblePackage;
+    protected Package $possiblePackage;
 
     public function __construct(Package $possiblePackage)
     {

@@ -3,14 +3,14 @@
 namespace Spatie\Ignition\Solutions;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Spatie\Ignition\Http\Controllers\ExecuteSolutionController;
 use Spatie\IgnitionContracts\RunnableSolution;
 use Spatie\IgnitionContracts\Solution;
 use Throwable;
 
 class SolutionTransformer implements Arrayable
 {
-    /** @var \Spatie\IgnitionContracts\Solution */
-    protected $solution;
+    protected Solution $solution;
 
     public function __construct(Solution $solution)
     {
@@ -37,7 +37,7 @@ class SolutionTransformer implements Arrayable
     protected function executeEndpoint(): string
     {
         try {
-            return action('\Spatie\Ignition\Http\Controllers\ExecuteSolutionController');
+            return action(ExecuteSolutionController::class);
         } catch (Throwable $exception) {
             return '';
         }

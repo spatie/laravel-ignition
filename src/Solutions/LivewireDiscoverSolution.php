@@ -7,7 +7,7 @@ use Spatie\IgnitionContracts\RunnableSolution;
 
 class LivewireDiscoverSolution implements RunnableSolution
 {
-    private $customTitle;
+    protected string $customTitle;
 
     public function __construct($customTitle = '')
     {

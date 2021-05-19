@@ -8,15 +8,14 @@ use Spatie\IgnitionContracts\RunnableSolution;
 
 class MakeViewVariableOptionalSolution implements RunnableSolution
 {
-    /** @var string */
-    private $variableName;
+    protected ?string $variableName;
 
-    /** @var string */
-    private $viewFile;
+    protected ?string $viewFile;
 
     public function __construct($variableName = null, $viewFile = null)
     {
         $this->variableName = $variableName;
+
         $this->viewFile = $viewFile;
     }
 

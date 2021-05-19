@@ -8,10 +8,9 @@ use Spatie\Ignition\Tabs\Tab;
 class Ignition
 {
     /** @var Closure[] */
-    public static $callBeforeShowingErrorPage = [];
+    public static array $callBeforeShowingErrorPage = [];
 
-    /** @var array */
-    public static $tabs = [];
+    public static array $tabs = [];
 
     public static function tab(Tab $tab)
     {
@@ -20,23 +19,21 @@ class Ignition
 
     public static function styles(): array
     {
-        return collect(static::$tabs)->flatMap(function ($tab) {
-            return $tab->styles;
-        })
+        return collect(static::$tabs)
+            ->flatMap(fn($tab) => $tab->styles)
             ->unique()
             ->toArray();
     }
 
     public static function scripts(): array
     {
-        return collect(static::$tabs)->flatMap(function ($tab) {
-            return $tab->scripts;
-        })
+        return collect(static::$tabs)
+            ->flatMap(fn($tab) => $tab->scripts)
             ->unique()
             ->toArray();
     }
 
-    public static function registerAssets(Closure $callable)
+    public static function registerAssets(Closure $callable): void
     {
         static::$callBeforeShowingErrorPage[] = $callable;
     }

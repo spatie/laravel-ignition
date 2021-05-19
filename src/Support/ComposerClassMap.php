@@ -8,21 +8,19 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class ComposerClassMap
 {
-    /** @var \Composer\Autoload\ClassLoader|FakeComposer */
-    protected $composer;
+    /** @var object|mixed|\Spatie\Ignition\Support\FakeComposer|\Composer\Composer */
+    protected object $composer;
 
-    /** @var string */
-    protected $basePath;
+    protected string $basePath;
 
     public function __construct(?string $autoloaderPath = null)
     {
         $autoloaderPath = $autoloaderPath ?? base_path('/vendor/autoload.php');
 
-        if (file_exists($autoloaderPath)) {
-            $this->composer = require $autoloaderPath;
-        } else {
-            $this->composer = new FakeComposer();
-        }
+        $this->composer = file_exists($autoloaderPath)
+            ? require $autoloaderPath
+            : new FakeComposer();
+
         $this->basePath = app_path();
     }
 

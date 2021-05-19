@@ -6,19 +6,18 @@ use Spatie\IgnitionContracts\Solution;
 
 class SuggestCorrectVariableNameSolution implements Solution
 {
-    /** @var string */
-    private $variableName;
+    protected ?string $variableName;
 
-    /** @var string */
-    private $viewFile;
+    protected ?string $viewFile;
 
-    /** @var string|null */
-    private $suggested;
+    protected ?string $suggested;
 
     public function __construct($variableName = null, $viewFile = null, $suggested = null)
     {
         $this->variableName = $variableName;
+
         $this->viewFile = $viewFile;
+
         $this->suggested = $suggested;
     }
 
