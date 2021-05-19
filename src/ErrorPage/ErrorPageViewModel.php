@@ -192,6 +192,4 @@ class ErrorPageViewModel implements Arrayable
             'appDebug' => $this->appDebug,
         ];
     }
-
-
 }
