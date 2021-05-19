@@ -137,7 +137,7 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function registerViewEngines()
     {
-        if (!$this->hasCustomViewEnginesRegistered()) {
+        if (! $this->hasCustomViewEnginesRegistered()) {
             return $this;
         }
 
@@ -193,14 +193,14 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function registerExceptionRenderer(): self
     {
-        $this->app->bind(Renderer::class, fn() => new Renderer(__DIR__ . '/../resources/views/'));
+        $this->app->bind(Renderer::class, fn () => new Renderer(__DIR__ . '/../resources/views/'));
 
         return $this;
     }
 
     protected function registerWhoopsHandler(): self
     {
-        $this->app->bind(HandlerInterface::class, fn(Application $app) => $app->make(IgnitionWhoopsHandler::class));
+        $this->app->bind(HandlerInterface::class, fn (Application $app) => $app->make(IgnitionWhoopsHandler::class));
 
         return $this;
     }
@@ -226,8 +226,9 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function registerFlare(): self
     {
-        $this->app->singleton('flare.http',
-            fn() => new Client(
+        $this->app->singleton(
+            'flare.http',
+            fn () => new Client(
                 config('flare.key'),
                 config('flare.secret'),
                 config('flare.base_url', 'https://flareapp.io/api')
@@ -265,7 +266,7 @@ class IgnitionServiceProvider extends ServiceProvider
         });
 
         $this->app['log'] instanceof LogManager
-            ?  Log::extend('flare', fn($app) => $app['flare.logger'])
+            ?  Log::extend('flare', fn ($app) => $app['flare.logger'])
             : $this->bindLogListener();
 
         return $this;
@@ -275,7 +276,7 @@ class IgnitionServiceProvider extends ServiceProvider
     {
         $logLevel = Logger::getLevels()[strtoupper($logLevelString)] ?? null;
 
-        if (!$logLevel) {
+        if (! $logLevel) {
             throw InvalidConfig::invalidLogLevel($logLevelString);
         }
 
@@ -398,11 +399,11 @@ class IgnitionServiceProvider extends ServiceProvider
     {
         $resolver = $this->app->make('view.engine.resolver');
 
-        if (!$resolver->resolve('php') instanceof LaravelPhpEngine) {
+        if (! $resolver->resolve('php') instanceof LaravelPhpEngine) {
             return false;
         }
 
-        if (!$resolver->resolve('blade') instanceof LaravelCompilerEngine) {
+        if (! $resolver->resolve('blade') instanceof LaravelCompilerEngine) {
             return false;
         }
 

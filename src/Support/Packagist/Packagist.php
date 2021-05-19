@@ -24,6 +24,6 @@ class Packagist
             return [];
         }
 
-        return array_map(fn($packageProperties) => new Package((array) $packageProperties), $packages->results);
+        return array_map(fn ($packageProperties) => new Package((array) $packageProperties), $packages->results);
     }
 }

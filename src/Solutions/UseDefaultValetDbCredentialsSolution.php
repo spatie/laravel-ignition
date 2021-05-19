@@ -36,7 +36,7 @@ class UseDefaultValetDbCredentialsSolution implements RunnableSolution
     {
         $envPath = base_path('.env');
 
-        $envLines = array_map(fn(string $envLine) => Str::startsWith($envLine, $key)
+        $envLines = array_map(fn (string $envLine) => Str::startsWith($envLine, $key)
             ? "{$key}={$value}".PHP_EOL
             : $envLine, file($envPath));
 

@@ -26,7 +26,7 @@ class Package
     {
         return $this
             ->getNamespaces()
-            ->contains(fn($namespace) => Str::startsWith(strtolower($className), strtolower($namespace)));
+            ->contains(fn ($namespace) => Str::startsWith(strtolower($className), strtolower($namespace)));
     }
 
     protected function getNamespaces(): Collection
@@ -36,7 +36,7 @@ class Package
         return collect($details['package']['versions'])
             ->map(function ($version) {
                 return collect($version['autoload'] ?? [])
-                    ->map(fn($autoload) => array_keys($autoload))
+                    ->map(fn ($autoload) => array_keys($autoload))
                     ->flatten();
             })
             ->flatten()
