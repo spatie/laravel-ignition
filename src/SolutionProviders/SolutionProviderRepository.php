@@ -11,8 +11,7 @@ use Throwable;
 
 class SolutionProviderRepository implements SolutionProviderRepositoryContract
 {
-    /** @var \Illuminate\Support\Collection */
-    protected $solutionProviders;
+    protected Collection $solutionProviders;
 
     public function __construct(array $solutionProviders = [])
     {

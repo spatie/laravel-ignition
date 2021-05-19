@@ -7,17 +7,14 @@ use Illuminate\Database\Events\QueryExecuted;
 
 class QueryRecorder
 {
-    /** @var \Spatie\Ignition\QueryRecorder\Query|[] */
-    protected $queries = [];
+    /** @var \Spatie\Ignition\QueryRecorder\Query[] */
+    protected array $queries = [];
 
-    /** @var \Illuminate\Contracts\Foundation\Application */
-    protected $app;
+    protected Application $app;
 
-    /** @var bool */
-    private $reportBindings;
+    protected bool $reportBindings = true;
 
-    /** @var int|null */
-    private $maxQueries;
+    protected ?int $maxQueries;
 
     public function __construct(
         Application $app,
@@ -56,7 +53,7 @@ class QueryRecorder
         return $queries;
     }
 
-    public function reset()
+    public function reset(): void
     {
         $this->queries = [];
     }

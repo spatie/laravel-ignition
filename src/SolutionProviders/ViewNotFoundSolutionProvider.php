@@ -36,13 +36,15 @@ class ViewNotFoundSolutionProvider implements HasSolutionsForThrowable
 
         if ($suggestedView) {
             return [
-                BaseSolution::create("{$missingView} was not found.")
+                BaseSolution::create()
+                    ->setSolutionTitle("{$missingView} was not found.")
                     ->setSolutionDescription("Did you mean `{$suggestedView}`?"),
             ];
         }
 
         return [
-            BaseSolution::create("{$missingView} was not found.")
+            BaseSolution::create()
+                ->setSolutionTitle("{$missingView} was not found.")
                 ->setSolutionDescription('Are you sure the view exists and is a `.blade.php` file?'),
         ];
     }
@@ -66,32 +68,22 @@ class ViewNotFoundSolutionProvider implements HasSolutionsForThrowable
                 $paths = Arr::wrap($paths);
 
                 return collect($paths)
-                    ->flatMap(function (string $path) use ($extensions) {
-                        return $this->getViewsInPath($path, $extensions);
-                    })
-                    ->map(function (string $view) use ($namespace) {
-                        return "{$namespace}::{$view}";
-                    })
+                    ->flatMap(fn(string $path) => $this->getViewsInPath($path, $extensions))
+                    ->map(fn(string $view) => "{$namespace}::{$view}")
                     ->toArray();
             });
 
         $viewsForViewPaths = collect($fileViewFinder->getPaths())
-            ->flatMap(function (string $path) use ($extensions) {
-                return $this->getViewsInPath($path, $extensions);
-            });
+            ->flatMap(fn(string $path) => $this->getViewsInPath($path, $extensions));
 
         return $viewsForHints->merge($viewsForViewPaths)->toArray();
     }
 
     protected function getViewsInPath(string $path, array $extensions): array
     {
-        $filePatterns = array_map(function (string $extension) {
-            return "*.{$extension}";
-        }, $extensions);
+        $filePatterns = array_map(fn(string $extension) => "*.{$extension}", $extensions);
 
-        $extensionsWithDots = array_map(function (string $extension) {
-            return ".{$extension}";
-        }, $extensions);
+        $extensionsWithDots = array_map(fn(string $extension) => ".{$extension}", $extensions);
 
         $files = (new Finder())
             ->in($path)

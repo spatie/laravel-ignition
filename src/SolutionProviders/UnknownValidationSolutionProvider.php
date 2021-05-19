@@ -29,7 +29,8 @@ class UnknownValidationSolutionProvider implements HasSolutionsForThrowable
     public function getSolutions(Throwable $throwable): array
     {
         return [
-            BaseSolution::create('Unknown Validation Rule')
+            BaseSolution::create()
+                ->setSolutionTitle('Unknown Validation Rule')
                 ->setSolutionDescription($this->getSolutionDescription($throwable)),
         ];
     }
@@ -67,17 +68,11 @@ class UnknownValidationSolutionProvider implements HasSolutionsForThrowable
 
         $extensions = Collection::make((app('validator')->make([], []))->extensions)
             ->keys()
-            ->map(function (string $extension) {
-                return 'validate'.Str::studly($extension);
-            });
+            ->map(fn(string $extension) => 'validate'.Str::studly($extension));
 
         return Collection::make($class->getMethods())
-            ->filter(function (ReflectionMethod $method) {
-                return preg_match('/(validate(?!(Attribute|UsingCustomRule))[A-Z][a-zA-Z]+)/', $method->name);
-            })
-            ->map(function (ReflectionMethod $method) {
-                return $method->name;
-            })
+            ->filter(fn(ReflectionMethod $method) => preg_match('/(validate(?!(Attribute|UsingCustomRule))[A-Z][a-zA-Z]+)/', $method->name))
+            ->map(fn(ReflectionMethod $method) => $method->name)
             ->merge($extensions);
     }
 }

@@ -7,17 +7,18 @@ use Spatie\Ignition\Solutions\MakeViewVariableOptionalSolution;
 use Spatie\Ignition\Solutions\SuggestCorrectVariableNameSolution;
 use Spatie\IgnitionContracts\BaseSolution;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\IgnitionContracts\Solution;
 use Throwable;
 
 class UndefinedVariableSolutionProvider implements HasSolutionsForThrowable
 {
-    private $variableName;
+    protected $variableName;
 
-    private $viewFile;
+    protected $viewFile;
 
     public function canSolve(Throwable $throwable): bool
     {
-        if (! $throwable instanceof ViewException) {
+        if (!$throwable instanceof ViewException) {
             return false;
         }
 
@@ -30,7 +31,7 @@ class UndefinedVariableSolutionProvider implements HasSolutionsForThrowable
 
         extract($this->getNameAndView($throwable));
 
-        if (! isset($variableName)) {
+        if (!isset($variableName)) {
             return [];
         }
 
@@ -44,24 +45,28 @@ class UndefinedVariableSolutionProvider implements HasSolutionsForThrowable
         ViewException $throwable,
         string $variableName,
         string $viewFile
-    ): array {
-        return collect($throwable->getViewData())->map(function ($value, $key) use ($variableName) {
-            similar_text($variableName, $key, $percentage);
+    ): array
+    {
+        return collect($throwable->getViewData())
+            ->map(function ($value, $key) use ($variableName) {
+                similar_text($variableName, $key, $percentage);
 
-            return ['match' => $percentage, 'value' => $value];
-        })->sortByDesc('match')->filter(function ($var, $key) {
-            return $var['match'] > 40;
-        })->keys()->map(function ($suggestion) use ($variableName, $viewFile) {
-            return new SuggestCorrectVariableNameSolution($variableName, $viewFile, $suggestion);
-        })->map(function ($solution) {
-            return $solution->isRunnable()
-                ? $solution
-                : BaseSolution::create($solution->getSolutionTitle())
-                    ->setSolutionDescription($solution->getSolutionDescription());
-        })->toArray();
+                return ['match' => $percentage, 'value' => $value];
+            })
+            ->sortByDesc('match')->filter(fn($var, $key) => $var['match'] > 40)
+            ->keys()
+            ->map(fn($suggestion) => new SuggestCorrectVariableNameSolution($variableName, $viewFile, $suggestion))
+            ->map(function ($solution) {
+                return $solution->isRunnable()
+                    ? $solution
+                    : BaseSolution::create()
+                        ->setSolutionTitle($solution->getSolutionTitle())
+                        ->setSolutionDescription($solution->getSolutionDescription());
+            })
+            ->toArray();
     }
 
-    protected function findOptionalVariableSolution(string $variableName, string $viewFile)
+    protected function findOptionalVariableSolution(string $variableName, string $viewFile): Solution
     {
         $optionalSolution = new MakeViewVariableOptionalSolution($variableName, $viewFile);
 

@@ -6,22 +6,17 @@ use Illuminate\Database\Events\QueryExecuted;
 
 class Query
 {
-    /** @var string */
-    protected $sql;
+    protected string $sql;
 
-    /** @var float */
-    protected $time;
+    protected float $time;
 
-    /** @var string */
-    protected $connectionName;
+    protected string $connectionName;
 
-    /** @var null|array */
-    protected $bindings;
+    protected ?array $bindings;
 
-    /** @var float */
-    protected $microtime;
+    protected float $microtime;
 
-    public static function fromQueryExecutedEvent(QueryExecuted $queryExecuted, bool $reportBindings = false)
+    public static function fromQueryExecutedEvent(QueryExecuted $queryExecuted, bool $reportBindings = false): self
     {
         return new static(
             $queryExecuted->sql,

@@ -21,9 +21,11 @@ class RunningLaravelDuskInProductionProvider implements HasSolutionsForThrowable
     public function getSolutions(Throwable $throwable): array
     {
         return [
-            BaseSolution::create('Laravel Dusk should not be run in production.')
+            BaseSolution::create()
+                ->setSolutionTitle('Laravel Dusk should not be run in production.')
                 ->setSolutionDescription('Install the dependencies with the `--no-dev` flag.'),
-            BaseSolution::create('Laravel Dusk can be run in other environments.')
+            BaseSolution::create()
+                ->setSolutionTitle('Laravel Dusk can be run in other environments.')
                 ->setSolutionDescription('Consider setting the `APP_ENV` to something other than `production` like `local` for example.'),
         ];
     }

@@ -11,8 +11,7 @@ use Throwable;
 
 class MissingPackageSolutionProvider implements HasSolutionsForThrowable
 {
-    /** @var \Spatie\Ignition\Support\Packagist\Package|null */
-    protected $package;
+    protected ? Package$package;
 
     public function canSolve(Throwable $throwable): bool
     {

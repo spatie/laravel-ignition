@@ -9,11 +9,9 @@ use Throwable;
 
 class MissingImportSolutionProvider implements HasSolutionsForThrowable
 {
-    /** @var string */
-    protected $foundClass;
+    protected ?string $foundClass;
 
-    /** @var \Spatie\Ignition\Support\ComposerClassMap */
-    protected $composerClassMap;
+    protected ComposerClassMap $composerClassMap;
 
     public function canSolve(Throwable $throwable): bool
     {
