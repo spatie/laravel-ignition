@@ -25,15 +25,15 @@ class DumpRecorder
     {
         $multiDumpHandler = new MultiDumpHandler();
 
-        $this->app->singleton(MultiDumpHandler::class, fn() => $multiDumpHandler);
+        $this->app->singleton(MultiDumpHandler::class, fn () => $multiDumpHandler);
 
-        $previousHandler = VarDumper::setHandler(fn($var) => $multiDumpHandler->dump($var));
+        $previousHandler = VarDumper::setHandler(fn ($var) => $multiDumpHandler->dump($var));
 
         $previousHandler
             ? $multiDumpHandler->addHandler($previousHandler)
             : $multiDumpHandler->addHandler($this->getDefaultHandler());
 
-        $multiDumpHandler->addHandler(fn($var) => (new DumpHandler($this))->dump($var));
+        $multiDumpHandler->addHandler(fn ($var) => (new DumpHandler($this))->dump($var));
 
         return $this;
     }
