@@ -46,7 +46,6 @@ class ExecuteSolutionController
 
         if ($ipIsPublic) {
             throw CannotExecuteSolutionForNonLocalIp::make();
-
         }
 
         return $this;
