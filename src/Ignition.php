@@ -20,7 +20,7 @@ class Ignition
     public static function styles(): array
     {
         return collect(static::$tabs)
-            ->flatMap(fn($tab) => $tab->styles)
+            ->flatMap(fn ($tab) => $tab->styles)
             ->unique()
             ->toArray();
     }
@@ -28,7 +28,7 @@ class Ignition
     public static function scripts(): array
     {
         return collect(static::$tabs)
-            ->flatMap(fn($tab) => $tab->scripts)
+            ->flatMap(fn ($tab) => $tab->scripts)
             ->unique()
             ->toArray();
     }
