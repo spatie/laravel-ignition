@@ -68,22 +68,22 @@ class ViewNotFoundSolutionProvider implements HasSolutionsForThrowable
                 $paths = Arr::wrap($paths);
 
                 return collect($paths)
-                    ->flatMap(fn(string $path) => $this->getViewsInPath($path, $extensions))
-                    ->map(fn(string $view) => "{$namespace}::{$view}")
+                    ->flatMap(fn (string $path) => $this->getViewsInPath($path, $extensions))
+                    ->map(fn (string $view) => "{$namespace}::{$view}")
                     ->toArray();
             });
 
         $viewsForViewPaths = collect($fileViewFinder->getPaths())
-            ->flatMap(fn(string $path) => $this->getViewsInPath($path, $extensions));
+            ->flatMap(fn (string $path) => $this->getViewsInPath($path, $extensions));
 
         return $viewsForHints->merge($viewsForViewPaths)->toArray();
     }
 
     protected function getViewsInPath(string $path, array $extensions): array
     {
-        $filePatterns = array_map(fn(string $extension) => "*.{$extension}", $extensions);
+        $filePatterns = array_map(fn (string $extension) => "*.{$extension}", $extensions);
 
-        $extensionsWithDots = array_map(fn(string $extension) => ".{$extension}", $extensions);
+        $extensionsWithDots = array_map(fn (string $extension) => ".{$extension}", $extensions);
 
         $files = (new Finder())
             ->in($path)
