@@ -21,7 +21,7 @@ class ExecuteSolutionController
 
         $solution->run($request->get('parameters', []));
 
-        return response('');
+        return response()->noContent();
     }
 
     public function ensureLocalEnvironment()

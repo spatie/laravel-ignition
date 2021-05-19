@@ -4,15 +4,14 @@ namespace Spatie\Ignition\ErrorPage;
 
 use Error;
 use ErrorException;
+use Throwable;
 use Whoops\Handler\Handler;
 
 class IgnitionWhoopsHandler extends Handler
 {
-    /** @var \Spatie\Ignition\ErrorPage\ErrorPageHandler */
-    protected $errorPageHandler;
+    protected ErrorPageHandler $errorPageHandler;
 
-    /** @var \Throwable */
-    protected $exception;
+    protected Throwable $exception;
 
     public function __construct(ErrorPageHandler $errorPageHandler)
     {

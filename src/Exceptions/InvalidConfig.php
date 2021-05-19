@@ -10,7 +10,7 @@ use Spatie\IgnitionContracts\Solution;
 
 class InvalidConfig extends Exception implements ProvidesSolution
 {
-    public static function invalidLogLevel(string $logLevel)
+    public static function invalidLogLevel(string $logLevel): self
     {
         return new static("Invalid log level `{$logLevel}` specified.");
     }

@@ -2,6 +2,7 @@
 
 namespace Spatie\Ignition\Tests;
 
+use Exception;
 use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\Report;
 use Spatie\Ignition\ErrorPage\ErrorPageViewModel;
@@ -14,7 +15,7 @@ class ErrorPageViewModelTest extends TestCase
     {
         $flareClient = $this->app->make(Flare::class);
 
-        $exception = new \Exception('Test Exception');
+        $exception = new Exception('Test Exception');
 
         /** @var Report $report */
         $report = $flareClient->createReport($exception);
@@ -33,9 +34,8 @@ class ErrorPageViewModelTest extends TestCase
     {
         $flareClient = $this->app->make(Flare::class);
 
-        $exception = new \Exception('Test Exception');
+        $exception = new Exception('Test Exception');
 
-        /** @var Report $report */
         $report = $flareClient->createReport($exception);
 
         $model = new ErrorPageViewModel($exception, new IgnitionConfig([]), $report, []);

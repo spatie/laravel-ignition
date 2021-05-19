@@ -8,11 +8,9 @@ use Spatie\Ignition\DumpRecorder\HtmlDumper;
 
 class ViewException extends ErrorException implements ProvidesFlareContext
 {
-    /** @var array */
-    protected $viewData = [];
+    protected array $viewData = [];
 
-    /** @var string */
-    protected $view = '';
+    protected string $view = '';
 
     public function setViewData(array $data)
     {

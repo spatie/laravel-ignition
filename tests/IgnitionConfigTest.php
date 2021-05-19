@@ -14,7 +14,7 @@ class IgnitionConfigTest extends TestCase
 
         $config = new IgnitionConfig([]);
 
-        $this->assertTrue($config->getEnableRunnableSolutions());
+        $this->assertTrue($config->runnableSolutionsEnabled());
     }
 
     /** @test */
@@ -24,7 +24,7 @@ class IgnitionConfigTest extends TestCase
 
         $config = new IgnitionConfig([]);
 
-        $this->assertFalse($config->getEnableRunnableSolutions());
+        $this->assertFalse($config->runnableSolutionsEnabled());
     }
 
     /** @test */
@@ -36,7 +36,7 @@ class IgnitionConfigTest extends TestCase
             'enable_runnable_solutions' => false,
         ]);
 
-        $this->assertFalse($config->getEnableRunnableSolutions());
+        $this->assertFalse($config->runnableSolutionsEnabled());
     }
 
     /** @test */
@@ -54,6 +54,6 @@ class IgnitionConfigTest extends TestCase
 
         $config = new IgnitionConfig([]);
 
-        $this->assertFalse($config->getEnableShareButton());
+        $this->assertFalse($config->shareButtonEnabled());
     }
 }

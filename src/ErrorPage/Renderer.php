@@ -7,8 +7,7 @@ use Spatie\Ignition\Exceptions\ViewException;
 
 class Renderer
 {
-    /** @var string */
-    protected $viewPath;
+    protected string $viewPath;
 
     public function __construct(string $viewPath)
     {

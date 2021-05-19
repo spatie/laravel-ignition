@@ -7,35 +7,34 @@ use Illuminate\Support\Arr;
 
 class IgnitionConfig implements Arrayable
 {
-    /** @var array */
-    protected $options;
+    protected array $options = [];
 
     public function __construct(array $options = [])
     {
         $this->options = $this->mergeWithDefaultConfig($options);
     }
 
-    public function getEditor(): ?string
+    public function editor(): ?string
     {
         return Arr::get($this->options, 'editor');
     }
 
-    public function getRemoteSitesPath(): ?string
+    public function remoteSitesPath(): ?string
     {
         return Arr::get($this->options, 'remote_sites_path');
     }
 
-    public function getLocalSitesPath(): ?string
+    public function localSitesPath(): ?string
     {
         return Arr::get($this->options, 'local_sites_path');
     }
 
-    public function getTheme(): ?string
+    public function theme(): ?string
     {
         return Arr::get($this->options, 'theme');
     }
 
-    public function getEnableShareButton(): bool
+    public function shareButtonEnabled(): bool
     {
         if (! app()->isBooted()) {
             return false;
@@ -44,7 +43,7 @@ class IgnitionConfig implements Arrayable
         return Arr::get($this->options, 'enable_share_button', true);
     }
 
-    public function getEnableRunnableSolutions(): bool
+    public function runnableSolutionsEnabled(): bool
     {
         $enabled = Arr::get($this->options, 'enable_runnable_solutions', null);
 
@@ -58,12 +57,12 @@ class IgnitionConfig implements Arrayable
     public function toArray(): array
     {
         return [
-            'editor' => $this->getEditor(),
-            'remoteSitesPath' => $this->getRemoteSitesPath(),
-            'localSitesPath' => $this->getLocalSitesPath(),
-            'theme' => $this->getTheme(),
-            'enableShareButton' => $this->getEnableShareButton(),
-            'enableRunnableSolutions' => $this->getEnableRunnableSolutions(),
+            'editor' => $this->editor(),
+            'remoteSitesPath' => $this->remoteSitesPath(),
+            'localSitesPath' => $this->localSitesPath(),
+            'theme' => $this->theme(),
+            'enableShareButton' => $this->shareButtonEnabled(),
+            'enableRunnableSolutions' => $this->runnableSolutionsEnabled(),
             'directorySeparator' => DIRECTORY_SEPARATOR,
         ];
     }

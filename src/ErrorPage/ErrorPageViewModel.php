@@ -16,32 +16,28 @@ use Throwable;
 
 class ErrorPageViewModel implements Arrayable
 {
-    /** @var \Throwable|null */
-    protected $throwable;
+    protected ?Throwable $throwable;
 
-    /** @var array */
-    protected $solutions;
+    protected array $solutions = [];
 
-    /** @var \Spatie\Ignition\IgnitionConfig */
-    protected $ignitionConfig;
+    protected IgnitionConfig $ignitionConfig;
 
-    /** @var \Spatie\FlareClient\Report */
-    protected $report;
+    protected Report $report;
 
-    /** @var string */
-    protected $defaultTab;
+    protected string $defaultTab = 'trace';
 
-    /** @var array */
-    protected $defaultTabProps = [];
+    protected array $defaultTabProps = [];
 
-    /** @var string */
-    protected $appEnv;
+    protected string $appEnv;
 
-    /** @var bool */
-    protected $appDebug;
+    protected bool $appDebug;
 
-    public function __construct(?Throwable $throwable, IgnitionConfig $ignitionConfig, Report $report, array $solutions)
-    {
+    public function __construct(
+        ?Throwable $throwable,
+        IgnitionConfig $ignitionConfig,
+        Report $report,
+        array $solutions
+    ) {
         $this->throwable = $throwable;
 
         $this->ignitionConfig = $ignitionConfig;
@@ -122,16 +118,6 @@ class ErrorPageViewModel implements Arrayable
         return $solutions;
     }
 
-    protected function shareEndpoint(): string
-    {
-        try {
-            // use string notation as L5.5 and L5.6 don't support array notation yet
-            return action('\Spatie\Ignition\Http\Controllers\ShareReportController');
-        } catch (Exception $exception) {
-            return '';
-        }
-    }
-
     public function report(): array
     {
         return $this->report->toArray();
@@ -175,6 +161,15 @@ class ErrorPageViewModel implements Arrayable
         }
     }
 
+    protected function shareEndpoint(): string
+    {
+        if ($this->ignitionConfig->shareButtonEnabled()) {
+            return '';
+        }
+
+        return  config('flare.base_url') . '/share';
+    }
+
     public function toArray(): array
     {
         return [
@@ -197,4 +192,6 @@ class ErrorPageViewModel implements Arrayable
             'appDebug' => $this->appDebug,
         ];
     }
+
+
 }
