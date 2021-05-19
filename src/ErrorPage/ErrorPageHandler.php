@@ -11,17 +11,13 @@ use Throwable;
 
 class ErrorPageHandler
 {
-    /** @var \Spatie\Ignition\IgnitionConfig */
-    protected $ignitionConfig;
+    protected IgnitionConfig $ignitionConfig;
 
-    /** @var \Spatie\FlareClient\Flare */
-    protected $flareClient;
+    protected Flare $flareClient;
 
-    /** @var \Spatie\Ignition\ErrorPage\Renderer */
-    protected $renderer;
+    protected Renderer $renderer;
 
-    /** @var \Spatie\IgnitionContracts\SolutionProviderRepository */
-    protected $solutionProviderRepository;
+    protected SolutionProviderRepository $solutionProviderRepository;
 
     public function __construct(
         Application $app,
@@ -35,7 +31,7 @@ class ErrorPageHandler
         $this->solutionProviderRepository = $solutionProviderRepository;
     }
 
-    public function handle(Throwable $throwable, $defaultTab = null, $defaultTabProps = [])
+    public function handle(Throwable $throwable, $defaultTab = null, $defaultTabProps = []) : void
     {
         $report = $this->flareClient->createReport($throwable);
 
@@ -53,13 +49,13 @@ class ErrorPageHandler
         $this->renderException($viewModel);
     }
 
-    public function handleReport(Report $report, $defaultTab = null, $defaultTabProps = [])
+    public function handleReport(Report $report, $defaultTab = null, $defaultTabProps = []): void
     {
         $viewModel = new ErrorPageViewModel(
             $report->getThrowable(),
             $this->ignitionConfig,
             $report,
-            []
+            [],
         );
 
         $viewModel->defaultTab($defaultTab, $defaultTabProps);
@@ -67,11 +63,11 @@ class ErrorPageHandler
         $this->renderException($viewModel);
     }
 
-    protected function renderException(ErrorPageViewModel $exceptionViewModel)
+    protected function renderException(ErrorPageViewModel $exceptionViewModel): void
     {
         echo $this->renderer->render(
             'errorPage',
-            $exceptionViewModel->toArray()
+            $exceptionViewModel->toArray(),
         );
     }
 }
