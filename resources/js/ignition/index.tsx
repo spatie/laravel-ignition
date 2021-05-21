@@ -79,7 +79,7 @@ function transformIgnitionError(ignitionError: IgnitionErrorOccurrence): ErrorOc
                     })),
                 },
             })),
-            dumps: ignitionError.context?.dumps.map((value, i) => ({
+            dumps: ignitionError.context?.dumps?.map((value, i) => ({
                 group: 'dumps',
                 name: String(i),
                 value,
