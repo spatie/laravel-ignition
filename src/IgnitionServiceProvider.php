@@ -109,8 +109,6 @@ class IgnitionServiceProvider extends ServiceProvider
 
     public function register()
     {
-
-
         $this->mergeConfigFrom(__DIR__ . '/../config/flare.php', 'flare');
         $this->mergeConfigFrom(__DIR__ . '/../config/ignition.php', 'ignition');
 
