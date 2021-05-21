@@ -3,6 +3,7 @@
     "private": true,
     "scripts": {
         "bundle-ignition": "microbundle -i resources/js/ignition/index.tsx -o resources/compiled/ignition.js --jsx React.createElement -f cjs --no-sourcemap --external none --define process.env.NODE_ENV='production'",
+        "bundle-ignition-dev": "microbundle -i resources/js/ignition/index.tsx -o resources/compiled/ignition.js --jsx React.createElement -f cjs --no-sourcemap --external none --define process.env.NODE_ENV='production' --no-compress",
         "bundle": "microbundle -i resources/js/shared/ErrorUI.tsx -o resources/compiled/error-ui.js --jsx React.createElement -f modern --no-sourcemap --external react react-dom  --define process.env.NODE_ENV='production'",
         "format": "prettier --write 'resources/**/*.{css,js,ts,tsx}'"
     },
