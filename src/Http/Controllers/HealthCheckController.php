@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Http\Controllers;
+namespace Spatie\LaravelIgnition\Http\Controllers;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;

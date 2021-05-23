@@ -1,17 +1,15 @@
 <?php
 
-namespace Spatie\Ignition\Logger;
+namespace Spatie\LaravelIgnition\Logger;
 
 use InvalidArgumentException;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\Report;
-use Spatie\Ignition\Ignition;
-use Spatie\Ignition\Tabs\Tab;
 use Throwable;
 
-class FlareHandler extends AbstractProcessingHandler
+class FlareLogHandler extends AbstractProcessingHandler
 {
     protected Flare $flare;
 
@@ -40,12 +38,6 @@ class FlareHandler extends AbstractProcessingHandler
         }
 
         if ($this->hasException($report)) {
-            /** @var Throwable $throwable */
-            $throwable = $report['context']['exception'];
-
-            collect(Ignition::$tabs)
-                ->each(fn (Tab $tab) => $tab->beforeRenderingErrorPage($this->flare, $throwable));
-
             $this->flare->report($report['context']['exception']);
 
             return;

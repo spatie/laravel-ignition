@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition;
+namespace Spatie\LaravelIgnition;
 
 use Exception;
 use Illuminate\Contracts\Foundation\ExceptionRenderer;
@@ -19,54 +19,34 @@ use Monolog\Logger;
 use Spatie\FlareClient\Api;
 use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\Http\Client;
-use Spatie\Ignition\Commands\SolutionMakeCommand;
-use Spatie\Ignition\Commands\SolutionProviderMakeCommand;
-use Spatie\Ignition\Commands\TestCommand;
-use Spatie\Ignition\Context\LaravelContextDetector;
-use Spatie\Ignition\DumpRecorder\DumpRecorder;
-use Spatie\Ignition\ErrorPage\IgnitionExceptionRenderer;
-use Spatie\Ignition\ErrorPage\IgnitionWhoopsHandler;
+use Spatie\LaravelIgnition\Commands\SolutionMakeCommand;
+use Spatie\LaravelIgnition\Commands\SolutionProviderMakeCommand;
+use Spatie\LaravelIgnition\Commands\TestCommand;
+use Spatie\LaravelIgnition\Context\LaravelContextDetector;
+use Spatie\LaravelIgnition\DumpRecorder\DumpRecorder;
+use Spatie\LaravelIgnition\ErrorPage\IgnitionExceptionRenderer;
+use Spatie\LaravelIgnition\ErrorPage\IgnitionWhoopsHandler;
 use Spatie\Ignition\ErrorPage\Renderer;
-use Spatie\Ignition\Exceptions\InvalidConfig;
-use Spatie\Ignition\Http\Controllers\ExecuteSolutionController;
-use Spatie\Ignition\Http\Controllers\HealthCheckController;
-use Spatie\Ignition\Http\Controllers\ScriptController;
-use Spatie\Ignition\Http\Controllers\StyleController;
-use Spatie\Ignition\Http\Middleware\IgnitionConfigValueEnabled;
-use Spatie\Ignition\Http\Middleware\IgnitionEnabled;
-use Spatie\Ignition\Logger\FlareHandler;
-use Spatie\Ignition\LogRecorder\LogRecorder;
-use Spatie\Ignition\Middleware\AddDumps;
-use Spatie\Ignition\Middleware\AddEnvironmentInformation;
+use Spatie\LaravelIgnition\Exceptions\InvalidConfig;
+use Spatie\LaravelIgnition\Http\Controllers\ExecuteSolutionController;
+use Spatie\LaravelIgnition\Http\Controllers\HealthCheckController;
+use Spatie\LaravelIgnition\Http\Middleware\IgnitionConfigValueEnabled;
+use Spatie\LaravelIgnition\Http\Middleware\IgnitionEnabled;
+use Spatie\LaravelIgnition\Logger\FlareLogHandler;
+use Spatie\LaravelIgnition\LogRecorder\LogRecorder;
+use Spatie\LaravelIgnition\Middleware\AddDumps;
+use Spatie\LaravelIgnition\Middleware\AddEnvironmentInformation;
 use Spatie\Ignition\Middleware\AddGitInformation;
-use Spatie\Ignition\Middleware\AddLogs;
-use Spatie\Ignition\Middleware\AddQueries;
+use Spatie\LaravelIgnition\Middleware\AddLogs;
+use Spatie\LaravelIgnition\Middleware\AddQueries;
 use Spatie\Ignition\Middleware\AddSolutions;
 use Spatie\Ignition\Middleware\SetNotifierName;
-use Spatie\Ignition\QueryRecorder\QueryRecorder;
-use Spatie\Ignition\SolutionProviders\BadMethodCallSolutionProvider;
-use Spatie\Ignition\SolutionProviders\DefaultDbNameSolutionProvider;
-use Spatie\Ignition\SolutionProviders\IncorrectValetDbCredentialsSolutionProvider;
-use Spatie\Ignition\SolutionProviders\InvalidRouteActionSolutionProvider;
-use Spatie\Ignition\SolutionProviders\MergeConflictSolutionProvider;
-use Spatie\Ignition\SolutionProviders\MissingAppKeySolutionProvider;
-use Spatie\Ignition\SolutionProviders\MissingColumnSolutionProvider;
-use Spatie\Ignition\SolutionProviders\MissingImportSolutionProvider;
-use Spatie\Ignition\SolutionProviders\MissingLivewireComponentSolutionProvider;
-use Spatie\Ignition\SolutionProviders\MissingMixManifestSolutionProvider;
-use Spatie\Ignition\SolutionProviders\MissingPackageSolutionProvider;
-use Spatie\Ignition\SolutionProviders\RunningLaravelDuskInProductionProvider;
-use Spatie\Ignition\SolutionProviders\SolutionProviderRepository;
-use Spatie\Ignition\SolutionProviders\TableNotFoundSolutionProvider;
-use Spatie\Ignition\SolutionProviders\UndefinedPropertySolutionProvider;
-use Spatie\Ignition\SolutionProviders\UndefinedVariableSolutionProvider;
-use Spatie\Ignition\SolutionProviders\UnknownValidationSolutionProvider;
-use Spatie\Ignition\SolutionProviders\ViewNotFoundSolutionProvider;
-use Spatie\Ignition\Views\Engines\CompilerEngine;
-use Spatie\Ignition\Views\Engines\PhpEngine;
-use Spatie\IgnitionContracts\SolutionProviderRepository as SolutionProviderRepositoryContract;
+use Spatie\LaravelIgnition\QueryRecorder\QueryRecorder;
+use Spatie\LaravelIgnition\SolutionProviders\MissingPackageSolutionProvider;
+use Spatie\LaravelIgnition\SolutionProviders\UndefinedVariableSolutionProvider;
+use Spatie\LaravelIgnition\Views\Engines\CompilerEngine;
+use Spatie\LaravelIgnition\Views\Engines\PhpEngine;
 use Throwable;
-use Whoops\Handler\HandlerInterface;
 
 class IgnitionServiceProvider extends ServiceProvider
 {
@@ -113,7 +93,6 @@ class IgnitionServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/ignition.php', 'ignition');
 
         $this
-            ->registerSolutionProviderRepository()
             ->registerRenderer()
             ->registerExceptionRenderer()
             ->registerIgnitionConfig()
@@ -132,14 +111,19 @@ class IgnitionServiceProvider extends ServiceProvider
             $this->app->get(Flare::class)->anonymizeIp();
         }
 
-        $this->app->get(Flare::class)->censorRequestBodyFields(config('flare.reporting.censor_request_body_fields', ['password']));
+        $this->app
+            ->get(Flare::class)
+            ->censorRequestBodyFields(
+                config('flare.reporting.censor_request_body_fields',
+                    ['password'])
+            );
 
         $this->registerBuiltInMiddleware();
     }
 
     protected function registerViewEngines()
     {
-        if (! $this->hasCustomViewEnginesRegistered()) {
+        if (!$this->hasCustomViewEnginesRegistered()) {
             return $this;
         }
 
@@ -174,20 +158,6 @@ class IgnitionServiceProvider extends ServiceProvider
             Route::post('execute-solution', ExecuteSolutionController::class)
                 ->middleware(IgnitionConfigValueEnabled::class . ':enableRunnableSolutions')
                 ->name('executeSolution');
-
-            Route::get('scripts/{script}', ScriptController::class)->name('scripts');
-            Route::get('styles/{style}', StyleController::class)->name('styles');
-        });
-
-        return $this;
-    }
-
-    protected function registerSolutionProviderRepository(): self
-    {
-        $this->app->singleton(SolutionProviderRepositoryContract::class, function () {
-            $defaultSolutions = $this->getDefaultSolutions();
-
-            return new SolutionProviderRepository($defaultSolutions);
         });
 
         return $this;
@@ -195,7 +165,7 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function registerRenderer(): self
     {
-        $this->app->bind(Renderer::class, fn () => new Renderer(__DIR__ . '/../resources/views/'));
+        $this->app->bind(Renderer::class, fn() => new Renderer(__DIR__ . '/../resources/views/'));
 
         return $this;
     }
@@ -205,14 +175,14 @@ class IgnitionServiceProvider extends ServiceProvider
         if (interface_exists(HandlerInterface::class)) {
             $this->app->bind(
                 HandlerInterface::class,
-                fn (Application $app) => $app->make(IgnitionWhoopsHandler::class)
+                fn(Application $app) => $app->make(IgnitionWhoopsHandler::class)
             );
         }
 
         if (interface_exists(ExceptionRenderer::class)) {
             $this->app->bind(
                 ExceptionRenderer::class,
-                fn (Application $app) => $app->make(IgnitionExceptionRenderer::class)
+                fn(Application $app) => $app->make(IgnitionExceptionRenderer::class)
             );
         }
 
@@ -241,18 +211,22 @@ class IgnitionServiceProvider extends ServiceProvider
     protected function registerFlare(): self
     {
         $this->app->singleton(
-            'flare.http',
-            fn () => new Client(
+            'flare.client',
+            fn() => new Client(
                 config('flare.key'),
                 config('flare.secret'),
                 config('flare.base_url', 'https://flareapp.io/api')
             )
         );
 
-        $this->app->alias('flare.http', Client::class);
+        $this->app->alias('flare.client', Client::class);
 
         $this->app->singleton(Flare::class, function () {
-            $client = new Flare($this->app->get('flare.http'), new LaravelContextDetector, $this->app);
+            $client = new Flare(
+                $this->app->get('flare.client'),
+                new LaravelContextDetector,
+                $this->app,
+            );
             $client->applicationPath(base_path());
             $client->stage(config('app.env'));
 
@@ -265,7 +239,7 @@ class IgnitionServiceProvider extends ServiceProvider
     protected function registerLogHandler(): self
     {
         $this->app->singleton('flare.logger', function ($app) {
-            $handler = new FlareHandler($app->make(Flare::class));
+            $handler = new FlareLogHandler($app->make(Flare::class));
 
             $logLevelString = config('logging.channels.flare.level', 'error');
 
@@ -281,7 +255,7 @@ class IgnitionServiceProvider extends ServiceProvider
 
         $this->app['log'] instanceof LogManager
 
-            ? Log::extend('flare', fn ($app) => $app['flare.logger'])
+            ? Log::extend('flare', fn($app) => $app['flare.logger'])
             : $this->bindLogListener();
 
         return $this;
@@ -291,7 +265,7 @@ class IgnitionServiceProvider extends ServiceProvider
     {
         $logLevel = Logger::getLevels()[strtoupper($logLevelString)] ?? null;
 
-        if (! $logLevel) {
+        if (!$logLevel) {
             throw InvalidConfig::invalidLogLevel($logLevelString);
         }
 
@@ -372,9 +346,7 @@ class IgnitionServiceProvider extends ServiceProvider
         $middlewares[] = AddSolutions::class;
 
         $middleware = collect($middlewares)
-            ->map(function (string $middlewareClass) {
-                return $this->app->make($middlewareClass);
-            });
+            ->map(fn(string $middlewareClass) => $this->app->make($middlewareClass));
 
         if (config('flare.reporting.collect_git_information')) {
             $middleware[] = (new AddGitInformation());
@@ -384,41 +356,20 @@ class IgnitionServiceProvider extends ServiceProvider
             $this->app->get(Flare::class)->registerMiddleware($singleMiddleware);
         }
 
-        return $this;
-    }
 
-    protected function getDefaultSolutions(): array
-    {
-        return [
-            IncorrectValetDbCredentialsSolutionProvider::class,
-            MissingAppKeySolutionProvider::class,
-            DefaultDbNameSolutionProvider::class,
-            BadMethodCallSolutionProvider::class,
-            TableNotFoundSolutionProvider::class,
-            MissingImportSolutionProvider::class,
-            MissingPackageSolutionProvider::class,
-            InvalidRouteActionSolutionProvider::class,
-            ViewNotFoundSolutionProvider::class,
-            UndefinedVariableSolutionProvider::class,
-            MergeConflictSolutionProvider::class,
-            RunningLaravelDuskInProductionProvider::class,
-            MissingColumnSolutionProvider::class,
-            UnknownValidationSolutionProvider::class,
-            UndefinedPropertySolutionProvider::class,
-            MissingMixManifestSolutionProvider::class,
-            MissingLivewireComponentSolutionProvider::class,
-        ];
+
+        return $this;
     }
 
     protected function hasCustomViewEnginesRegistered(): bool
     {
         $resolver = $this->app->make('view.engine.resolver');
 
-        if (! $resolver->resolve('php') instanceof LaravelPhpEngine) {
+        if (!$resolver->resolve('php') instanceof LaravelPhpEngine) {
             return false;
         }
 
-        if (! $resolver->resolve('blade') instanceof LaravelCompilerEngine) {
+        if (!$resolver->resolve('blade') instanceof LaravelCompilerEngine) {
             return false;
         }
 
@@ -428,7 +379,7 @@ class IgnitionServiceProvider extends ServiceProvider
     protected function bindLogListener()
     {
         $this->app['log']->listen(function (MessageLogged $messageLogged) {
-            if (! config('flare.key')) {
+            if (!config('flare.key')) {
                 return;
             }
 

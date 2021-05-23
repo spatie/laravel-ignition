@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\DumpRecorder;
+namespace Spatie\LaravelIgnition\DumpRecorder;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Arr;

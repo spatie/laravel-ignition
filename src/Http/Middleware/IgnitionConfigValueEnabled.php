@@ -1,10 +1,10 @@
 <?php
 
-namespace Spatie\Ignition\Http\Middleware;
+namespace Spatie\LaravelIgnition\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Spatie\Ignition\IgnitionConfig;
+use Spatie\LaravelIgnition\IgnitionConfig;
 
 class IgnitionConfigValueEnabled
 {

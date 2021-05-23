@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\SolutionProviders;
+namespace Spatie\LaravelIgnition\SolutionProviders;
 
 use Illuminate\Support\Str;
 use Spatie\Ignition\Support\ComposerClassMap;

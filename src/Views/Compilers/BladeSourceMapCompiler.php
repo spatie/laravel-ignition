@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Views\Compilers;
+namespace Spatie\LaravelIgnition\Views\Compilers;
 
 use ErrorException;
 use Illuminate\View\Compilers\BladeCompiler;

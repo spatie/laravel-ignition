@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\SolutionProviders;
+namespace Spatie\LaravelIgnition\SolutionProviders;
 
 use RuntimeException;
 use Spatie\Ignition\Solutions\GenerateAppKeySolution;

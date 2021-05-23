@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Context;
+namespace Spatie\LaravelIgnition\Context;
 
 use Illuminate\Http\Request;
 use Spatie\FlareClient\Context\ContextDetectorInterface;

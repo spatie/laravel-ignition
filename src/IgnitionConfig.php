@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition;
+namespace Spatie\LaravelIgnition;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;

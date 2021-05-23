@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Solutions;
+namespace Spatie\LaravelIgnition\Solutions;
 
 use Spatie\Ignition\Support\Packagist\Package;
 use Spatie\IgnitionContracts\Solution;

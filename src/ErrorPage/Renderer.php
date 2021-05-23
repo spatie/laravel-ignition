@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\ErrorPage;
+namespace Spatie\LaravelIgnition\ErrorPage;
 
 use Exception;
 use Spatie\Ignition\Exceptions\ViewException;

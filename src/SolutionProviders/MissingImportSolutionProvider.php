@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\SolutionProviders;
+namespace Spatie\LaravelIgnition\SolutionProviders;
 
 use Spatie\Ignition\Solutions\SuggestImportSolution;
 use Spatie\Ignition\Support\ComposerClassMap;

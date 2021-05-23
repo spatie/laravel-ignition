@@ -1,13 +1,13 @@
 <?php
 
-namespace Spatie\Ignition\QueryRecorder;
+namespace Spatie\LaravelIgnition\QueryRecorder;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Events\QueryExecuted;
 
 class QueryRecorder
 {
-    /** @var \Spatie\Ignition\QueryRecorder\Query[] */
+    /** @var \Spatie\LaravelIgnition\QueryRecorder\Query[] */
     protected array $queries = [];
 
     protected Application $app;

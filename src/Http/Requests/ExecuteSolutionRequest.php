@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Http\Requests;
+namespace Spatie\LaravelIgnition\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Spatie\IgnitionContracts\RunnableSolution;

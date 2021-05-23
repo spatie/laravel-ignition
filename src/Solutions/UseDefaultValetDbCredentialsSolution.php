@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Solutions;
+namespace Spatie\LaravelIgnition\Solutions;
 
 use Illuminate\Support\Str;
 use Spatie\IgnitionContracts\RunnableSolution;

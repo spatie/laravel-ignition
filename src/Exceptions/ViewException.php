@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Exceptions;
+namespace Spatie\LaravelIgnition\Exceptions;
 
 use ErrorException;
 use Spatie\FlareClient\Contracts\ProvidesFlareContext;

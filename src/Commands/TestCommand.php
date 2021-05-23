@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Commands;
+namespace Spatie\LaravelIgnition\Commands;
 
 use Exception;
 use Illuminate\Config\Repository;

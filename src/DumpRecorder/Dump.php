@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\DumpRecorder;
+namespace Spatie\LaravelIgnition\DumpRecorder;
 
 class Dump
 {

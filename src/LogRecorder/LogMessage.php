@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\LogRecorder;
+namespace Spatie\LaravelIgnition\LogRecorder;
 
 use Illuminate\Log\Events\MessageLogged;
 

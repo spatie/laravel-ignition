@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Facades;
+namespace Spatie\LaravelIgnition\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

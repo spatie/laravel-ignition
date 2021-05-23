@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Solutions;
+namespace Spatie\LaravelIgnition\Solutions;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Spatie\Ignition\Http\Controllers\ExecuteSolutionController;

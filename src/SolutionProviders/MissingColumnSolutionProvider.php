@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\SolutionProviders;
+namespace Spatie\LaravelIgnition\SolutionProviders;
 
 use Illuminate\Database\QueryException;
 use Spatie\Ignition\Solutions\RunMigrationsSolution;

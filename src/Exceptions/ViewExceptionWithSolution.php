@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Exceptions;
+namespace Spatie\LaravelIgnition\Exceptions;
 
 use Spatie\IgnitionContracts\ProvidesSolution;
 use Spatie\IgnitionContracts\Solution;

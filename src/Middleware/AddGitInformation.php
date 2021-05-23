@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Middleware;
+namespace Spatie\LaravelIgnition\Middleware;
 
 use ReflectionClass;
 use Spatie\FlareClient\Report;

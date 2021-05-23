@@ -1,11 +1,11 @@
 <?php
 
-namespace Spatie\Ignition\Http\Controllers;
+namespace Spatie\LaravelIgnition\Http\Controllers;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Spatie\Ignition\Exceptions\CannotExecuteSolutionForNonLocalEnvironment;
-use Spatie\Ignition\Exceptions\CannotExecuteSolutionForNonLocalIp;
-use Spatie\Ignition\Http\Requests\ExecuteSolutionRequest;
+use Spatie\LaravelIgnition\Exceptions\CannotExecuteSolutionForNonLocalEnvironment;
+use Spatie\LaravelIgnition\Exceptions\CannotExecuteSolutionForNonLocalIp;
+use Spatie\LaravelIgnition\Http\Requests\ExecuteSolutionRequest;
 use Spatie\IgnitionContracts\SolutionProviderRepository;
 
 class ExecuteSolutionController

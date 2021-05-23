@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Http\Middleware;
+namespace Spatie\LaravelIgnition\Http\Middleware;
 
 use Closure;
 

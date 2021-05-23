@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\LogRecorder;
+namespace Spatie\LaravelIgnition\LogRecorder;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Log\Events\MessageLogged;
@@ -8,7 +8,7 @@ use Throwable;
 
 class LogRecorder
 {
-    /** @var \Spatie\Ignition\LogRecorder\LogMessage[] */
+    /** @var \Spatie\LaravelIgnition\LogRecorder\LogMessage[] */
     protected array $logMessages = [];
 
     protected Application $app;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Spatie\Ignition\Middleware;
+namespace Spatie\LaravelIgnition\Middleware;
 
 use Spatie\FlareClient\Report;
-use Spatie\Ignition\DumpRecorder\DumpRecorder;
+use Spatie\LaravelIgnition\DumpRecorder\DumpRecorder;
 
 class AddDumps
 {

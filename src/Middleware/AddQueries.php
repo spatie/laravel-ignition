@@ -1,9 +1,9 @@
 <?php
 
-namespace Spatie\Ignition\Middleware;
+namespace Spatie\LaravelIgnition\Middleware;
 
 use Spatie\FlareClient\Report;
-use Spatie\Ignition\QueryRecorder\QueryRecorder;
+use Spatie\LaravelIgnition\QueryRecorder\QueryRecorder;
 
 class AddQueries
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Views\Concerns;
+namespace Spatie\LaravelIgnition\Views\Concerns;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;

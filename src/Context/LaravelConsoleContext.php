@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Context;
+namespace Spatie\LaravelIgnition\Context;
 
 use Spatie\FlareClient\Context\ConsoleContext;
 
