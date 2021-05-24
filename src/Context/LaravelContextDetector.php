@@ -3,8 +3,6 @@
 namespace Spatie\LaravelIgnition\Context;
 
 use Illuminate\Http\Request;
-use Spatie\FlareClient\Context\ContextDetectorInterface;
-use Spatie\FlareClient\Context\ContextInterface;
 use Spatie\FlareClient\Context\ContextProvider;
 use Spatie\FlareClient\Context\ContextProviderDetector;
 
