@@ -2,8 +2,8 @@
 
 namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
-use Spatie\Ignition\Solutions\SuggestImportSolution;
-use Spatie\Ignition\Support\ComposerClassMap;
+use Spatie\LaravelIgnition\Solutions\SuggestImportSolution;
+use Spatie\LaravelIgnition\Support\ComposerClassMap;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Throwable;
 

@@ -3,7 +3,7 @@
 namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
 use Illuminate\Database\QueryException;
-use Spatie\Ignition\Solutions\SuggestUsingCorrectDbNameSolution;
+use Spatie\LaravelIgnition\Solutions\SuggestUsingCorrectDbNameSolution;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Throwable;
 

@@ -6,7 +6,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\View;
 use InvalidArgumentException;
 use Spatie\Ignition\Exceptions\ViewException;
-use Spatie\Ignition\Support\StringComparator;
+use Spatie\LaravelIgnition\Support\StringComparator;
 use Spatie\IgnitionContracts\BaseSolution;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Symfony\Component\Finder\Finder;

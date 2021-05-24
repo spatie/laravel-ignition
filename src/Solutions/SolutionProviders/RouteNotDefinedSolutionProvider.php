@@ -6,7 +6,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use InvalidArgumentException;
 use Spatie\Ignition\Exceptions\ViewException;
-use Spatie\Ignition\Support\StringComparator;
+use Spatie\LaravelIgnition\Support\StringComparator;
 use Spatie\IgnitionContracts\BaseSolution;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
