@@ -4,17 +4,17 @@ namespace Spatie\LaravelIgnition\Support;
 
 class FakeComposer
 {
-    public function getClassMap()
+    public function getClassMap(): array
     {
         return [];
     }
 
-    public function getPrefixes()
+    public function getPrefixes(): array
     {
         return [];
     }
 
-    public function getPrefixesPsr4()
+    public function getPrefixesPsr4(): array
     {
         return [];
     }

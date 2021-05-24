@@ -4,7 +4,7 @@ namespace Spatie\LaravelIgnition\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Spatie\LaravelIgnition\IgnitionConfig;
+use Spatie\Ignition\Config\IgnitionConfig;
 
 class IgnitionConfigValueEnabled
 {

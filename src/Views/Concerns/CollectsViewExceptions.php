@@ -8,7 +8,7 @@ use Illuminate\View\Engines\CompilerEngine;
 
 trait CollectsViewExceptions
 {
-    protected $lastCompiledData = [];
+    protected array $lastCompiledData = [];
 
     public function collectViewData($path, array $data): void
     {

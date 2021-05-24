@@ -18,7 +18,7 @@ class CompilerEngine extends \Illuminate\View\Engines\CompilerEngine
 {
     use CollectsViewExceptions;
 
-    protected $currentPath = null;
+    protected ?string $currentPath = null;
 
     /**
      * Get the evaluated contents of the view.

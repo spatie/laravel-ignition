@@ -26,7 +26,7 @@ class QueryRecorder
         $this->maxQueries = $maxQueries;
     }
 
-    public function register()
+    public function register(): self
     {
         $this->app['events']->listen(QueryExecuted::class, [$this, 'record']);
 
