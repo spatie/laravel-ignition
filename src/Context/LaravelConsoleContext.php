@@ -2,8 +2,8 @@
 
 namespace Spatie\LaravelIgnition\Context;
 
-use Spatie\FlareClient\Context\ConsoleContext;
+use Spatie\FlareClient\Context\ConsoleContextProvider;
 
-class LaravelConsoleContext extends ConsoleContext
+class LaravelConsoleContext extends ConsoleContextProvider
 {
 }

@@ -3,10 +3,10 @@
 namespace Spatie\LaravelIgnition\Context;
 
 use Illuminate\Http\Request;
-use Spatie\FlareClient\Context\RequestContext;
+use Spatie\FlareClient\Context\RequestContextProvider;
 use Throwable;
 
-class LaravelRequestContext extends RequestContext
+class LaravelRequestContext extends RequestContextProvider
 {
     protected ?\Symfony\Component\HttpFoundation\Request $request;
 

@@ -41,7 +41,6 @@ class ErrorPageRenderer
                     ->setApiToken(config('flare.key') ?? '')
                     ->setApiSecret(config('flare.secret') ?? '')
                     ->setBaseUrl(config('flare.base_url', 'https://flareapp.io/api'))
-                    ->setContextDectector(new LaravelContextDetector)
                     ->setStage(config('app.env'))
                     ->censorRequestBodyFields(config(
                         'flare.reporting.censor_request_body_fields',
@@ -52,6 +51,7 @@ class ErrorPageRenderer
                     $flare->anonymizeIp();
                 }
             })
+            ->setContextProviderDetector(new LaravelContextDetector)
             ->applicationPath(base_path())
             ->addSolutionProviders($this->getSolutionProviders())
             ->registerMiddleware($this->getMiddlewares())
