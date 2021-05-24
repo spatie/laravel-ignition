@@ -1,5 +1,21 @@
 <?php
 
+use Spatie\Ignition\SolutionProviders\BadMethodCallSolutionProvider;
+use Spatie\Ignition\SolutionProviders\MergeConflictSolutionProvider;
+use Spatie\Ignition\SolutionProviders\UndefinedPropertySolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\DefaultDbNameSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\IncorrectValetDbCredentialsSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\InvalidRouteActionSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingAppKeySolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingColumnSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingImportSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingLivewireComponentSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingMixManifestSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\RunningLaravelDuskInProductionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\TableNotFoundSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\UnknownValidationSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\ViewNotFoundSolutionProvider;
+
 return [
 
     /*
@@ -57,6 +73,35 @@ return [
     |
     */
     'register_commands' => env('REGISTER_IGNITION_COMMANDS', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Solution Providers
+    |--------------------------------------------------------------------------
+    |
+    | You may specify a list of solution providers (as fully qualified class
+    | names) that shouldn't be loaded. Ignition will ignore these classes
+    | and possible solutions provided by them will never be displayed.
+    |
+    */
+
+    'solution_providers' => [
+        IncorrectValetDbCredentialsSolutionProvider::class,
+        MissingAppKeySolutionProvider::class,
+        DefaultDbNameSolutionProvider::class,
+        BadMethodCallSolutionProvider::class,
+        TableNotFoundSolutionProvider::class,
+        MissingImportSolutionProvider::class,
+        InvalidRouteActionSolutionProvider::class,
+        ViewNotFoundSolutionProvider::class,
+        MergeConflictSolutionProvider::class,
+        RunningLaravelDuskInProductionProvider::class,
+        MissingColumnSolutionProvider::class,
+        UnknownValidationSolutionProvider::class,
+        UndefinedPropertySolutionProvider::class,
+        MissingMixManifestSolutionProvider::class,
+        MissingLivewireComponentSolutionProvider::class,
+    ],
 
     /*
     |--------------------------------------------------------------------------

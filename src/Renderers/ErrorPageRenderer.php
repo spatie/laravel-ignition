@@ -79,30 +79,16 @@ class ErrorPageRenderer
         }
 
         return collect($middlewares)
-            ->map(fn (string $middlewareClass) => app($middlewareClass))
+            ->map(fn(string $middlewareClass) => app($middlewareClass))
             ->toArray();
     }
 
     protected function getSolutionProviders(): array
     {
-        return collect([
-            IncorrectValetDbCredentialsSolutionProvider::class,
-            MissingAppKeySolutionProvider::class,
-            DefaultDbNameSolutionProvider::class,
-            BadMethodCallSolutionProvider::class,
-            TableNotFoundSolutionProvider::class,
-            MissingImportSolutionProvider::class,
-            InvalidRouteActionSolutionProvider::class,
-            ViewNotFoundSolutionProvider::class,
-            MergeConflictSolutionProvider::class,
-            RunningLaravelDuskInProductionProvider::class,
-            MissingColumnSolutionProvider::class,
-            UnknownValidationSolutionProvider::class,
-            UndefinedPropertySolutionProvider::class,
-            MissingMixManifestSolutionProvider::class,
-            MissingLivewireComponentSolutionProvider::class,
-        ])
-            ->reject(fn (string $class) => in_array($class, config('ignition.ignored_solution_providers')))
+        return collect(config('ignition.ignored_solution_providers'))
+            ->reject(
+                fn(string $class) => in_array($class, config('ignition.ignored_solution_providers'))
+            )
             ->toArray();
     }
 }
