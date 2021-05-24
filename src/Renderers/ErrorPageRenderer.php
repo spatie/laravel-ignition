@@ -6,26 +6,11 @@ use Spatie\FlareClient\Flare;
 use Spatie\Ignition\Ignition;
 use Spatie\Ignition\Middleware\AddGitInformation;
 use Spatie\Ignition\Middleware\SetNotifierName;
-use Spatie\Ignition\SolutionProviders\BadMethodCallSolutionProvider;
-use Spatie\Ignition\SolutionProviders\MergeConflictSolutionProvider;
-use Spatie\Ignition\SolutionProviders\UndefinedPropertySolutionProvider;
 use Spatie\LaravelIgnition\Context\LaravelContextDetector;
 use Spatie\LaravelIgnition\FlareMiddleware\AddDumps;
 use Spatie\LaravelIgnition\FlareMiddleware\AddEnvironmentInformation;
 use Spatie\LaravelIgnition\FlareMiddleware\AddLogs;
 use Spatie\LaravelIgnition\FlareMiddleware\AddQueries;
-use Spatie\LaravelIgnition\Solutions\SolutionProviders\DefaultDbNameSolutionProvider;
-use Spatie\LaravelIgnition\Solutions\SolutionProviders\IncorrectValetDbCredentialsSolutionProvider;
-use Spatie\LaravelIgnition\Solutions\SolutionProviders\InvalidRouteActionSolutionProvider;
-use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingAppKeySolutionProvider;
-use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingColumnSolutionProvider;
-use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingImportSolutionProvider;
-use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingLivewireComponentSolutionProvider;
-use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingMixManifestSolutionProvider;
-use Spatie\LaravelIgnition\Solutions\SolutionProviders\RunningLaravelDuskInProductionProvider;
-use Spatie\LaravelIgnition\Solutions\SolutionProviders\TableNotFoundSolutionProvider;
-use Spatie\LaravelIgnition\Solutions\SolutionProviders\UnknownValidationSolutionProvider;
-use Spatie\LaravelIgnition\Solutions\SolutionProviders\ViewNotFoundSolutionProvider;
 use Throwable;
 
 class ErrorPageRenderer
@@ -79,7 +64,7 @@ class ErrorPageRenderer
         }
 
         return collect($middlewares)
-            ->map(fn(string $middlewareClass) => app($middlewareClass))
+            ->map(fn (string $middlewareClass) => app($middlewareClass))
             ->toArray();
     }
 
@@ -87,7 +72,7 @@ class ErrorPageRenderer
     {
         return collect(config('ignition.ignored_solution_providers'))
             ->reject(
-                fn(string $class) => in_array($class, config('ignition.ignored_solution_providers'))
+                fn (string $class) => in_array($class, config('ignition.ignored_solution_providers'))
             )
             ->toArray();
     }
