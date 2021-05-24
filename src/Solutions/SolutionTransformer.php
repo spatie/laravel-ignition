@@ -3,9 +3,9 @@
 namespace Spatie\LaravelIgnition\Solutions;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Spatie\LaravelIgnition\Http\Controllers\ExecuteSolutionController;
 use Spatie\IgnitionContracts\RunnableSolution;
 use Spatie\IgnitionContracts\Solution;
+use Spatie\LaravelIgnition\Http\Controllers\ExecuteSolutionController;
 use Throwable;
 
 class SolutionTransformer implements Arrayable

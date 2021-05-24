@@ -8,9 +8,9 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Validator;
 use ReflectionClass;
 use ReflectionMethod;
-use Spatie\LaravelIgnition\Support\StringComparator;
 use Spatie\IgnitionContracts\BaseSolution;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\LaravelIgnition\Support\StringComparator;
 use Throwable;
 
 class UnknownValidationSolutionProvider implements HasSolutionsForThrowable

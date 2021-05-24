@@ -3,8 +3,8 @@
 namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
 use Illuminate\Database\QueryException;
-use Spatie\LaravelIgnition\Solutions\RunMigrationsSolution;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\LaravelIgnition\Solutions\RunMigrationsSolution;
 use Throwable;
 
 class TableNotFoundSolutionProvider implements HasSolutionsForThrowable
