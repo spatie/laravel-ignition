@@ -20,7 +20,6 @@ use Spatie\Ignition\Ignition;
 use Spatie\LaravelIgnition\Commands\SolutionMakeCommand;
 use Spatie\LaravelIgnition\Commands\SolutionProviderMakeCommand;
 use Spatie\LaravelIgnition\Commands\TestCommand;
-use Spatie\LaravelIgnition\Recorders\DumpRecorder\DumpRecorder;
 use Spatie\LaravelIgnition\Renderers\IgnitionExceptionRenderer;
 use Spatie\LaravelIgnition\Renderers\IgnitionWhoopsHandler;
 use Spatie\LaravelIgnition\Exceptions\InvalidConfig;
@@ -29,6 +28,7 @@ use Spatie\LaravelIgnition\Http\Controllers\HealthCheckController;
 use Spatie\LaravelIgnition\Http\Middleware\IgnitionConfigValueEnabled;
 use Spatie\LaravelIgnition\Http\Middleware\IgnitionEnabled;
 use Spatie\LaravelIgnition\Logger\FlareLogHandler;
+use Spatie\LaravelIgnition\Recorders\DumpRecorder\DumpRecorder;
 use Spatie\LaravelIgnition\Recorders\LogRecorder\LogRecorder;
 use Spatie\LaravelIgnition\Recorders\QueryRecorder\QueryRecorder;
 use Spatie\LaravelIgnition\Views\Engines\CompilerEngine;
@@ -44,10 +44,11 @@ class IgnitionServiceProvider extends PackageServiceProvider
             ->name('laravel-ignition')
             ->hasConfigFile(['flare', 'ignition']);
 
-        if ($this->app['config']->get('flare.key'))
+        if ($this->app['config']->get('flare.key')) {
             $package->hasCommands([
                 TestCommand::class,
             ]);
+        }
 
         if ($this->app['config']->get('ignition.register_commands')) {
             $package->hasCommands([
@@ -103,12 +104,12 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
     protected function registerIgnition(): self
     {
-        $this->app->singleton(Ignition::class, fn() => new Ignition());
+        $this->app->singleton(Ignition::class, fn () => new Ignition());
     }
 
     protected function registerViewEngines(): self
     {
-        if (!$this->hasCustomViewEnginesRegistered()) {
+        if (! $this->hasCustomViewEnginesRegistered()) {
             return $this;
         }
 
@@ -153,14 +154,14 @@ class IgnitionServiceProvider extends PackageServiceProvider
         if (interface_exists(HandlerInterface::class)) {
             $this->app->bind(
                 HandlerInterface::class,
-                fn(Application $app) => $app->make(IgnitionWhoopsHandler::class)
+                fn (Application $app) => $app->make(IgnitionWhoopsHandler::class)
             );
         }
 
         if (interface_exists(ExceptionRenderer::class)) {
             $this->app->bind(
                 ExceptionRenderer::class,
-                fn(Application $app) => $app->make(IgnitionExceptionRenderer::class)
+                fn (Application $app) => $app->make(IgnitionExceptionRenderer::class)
             );
         }
 
@@ -186,7 +187,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
         $this->app['log'] instanceof LogManager
 
-            ? Log::extend('flare', fn($app) => $app['flare.logger'])
+            ? Log::extend('flare', fn ($app) => $app['flare.logger'])
             : $this->bindLogListener();
 
         return $this;
@@ -196,7 +197,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
     {
         $logLevel = Logger::getLevels()[strtoupper($logLevelString)] ?? null;
 
-        if (!$logLevel) {
+        if (! $logLevel) {
             throw InvalidConfig::invalidLogLevel($logLevelString);
         }
 
@@ -236,7 +237,8 @@ class IgnitionServiceProvider extends PackageServiceProvider
                     $app->get('config')->get('flare.reporting.report_query_bindings'),
                     $app->get('config')->get('flare.reporting.maximum_number_of_collected_queries')
                 );
-            });
+            }
+        );
 
         return $this;
     }
@@ -245,11 +247,11 @@ class IgnitionServiceProvider extends PackageServiceProvider
     {
         $resolver = $this->app->make('view.engine.resolver');
 
-        if (!$resolver->resolve('php') instanceof LaravelPhpEngine) {
+        if (! $resolver->resolve('php') instanceof LaravelPhpEngine) {
             return false;
         }
 
-        if (!$resolver->resolve('blade') instanceof LaravelCompilerEngine) {
+        if (! $resolver->resolve('blade') instanceof LaravelCompilerEngine) {
             return false;
         }
 
@@ -259,7 +261,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
     protected function bindLogListener()
     {
         $this->app['log']->listen(function (MessageLogged $messageLogged) {
-            if (!config('flare.key')) {
+            if (! config('flare.key')) {
                 return;
             }
 

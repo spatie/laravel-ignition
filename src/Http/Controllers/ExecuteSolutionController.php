@@ -3,10 +3,10 @@
 namespace Spatie\LaravelIgnition\Http\Controllers;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Spatie\IgnitionContracts\SolutionProviderRepository;
 use Spatie\LaravelIgnition\Exceptions\CannotExecuteSolutionForNonLocalEnvironment;
 use Spatie\LaravelIgnition\Exceptions\CannotExecuteSolutionForNonLocalIp;
 use Spatie\LaravelIgnition\Http\Requests\ExecuteSolutionRequest;
-use Spatie\IgnitionContracts\SolutionProviderRepository;
 
 class ExecuteSolutionController
 {
