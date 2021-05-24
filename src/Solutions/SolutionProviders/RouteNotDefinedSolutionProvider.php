@@ -2,10 +2,7 @@
 
 namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use InvalidArgumentException;
-use Spatie\Ignition\Exceptions\ViewException;
 use Spatie\IgnitionContracts\BaseSolution;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
 use Spatie\LaravelIgnition\Support\StringComparator;
@@ -18,7 +15,7 @@ class RouteNotDefinedSolutionProvider implements HasSolutionsForThrowable
 
     public function canSolve(Throwable $throwable): bool
     {
-        if (!$throwable instanceof RouteNotFoundException) {
+        if (! $throwable instanceof RouteNotFoundException) {
             return false;
         }
 
