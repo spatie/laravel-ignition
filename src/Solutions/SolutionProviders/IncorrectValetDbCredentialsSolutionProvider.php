@@ -3,8 +3,8 @@
 namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
 use Illuminate\Database\QueryException;
-use Spatie\LaravelIgnition\Solutions\UseDefaultValetDbCredentialsSolution;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\LaravelIgnition\Solutions\UseDefaultValetDbCredentialsSolution;
 use Throwable;
 
 class IncorrectValetDbCredentialsSolutionProvider implements HasSolutionsForThrowable

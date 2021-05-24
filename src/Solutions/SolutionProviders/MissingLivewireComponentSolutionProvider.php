@@ -4,8 +4,8 @@ namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
 use Livewire\Exceptions\ComponentNotFoundException;
 use Livewire\LivewireComponentsFinder;
-use Spatie\LaravelIgnition\Solutions\LivewireDiscoverSolution;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\LaravelIgnition\Solutions\LivewireDiscoverSolution;
 use Throwable;
 
 class MissingLivewireComponentSolutionProvider implements HasSolutionsForThrowable

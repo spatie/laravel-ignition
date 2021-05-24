@@ -3,8 +3,8 @@
 namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
 use Illuminate\Database\QueryException;
-use Spatie\LaravelIgnition\Solutions\SuggestUsingCorrectDbNameSolution;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\LaravelIgnition\Solutions\SuggestUsingCorrectDbNameSolution;
 use Throwable;
 
 class DefaultDbNameSolutionProvider implements HasSolutionsForThrowable
