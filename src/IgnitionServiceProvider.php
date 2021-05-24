@@ -21,8 +21,8 @@ use Spatie\LaravelIgnition\Commands\SolutionMakeCommand;
 use Spatie\LaravelIgnition\Commands\SolutionProviderMakeCommand;
 use Spatie\LaravelIgnition\Commands\TestCommand;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\DumpRecorder;
-use Spatie\LaravelIgnition\ErrorPage\IgnitionExceptionRenderer;
-use Spatie\LaravelIgnition\ErrorPage\IgnitionWhoopsHandler;
+use Spatie\LaravelIgnition\Renderers\IgnitionExceptionRenderer;
+use Spatie\LaravelIgnition\Renderers\IgnitionWhoopsHandler;
 use Spatie\LaravelIgnition\Exceptions\InvalidConfig;
 use Spatie\LaravelIgnition\Http\Controllers\ExecuteSolutionController;
 use Spatie\LaravelIgnition\Http\Controllers\HealthCheckController;
@@ -135,7 +135,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
         Route::group([
             'as' => 'ignition.',
-            'prefix' => config('ignition.housekeeping_endpoint_prefix', '_ignition'),
+            'prefix' => config('ignition.housekeeping_endpoint_prefix'),
             'middleware' => [IgnitionEnabled::class],
         ], function () {
             Route::get('health-check', HealthCheckController::class)->name('healthCheck');

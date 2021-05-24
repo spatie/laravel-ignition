@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LaravelIgnition\ErrorPage;
+namespace Spatie\LaravelIgnition\Renderers;
 
 use Illuminate\Foundation\Application;
 use Spatie\FlareClient\Flare;
@@ -14,33 +14,33 @@ use Spatie\Ignition\SolutionProviders\MergeConflictSolutionProvider;
 use Spatie\Ignition\SolutionProviders\UndefinedPropertySolutionProvider;
 use Spatie\IgnitionContracts\SolutionProviderRepository;
 use Spatie\LaravelIgnition\Context\LaravelContextDetector;
-use Spatie\LaravelIgnition\Middleware\AddDumps;
-use Spatie\LaravelIgnition\Middleware\AddEnvironmentInformation;
-use Spatie\LaravelIgnition\Middleware\AddLogs;
-use Spatie\LaravelIgnition\Middleware\AddQueries;
-use Spatie\LaravelIgnition\SolutionProviders\DefaultDbNameSolutionProvider;
-use Spatie\LaravelIgnition\SolutionProviders\IncorrectValetDbCredentialsSolutionProvider;
-use Spatie\LaravelIgnition\SolutionProviders\InvalidRouteActionSolutionProvider;
-use Spatie\LaravelIgnition\SolutionProviders\MissingAppKeySolutionProvider;
-use Spatie\LaravelIgnition\SolutionProviders\MissingColumnSolutionProvider;
-use Spatie\LaravelIgnition\SolutionProviders\MissingImportSolutionProvider;
-use Spatie\LaravelIgnition\SolutionProviders\MissingLivewireComponentSolutionProvider;
-use Spatie\LaravelIgnition\SolutionProviders\MissingMixManifestSolutionProvider;
-use Spatie\LaravelIgnition\SolutionProviders\RunningLaravelDuskInProductionProvider;
-use Spatie\LaravelIgnition\SolutionProviders\TableNotFoundSolutionProvider;
-use Spatie\LaravelIgnition\SolutionProviders\UnknownValidationSolutionProvider;
-use Spatie\LaravelIgnition\SolutionProviders\ViewNotFoundSolutionProvider;
+use Spatie\LaravelIgnition\FlareMiddleware\AddDumps;
+use Spatie\LaravelIgnition\FlareMiddleware\AddEnvironmentInformation;
+use Spatie\LaravelIgnition\FlareMiddleware\AddLogs;
+use Spatie\LaravelIgnition\FlareMiddleware\AddQueries;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\DefaultDbNameSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\IncorrectValetDbCredentialsSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\InvalidRouteActionSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingAppKeySolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingColumnSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingImportSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingLivewireComponentSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingMixManifestSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\RunningLaravelDuskInProductionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\TableNotFoundSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\UnknownValidationSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\ViewNotFoundSolutionProvider;
 use Throwable;
 
-class ErrorPageHandler
+class ErrorPageRenderer
 {
-    public function handle(Throwable $throwable) : void
+    public function render(Throwable $throwable): void
     {
         /** @var Ignition $ignition */
         $ignition = app(Ignition::class);
 
         $ignition
-            ->configureFlare(function(Flare $flare) {
+            ->configureFlare(function (Flare $flare) {
                 $flare
                     ->setApiToken(config('flare.key'))
                     ->setApiSecret(config('flare.secret'))
@@ -56,7 +56,7 @@ class ErrorPageHandler
 
             })
             ->applicationPath(base_path())
-            ->addSolutions($this->getSolutions())
+            ->addSolutionProviders($this->getSolutionProviders())
             ->registerMiddleware($this->getMiddlewares())
             ->renderException($throwable);
     }
@@ -86,9 +86,9 @@ class ErrorPageHandler
             ->toArray();
     }
 
-    protected function getSolutions(): array
+    protected function getSolutionProviders(): array
     {
-        return [
+        return collect([
             IncorrectValetDbCredentialsSolutionProvider::class,
             MissingAppKeySolutionProvider::class,
             DefaultDbNameSolutionProvider::class,
@@ -104,6 +104,8 @@ class ErrorPageHandler
             UndefinedPropertySolutionProvider::class,
             MissingMixManifestSolutionProvider::class,
             MissingLivewireComponentSolutionProvider::class,
-        ];
+        ])
+            ->reject(fn(string $class) => in_array($class, config('ignition.ignored_solution_providers')))
+            ->toArray();
     }
 }

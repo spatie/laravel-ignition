@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LaravelIgnition\SolutionProviders;
+namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
 use Livewire\Exceptions\ComponentNotFoundException;
 use Livewire\LivewireComponentsFinder;

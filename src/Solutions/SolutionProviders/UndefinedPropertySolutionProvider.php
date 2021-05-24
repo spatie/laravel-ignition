@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LaravelIgnition\SolutionProviders;
+namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
 use ErrorException;
 use Illuminate\Support\Collection;

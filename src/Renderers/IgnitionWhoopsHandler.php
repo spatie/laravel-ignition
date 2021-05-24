@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LaravelIgnition\ErrorPage;
+namespace Spatie\LaravelIgnition\Renderers;
 
 use Error;
 use ErrorException;
@@ -9,11 +9,11 @@ use Whoops\Handler\Handler;
 
 class IgnitionWhoopsHandler extends Handler
 {
-    protected ErrorPageHandler $errorPageHandler;
+    protected ErrorPageRenderer $errorPageHandler;
 
     protected Throwable $exception;
 
-    public function __construct(ErrorPageHandler $errorPageHandler)
+    public function __construct(ErrorPageRenderer $errorPageHandler)
     {
         $this->errorPageHandler = $errorPageHandler;
     }
@@ -21,7 +21,7 @@ class IgnitionWhoopsHandler extends Handler
     public function handle(): ?int
     {
         try {
-            $this->errorPageHandler->handle($this->exception);
+            $this->errorPageHandler->render($this->exception);
         } catch (Error $error) {
             // Errors aren't caught by Whoops.
             // Convert the error to an exception and throw again.

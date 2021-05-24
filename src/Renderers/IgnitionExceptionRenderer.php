@@ -1,14 +1,14 @@
 <?php
 
-namespace Spatie\LaravelIgnition\ErrorPage;
+namespace Spatie\LaravelIgnition\Renderers;
 
 use Illuminate\Contracts\Foundation\ExceptionRenderer;
 
 class IgnitionExceptionRenderer implements ExceptionRenderer
 {
-    protected ErrorPageHandler $errorPageHandler;
+    protected ErrorPageRenderer $errorPageHandler;
 
-    public function __construct(ErrorPageHandler $errorPageHandler)
+    public function __construct(ErrorPageRenderer $errorPageHandler)
     {
         $this->errorPageHandler = $errorPageHandler;
     }
@@ -17,7 +17,7 @@ class IgnitionExceptionRenderer implements ExceptionRenderer
     {
         ob_start();
 
-        $this->errorPageHandler->handle($throwable);
+        $this->errorPageHandler->render($throwable);
 
         return ob_get_clean();
     }

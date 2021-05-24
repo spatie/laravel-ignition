@@ -70,7 +70,7 @@ return [
     */
 
     'ignored_solution_providers' => [
-        \Spatie\Ignition\SolutionProviders\MissingPackageSolutionProvider::class,
+
     ],
 
     /*
