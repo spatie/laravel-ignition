@@ -2,17 +2,13 @@
 
 namespace Spatie\LaravelIgnition\ErrorPage;
 
-use Illuminate\Foundation\Application;
 use Spatie\FlareClient\Flare;
-use Spatie\FlareClient\Report;
 use Spatie\Ignition\Ignition;
-use Spatie\Ignition\IgnitionConfig;
 use Spatie\Ignition\Middleware\AddGitInformation;
 use Spatie\Ignition\Middleware\SetNotifierName;
 use Spatie\Ignition\SolutionProviders\BadMethodCallSolutionProvider;
 use Spatie\Ignition\SolutionProviders\MergeConflictSolutionProvider;
 use Spatie\Ignition\SolutionProviders\UndefinedPropertySolutionProvider;
-use Spatie\IgnitionContracts\SolutionProviderRepository;
 use Spatie\LaravelIgnition\Context\LaravelContextDetector;
 use Spatie\LaravelIgnition\Middleware\AddDumps;
 use Spatie\LaravelIgnition\Middleware\AddEnvironmentInformation;
@@ -40,20 +36,21 @@ class ErrorPageHandler
         $ignition = app(Ignition::class);
 
         $ignition
-            ->configureFlare(function(Flare $flare) {
+            ->configureFlare(function (Flare $flare) {
                 $flare
                     ->setApiToken(config('flare.key'))
                     ->setApiSecret(config('flare.secret'))
                     ->setBaseUrl(config('flare.base_url', 'https://flareapp.io/api'))
                     ->setContextDectector(new LaravelContextDetector)
                     ->setStage(config('app.env'))
-                    ->censorRequestBodyFields(config('flare.reporting.censor_request_body_fields',
-                        ['password']));
+                    ->censorRequestBodyFields(config(
+                        'flare.reporting.censor_request_body_fields',
+                        ['password']
+                    ));
 
                 if (config('flare.reporting.anonymize_ips')) {
                     $flare->anonymizeIp();
                 }
-
             })
             ->applicationPath(base_path())
             ->addSolutions($this->getSolutions())
@@ -82,7 +79,7 @@ class ErrorPageHandler
         }
 
         return collect($middlewares)
-            ->map(fn(string $middlewareClass) => $this->app->make($middlewareClass))
+            ->map(fn (string $middlewareClass) => $this->app->make($middlewareClass))
             ->toArray();
     }
 
