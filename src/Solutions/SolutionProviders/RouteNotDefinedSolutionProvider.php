@@ -18,16 +18,8 @@ class RouteNotDefinedSolutionProvider implements HasSolutionsForThrowable
 
     public function canSolve(Throwable $throwable): bool
     {
-        if (version_compare(Application::VERSION, '6.0.0', '>=')) {
-            if (! $throwable instanceof RouteNotFoundException) {
-                return false;
-            }
-        }
-
-        if (version_compare(Application::VERSION, '6.0.0', '<')) {
-            if (! $throwable instanceof InvalidArgumentException && ! $throwable instanceof ViewException) {
-                return false;
-            }
+        if (!$throwable instanceof RouteNotFoundException) {
+            return false;
         }
 
         return (bool)preg_match(self::REGEX, $throwable->getMessage(), $matches);

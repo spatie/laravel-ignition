@@ -4,7 +4,6 @@ namespace Spatie\LaravelIgnition\Exceptions;
 
 use ErrorException;
 use Spatie\FlareClient\Contracts\ProvidesFlareContext;
-use Spatie\Ignition\DumpRecorder\HtmlDumper;
 
 class ViewException extends ErrorException implements ProvidesFlareContext
 {
