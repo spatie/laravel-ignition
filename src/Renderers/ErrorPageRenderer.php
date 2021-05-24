@@ -102,7 +102,7 @@ class ErrorPageRenderer
             MissingMixManifestSolutionProvider::class,
             MissingLivewireComponentSolutionProvider::class,
         ])
-            ->reject(fn(string $class) => in_array($class, config('ignition.ignored_solution_providers')))
+            ->reject(fn (string $class) => in_array($class, config('ignition.ignored_solution_providers')))
             ->toArray();
     }
 }
