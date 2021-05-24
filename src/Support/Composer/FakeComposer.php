@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Support;
+namespace Spatie\LaravelIgnition\Support\Composer;
 
 class FakeComposer
 {

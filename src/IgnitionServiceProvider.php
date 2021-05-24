@@ -25,7 +25,7 @@ use Spatie\LaravelIgnition\Http\Controllers\ExecuteSolutionController;
 use Spatie\LaravelIgnition\Http\Controllers\HealthCheckController;
 use Spatie\LaravelIgnition\Http\Middleware\IgnitionConfigValueEnabled;
 use Spatie\LaravelIgnition\Http\Middleware\IgnitionEnabled;
-use Spatie\LaravelIgnition\Logger\FlareLogHandler;
+use Spatie\LaravelIgnition\Support\FlareLogHandler;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\DumpRecorder;
 use Spatie\LaravelIgnition\Recorders\LogRecorder\LogRecorder;
 use Spatie\LaravelIgnition\Recorders\QueryRecorder\QueryRecorder;

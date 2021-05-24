@@ -1,10 +1,13 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Support;
+namespace Spatie\LaravelIgnition\Support\Composer;
 
 use Illuminate\Support\Str;
+use Spatie\LaravelIgnition\Support\Composer\FakeComposer;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
+use function app_path;
+use function base_path;
 
 class ComposerClassMap
 {
@@ -19,7 +22,7 @@ class ComposerClassMap
         $this->composer = file_exists($autoloaderPath)
             ? require $autoloaderPath
             : new FakeComposer();
-      
+
         $this->basePath = app_path();
     }
 

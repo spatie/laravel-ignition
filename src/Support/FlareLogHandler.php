@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Logger;
+namespace Spatie\LaravelIgnition\Support;
 
 use InvalidArgumentException;
 use Monolog\Handler\AbstractProcessingHandler;

@@ -5,7 +5,7 @@ namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 use Illuminate\Support\Str;
 use Spatie\IgnitionContracts\BaseSolution;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
-use Spatie\LaravelIgnition\Support\ComposerClassMap;
+use Spatie\LaravelIgnition\Support\Composer\ComposerClassMap;
 use Spatie\LaravelIgnition\Support\StringComparator;
 use Throwable;
 use UnexpectedValueException;
