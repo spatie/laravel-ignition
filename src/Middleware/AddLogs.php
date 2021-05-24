@@ -3,7 +3,7 @@
 namespace Spatie\LaravelIgnition\Middleware;
 
 use Spatie\FlareClient\Report;
-use Spatie\LaravelIgnition\LogRecorder\LogRecorder;
+use Spatie\LaravelIgnition\Recorders\LogRecorder\LogRecorder;
 
 class AddLogs
 {

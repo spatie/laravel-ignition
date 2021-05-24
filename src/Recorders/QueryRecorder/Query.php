@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LaravelIgnition\QueryRecorder;
+namespace Spatie\LaravelIgnition\Recorders\QueryRecorder;
 
 use Illuminate\Database\Events\QueryExecuted;
 

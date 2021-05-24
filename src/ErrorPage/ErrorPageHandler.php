@@ -7,10 +7,17 @@ use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\Report;
 use Spatie\Ignition\Ignition;
 use Spatie\Ignition\IgnitionConfig;
+use Spatie\Ignition\Middleware\AddGitInformation;
+use Spatie\Ignition\Middleware\SetNotifierName;
 use Spatie\Ignition\SolutionProviders\BadMethodCallSolutionProvider;
 use Spatie\Ignition\SolutionProviders\MergeConflictSolutionProvider;
 use Spatie\Ignition\SolutionProviders\UndefinedPropertySolutionProvider;
 use Spatie\IgnitionContracts\SolutionProviderRepository;
+use Spatie\LaravelIgnition\Context\LaravelContextDetector;
+use Spatie\LaravelIgnition\Middleware\AddDumps;
+use Spatie\LaravelIgnition\Middleware\AddEnvironmentInformation;
+use Spatie\LaravelIgnition\Middleware\AddLogs;
+use Spatie\LaravelIgnition\Middleware\AddQueries;
 use Spatie\LaravelIgnition\SolutionProviders\DefaultDbNameSolutionProvider;
 use Spatie\LaravelIgnition\SolutionProviders\IncorrectValetDbCredentialsSolutionProvider;
 use Spatie\LaravelIgnition\SolutionProviders\InvalidRouteActionSolutionProvider;
@@ -27,73 +34,56 @@ use Throwable;
 
 class ErrorPageHandler
 {
-    protected IgnitionConfig $ignitionConfig;
-
-    protected Flare $flareClient;
-
-    protected Renderer $renderer;
-
-    protected SolutionProviderRepository $solutionProviderRepository;
-
-    public function __construct(
-        Application $app,
-        IgnitionConfig $ignitionConfig,
-        Renderer $renderer,
-        SolutionProviderRepository $solutionProviderRepository
-    ) {
-        $this->flareClient = $app->make(Flare::class);
-
-        $this->ignitionConfig = $ignitionConfig;
-
-        $this->renderer = $renderer;
-
-        $this->solutionProviderRepository = $solutionProviderRepository;
-    }
-
-    public function handle(Throwable $throwable, $defaultTab = null, $defaultTabProps = []) : void
+    public function handle(Throwable $throwable) : void
     {
-        Ignition::make()
-            //->addSolutionsProviders($this->getSolutions())
-            ->useFlare(app(Flare::class))
+        /** @var Ignition $ignition */
+        $ignition = app(Ignition::class);
+
+        $ignition
+            ->configureFlare(function(Flare $flare) {
+                $flare
+                    ->setApiToken(config('flare.key'))
+                    ->setApiSecret(config('flare.secret'))
+                    ->setBaseUrl(config('flare.base_url', 'https://flareapp.io/api'))
+                    ->setContextDectector(new LaravelContextDetector)
+                    ->setStage(config('app.env'))
+                    ->censorRequestBodyFields(config('flare.reporting.censor_request_body_fields',
+                        ['password']));
+
+                if (config('flare.reporting.anonymize_ips')) {
+                    $flare->anonymizeIp();
+                }
+
+            })
+            ->applicationPath(base_path())
+            ->addSolutions($this->getSolutions())
+            ->registerMiddleware($this->getMiddlewares())
             ->renderException($throwable);
-
-
-        $report = $this->flareClient->createReport($throwable);
-
-        $solutions = $this->solutionProviderRepository->getSolutionsForThrowable($throwable);
-
-        $viewModel = new ErrorPageViewModel(
-            $throwable,
-            $this->ignitionConfig,
-            $report,
-            $solutions
-        );
-
-        $viewModel->defaultTab($defaultTab, $defaultTabProps);
-
-        $this->renderException($viewModel);
     }
 
-    public function handleReport(Report $report, $defaultTab = null, $defaultTabProps = []): void
+    protected function getMiddlewares(): array
     {
-        $viewModel = new ErrorPageViewModel(
-            $report->getThrowable(),
-            $this->ignitionConfig,
-            $report,
-            [],
-        );
+        $middlewares = [
+            SetNotifierName::class,
+            AddEnvironmentInformation::class,
+            AddDumps::class,
+        ];
 
-        $viewModel->defaultTab($defaultTab, $defaultTabProps);
+        if (config('flare.reporting.report_logs')) {
+            $middlewares[] = AddLogs::class;
+        }
 
-        $this->renderException($viewModel);
-    }
+        if (config('flare.reporting.report_queries')) {
+            $middlewares[] = AddQueries::class;
+        }
 
-    protected function renderException(ErrorPageViewModel $exceptionViewModel): void
-    {
-        echo $this->renderer->render(
-            'errorPage',
-            $exceptionViewModel->toArray(),
-        );
+        if (config('flare.reporting.collect_git_information')) {
+            $middlewares[] = AddGitInformation::class;
+        }
+
+        return collect($middlewares)
+            ->map(fn(string $middlewareClass) => $this->app->make($middlewareClass))
+            ->toArray();
     }
 
     protected function getSolutions(): array

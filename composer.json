@@ -13,20 +13,20 @@
         "php": "^7.4|^8.0",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "spatie/ignition": "dev-main as 1.8",
-        "spatie/flare-client-php": "dev-main as 1.8",
-        "spatie/ignition-contracts": "dev-main as 1.0.3",
-
         "illuminate/support": "^7.0|^8.0",
         "monolog/monolog": "^2.0",
+        "spatie/flare-client-php": "dev-main as 1.8",
+        "spatie/ignition": "dev-main as 1.8",
+        "spatie/ignition-contracts": "dev-main as 1.0.3",
+        "spatie/laravel-package-tools": "^1.9",
         "symfony/console": "^5.0",
         "symfony/var-dumper": "^5.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.3",
         "orchestra/testbench": "^5.0|^6.0",
-        "psalm/plugin-laravel": "^1.2",
-        "spatie/laravel-ray": "^1.17"
+        "psalm/plugin-laravel": "^1.4",
+        "spatie/laravel-ray": "^1.18"
     },
     "config": {
         "sort-packages": true

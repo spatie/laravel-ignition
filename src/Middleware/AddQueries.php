@@ -3,7 +3,7 @@
 namespace Spatie\LaravelIgnition\Middleware;
 
 use Spatie\FlareClient\Report;
-use Spatie\LaravelIgnition\QueryRecorder\QueryRecorder;
+use Spatie\LaravelIgnition\Recorders\QueryRecorder\QueryRecorder;
 
 class AddQueries
 {

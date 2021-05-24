@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LaravelIgnition\DumpRecorder;
+namespace Spatie\LaravelIgnition\Recorders\DumpRecorder;
 
 class MultiDumpHandler
 {

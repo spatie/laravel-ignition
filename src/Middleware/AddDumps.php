@@ -3,7 +3,7 @@
 namespace Spatie\LaravelIgnition\Middleware;
 
 use Spatie\FlareClient\Report;
-use Spatie\LaravelIgnition\DumpRecorder\DumpRecorder;
+use Spatie\LaravelIgnition\Recorders\DumpRecorder\DumpRecorder;
 
 class AddDumps
 {
