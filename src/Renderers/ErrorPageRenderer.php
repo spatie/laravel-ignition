@@ -38,8 +38,8 @@ class ErrorPageRenderer
         $ignition
             ->configureFlare(function (Flare $flare) {
                 $flare
-                    ->setApiToken(config('flare.key'))
-                    ->setApiSecret(config('flare.secret'))
+                    ->setApiToken(config('flare.key') ?? '')
+                    ->setApiSecret(config('flare.secret') ?? '')
                     ->setBaseUrl(config('flare.base_url', 'https://flareapp.io/api'))
                     ->setContextDectector(new LaravelContextDetector)
                     ->setStage(config('app.env'))
@@ -79,7 +79,7 @@ class ErrorPageRenderer
         }
 
         return collect($middlewares)
-            ->map(fn (string $middlewareClass) => $this->app->make($middlewareClass))
+            ->map(fn (string $middlewareClass) => app($middlewareClass))
             ->toArray();
     }
 

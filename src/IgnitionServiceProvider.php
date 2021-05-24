@@ -35,6 +35,7 @@ use Spatie\LaravelIgnition\Views\Engines\CompilerEngine;
 use Spatie\LaravelIgnition\Views\Engines\PhpEngine;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Whoops\Handler\HandlerInterface;
 
 class IgnitionServiceProvider extends PackageServiceProvider
 {
@@ -90,7 +91,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
     public function packageRegistered()
     {
         $this
-            ->registerExceptionRenderer()
+            ->registerRenderer()
             ->registerDumpCollector();
 
         if (config('flare.reporting.report_logs')) {
@@ -105,6 +106,8 @@ class IgnitionServiceProvider extends PackageServiceProvider
     protected function registerIgnition(): self
     {
         $this->app->singleton(Ignition::class, fn () => new Ignition());
+
+        return $this;
     }
 
     protected function registerViewEngines(): self
@@ -149,7 +152,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
         return $this;
     }
 
-    protected function registerExceptionRenderer(): self
+    protected function registerRenderer(): self
     {
         if (interface_exists(HandlerInterface::class)) {
             $this->app->bind(
