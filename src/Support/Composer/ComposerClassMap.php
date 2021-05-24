@@ -2,12 +2,11 @@
 
 namespace Spatie\LaravelIgnition\Support\Composer;
 
-use Illuminate\Support\Str;
-use Spatie\LaravelIgnition\Support\Composer\FakeComposer;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 use function app_path;
 use function base_path;
+use Illuminate\Support\Str;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 
 class ComposerClassMap
 {
