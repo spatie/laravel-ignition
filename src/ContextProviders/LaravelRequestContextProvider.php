@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Context;
+namespace Spatie\LaravelIgnition\ContextProviders;
 
 use Illuminate\Http\Request;
 use Spatie\FlareClient\Context\RequestContextProvider;
 use Throwable;
 
-class LaravelRequestContext extends RequestContextProvider
+class LaravelRequestContextProvider extends RequestContextProvider
 {
     protected ?\Symfony\Component\HttpFoundation\Request $request;
 

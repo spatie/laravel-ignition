@@ -6,7 +6,7 @@ use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\FlareMiddleware\AddGitInformation;
 use Spatie\FlareClient\FlareMiddleware\SetNotifierName;
 use Spatie\Ignition\Ignition;
-use Spatie\LaravelIgnition\Context\LaravelContextDetector;
+use Spatie\LaravelIgnition\ContextProviders\LaravelContextProviderDetector;
 use Spatie\LaravelIgnition\FlareMiddleware\AddDumps;
 use Spatie\LaravelIgnition\FlareMiddleware\AddEnvironmentInformation;
 use Spatie\LaravelIgnition\FlareMiddleware\AddLogs;
@@ -36,7 +36,7 @@ class ErrorPageRenderer
                     $flare->anonymizeIp();
                 }
             })
-            ->setContextProviderDetector(new LaravelContextDetector)
+            ->setContextProviderDetector(new LaravelContextProviderDetector)
             ->applicationPath(base_path())
             ->addSolutionProviders($this->getSolutionProviders())
             ->registerMiddleware($this->getMiddlewares())
