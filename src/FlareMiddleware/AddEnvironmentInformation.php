@@ -2,11 +2,13 @@
 
 namespace Spatie\LaravelIgnition\FlareMiddleware;
 
+use Closure;
+use Spatie\FlareClient\FlareMiddleware\FlareMiddleware;
 use Spatie\FlareClient\Report;
 
-class AddEnvironmentInformation
+class AddEnvironmentInformation implements FlareMiddleware
 {
-    public function handle(Report $report, $next)
+    public function handle(Report $report, Closure $next)
     {
         $report->frameworkVersion(app()->version());
 

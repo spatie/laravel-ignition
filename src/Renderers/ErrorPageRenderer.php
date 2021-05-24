@@ -3,9 +3,9 @@
 namespace Spatie\LaravelIgnition\Renderers;
 
 use Spatie\FlareClient\Flare;
+use Spatie\FlareClient\FlareMiddleware\AddGitInformation;
+use Spatie\FlareClient\FlareMiddleware\SetNotifierName;
 use Spatie\Ignition\Ignition;
-use Spatie\Ignition\Middleware\AddGitInformation;
-use Spatie\Ignition\Middleware\SetNotifierName;
 use Spatie\LaravelIgnition\Context\LaravelContextDetector;
 use Spatie\LaravelIgnition\FlareMiddleware\AddDumps;
 use Spatie\LaravelIgnition\FlareMiddleware\AddEnvironmentInformation;

@@ -13,7 +13,7 @@
         "php": "^7.4|^8.0",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "illuminate/support": "^7.0|^8.0",
+        "illuminate/support": "^8.0",
         "monolog/monolog": "^2.0",
         "spatie/flare-client-php": "dev-main as 1.8",
         "spatie/ignition": "dev-main as 1.8",

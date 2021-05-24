@@ -9,9 +9,9 @@ class AddQueries
 {
     protected QueryRecorder $queryRecorder;
 
-    public function __construct(QueryRecorder $queryRecorder)
+    public function __construct()
     {
-        $this->queryRecorder = $queryRecorder;
+        $this->queryRecorder = app(QueryRecorder::class);
     }
 
     public function handle(Report $report, $next)

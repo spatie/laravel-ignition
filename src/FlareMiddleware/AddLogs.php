@@ -2,16 +2,15 @@
 
 namespace Spatie\LaravelIgnition\FlareMiddleware;
 
+use Spatie\FlareClient\FlareMiddleware\FlareMiddleware;
 use Spatie\FlareClient\Report;
 use Spatie\LaravelIgnition\Recorders\LogRecorder\LogRecorder;
 
-class AddLogs
+class AddLogs implements FlareMiddleware
 {
-    protected LogRecorder $logRecorder;
-
-    public function __construct(LogRecorder $logRecorder)
+    public function __construct()
     {
-        $this->logRecorder = $logRecorder;
+        $this->logRecorder = app(LogRecorder::class);
     }
 
     public function handle(Report $report, $next)
