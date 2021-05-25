@@ -63,12 +63,11 @@ class IgnitionServiceProvider extends PackageServiceProvider
     {
         if ($this->app->runningInConsole()) {
             if (isset($_SERVER['argv']) && ['artisan', 'tinker'] === $_SERVER['argv']) {
-                Api::sendReportsInBatches(false);
+                Api::sendReportsInBatches(false); //TODO: add method on flare for this
             }
         }
 
         $this
-            ->registerIgnition()
             ->registerViewEngines()
             ->registerRoutes()
             ->registerLogHandler();
@@ -91,6 +90,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
     public function packageRegistered()
     {
         $this
+            ->registerIgnition()
             ->registerRenderer()
             ->registerDumpCollector();
 

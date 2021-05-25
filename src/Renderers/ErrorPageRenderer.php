@@ -21,6 +21,7 @@ class ErrorPageRenderer
         $ignition = app(Ignition::class);
 
         $ignition
+            ->setFlare(app(Flare::class)) // consider adding this and move configuration of flare to service provider
             ->configureFlare(function (Flare $flare) {
                 $flare
                     ->setApiToken(config('flare.key') ?? '')
@@ -36,10 +37,10 @@ class ErrorPageRenderer
                     $flare->anonymizeIp();
                 }
             })
-            ->setContextProviderDetector(new LaravelContextProviderDetector)
+            ->setContextProviderDetector(new LaravelContextProviderDetector())
             ->applicationPath(base_path())
             ->addSolutionProviders($this->getSolutionProviders())
-            ->registerMiddleware($this->getMiddlewares())
+            ->registerMiddleware($this->getMiddlewares()) // move to flare registration in service provider
             ->renderException($throwable);
     }
 
