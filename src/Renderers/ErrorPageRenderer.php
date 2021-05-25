@@ -25,7 +25,6 @@ class ErrorPageRenderer
             ->configureFlare(function (Flare $flare) {
                 $flare
                     ->setApiToken(config('flare.key') ?? '')
-                    ->setApiSecret(config('flare.secret') ?? '')
                     ->setBaseUrl(config('flare.base_url', 'https://flareapp.io/api'))
                     ->setStage(config('app.env'))
                     ->censorRequestBodyFields(config(
@@ -41,7 +40,7 @@ class ErrorPageRenderer
             ->applicationPath(base_path())
             ->addSolutionProviders($this->getSolutionProviders())
             ->registerMiddleware($this->getMiddlewares()) // move to flare registration in service provider
-            ->renderException($throwable);
+            ->handleException($throwable);
     }
 
     protected function getMiddlewares(): array
