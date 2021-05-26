@@ -2,11 +2,8 @@
 
 namespace Spatie\LaravelIgnition;
 
-use Exception;
 use Illuminate\Contracts\Foundation\ExceptionRenderer;
 use Illuminate\Foundation\Application;
-use Illuminate\Log\Events\MessageLogged;
-use Illuminate\Log\LogManager;
 use Illuminate\Queue\QueueManager;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
