@@ -14,7 +14,6 @@ use Illuminate\View\Engines\CompilerEngine as LaravelCompilerEngine;
 use Illuminate\View\Engines\PhpEngine as LaravelPhpEngine;
 use Livewire\CompilerEngineForIgnition;
 use Monolog\Logger;
-use Spatie\FlareClient\Api;
 use Spatie\FlareClient\Flare;
 use Spatie\Ignition\Ignition;
 use Spatie\LaravelIgnition\Commands\SolutionMakeCommand;
