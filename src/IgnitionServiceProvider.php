@@ -63,7 +63,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
     {
         if ($this->app->runningInConsole()) {
             if (isset($_SERVER['argv']) && ['artisan', 'tinker'] === $_SERVER['argv']) {
-                Api::sendReportsInBatches(false); //TODO: add method on flare for this
+                app(Flare::class)->sendReportsImmediately();
             }
         }
 
