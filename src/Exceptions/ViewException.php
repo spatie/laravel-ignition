@@ -39,9 +39,7 @@ class ViewException extends ErrorException implements ProvidesFlareContext
             ],
         ];
 
-        if (config('flare.reporting.report_view_data')) {
-            $context['view']['data'] = array_map([$this, 'dumpViewData'], $this->viewData);
-        }
+        $context['view']['data'] = array_map([$this, 'dumpViewData'], $this->viewData);
 
         return $context;
     }

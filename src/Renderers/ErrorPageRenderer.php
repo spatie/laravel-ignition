@@ -4,7 +4,7 @@ namespace Spatie\LaravelIgnition\Renderers;
 
 use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\FlareMiddleware\AddGitInformation;
-use Spatie\FlareClient\FlareMiddleware\SetNotifierName;
+use Spatie\FlareClient\FlareMiddleware\AddNotifierName;
 use Spatie\Ignition\Ignition;
 use Spatie\LaravelIgnition\ContextProviders\LaravelContextProviderDetector;
 use Spatie\LaravelIgnition\FlareMiddleware\AddDumps;
@@ -32,7 +32,7 @@ class ErrorPageRenderer
     protected function getMiddlewares(): array
     {
         $middlewares = [
-            SetNotifierName::class,
+            AddNotifierName::class,
             AddEnvironmentInformation::class,
             AddDumps::class,
         ];
