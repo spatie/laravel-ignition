@@ -214,10 +214,10 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
             $handler->setMinimumReportLogLevel($logLevel);
 
-            $logger = new Logger('Flare');
-            $logger->pushHandler($handler);
-
-            return $logger;
+            return tap(
+                new Logger('Flare'),
+                fn(Logger $logger) => $logger->pushHandler($handler)
+            );
         });
 
         Log::extend('flare', fn($app) => $app['flare.logger']);
