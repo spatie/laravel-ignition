@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\Ignition\Tests\Context;
+namespace Spatie\LaravelIgnition\Tests\Context;
 
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Spatie\Ignition\Context\LaravelRequestContext;
-use Spatie\Ignition\Tests\TestCase;
+use Spatie\LaravelIgnition\ContextProviders\LaravelRequestContextProvider;
+use Spatie\LaravelIgnition\Tests\TestCase;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 class LaravelRequestContextTest extends TestCase
@@ -42,7 +42,7 @@ class LaravelRequestContextTest extends TestCase
             return $route;
         });
 
-        $context = new LaravelRequestContext($request);
+        $context = new LaravelRequestContextProvider($request);
 
         $contextData = $context->toArray();
 
@@ -63,7 +63,7 @@ class LaravelRequestContextTest extends TestCase
             return $route;
         });
 
-        $context = new LaravelRequestContext($request);
+        $context = new LaravelRequestContextProvider($request);
 
         $contextData = $context->toArray();
 
@@ -78,7 +78,7 @@ class LaravelRequestContextTest extends TestCase
     {
         $request = $this->createRequest('GET', '/route', []);
 
-        $context = new LaravelRequestContext($request);
+        $context = new LaravelRequestContextProvider($request);
 
         $request = $context->getRequest();
 
@@ -93,7 +93,7 @@ class LaravelRequestContextTest extends TestCase
         $request->headers->set('x-livewire', true);
         $request->headers->set('referer', 'http://localhost/referred');
 
-        $context = new LaravelRequestContext($request);
+        $context = new LaravelRequestContextProvider($request);
 
         $request = $context->getRequest();
 
@@ -105,7 +105,7 @@ class LaravelRequestContextTest extends TestCase
     {
         $request = $this->createRequest('GET', '/route', [], ['cookie' => 'noms']);
 
-        $context = new LaravelRequestContext($request);
+        $context = new LaravelRequestContextProvider($request);
 
         $this->assertSame(['cookie' => 'noms'], $context->getCookies());
     }

@@ -1,13 +1,13 @@
 <?php
 
-namespace Spatie\Ignition\Tests\Solutions;
+namespace Spatie\LaravelIgnition\Tests\Solutions;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
-use Spatie\Ignition\SolutionProviders\InvalidRouteActionSolutionProvider;
-use Spatie\Ignition\Support\ComposerClassMap;
-use Spatie\Ignition\Tests\stubs\Controllers\TestTypoController;
-use Spatie\Ignition\Tests\TestCase;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\InvalidRouteActionSolutionProvider;
+use Spatie\LaravelIgnition\Support\Composer\ComposerClassMap;
+use Spatie\LaravelIgnition\Tests\stubs\Controllers\TestTypoController;
+use Spatie\LaravelIgnition\Tests\TestCase;
 use UnexpectedValueException;
 
 class InvalidRouteActionSolutionProviderTest extends TestCase

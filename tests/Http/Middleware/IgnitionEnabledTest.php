@@ -1,17 +1,17 @@
 <?php
 
-namespace Spatie\Ignition\Tests\Http\Middleware;
+namespace Spatie\LaravelIgnition\Tests\Http\Middleware;
 
 use Illuminate\Support\Facades\Route;
-use Spatie\Ignition\Http\Middleware\IgnitionEnabled;
-use Spatie\Ignition\Tests\TestCase;
+use Spatie\LaravelIgnition\Http\Middleware\IgnitionEnabled;
+use Spatie\LaravelIgnition\Tests\TestCase;
 
 class IgnitionEnabledTest extends TestCase
 {
     /** @test */
     public function it_returns_404_with_debug_mode_disabled()
     {
-        $this->app['config']['app.debug'] = false;
+        config()->set('app.debug', false);
 
         Route::get('middleware-test', function () {
             return 'success';
@@ -23,7 +23,7 @@ class IgnitionEnabledTest extends TestCase
     /** @test */
     public function it_returns_ok_with_debug_mode_enabled()
     {
-        $this->app['config']['app.debug'] = true;
+        config()->set('app.debug', true);
 
         Route::get('middleware-test', function () {
             return 'success';

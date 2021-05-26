@@ -1,14 +1,14 @@
 <?php
 
-namespace Spatie\Ignition\Tests;
+namespace Spatie\LaravelIgnition\Tests;
 
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\View;
-use Spatie\Ignition\Exceptions\ViewException;
-use Spatie\Ignition\Exceptions\ViewExceptionWithSolution;
 use Spatie\IgnitionContracts\BaseSolution;
 use Spatie\IgnitionContracts\ProvidesSolution;
 use Spatie\IgnitionContracts\Solution;
+use Spatie\LaravelIgnition\Exceptions\ViewException;
+use Spatie\LaravelIgnition\Exceptions\ViewExceptionWithSolution;
 
 class ViewTest extends TestCase
 {

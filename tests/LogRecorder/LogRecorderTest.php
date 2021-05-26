@@ -1,11 +1,11 @@
 <?php
 
-namespace Spatie\Ignition\Tests\LogRecorder;
+namespace Spatie\LaravelIgnition\Tests\LogRecorder;
 
 use Exception;
 use Illuminate\Log\Events\MessageLogged;
-use Spatie\Ignition\LogRecorder\LogRecorder;
-use Spatie\Ignition\Tests\TestCase;
+use Spatie\LaravelIgnition\Recorders\LogRecorder\LogRecorder;
+use Spatie\LaravelIgnition\Tests\TestCase;
 
 class LogRecorderTest extends TestCase
 {

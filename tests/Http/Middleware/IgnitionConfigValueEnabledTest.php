@@ -1,10 +1,10 @@
 <?php
 
-namespace Spatie\Ignition\Tests\Http\Middleware;
+namespace Spatie\LaravelIgnition\Tests\Http\Middleware;
 
 use Illuminate\Support\Facades\Route;
-use Spatie\Ignition\Http\Middleware\IgnitionConfigValueEnabled;
-use Spatie\Ignition\Tests\TestCase;
+use Spatie\LaravelIgnition\Http\Middleware\IgnitionConfigValueEnabled;
+use Spatie\LaravelIgnition\Tests\TestCase;
 
 class IgnitionConfigValueEnabledTest extends TestCase
 {
@@ -23,7 +23,7 @@ class IgnitionConfigValueEnabledTest extends TestCase
     /** @test */
     public function it_returns_200_with_enable_share_button_enabled()
     {
-        $this->app['config']['ignition.enable_share_button'] = true;
+        config()->set('ignition.enable_share_button', true);
 
         Route::get('middleware-test', function () {
             return 'success';
@@ -35,7 +35,7 @@ class IgnitionConfigValueEnabledTest extends TestCase
     /** @test */
     public function it_returns_404_with_enable_runnable_solutions_disabled()
     {
-        $this->app['config']['ignition.enable_runnable_solutions'] = false;
+        config()->set('ignition.enable_runnable_solutions', false);
 
         Route::get('middleware-test', function () {
             return 'success';
@@ -47,7 +47,7 @@ class IgnitionConfigValueEnabledTest extends TestCase
     /** @test */
     public function it_returns_200_with_enable_runnable_solutions_enabled()
     {
-        $this->app['config']['ignition.enable_runnable_solutions'] = true;
+        config()->set('ignition.enable_runnable_solutions', true);
 
         Route::get('middleware-test', function () {
             return 'success';

@@ -1,11 +1,11 @@
 <?php
 
-namespace Spatie\Ignition\Tests\Solutions;
+namespace Spatie\LaravelIgnition\Tests\Solutions;
 
 use Illuminate\Support\Facades\View;
 use Spatie\Ignition\Solutions\MakeViewVariableOptionalSolution;
 use Spatie\Ignition\Support\ComposerClassMap;
-use Spatie\Ignition\Tests\TestCase;
+use Spatie\LaravelIgnition\Tests\TestCase;
 
 class MakeViewVariableOptionalSolutionTest extends TestCase
 {

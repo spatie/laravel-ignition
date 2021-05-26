@@ -1,11 +1,11 @@
 <?php
 
-namespace Spatie\Ignition\Tests\Solutions;
+namespace Spatie\LaravelIgnition\Tests\Solutions;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
-use Spatie\Ignition\SolutionProviders\RouteNotDefinedSolutionProvider;
-use Spatie\Ignition\Tests\TestCase;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\RouteNotDefinedSolutionProvider;
+use Spatie\LaravelIgnition\Tests\TestCase;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class RouteNotDefinedSolutionProviderTest extends TestCase

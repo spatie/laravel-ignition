@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Tests\Exceptions;
+namespace Spatie\LaravelIgnition\Tests\Exceptions;
 
 use Spatie\IgnitionContracts\BaseSolution;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;

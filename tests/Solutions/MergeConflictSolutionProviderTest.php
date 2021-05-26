@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\Ignition\Tests\Solutions;
+namespace Spatie\LaravelIgnition\Tests\Solutions;
 
 use Illuminate\Support\Facades\View;
 use ParseError;
-use Spatie\Ignition\SolutionProviders\MergeConflictSolutionProvider;
-use Spatie\Ignition\Tests\stubs\Controllers\GitConflictController;
-use Spatie\Ignition\Tests\TestCase;
+use Spatie\Ignition\Solutions\SolutionProviders\MergeConflictSolutionProvider;
+use Spatie\LaravelIgnition\Tests\stubs\Controllers\GitConflictController;
+use Spatie\LaravelIgnition\Tests\TestCase;
 
 class MergeConflictSolutionProviderTest extends TestCase
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\Ignition\Tests\Solutions;
+namespace Spatie\LaravelIgnition\Tests\Solutions;
 
 use BadMethodCallException;
 use Exception;
 use Illuminate\Support\Facades\Validator;
-use Spatie\Ignition\SolutionProviders\UnknownValidationSolutionProvider;
-use Spatie\Ignition\Tests\TestCase;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\UnknownValidationSolutionProvider;
+use Spatie\LaravelIgnition\Tests\TestCase;
 
 class UnknownValidationSolutionProviderTest extends TestCase
 {

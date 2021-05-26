@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\Ignition\Tests;
+namespace Spatie\LaravelIgnition\Tests;
 
 use Exception;
 use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\Report;
+use Spatie\Ignition\Config\IgnitionConfig;
 use Spatie\Ignition\ErrorPage\ErrorPageViewModel;
-use Spatie\Ignition\IgnitionConfig;
 
 class ErrorPageViewModelTest extends TestCase
 {

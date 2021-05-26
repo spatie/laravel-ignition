@@ -1,7 +1,7 @@
 <?php
 
-use Spatie\Ignition\SolutionProviders\UndefinedPropertySolutionProvider;
-use Spatie\Ignition\Tests\TestCase;
+use Spatie\Ignition\Solutions\SolutionProviders\UndefinedPropertySolutionProvider;
+use Spatie\LaravelIgnition\Tests\TestCase;
 
 class UndefinedPropertySolutionProviderTest extends TestCase
 {

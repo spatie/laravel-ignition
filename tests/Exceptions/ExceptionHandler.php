@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Tests\Exceptions;
+namespace Spatie\LaravelIgnition\Tests\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler;
 use Whoops\Handler\HandlerInterface;

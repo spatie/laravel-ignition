@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Tests\Mocks;
+namespace Spatie\LaravelIgnition\Tests\Mocks;
 
 use Illuminate\Support\Arr;
 use PHPUnit\Framework\Assert;
@@ -9,15 +9,19 @@ use Spatie\FlareClient\Http\Response;
 
 class FakeClient extends Client
 {
-    public $requests = [];
+    public array $requests = [];
 
     public function __construct()
     {
         parent::__construct(uniqid(), null);
     }
 
-    public function makeCurlRequest(string $verb, string $fullUrl, array $headers = [], array $arguments = []): Response
-    {
+    public function makeCurlRequest(
+        string $verb,
+        string $fullUrl,
+        array $headers = [],
+        array $arguments = []
+    ): Response {
         $this->requests[] = compact('verb', 'fullUrl', 'headers', 'arguments');
 
         return new Response(['http_code' => 200], 'my response', '');

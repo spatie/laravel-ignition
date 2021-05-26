@@ -1,11 +1,11 @@
 <?php
 
-namespace Spatie\Ignition\Tests\QueryRecorder;
+namespace Spatie\LaravelIgnition\Tests\QueryRecorder;
 
 use Illuminate\Database\Connection;
 use Illuminate\Database\Events\QueryExecuted;
-use Spatie\Ignition\QueryRecorder\QueryRecorder;
-use Spatie\Ignition\Tests\TestCase;
+use Spatie\LaravelIgnition\Recorders\QueryRecorder\QueryRecorder;
+use Spatie\LaravelIgnition\Tests\TestCase;
 
 class QueryRecorderTest extends TestCase
 {

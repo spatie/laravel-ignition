@@ -1,12 +1,13 @@
 <?php
 
-namespace Spatie\Ignition\Tests;
+namespace Spatie\LaravelIgnition\Tests;
 
+use Exception;
 use Illuminate\Foundation\Auth\User;
 use RuntimeException;
-use Spatie\Ignition\SolutionProviders\BadMethodCallSolutionProvider;
-use Spatie\Ignition\SolutionProviders\MissingAppKeySolutionProvider;
-use Spatie\Ignition\SolutionProviders\SolutionProviderRepository;
+use Spatie\Ignition\Solutions\SolutionProviders\BadMethodCallSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingAppKeySolutionProvider;
+use Spatie\Ignition\Solutions\SolutionProviders\SolutionProviderRepository;
 use Spatie\Ignition\Tests\Exceptions\AlwaysFalseSolutionProvider;
 use Spatie\Ignition\Tests\Exceptions\AlwaysTrueSolutionProvider;
 use Spatie\IgnitionContracts\BaseSolution;
@@ -21,7 +22,7 @@ class ExceptionSolutionTest extends TestCase
         $repository->registerSolutionProvider(AlwaysTrueSolutionProvider::class);
         $repository->registerSolutionProvider(AlwaysFalseSolutionProvider::class);
 
-        $solutions = $repository->getSolutionsForThrowable(new \Exception());
+        $solutions = $repository->getSolutionsForThrowable(new Exception());
 
         $this->assertNotNull($solutions);
         $this->assertCount(1, $solutions);
@@ -38,7 +39,7 @@ class ExceptionSolutionTest extends TestCase
             AlwaysFalseSolutionProvider::class,
         ]);
 
-        $solutions = $repository->getSolutionsForThrowable(new \Exception());
+        $solutions = $repository->getSolutionsForThrowable(new Exception());
 
         $this->assertNotNull($solutions);
         $this->assertCount(1, $solutions);
@@ -57,7 +58,7 @@ class ExceptionSolutionTest extends TestCase
         $repository->registerSolutionProvider(AlwaysTrueSolutionProvider::class);
         $repository->registerSolutionProvider(AlwaysFalseSolutionProvider::class);
 
-        $solutions = $repository->getSolutionsForThrowable(new \Exception());
+        $solutions = $repository->getSolutionsForThrowable(new Exception());
 
         $this->assertNotNull($solutions);
         $this->assertCount(0, $solutions);
@@ -72,7 +73,7 @@ class ExceptionSolutionTest extends TestCase
 
         try {
             collect([])->faltten();
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $solution = new BadMethodCallSolutionProvider();
 
             $this->assertTrue($solution->canSolve($exception));
@@ -89,7 +90,7 @@ class ExceptionSolutionTest extends TestCase
         try {
             collect([])->frist(function ($item) {
             });
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $solution = new BadMethodCallSolutionProvider();
 
             $this->assertSame('Did you mean Illuminate\Support\Collection::first() ?', $solution->getSolutions($exception)[0]->getSolutionDescription());
@@ -106,7 +107,7 @@ class ExceptionSolutionTest extends TestCase
         try {
             $user = new User();
             $user->sarve();
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $solution = new BadMethodCallSolutionProvider();
 
             $this->assertSame('Did you mean Illuminate\Foundation\Auth\User::save() ?', $solution->getSolutions($exception)[0]->getSolutionDescription());

@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Tests;
+namespace Spatie\LaravelIgnition\Tests;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Artisan;
@@ -11,8 +11,7 @@ use Spatie\Ignition\Tests\Mocks\FakeClient;
 
 class FlareTest extends TestCase
 {
-    /** @var \Facade\Flare\Tests\Mocks\FakeClient */
-    protected $fakeClient;
+    protected FakeClient $fakeClient;
 
     public function setUp(): void
     {

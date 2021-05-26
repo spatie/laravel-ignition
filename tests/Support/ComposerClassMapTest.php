@@ -1,9 +1,9 @@
 <?php
 
-namespace Spatie\Ignition\Tests\Support;
+namespace Spatie\LaravelIgnition\Tests\Support;
 
-use Spatie\Ignition\Support\ComposerClassMap;
-use Spatie\Ignition\Tests\TestCase;
+use Spatie\LaravelIgnition\Support\Composer\ComposerClassMap;
+use Spatie\LaravelIgnition\Tests\TestCase;
 
 class ComposerClassMapTest extends TestCase
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\Ignition\Tests\Commands;
+namespace Spatie\LaravelIgnition\Tests\Commands;
 
-use Spatie\Ignition\Tests\TestCase;
+use Spatie\LaravelIgnition\Tests\TestCase;
 
 class TestCommandTest extends TestCase
 {
-    protected $withFlareKey = false;
+    protected bool $withFlareKey = false;
 
     protected function getEnvironmentSetUp($app)
     {

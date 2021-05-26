@@ -1,8 +1,8 @@
 <?php
 
-namespace Spatie\Ignition\Tests\Http\Controllers;
+namespace Spatie\LaravelIgnition\Tests\Http\Controllers;
 
-use Spatie\Ignition\Tests\TestCase;
+use Spatie\LaravelIgnition\Tests\TestCase;
 
 class ExecuteSolutionControllerTest extends TestCase
 {

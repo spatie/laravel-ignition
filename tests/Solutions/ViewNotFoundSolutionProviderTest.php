@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\Ignition\Tests\Solutions;
+namespace Spatie\LaravelIgnition\Tests\Solutions;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use Spatie\Ignition\SolutionProviders\ViewNotFoundSolutionProvider;
-use Spatie\Ignition\Tests\TestCase;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\ViewNotFoundSolutionProvider;
+use Spatie\LaravelIgnition\Tests\TestCase;
 
 class ViewNotFoundSolutionProviderTest extends TestCase
 {

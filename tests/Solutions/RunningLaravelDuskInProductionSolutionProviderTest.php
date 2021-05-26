@@ -1,10 +1,10 @@
 <?php
 
-namespace Spatie\Ignition\Tests\Solutions;
+namespace Spatie\LaravelIgnition\Tests\Solutions;
 
 use Exception;
-use Spatie\Ignition\SolutionProviders\RunningLaravelDuskInProductionProvider;
-use Spatie\Ignition\Tests\TestCase;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\RunningLaravelDuskInProductionProvider;
+use Spatie\LaravelIgnition\Tests\TestCase;
 
 class RunningLaravelDuskInProductionSolutionProviderTest extends TestCase
 {

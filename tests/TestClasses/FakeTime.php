@@ -1,14 +1,13 @@
 <?php
 
-namespace Spatie\Ignition\Tests\TestClasses;
+namespace Spatie\LaravelIgnition\Tests\TestClasses;
 
 use DateTimeImmutable;
 use Spatie\FlareClient\Time\Time;
 
 class FakeTime implements Time
 {
-    /** @var \DateTimeImmutable */
-    protected $dateTime;
+    protected DateTimeImmutable $dateTime;
 
     public function __construct(string $dateTime = null, $format = 'Y-m-d H:i:s')
     {

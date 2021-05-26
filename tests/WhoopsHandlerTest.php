@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Ignition\Tests;
+namespace Spatie\LaravelIgnition\Tests;
 
 use Illuminate\Support\Facades\Route;
 

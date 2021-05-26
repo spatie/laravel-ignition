@@ -1,28 +1,23 @@
 <?php
 
-namespace Spatie\Ignition\Tests;
+namespace Spatie\LaravelIgnition\Tests;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Spatie\FlareClient\Flare;
-use Spatie\Ignition\Tests\Mocks\FakeClient;
+use Spatie\LaravelIgnition\Tests\Mocks\FakeClient;
 
 class LogTest extends TestCase
 {
-    /** @var \Spatie\Ignition\Tests\Mocks\FakeClient */
-    protected $fakeClient;
+    protected FakeClient $fakeClient;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->app['config']['logging.channels.flare'] = [
-            'driver' => 'flare',
-        ];
-
-        $this->app['config']['logging.default'] = 'flare';
-
-        $this->app['config']['flare.key'] = 'some-key';
+        config()->set('logging.channels.flare.driver', 'flare');
+        config()->set('logging.channels.flare', 'flare');
+        config()->set('flare.key', 'some-key');
 
         $this->fakeClient = new FakeClient();
 
@@ -121,7 +116,7 @@ class LogTest extends TestCase
         $this->assertCount(3, $logs);
     }
 
-    public function provideMessageLevels()
+    public function provideMessageLevels(): array
     {
         return [
             ['info'],

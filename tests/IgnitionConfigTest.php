@@ -1,9 +1,9 @@
 <?php
 
-namespace Spatie\Ignition\Tests;
+namespace Spatie\LaravelIgnition\Tests;
 
 use Illuminate\Container\Container;
-use Spatie\Ignition\IgnitionConfig;
+use Spatie\Ignition\Config\IgnitionConfig;
 
 class IgnitionConfigTest extends TestCase
 {
@@ -42,7 +42,6 @@ class IgnitionConfigTest extends TestCase
     /** @test */
     public function it_disables_share_report_when_app_has_not_finished_booting()
     {
-        // Create an app but don't run the bootstrappers, so it is in booting state
         $bootingApp = $this->resolveApplication();
         $this->resolveApplicationBindings($bootingApp);
         $this->resolveApplicationExceptionHandler($bootingApp);
@@ -50,6 +49,7 @@ class IgnitionConfigTest extends TestCase
         $this->resolveApplicationConfiguration($bootingApp);
         $this->resolveApplicationHttpKernel($bootingApp);
         $this->resolveApplicationConsoleKernel($bootingApp);
+
         Container::setInstance($bootingApp);
 
         $config = new IgnitionConfig([]);
