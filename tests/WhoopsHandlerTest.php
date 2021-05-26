@@ -9,7 +9,7 @@ class WhoopsHandlerTest extends TestCase
     /** @test */
     public function it_uses_a_custom_whoops_handler()
     {
-        $this->app['config']['app.debug'] = true;
+        config()->set('app.debug', true);
 
         Route::get('exception', function () {
             whoops();
