@@ -106,7 +106,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
     protected function registerFlare(): self
     {
-        $this->app->singleton(Flare::class, function() {
+        $this->app->singleton(Flare::class, function () {
             $flare = Flare::make()
                 ->setApiToken(config('flare.key') ?? '')
                 ->setBaseUrl(config('flare.base_url', 'https://flareapp.io/api'))
