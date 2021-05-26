@@ -229,10 +229,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
             return $logger;
         });
 
-        $this->app['log'] instanceof LogManager
-
-            ? Log::extend('flare', fn ($app) => $app['flare.logger'])
-            : $this->bindLogListener();
+        Log::extend('flare', fn ($app) => $app['flare.logger']);
 
         return $this;
     }
@@ -302,24 +299,5 @@ class IgnitionServiceProvider extends PackageServiceProvider
         }
 
         return true;
-    }
-
-    protected function bindLogListener()
-    {
-        $this->app['log']->listen(function (MessageLogged $messageLogged) {
-            if (! config('flare.key')) {
-                return;
-            }
-
-            try {
-                $this->app['flare.logger']->log(
-                    $messageLogged->level,
-                    $messageLogged->message,
-                    $messageLogged->context
-                );
-            } catch (Exception $exception) {
-                return;
-            }
-        });
     }
 }
