@@ -21,7 +21,7 @@ class DumpRecorder
         $this->app = $app;
     }
 
-    public function register(): self
+    public function start(): self
     {
         $multiDumpHandler = new MultiDumpHandler();
 

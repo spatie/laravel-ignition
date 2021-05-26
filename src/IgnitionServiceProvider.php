@@ -59,49 +59,44 @@ class IgnitionServiceProvider extends PackageServiceProvider
         }
     }
 
-    public function packageBooted()
-    {
-        if ($this->app->runningInConsole()) {
-            if (isset($_SERVER['argv']) && ['artisan', 'tinker'] === $_SERVER['argv']) {
-                app(Flare::class)->sendReportsImmediately();
-            }
-        }
-
-        $this
-            ->registerViewEngines()
-            ->registerRoutes()
-            ->registerLogHandler();
-
-        if ($this->app->bound('queue')) {
-            $this->setupQueue($this->app->get('queue'));
-        }
-
-        if (config('flare.reporting.report_logs')) {
-            $this->app->make(LogRecorder::class)->register();
-        }
-
-        if (config('flare.reporting.report_queries')) {
-            $this->app->make(QueryRecorder::class)->register();
-        }
-
-        $this->app->make(DumpRecorder::class)->register();
-    }
-
     public function packageRegistered()
     {
         $this
             ->registerFlare()
             ->registerIgnition()
             ->registerRenderer()
-            ->registerDumpCollector();
+            ->registerRecorders();
+    }
 
-        if (config('flare.reporting.report_logs')) {
-            $this->registerLogRecorder();
+    public function packageBooted()
+    {
+        $this
+            ->configureFlare()
+            ->registerViewEngines()
+            ->registerRoutes()
+            ->registerLogHandler()
+            ->startRecorders()
+            ->configureQueue();
+    }
+
+
+    protected function registerRenderer(): self
+    {
+        if (interface_exists(HandlerInterface::class)) {
+            $this->app->bind(
+                HandlerInterface::class,
+                fn (Application $app) => $app->make(IgnitionWhoopsHandler::class)
+            );
         }
 
-        if (config('flare.reporting.report_queries')) {
-            $this->registerQueryRecorder();
+        if (interface_exists(ExceptionRenderer::class)) {
+            $this->app->bind(
+                ExceptionRenderer::class,
+                fn (Application $app) => $app->make(IgnitionExceptionRenderer::class)
+            );
         }
+
+        return $this;
     }
 
     protected function registerFlare(): self
@@ -129,6 +124,48 @@ class IgnitionServiceProvider extends PackageServiceProvider
     protected function registerIgnition(): self
     {
         $this->app->singleton(Ignition::class, fn () => new Ignition());
+
+        return $this;
+    }
+
+    protected function registerRecorders(): self
+    {
+        $dumpCollector = $this->app->make(DumpRecorder::class);
+        $this->app->singleton(DumpRecorder::class);
+        $this->app->instance(DumpRecorder::class, $dumpCollector);
+
+        if (config('flare.reporting.report_logs')) {
+            $this->app->singleton(LogRecorder::class, function (Application $app): LogRecorder {
+                return new LogRecorder(
+                    $app,
+                    $app->get('config')->get('flare.reporting.maximum_number_of_collected_logs')
+                );
+            });
+        }
+
+        if (config('flare.reporting.report_queries')) {
+            $this->app->singleton(
+                QueryRecorder::class,
+                function (Application $app): QueryRecorder {
+                    return new QueryRecorder(
+                        $app,
+                        $app->get('config')->get('flare.reporting.report_query_bindings'),
+                        $app->get('config')->get('flare.reporting.maximum_number_of_collected_queries')
+                    );
+                }
+            );
+        }
+
+        return $this;
+    }
+
+    public function configureFlare(): self
+    {
+        if (! $this->app->runningInConsole()) {
+            if (isset($_SERVER['argv']) && ['artisan', 'tinker'] === $_SERVER['argv']) {
+                app(Flare::class)->sendReportsImmediately();
+            }
+        }
 
         return $this;
     }
@@ -175,24 +212,6 @@ class IgnitionServiceProvider extends PackageServiceProvider
         return $this;
     }
 
-    protected function registerRenderer(): self
-    {
-        if (interface_exists(HandlerInterface::class)) {
-            $this->app->bind(
-                HandlerInterface::class,
-                fn (Application $app) => $app->make(IgnitionWhoopsHandler::class)
-            );
-        }
-
-        if (interface_exists(ExceptionRenderer::class)) {
-            $this->app->bind(
-                ExceptionRenderer::class,
-                fn (Application $app) => $app->make(IgnitionExceptionRenderer::class)
-            );
-        }
-
-        return $this;
-    }
 
     protected function registerLogHandler(): self
     {
@@ -219,6 +238,47 @@ class IgnitionServiceProvider extends PackageServiceProvider
         return $this;
     }
 
+    protected function startRecorders(): self
+    {
+        if (config('flare.reporting.report_logs')) {
+            $this->app->make(LogRecorder::class)->start();
+        }
+
+        if (config('flare.reporting.report_queries')) {
+            $this->app->make(QueryRecorder::class)->start();
+        }
+
+        $this->app->make(DumpRecorder::class)->start();
+
+        return $this;
+    }
+
+    protected function configureQueue(): self
+    {
+        if (! $this->app->bound('queue')) {
+            return $this;
+        }
+
+        /** @var QueueManager $queue */
+        $queue = $this->app->get('queue');
+
+        $queue->looping(function () {
+            $this->app->get(Ignition::class)->reset();
+
+            if (config('flare.reporting.report_logs')) {
+                $this->app->make(LogRecorder::class)->reset();
+            }
+
+            if (config('flare.reporting.report_queries')) {
+                $this->app->make(QueryRecorder::class)->reset();
+            }
+
+            $this->app->make(DumpRecorder::class)->reset();
+        });
+
+        return $this;
+    }
+
     protected function getLogLevel(string $logLevelString): int
     {
         $logLevel = Logger::getLevels()[strtoupper($logLevelString)] ?? null;
@@ -228,45 +288,6 @@ class IgnitionServiceProvider extends PackageServiceProvider
         }
 
         return $logLevel;
-    }
-
-    protected function registerLogRecorder(): self
-    {
-        $this->app->singleton(LogRecorder::class, function (Application $app): LogRecorder {
-            return new LogRecorder(
-                $app,
-                $app->get('config')->get('flare.reporting.maximum_number_of_collected_logs')
-            );
-        });
-
-        return $this;
-    }
-
-    protected function registerDumpCollector(): self
-    {
-        $dumpCollector = $this->app->make(DumpRecorder::class);
-
-        $this->app->singleton(DumpRecorder::class);
-
-        $this->app->instance(DumpRecorder::class, $dumpCollector);
-
-        return $this;
-    }
-
-    protected function registerQueryRecorder(): self
-    {
-        $this->app->singleton(
-            QueryRecorder::class,
-            function (Application $app): QueryRecorder {
-                return new QueryRecorder(
-                    $app,
-                    $app->get('config')->get('flare.reporting.report_query_bindings'),
-                    $app->get('config')->get('flare.reporting.maximum_number_of_collected_queries')
-                );
-            }
-        );
-
-        return $this;
     }
 
     protected function hasCustomViewEnginesRegistered(): bool
@@ -301,24 +322,5 @@ class IgnitionServiceProvider extends PackageServiceProvider
                 return;
             }
         });
-    }
-
-    protected function setupQueue(QueueManager $queue): self
-    {
-        $queue->looping(function () {
-            $this->app->get(Ignition::class)->reset();
-
-            if (config('flare.reporting.report_logs')) {
-                $this->app->make(LogRecorder::class)->reset();
-            }
-
-            if (config('flare.reporting.report_queries')) {
-                $this->app->make(QueryRecorder::class)->reset();
-            }
-
-            $this->app->make(DumpRecorder::class)->reset();
-        });
-
-        return $this;
     }
 }

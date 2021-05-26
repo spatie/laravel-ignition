@@ -22,7 +22,7 @@ class LogRecorder
         $this->maxLogs = $maxLogs;
     }
 
-    public function register(): self
+    public function start(): self
     {
         $this->app['events']->listen(MessageLogged::class, [$this, 'record']);
 
