@@ -82,14 +82,14 @@ class IgnitionServiceProvider extends PackageServiceProvider
         if (interface_exists(HandlerInterface::class)) {
             $this->app->bind(
                 HandlerInterface::class,
-                fn(Application $app) => $app->make(IgnitionWhoopsHandler::class)
+                fn (Application $app) => $app->make(IgnitionWhoopsHandler::class)
             );
         }
 
         if (interface_exists(ExceptionRenderer::class)) {
             $this->app->bind(
                 ExceptionRenderer::class,
-                fn(Application $app) => $app->make(IgnitionExceptionRenderer::class)
+                fn (Application $app) => $app->make(IgnitionExceptionRenderer::class)
             );
         }
 
@@ -113,7 +113,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
     protected function registerIgnition(): self
     {
-        $this->app->singleton(Ignition::class, fn() => new Ignition());
+        $this->app->singleton(Ignition::class, fn () => new Ignition());
 
         return $this;
     }
@@ -151,7 +151,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
     public function configureTinker(): self
     {
-        if (!$this->app->runningInConsole()) {
+        if (! $this->app->runningInConsole()) {
             if (isset($_SERVER['argv']) && ['artisan', 'tinker'] === $_SERVER['argv']) {
                 app(Flare::class)->sendReportsImmediately();
             }
@@ -162,7 +162,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
     protected function registerViewEngines(): self
     {
-        if (!$this->hasCustomViewEnginesRegistered()) {
+        if (! $this->hasCustomViewEnginesRegistered()) {
             return $this;
         }
 
@@ -220,7 +220,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
             return $logger;
         });
 
-        Log::extend('flare', fn($app) => $app['flare.logger']);
+        Log::extend('flare', fn ($app) => $app['flare.logger']);
 
         return $this;
     }
@@ -242,7 +242,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
     protected function configureQueue(): self
     {
-        if (!$this->app->bound('queue')) {
+        if (! $this->app->bound('queue')) {
             return $this;
         }
 
@@ -270,7 +270,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
     {
         $logLevel = Logger::getLevels()[strtoupper($logLevelString)] ?? null;
 
-        if (!$logLevel) {
+        if (! $logLevel) {
             throw InvalidConfig::invalidLogLevel($logLevelString);
         }
 
@@ -281,11 +281,11 @@ class IgnitionServiceProvider extends PackageServiceProvider
     {
         $resolver = $this->app->make('view.engine.resolver');
 
-        if (!$resolver->resolve('php') instanceof LaravelPhpEngine) {
+        if (! $resolver->resolve('php') instanceof LaravelPhpEngine) {
             return false;
         }
 
-        if (!$resolver->resolve('blade') instanceof LaravelCompilerEngine) {
+        if (! $resolver->resolve('blade') instanceof LaravelCompilerEngine) {
             return false;
         }
 
