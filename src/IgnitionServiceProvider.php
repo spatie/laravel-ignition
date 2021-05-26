@@ -90,6 +90,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
     public function packageRegistered()
     {
         $this
+            ->registerFlare()
             ->registerIgnition()
             ->registerRenderer()
             ->registerDumpCollector();
@@ -101,6 +102,28 @@ class IgnitionServiceProvider extends PackageServiceProvider
         if (config('flare.reporting.report_queries')) {
             $this->registerQueryRecorder();
         }
+    }
+
+    protected function registerFlare(): self
+    {
+        $this->app->singleton(Flare::class, function() {
+            $flare = Flare::make()
+                ->setApiToken(config('flare.key') ?? '')
+                ->setBaseUrl(config('flare.base_url', 'https://flareapp.io/api'))
+                ->setStage(config('app.env'))
+                ->censorRequestBodyFields(config(
+                    'flare.reporting.censor_request_body_fields',
+                    ['password']
+                ));
+
+            if (config('flare.reporting.anonymize_ips')) {
+                $flare->anonymizeIp();
+            }
+
+            return $flare;
+        });
+
+        return $this;
     }
 
     protected function registerIgnition(): self

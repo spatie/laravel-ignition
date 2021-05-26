@@ -21,21 +21,7 @@ class ErrorPageRenderer
         $ignition = app(Ignition::class);
 
         $ignition
-            ->setFlare(app(Flare::class)) // consider adding this and move configuration of flare to service provider
-            ->configureFlare(function (Flare $flare) {
-                $flare
-                    ->setApiToken(config('flare.key') ?? '')
-                    ->setBaseUrl(config('flare.base_url', 'https://flareapp.io/api'))
-                    ->setStage(config('app.env'))
-                    ->censorRequestBodyFields(config(
-                        'flare.reporting.censor_request_body_fields',
-                        ['password']
-                    ));
-
-                if (config('flare.reporting.anonymize_ips')) {
-                    $flare->anonymizeIp();
-                }
-            })
+            ->setFlare(app(Flare::class))
             ->setContextProviderDetector(new LaravelContextProviderDetector())
             ->applicationPath(base_path())
             ->addSolutionProviders($this->getSolutionProviders())
