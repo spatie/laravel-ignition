@@ -216,7 +216,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
             return tap(
                 new Logger('Flare'),
-                fn(Logger $logger) => $logger->pushHandler($handler)
+                fn (Logger $logger) => $logger->pushHandler($handler)
             );
         });
 
