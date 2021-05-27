@@ -22,26 +22,33 @@
                 <file name="src/Solutions/SolutionTransformer.php" />
             </errorLevel>
         </UndefinedInterfaceMethod>
-        <ForbiddenCode>
-            <errorLevel type="suppress">
-                <file name="src/SolutionProviders/MergeConflictSolutionProvider.php" />
-            </errorLevel>
-        </ForbiddenCode>
         <InvalidCast>
             <errorLevel type="suppress">
-                <file name="src/DumpRecorder/DumpRecorder.php" />
+                <file name="src/Recorders/DumpRecorder/DumpRecorder.php" />
             </errorLevel>
         </InvalidCast>
-        <UndefinedClass>
-            <errorLevel type="suppress">
-                <file name="src/ErrorPage/ErrorPageViewModel.php" />
-            </errorLevel>
-        </UndefinedClass>
         <UnusedClosureParam>
             <errorLevel type="suppress">
-                <file name="src/SolutionProviders/InvalidRouteActionSolutionProvider.php" />
+                <file name="src/Solutions/SolutionProviders/InvalidRouteActionSolutionProvider.php" />
             </errorLevel>
         </UnusedClosureParam>
+        <UndefinedMethod>
+            <errorLevel type="suppress">
+                <file name="src/ContextProviders/LaravelRequestContextProvider.php" />
+            </errorLevel>
+        </UndefinedMethod>
+        <UndefinedClass>
+            <errorLevel type="suppress">
+                <file name="src/IgnitionServiceProvider.php" />
+                <file name="src/Renderers/IgnitionExceptionRenderer.php" />
+                <file name="src/Solutions/SolutionProviders/MissingLivewireComponentSolutionProvider.php" />
+            </errorLevel>
+        </UndefinedClass>
+        <MissingDependency>
+            <errorLevel type="suppress">
+                <file name="src/IgnitionServiceProvider.php" />
+            </errorLevel>
+        </MissingDependency>
     </issueHandlers>
 
     <plugins>

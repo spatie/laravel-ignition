@@ -13,10 +13,7 @@ class ErrorPageRenderer
 {
     public function render(Throwable $throwable): void
     {
-        /** @var Ignition $ignition */
-        $ignition = app(Ignition::class);
-
-        $ignition
+        app(Ignition::class)
             ->setFlare(app(Flare::class))
             ->setConfig(app(IgnitionConfig::class))
             ->setSolutionProviderRepository(app(SolutionProviderRepository::class))

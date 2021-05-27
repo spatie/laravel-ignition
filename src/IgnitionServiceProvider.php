@@ -256,7 +256,6 @@ class IgnitionServiceProvider extends PackageServiceProvider
             return $this;
         }
 
-        /** @var QueueManager $queue */
         $queue = $this->app->get('queue');
 
         $queue->looping(function () {

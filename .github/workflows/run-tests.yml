@@ -13,12 +13,10 @@ jobs:
         strategy:
             matrix:
                 php: [7.4, 8.0]
-                laravel: [7.*, 8.*]
-                dependency-version: [prefer-stable]
+                laravel: [8.*]
+                dependency-version: [prefer-lowest, prefer-stable]
                 os: [ubuntu-latest, windows-latest]
                 include:
-                    - laravel: 7.*
-                      testbench: 5.*
                     - laravel: 8.*
                       testbench: 6.*
 
@@ -36,28 +34,13 @@ jobs:
                   coverage: none
                   tools: composer:v2
 
-            - name: Install PHP 7 dependencies
-              run: |
-                composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-                composer update --${{ matrix.dependency-version }} --no-interaction --no-progress
-              if: "matrix.php < 8"
-
-            - name: Install PHP 8 dependencies
-              run: composer update --${{ matrix.dependency-version }} --ignore-platform-req=php --no-interaction --no-progress
-              if: "matrix.php >= 8"
+            -  name: Install dependencies
+               run: |
+                    composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+                    composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
             - name: Execute tests
               run: vendor/bin/phpunit
-
-            - name: Send Slack notification
-              uses: 8398a7/action-slack@v2
-              if: failure()
-              with:
-                  status: ${{ job.status }}
-                  author_name: ${{ github.actor }}
-              env:
-                SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     js-tests:
         runs-on: ubuntu-latest
@@ -66,20 +49,10 @@ jobs:
 
         steps:
             -   name: Checkout code
-                uses: actions/checkout@v1
+                uses: actions/checkout@v2
 
             -   name: Install dependencies
                 run: yarn install --non-interactive
 
             -   name: Execute tests
                 run: yarn run jest
-
-            - name: Send Slack notification
-              uses: 8398a7/action-slack@v2
-              if: failure()
-              with:
-                  status: ${{ job.status }}
-                  author_name: ${{ github.actor }}
-              env:
-                SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
