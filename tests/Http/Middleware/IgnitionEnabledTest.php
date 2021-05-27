@@ -13,7 +13,7 @@ class IgnitionEnabledTest extends TestCase
     {
         config()->set('app.debug', false);
 
-        Route::get('middleware-test', fn() => 'success')->middleware([IgnitionEnabled::class]);
+        Route::get('middleware-test', fn () => 'success')->middleware([IgnitionEnabled::class]);
 
         $this->get('middleware-test')->assertStatus(404);
     }
@@ -23,7 +23,7 @@ class IgnitionEnabledTest extends TestCase
     {
         config()->set('app.debug', true);
 
-        Route::get('middleware-test', fn() => 'success')->middleware([IgnitionEnabled::class]);
+        Route::get('middleware-test', fn () => 'success')->middleware([IgnitionEnabled::class]);
 
         $this->get('middleware-test')->assertStatus(200);
     }
