@@ -13,6 +13,7 @@ use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingLivewireComponentS
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingMixManifestSolutionProvider;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\RunningLaravelDuskInProductionProvider;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\TableNotFoundSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\UndefinedViewVariableSolutionProvider;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\UnknownValidationSolutionProvider;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\ViewNotFoundSolutionProvider;
 
@@ -86,21 +87,25 @@ return [
     */
 
     'solution_providers' => [
+        // from spatie/ignition
+        BadMethodCallSolutionProvider::class,
+        MergeConflictSolutionProvider::class,
+        UndefinedPropertySolutionProvider::class,
+
+        // from spatie/laravel-ignition
         IncorrectValetDbCredentialsSolutionProvider::class,
         MissingAppKeySolutionProvider::class,
         DefaultDbNameSolutionProvider::class,
-        BadMethodCallSolutionProvider::class,
         TableNotFoundSolutionProvider::class,
         MissingImportSolutionProvider::class,
         InvalidRouteActionSolutionProvider::class,
         ViewNotFoundSolutionProvider::class,
-        MergeConflictSolutionProvider::class,
         RunningLaravelDuskInProductionProvider::class,
         MissingColumnSolutionProvider::class,
         UnknownValidationSolutionProvider::class,
-        UndefinedPropertySolutionProvider::class,
         MissingMixManifestSolutionProvider::class,
         MissingLivewireComponentSolutionProvider::class,
+        UndefinedViewVariableSolutionProvider::class
     ],
 
     /*

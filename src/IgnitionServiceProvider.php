@@ -12,7 +12,9 @@ use Illuminate\View\Engines\PhpEngine as LaravelPhpEngine;
 use Livewire\CompilerEngineForIgnition;
 use Monolog\Logger;
 use Spatie\FlareClient\Flare;
+use Spatie\Ignition\Config\IgnitionConfig;
 use Spatie\Ignition\Ignition;
+use Spatie\IgnitionContracts\SolutionProviderRepository as SolutionProviderRepositoryContract;
 use Spatie\LaravelIgnition\Commands\SolutionMakeCommand;
 use Spatie\LaravelIgnition\Commands\SolutionProviderMakeCommand;
 use Spatie\LaravelIgnition\Commands\TestCommand;
@@ -28,6 +30,7 @@ use Spatie\LaravelIgnition\Recorders\LogRecorder\LogRecorder;
 use Spatie\LaravelIgnition\Recorders\QueryRecorder\QueryRecorder;
 use Spatie\LaravelIgnition\Renderers\IgnitionExceptionRenderer;
 use Spatie\LaravelIgnition\Renderers\IgnitionWhoopsHandler;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\SolutionProviderRepository;
 use Spatie\LaravelIgnition\Support\FlareLogHandler;
 use Spatie\LaravelIgnition\Views\Engines\CompilerEngine;
 use Spatie\LaravelIgnition\Views\Engines\PhpEngine;
@@ -113,7 +116,16 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
     protected function registerIgnition(): self
     {
-        $this->app->singleton(Ignition::class, fn () => new Ignition());
+        $ignitionConfig = IgnitionConfig::loadFromConfigFile()->mergeWithDefaults(config('ignition'));
+
+        $solutionProviders = $this->getSolutionProviders();
+        $solutionProviderRepository = new SolutionProviderRepository($solutionProviders);
+
+        $this->app->singleton(IgnitionConfig::class, fn () => $ignitionConfig);
+
+        $this->app->singleton(SolutionProviderRepositoryContract::class, fn() => $solutionProviderRepository);
+
+        $this->app->singleton(Ignition::class, fn () => (new Ignition()));
 
         return $this;
     }
@@ -307,6 +319,15 @@ class IgnitionServiceProvider extends PackageServiceProvider
                 return new $middlewareClass(...array_values($parameters));
             })
             ->values()
+            ->toArray();
+    }
+
+    protected function getSolutionProviders(): array
+    {
+        return collect(config('ignition.solution_providers'))
+            ->reject(
+                fn (string $class) => in_array($class, config('ignition.ignored_solution_providers'))
+            )
             ->toArray();
     }
 }

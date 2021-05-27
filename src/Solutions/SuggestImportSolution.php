@@ -8,7 +8,7 @@ class SuggestImportSolution implements Solution
 {
     protected string $class;
 
-    public function __construct(string $class)
+    public function __construct(string $class = '')
     {
         $this->class = $class;
     }

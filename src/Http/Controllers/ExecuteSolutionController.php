@@ -16,6 +16,7 @@ class ExecuteSolutionController
         ExecuteSolutionRequest $request,
         SolutionProviderRepository $solutionProviderRepository
     ) {
+
         $this
             ->ensureLocalEnvironment()
             ->ensureLocalRequest();

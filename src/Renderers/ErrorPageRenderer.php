@@ -5,7 +5,9 @@ namespace Spatie\LaravelIgnition\Renderers;
 use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\FlareMiddleware\AddGitInformation;
 use Spatie\FlareClient\FlareMiddleware\AddNotifierName;
+use Spatie\Ignition\Config\IgnitionConfig;
 use Spatie\Ignition\Ignition;
+use Spatie\IgnitionContracts\SolutionProviderRepository;
 use Spatie\LaravelIgnition\ContextProviders\LaravelContextProviderDetector;
 use Spatie\LaravelIgnition\FlareMiddleware\AddDumps;
 use Spatie\LaravelIgnition\FlareMiddleware\AddEnvironmentInformation;
@@ -22,44 +24,10 @@ class ErrorPageRenderer
 
         $ignition
             ->setFlare(app(Flare::class))
+            ->setConfig(app(IgnitionConfig::class))
+            ->setSolutionProviderRepository(app(SolutionProviderRepository::class))
             ->setContextProviderDetector(new LaravelContextProviderDetector())
             ->applicationPath(base_path())
-            ->addSolutionProviders($this->getSolutionProviders())
-            ->registerMiddleware($this->getMiddlewares()) // move to flare registration in service provider
             ->handleException($throwable);
-    }
-
-    protected function getMiddlewares(): array
-    {
-        $middlewares = [
-            AddNotifierName::class,
-            AddEnvironmentInformation::class,
-            AddDumps::class,
-        ];
-
-        if (config('flare.reporting.report_logs')) {
-            $middlewares[] = AddLogs::class;
-        }
-
-        if (config('flare.reporting.report_queries')) {
-            $middlewares[] = AddQueries::class;
-        }
-
-        if (config('flare.reporting.collect_git_information')) {
-            $middlewares[] = AddGitInformation::class;
-        }
-
-        return collect($middlewares)
-            ->map(fn (string $middlewareClass) => app($middlewareClass))
-            ->toArray();
-    }
-
-    protected function getSolutionProviders(): array
-    {
-        return collect(config('ignition.ignored_solution_providers'))
-            ->reject(
-                fn (string $class) => in_array($class, config('ignition.ignored_solution_providers'))
-            )
-            ->toArray();
     }
 }
