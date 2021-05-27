@@ -6,11 +6,11 @@ use Exception;
 use Illuminate\Foundation\Auth\User;
 use RuntimeException;
 use Spatie\Ignition\Solutions\SolutionProviders\BadMethodCallSolutionProvider;
-use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingAppKeySolutionProvider;
 use Spatie\Ignition\Solutions\SolutionProviders\SolutionProviderRepository;
 use Spatie\Ignition\Tests\Exceptions\AlwaysFalseSolutionProvider;
 use Spatie\Ignition\Tests\Exceptions\AlwaysTrueSolutionProvider;
 use Spatie\IgnitionContracts\BaseSolution;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingAppKeySolutionProvider;
 
 class ExceptionSolutionTest extends TestCase
 {
