@@ -42,17 +42,3 @@ jobs:
             - name: Execute tests
               run: vendor/bin/phpunit
 
-    js-tests:
-        runs-on: ubuntu-latest
-
-        name: JavaScript tests
-
-        steps:
-            -   name: Checkout code
-                uses: actions/checkout@v2
-
-            -   name: Install dependencies
-                run: yarn install --non-interactive
-
-            -   name: Execute tests
-                run: yarn run jest
