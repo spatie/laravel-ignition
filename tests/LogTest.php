@@ -41,7 +41,7 @@ class LogTest extends TestCase
     /** @test */
     public function it_reports_exceptions_using_the_flare_api()
     {
-        Route::get('exception', fn() => nonExistingFunction());
+        Route::get('exception', fn () => nonExistingFunction());
 
         $response = $this
             ->get('/exception')
