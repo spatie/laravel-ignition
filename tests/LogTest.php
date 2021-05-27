@@ -16,7 +16,7 @@ class LogTest extends TestCase
         parent::setUp();
 
         config()->set('logging.channels.flare.driver', 'flare');
-        config()->set('logging.channels.flare', 'flare');
+        config()->set('logging.default', 'flare');
         config()->set('flare.key', 'some-key');
 
         $this->fakeClient = new FakeClient();

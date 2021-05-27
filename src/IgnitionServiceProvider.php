@@ -82,6 +82,8 @@ class IgnitionServiceProvider extends PackageServiceProvider
     protected function registerRenderer(): self
     {
         if (interface_exists(HandlerInterface::class)) {
+            ray('register renderer');
+
             $this->app->bind(
                 HandlerInterface::class,
                 fn (Application $app) => $app->make(IgnitionWhoopsHandler::class)

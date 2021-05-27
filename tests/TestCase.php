@@ -10,6 +10,14 @@ use Spatie\LaravelIgnition\Tests\TestClasses\FakeTime;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
+    public function setUp(): void
+    {
+        ray()->newScreen($this->getName());
+
+        parent::setUp();
+
+    }
+
     protected function getPackageProviders($app)
     {
         config()->set('flare.key', 'dummy-key');
