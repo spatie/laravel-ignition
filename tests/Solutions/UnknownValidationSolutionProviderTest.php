@@ -25,9 +25,9 @@ class UnknownValidationSolutionProviderTest extends TestCase
      */
     public function it_can_recommend_changing_the_rule(string $invalidRule, string $recommendedRule)
     {
-        Validator::extend('foo', fn($attribute, $value, $parameters, $validator) => $value == 'foo');
+        Validator::extend('foo', fn ($attribute, $value, $parameters, $validator) => $value == 'foo');
 
-        Validator::extendImplicit('bar_a', fn($attribute, $value, $parameters, $validator) => $value == 'bar');
+        Validator::extendImplicit('bar_a', fn ($attribute, $value, $parameters, $validator) => $value == 'bar');
 
         /** @var \Spatie\IgnitionContracts\Solution $solution */
         $solution = app(UnknownValidationSolutionProvider::class)->getSolutions($this->getBadMethodCallException($invalidRule))[0];
