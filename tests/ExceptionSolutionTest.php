@@ -7,10 +7,10 @@ use Illuminate\Foundation\Auth\User;
 use RuntimeException;
 use Spatie\Ignition\Solutions\SolutionProviders\BadMethodCallSolutionProvider;
 use Spatie\Ignition\Solutions\SolutionProviders\SolutionProviderRepository;
-use Spatie\LaravelIgnition\Tests\Exceptions\AlwaysFalseSolutionProvider;
-use Spatie\LaravelIgnition\Tests\Exceptions\AlwaysTrueSolutionProvider;
 use Spatie\IgnitionContracts\BaseSolution;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingAppKeySolutionProvider;
+use Spatie\LaravelIgnition\Tests\Exceptions\AlwaysFalseSolutionProvider;
+use Spatie\LaravelIgnition\Tests\Exceptions\AlwaysTrueSolutionProvider;
 
 class ExceptionSolutionTest extends TestCase
 {
@@ -66,7 +66,7 @@ class ExceptionSolutionTest extends TestCase
     public function it_can_propose_a_solution_for_bad_method_call_exceptions_on_collections()
     {
         try {
-            collect([])->frist(fn($item) => null);
+            collect([])->frist(fn ($item) => null);
         } catch (Exception $exception) {
             $solution = new BadMethodCallSolutionProvider();
 
