@@ -17,7 +17,7 @@ class UndefinedViewVariableSolutionProvider implements HasSolutionsForThrowable
 
     public function canSolve(Throwable $throwable): bool
     {
-        if (!$throwable instanceof ViewException) {
+        if (! $throwable instanceof ViewException) {
             return false;
         }
 
@@ -30,7 +30,7 @@ class UndefinedViewVariableSolutionProvider implements HasSolutionsForThrowable
 
         extract($this->getNameAndView($throwable));
 
-        if (!isset($variableName)) {
+        if (! isset($variableName)) {
             return [];
         }
 
@@ -44,8 +44,7 @@ class UndefinedViewVariableSolutionProvider implements HasSolutionsForThrowable
         ViewException $throwable,
         string $variableName,
         string $viewFile
-    ): array
-    {
+    ): array {
         return collect($throwable->getViewData())
             ->map(function ($value, $key) use ($variableName) {
                 similar_text($variableName, $key, $percentage);
@@ -53,9 +52,9 @@ class UndefinedViewVariableSolutionProvider implements HasSolutionsForThrowable
                 return ['match' => $percentage, 'value' => $value];
             })
             ->sortByDesc('match')
-            ->filter(fn($var) => $var['match'] > 40)
+            ->filter(fn ($var) => $var['match'] > 40)
             ->keys()
-            ->map(fn($suggestion) => new SuggestCorrectVariableNameSolution($variableName, $viewFile, $suggestion))
+            ->map(fn ($suggestion) => new SuggestCorrectVariableNameSolution($variableName, $viewFile, $suggestion))
             ->map(function ($solution) {
                 return $solution->isRunnable()
                     ? $solution

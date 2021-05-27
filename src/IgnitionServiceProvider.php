@@ -4,7 +4,6 @@ namespace Spatie\LaravelIgnition;
 
 use Illuminate\Contracts\Foundation\ExceptionRenderer;
 use Illuminate\Foundation\Application;
-use Illuminate\Queue\QueueManager;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\Engines\CompilerEngine as LaravelCompilerEngine;
