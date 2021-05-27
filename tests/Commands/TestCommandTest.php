@@ -8,14 +8,7 @@ class TestCommandTest extends TestCase
 {
     protected bool $withFlareKey = false;
 
-    protected function getEnvironmentSetUp($app)
-    {
-        if ($this->withFlareKey) {
-            $app['config']['flare.key'] = 'some-key';
-        }
-    }
-
-    public function withFlareKey()
+    public function withFlareKey(): void
     {
         $this->withFlareKey = true;
 
@@ -32,5 +25,12 @@ class TestCommandTest extends TestCase
         is_int($testResult)
             ? $this->assertSame(0, $testResult)
             : $testResult->assertExitCode(0);
+    }
+
+    protected function getEnvironmentSetUp($app)
+    {
+        if ($this->withFlareKey) {
+            config()->set('flare.key', 'some-key');
+        }
     }
 }
