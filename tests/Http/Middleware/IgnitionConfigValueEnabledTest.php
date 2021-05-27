@@ -13,7 +13,7 @@ class IgnitionConfigValueEnabledTest extends TestCase
     {
         config()->set('ignition.enable_share_button', false);
 
-        Route::get('middleware-test', fn() => 'success')->middleware(IgnitionConfigValueEnabled::class.':enableShareButton');
+        Route::get('middleware-test', fn () => 'success')->middleware(IgnitionConfigValueEnabled::class.':enableShareButton');
 
         $this->get('middleware-test')->assertStatus(404);
     }
@@ -23,7 +23,7 @@ class IgnitionConfigValueEnabledTest extends TestCase
     {
         config()->set('ignition.enable_share_button', true);
 
-        Route::get('middleware-test', fn() => 'success')->middleware(IgnitionConfigValueEnabled::class.':enableShareButton');
+        Route::get('middleware-test', fn () => 'success')->middleware(IgnitionConfigValueEnabled::class.':enableShareButton');
 
         $this->get('middleware-test')->assertStatus(200);
     }
@@ -33,7 +33,7 @@ class IgnitionConfigValueEnabledTest extends TestCase
     {
         config()->set('ignition.enable_runnable_solutions', false);
 
-        Route::get('middleware-test', fn() => 'success')->middleware(IgnitionConfigValueEnabled::class.':enableRunnableSolutions');
+        Route::get('middleware-test', fn () => 'success')->middleware(IgnitionConfigValueEnabled::class.':enableRunnableSolutions');
 
         $this->get('middleware-test')->assertStatus(404);
     }
@@ -43,7 +43,7 @@ class IgnitionConfigValueEnabledTest extends TestCase
     {
         config()->set('ignition.enable_runnable_solutions', true);
 
-        Route::get('middleware-test', fn() => 'success')->middleware(IgnitionConfigValueEnabled::class.':enableRunnableSolutions');
+        Route::get('middleware-test', fn () => 'success')->middleware(IgnitionConfigValueEnabled::class.':enableRunnableSolutions');
 
         $this->get('middleware-test')->assertStatus(200);
     }
