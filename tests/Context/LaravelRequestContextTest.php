@@ -20,7 +20,7 @@ class LaravelRequestContextTest extends TestCase
 
         $route->bind($request);
 
-        $request->setRouteResolver(fn() => $route);
+        $request->setRouteResolver(fn () => $route);
 
         $context = new LaravelRequestContextProvider($request);
 
@@ -99,7 +99,7 @@ class LaravelRequestContextTest extends TestCase
         ]);
 
         $request = $this->createRequest('GET', '/route', [], ['cookie' => 'noms']);
-        $request->setUserResolver(fn() => $user);
+        $request->setUserResolver(fn () => $user);
 
         $context = new LaravelRequestContextProvider($request);
         $contextData = $context->toArray();
@@ -123,7 +123,7 @@ class LaravelRequestContextTest extends TestCase
         ]);
 
         $request = $this->createRequest('GET', '/route', [], ['cookie' => 'noms']);
-        $request->setUserResolver(fn() => $user);
+        $request->setUserResolver(fn () => $user);
 
         $context = new LaravelRequestContextProvider($request);
         $contextData = $context->toArray();
@@ -138,7 +138,7 @@ class LaravelRequestContextTest extends TestCase
         };
 
         $request = $this->createRequest('GET', '/route', [], ['cookie' => 'noms']);
-        $request->setUserResolver(fn() => $user);
+        $request->setUserResolver(fn () => $user);
 
         $context = new LaravelRequestContextProvider($request);
         $contextData = $context->toArray();
@@ -154,7 +154,7 @@ class LaravelRequestContextTest extends TestCase
         };
 
         $request = $this->createRequest('GET', '/route', [], ['cookie' => 'noms']);
-        $request->setUserResolver(fn() => $user);
+        $request->setUserResolver(fn () => $user);
 
         $context = new LaravelRequestContextProvider($request);
         $contextData = $context->toArray();
