@@ -13,10 +13,6 @@ class UnknownValidationSolutionProviderTest extends TestCase
     /** @test */
     public function it_can_solve_the_exception()
     {
-        if (version_compare($this->app->version(), '5.6.3', '<')) {
-            $this->markTestSkipped('Laravel version < 5.6.3 do not support bad method call solutions');
-        }
-
         $canSolve = app(UnknownValidationSolutionProvider::class)->canSolve($this->getBadMethodCallException());
 
         $this->assertTrue($canSolve);
@@ -24,24 +20,14 @@ class UnknownValidationSolutionProviderTest extends TestCase
 
     /**
      * @test
-     * @dataProvider rulesProvider
      *
-     * @param $invalidRule
-     * @param $recommendedRule
+     * @dataProvider rulesProvider
      */
-    public function it_can_recommend_changing_the_rule($invalidRule, $recommendedRule)
+    public function it_can_recommend_changing_the_rule(string $invalidRule, string $recommendedRule)
     {
-        if (version_compare($this->app->version(), '5.6.3', '<')) {
-            $this->markTestSkipped('Laravel version < 5.6.3 do not support bad method call solutions');
-        }
+        Validator::extend('foo', fn($attribute, $value, $parameters, $validator) => $value == 'foo');
 
-        Validator::extend('foo', function ($attribute, $value, $parameters, $validator) {
-            return $value == 'foo';
-        });
-
-        Validator::extendImplicit('bar_a', function ($attribute, $value, $parameters, $validator) {
-            return $value == 'bar';
-        });
+        Validator::extendImplicit('bar_a', fn($attribute, $value, $parameters, $validator) => $value == 'bar');
 
         /** @var \Spatie\IgnitionContracts\Solution $solution */
         $solution = app(UnknownValidationSolutionProvider::class)->getSolutions($this->getBadMethodCallException($invalidRule))[0];
@@ -66,11 +52,6 @@ class UnknownValidationSolutionProviderTest extends TestCase
         }
     }
 
-    /**
-     * Return a data set.
-     *
-     * @return array
-     */
     public function rulesProvider(): array
     {
         return [
