@@ -135,7 +135,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
         $this->app->singleton(DumpRecorder::class);
         $this->app->instance(DumpRecorder::class, $dumpCollector);
 
-        if (config('flare.reporting.report_logs')) {
+        if (config('flare.flare_middleware.' . AddLogs::class)) {
             $this->app->singleton(LogRecorder::class, function (Application $app): LogRecorder {
                 return new LogRecorder(
                     $app,
@@ -237,11 +237,11 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
     protected function startRecorders(): self
     {
-        if (config('flare.reporting.report_logs')) {
+        if (config('flare.flare_middleware.' . AddLogs::class)) {
             $this->app->make(LogRecorder::class)->start();
         }
 
-        if (config('flare.reporting.report_queries')) {
+        if (config('flare.flare_middleware.' . AddQueries::class)) {
             $this->app->make(QueryRecorder::class)->start();
         }
 
@@ -262,11 +262,11 @@ class IgnitionServiceProvider extends PackageServiceProvider
         $queue->looping(function () {
             $this->app->get(Ignition::class)->reset();
 
-            if (config('flare.reporting.report_logs')) {
+            if (config('flare.flare_middleware.' . AddLogs::class)) {
                 $this->app->make(LogRecorder::class)->reset();
             }
 
-            if (config('flare.reporting.report_queries')) {
+            if (config('flare.flare_middleware.' . AddQueries::class)) {
                 $this->app->make(QueryRecorder::class)->reset();
             }
 
