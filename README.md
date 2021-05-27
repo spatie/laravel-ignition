@@ -12,6 +12,14 @@
 
 The official documentation for Ignition can be found on the [Flare website](https://flareapp.io/docs/ignition-for-laravel/installation).
 
+## Support us
+
+[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-ignition.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-ignition)
+
+We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+
+We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+
 ### Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
@@ -19,6 +27,15 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+## Security Vulnerabilities
+
+Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+
+## Credits
+
+- [Spatie](https://spatie.be)
+- [All Contributors](../../contributors)
 
 ## License
 
