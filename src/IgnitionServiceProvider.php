@@ -91,7 +91,6 @@ class IgnitionServiceProvider extends PackageServiceProvider
         }
 
         if (interface_exists(ExceptionRenderer::class)) {
-
             $this->app->bind(
                 ExceptionRenderer::class,
                 fn (Application $app) => $app->make(IgnitionExceptionRenderer::class)
