@@ -10,7 +10,7 @@ class IgnitionConfigTest extends TestCase
     /** @test */
     public function it_does_not_enable_runnable_solutions_in_debug_mode_by_default()
     {
-       config()->set('app.debug', true);
+        config()->set('app.debug', true);
 
         $config = new IgnitionConfig([]);
 
