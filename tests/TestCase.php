@@ -15,7 +15,6 @@ class TestCase extends \Orchestra\Testbench\TestCase
         ray()->newScreen($this->getName());
 
         parent::setUp();
-
     }
 
     protected function getPackageProviders($app)
