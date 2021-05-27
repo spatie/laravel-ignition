@@ -3,7 +3,7 @@
 namespace Spatie\LaravelIgnition\Tests\Http\Middleware;
 
 use Illuminate\Support\Facades\Route;
-use Spatie\LaravelIgnition\Http\Middleware\IgnitionEnabled;
+use Spatie\LaravelIgnition\Http\Middleware\RunnableSolutionsEnabled;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
 class IgnitionEnabledTest extends TestCase
@@ -13,7 +13,7 @@ class IgnitionEnabledTest extends TestCase
     {
         config()->set('app.debug', false);
 
-        Route::get('middleware-test', fn () => 'success')->middleware([IgnitionEnabled::class]);
+        Route::get('middleware-test', fn () => 'success')->middleware([RunnableSolutionsEnabled::class]);
 
         $this->get('middleware-test')->assertStatus(404);
     }
@@ -23,7 +23,7 @@ class IgnitionEnabledTest extends TestCase
     {
         config()->set('app.debug', true);
 
-        Route::get('middleware-test', fn () => 'success')->middleware([IgnitionEnabled::class]);
+        Route::get('middleware-test', fn () => 'success')->middleware([RunnableSolutionsEnabled::class]);
 
         $this->get('middleware-test')->assertStatus(200);
     }

@@ -4,7 +4,7 @@ namespace Spatie\LaravelIgnition\Http\Middleware;
 
 use Closure;
 
-class IgnitionEnabled
+class RunnableSolutionsEnabled
 {
     public function handle($request, Closure $next)
     {
@@ -17,6 +17,6 @@ class IgnitionEnabled
 
     protected function ignitionEnabled(): bool
     {
-        return config('app.debug');
+        return config('ignition.enable_runnable_solutions') ?? config('app.debug');
     }
 }

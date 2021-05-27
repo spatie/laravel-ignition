@@ -23,8 +23,7 @@ use Spatie\LaravelIgnition\FlareMiddleware\AddLogs;
 use Spatie\LaravelIgnition\FlareMiddleware\AddQueries;
 use Spatie\LaravelIgnition\Http\Controllers\ExecuteSolutionController;
 use Spatie\LaravelIgnition\Http\Controllers\HealthCheckController;
-use Spatie\LaravelIgnition\Http\Middleware\IgnitionConfigValueEnabled;
-use Spatie\LaravelIgnition\Http\Middleware\IgnitionEnabled;
+use Spatie\LaravelIgnition\Http\Middleware\RunnableSolutionsEnabled;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\DumpRecorder;
 use Spatie\LaravelIgnition\Recorders\LogRecorder\LogRecorder;
 use Spatie\LaravelIgnition\Recorders\QueryRecorder\QueryRecorder;
@@ -90,6 +89,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
         }
 
         if (interface_exists(ExceptionRenderer::class)) {
+
             $this->app->bind(
                 ExceptionRenderer::class,
                 fn (Application $app) => $app->make(IgnitionExceptionRenderer::class)
@@ -101,8 +101,6 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
     protected function registerFlare(): self
     {
-        ray($this->getFlareMiddleware());
-
         $this->app->singleton(Flare::class, function () {
             return Flare::make()
                 ->setApiToken(config('flare.key') ?? '')
@@ -202,12 +200,11 @@ class IgnitionServiceProvider extends PackageServiceProvider
         Route::group([
             'as' => 'ignition.',
             'prefix' => config('ignition.housekeeping_endpoint_prefix'),
-            'middleware' => [IgnitionEnabled::class],
+            'middleware' => [RunnableSolutionsEnabled::class],
         ], function () {
             Route::get('health-check', HealthCheckController::class)->name('healthCheck');
 
             Route::post('execute-solution', ExecuteSolutionController::class)
-                ->middleware(IgnitionConfigValueEnabled::class . ':enableRunnableSolutions')
                 ->name('executeSolution');
         });
 

@@ -21,12 +21,12 @@ class LogTest extends TestCase
 
         $this->fakeClient = new FakeClient();
 
-        $currentClient = $this->app->make(Flare::class);
+        $currentFlare = $this->app->make(Flare::class);
 
-        $middleware = $currentClient->getMiddleware();
+        $middleware = $currentFlare->getMiddleware();
 
         $this->app->singleton(Flare::class, function () use ($middleware) {
-            $flare = new Flare($this->fakeClient, null, null);
+            $flare = new Flare($this->fakeClient, null, []);
 
             foreach ($middleware as $singleMiddleware) {
                 $flare->registerMiddleware($singleMiddleware);
@@ -41,11 +41,11 @@ class LogTest extends TestCase
     /** @test */
     public function it_reports_exceptions_using_the_flare_api()
     {
-        Route::get('exception', function () {
-            whoops();
-        });
+        Route::get('exception', fn() => nonExistingFunction());
 
-        $this->get('/exception');
+        $response = $this
+            ->get('/exception')
+            ->assertStatus(500);
 
         $this->fakeClient->assertRequestsSent(1);
     }
