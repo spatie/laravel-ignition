@@ -12,7 +12,7 @@ class IgnitionConfigValueEnabled
 
     public function __construct(IgnitionConfig $ignitionConfig)
     {
-        $this->ignitionConfig = $ignitionConfig;
+        $this->ignitionConfig = $ignitionConfig->merge(config('ignition'));
     }
 
     public function handle(Request $request, Closure $next, string $value)

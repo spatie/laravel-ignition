@@ -116,7 +116,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
     protected function registerIgnition(): self
     {
-        $ignitionConfig = IgnitionConfig::loadFromConfigFile()->mergeWithDefaults(config('ignition'));
+        $ignitionConfig = IgnitionConfig::loadFromConfigFile()->merge(config('ignition'));
 
         $solutionProviders = $this->getSolutionProviders();
         $solutionProviderRepository = new SolutionProviderRepository($solutionProviders);
