@@ -123,7 +123,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
         $this->app->singleton(IgnitionConfig::class, fn () => $ignitionConfig);
 
-        $this->app->singleton(SolutionProviderRepositoryContract::class, fn() => $solutionProviderRepository);
+        $this->app->singleton(SolutionProviderRepositoryContract::class, fn () => $solutionProviderRepository);
 
         $this->app->singleton(Ignition::class, fn () => (new Ignition()));
 

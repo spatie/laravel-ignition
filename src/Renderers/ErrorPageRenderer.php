@@ -3,16 +3,10 @@
 namespace Spatie\LaravelIgnition\Renderers;
 
 use Spatie\FlareClient\Flare;
-use Spatie\FlareClient\FlareMiddleware\AddGitInformation;
-use Spatie\FlareClient\FlareMiddleware\AddNotifierName;
 use Spatie\Ignition\Config\IgnitionConfig;
 use Spatie\Ignition\Ignition;
 use Spatie\IgnitionContracts\SolutionProviderRepository;
 use Spatie\LaravelIgnition\ContextProviders\LaravelContextProviderDetector;
-use Spatie\LaravelIgnition\FlareMiddleware\AddDumps;
-use Spatie\LaravelIgnition\FlareMiddleware\AddEnvironmentInformation;
-use Spatie\LaravelIgnition\FlareMiddleware\AddLogs;
-use Spatie\LaravelIgnition\FlareMiddleware\AddQueries;
 use Throwable;
 
 class ErrorPageRenderer

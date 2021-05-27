@@ -8,9 +8,7 @@ class IgnitionEnabled
 {
     public function handle($request, Closure $next)
     {
-
         if (! $this->ignitionEnabled()) {
-
             abort(404);
         }
 
