@@ -3,8 +3,8 @@
 namespace Spatie\LaravelIgnition\Tests\Solutions;
 
 use Illuminate\Support\Facades\View;
-use Spatie\Ignition\Solutions\MakeViewVariableOptionalSolution;
-use Spatie\Ignition\Support\ComposerClassMap;
+use Spatie\LaravelIgnition\Solutions\MakeViewVariableOptionalSolution;
+use Spatie\LaravelIgnition\Support\Composer\ComposerClassMap;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
 class MakeViewVariableOptionalSolutionTest extends TestCase
@@ -38,7 +38,7 @@ class MakeViewVariableOptionalSolutionTest extends TestCase
     }
 
     /** @test */
-    public function it_does_not_open_other_extentions()
+    public function it_does_not_open_other_extensions()
     {
         $solution = $this->getSolutionForPath('./tests/stubs/views/php-exception.php');
         $this->assertFalse($solution->isRunnable());

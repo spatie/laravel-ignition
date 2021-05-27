@@ -1,5 +1,8 @@
 <?php
 
+namespace Spatie\LaravelIgnition\Tests\Solutions;
+
+use ErrorException;
 use Spatie\Ignition\Solutions\SolutionProviders\UndefinedPropertySolutionProvider;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
@@ -27,7 +30,7 @@ class UndefinedPropertySolutionProviderTest extends TestCase
         /** @var \Spatie\IgnitionContracts\Solution $solution */
         $solution = app(UndefinedPropertySolutionProvider::class)->getSolutions($this->getUndefinedPropertyException())[0];
 
-        $this->assertEquals('Did you mean Spatie\Ignition\Tests\Support\Models\Car::$color ?', $solution->getSolutionDescription());
+        $this->assertEquals('Did you mean Spatie\LaravelIgnition\Tests\Support\Models\Car::$color ?', $solution->getSolutionDescription());
     }
 
     /** @test */
@@ -41,6 +44,6 @@ class UndefinedPropertySolutionProviderTest extends TestCase
 
     protected function getUndefinedPropertyException(string $property = 'colro'): ErrorException
     {
-        return new ErrorException("Undefined property: Spatie\Ignition\Tests\Support\Models\Car::$$property ");
+        return new ErrorException("Undefined property: Spatie\LaravelIgnition\Tests\Support\Models\Car::$$property ");
     }
 }
