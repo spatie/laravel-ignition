@@ -21,7 +21,7 @@ class ErrorPageViewModelTest extends TestCase
         $report = $flareClient->createReport($exception);
 
         $report->group('bad-utf8', [
-            'name' => 'Marcel'.utf8_decode('ø'),
+            'name' => 'JohnDoe'.utf8_decode('ø'),
         ]);
 
         $model = new ErrorPageViewModel($exception, new IgnitionConfig([]), $report, []);

@@ -11,36 +11,16 @@ use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 class LaravelRequestContextTest extends TestCase
 {
-    protected function createRequest($method, $uri, $parameters = [], $cookies = [], $files = [], $server = [], $content = null)
-    {
-        $files = array_merge($files, $this->extractFilesFromDataArray($parameters));
-
-        $symfonyRequest = SymfonyRequest::create(
-            $this->prepareUrlForRequest($uri),
-            $method,
-            $parameters,
-            $cookies,
-            $files,
-            array_replace($this->serverVariables, $server),
-            $content
-        );
-
-        return Request::createFromBase($symfonyRequest);
-    }
-
     /** @test */
     public function it_returns_route_name_in_context_data()
     {
-        $route = Route::get('/route/', function () {
-        })->name('routeName');
+        $route = Route::get('/route/', fn () => null)->name('routeName');
 
         $request = $this->createRequest('GET', '/route');
 
         $route->bind($request);
 
-        $request->setRouteResolver(function () use ($route) {
-            return $route;
-        });
+        $request->setRouteResolver(fn() => $route);
 
         $context = new LaravelRequestContextProvider($request);
 
@@ -52,8 +32,7 @@ class LaravelRequestContextTest extends TestCase
     /** @test */
     public function it_returns_route_parameters_in_context_data()
     {
-        $route = Route::get('/route/{parameter}/{otherParameter}', function () {
-        });
+        $route = Route::get('/route/{parameter}/{otherParameter}', fn () => null);
 
         $request = $this->createRequest('GET', '/route/value/second');
 
@@ -116,15 +95,13 @@ class LaravelRequestContextTest extends TestCase
         $user = new User();
         $user->forceFill([
             'id' => 1,
-            'email' => 'marcel@beyondco.de',
+            'email' => 'john@example.com',
         ]);
 
         $request = $this->createRequest('GET', '/route', [], ['cookie' => 'noms']);
-        $request->setUserResolver(function () use ($user) {
-            return $user;
-        });
+        $request->setUserResolver(fn() => $user);
 
-        $context = new LaravelRequestContext($request);
+        $context = new LaravelRequestContextProvider($request);
         $contextData = $context->toArray();
 
         $this->assertSame($user->toArray(), $contextData['user']);
@@ -142,15 +119,13 @@ class LaravelRequestContextTest extends TestCase
 
         $user->forceFill([
             'id' => 1,
-            'email' => 'marcel@beyondco.de',
+            'email' => 'john@example.com',
         ]);
 
         $request = $this->createRequest('GET', '/route', [], ['cookie' => 'noms']);
-        $request->setUserResolver(function () use ($user) {
-            return $user;
-        });
+        $request->setUserResolver(fn() => $user);
 
-        $context = new LaravelRequestContext($request);
+        $context = new LaravelRequestContextProvider($request);
         $contextData = $context->toArray();
 
         $this->assertSame(['id' => $user->id], $contextData['user']);
@@ -163,11 +138,9 @@ class LaravelRequestContextTest extends TestCase
         };
 
         $request = $this->createRequest('GET', '/route', [], ['cookie' => 'noms']);
-        $request->setUserResolver(function () use ($user) {
-            return $user;
-        });
+        $request->setUserResolver(fn() => $user);
 
-        $context = new LaravelRequestContext($request);
+        $context = new LaravelRequestContextProvider($request);
         $contextData = $context->toArray();
 
         $this->assertSame([], $contextData['user']);
@@ -181,13 +154,28 @@ class LaravelRequestContextTest extends TestCase
         };
 
         $request = $this->createRequest('GET', '/route', [], ['cookie' => 'noms']);
-        $request->setUserResolver(function () use ($user) {
-            return $user;
-        });
+        $request->setUserResolver(fn() => $user);
 
-        $context = new LaravelRequestContext($request);
+        $context = new LaravelRequestContextProvider($request);
         $contextData = $context->toArray();
 
         $this->assertSame([], $contextData['user']);
+    }
+
+    protected function createRequest($method, $uri, $parameters = [], $cookies = [], $files = [], $server = [], $content = null): Request
+    {
+        $files = array_merge($files, $this->extractFilesFromDataArray($parameters));
+
+        $symfonyRequest = SymfonyRequest::create(
+            $this->prepareUrlForRequest($uri),
+            $method,
+            $parameters,
+            $cookies,
+            $files,
+            array_replace($this->serverVariables, $server),
+            $content
+        );
+
+        return Request::createFromBase($symfonyRequest);
     }
 }
