@@ -4,9 +4,9 @@ namespace Spatie\LaravelIgnition\Tests;
 
 use Spatie\FlareClient\Glows\Glow;
 use Spatie\FlareClient\Report;
-use Spatie\Ignition\Tests\TestClasses\FakeTime;
 use Spatie\LaravelIgnition\Facades\Flare;
 use Spatie\LaravelIgnition\IgnitionServiceProvider;
+use Spatie\LaravelIgnition\Tests\TestClasses\FakeTime;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {

@@ -7,8 +7,8 @@ use Illuminate\Foundation\Auth\User;
 use RuntimeException;
 use Spatie\Ignition\Solutions\SolutionProviders\BadMethodCallSolutionProvider;
 use Spatie\Ignition\Solutions\SolutionProviders\SolutionProviderRepository;
-use Spatie\Ignition\Tests\Exceptions\AlwaysFalseSolutionProvider;
-use Spatie\Ignition\Tests\Exceptions\AlwaysTrueSolutionProvider;
+use Spatie\LaravelIgnition\Tests\Exceptions\AlwaysFalseSolutionProvider;
+use Spatie\LaravelIgnition\Tests\Exceptions\AlwaysTrueSolutionProvider;
 use Spatie\IgnitionContracts\BaseSolution;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingAppKeySolutionProvider;
 
@@ -47,24 +47,6 @@ class ExceptionSolutionTest extends TestCase
     }
 
     /** @test */
-    public function it_can_ignore_solution_providers()
-    {
-        $this->app->make('config')->set('ignition.ignored_solution_providers', [
-            AlwaysTrueSolutionProvider::class,
-        ]);
-
-        $repository = new SolutionProviderRepository();
-
-        $repository->registerSolutionProvider(AlwaysTrueSolutionProvider::class);
-        $repository->registerSolutionProvider(AlwaysFalseSolutionProvider::class);
-
-        $solutions = $repository->getSolutionsForThrowable(new Exception());
-
-        $this->assertNotNull($solutions);
-        $this->assertCount(0, $solutions);
-    }
-
-    /** @test */
     public function it_can_suggest_bad_method_call_exceptions()
     {
         if (version_compare($this->app->version(), '5.6.3', '<')) {
@@ -83,13 +65,8 @@ class ExceptionSolutionTest extends TestCase
     /** @test */
     public function it_can_propose_a_solution_for_bad_method_call_exceptions_on_collections()
     {
-        if (version_compare($this->app->version(), '5.6.3', '<')) {
-            $this->markTestSkipped('Laravel version < 5.6.3 do not support bad method call solutions');
-        }
-
         try {
-            collect([])->frist(function ($item) {
-            });
+            collect([])->frist(fn($item) => null);
         } catch (Exception $exception) {
             $solution = new BadMethodCallSolutionProvider();
 
@@ -100,10 +77,6 @@ class ExceptionSolutionTest extends TestCase
     /** @test */
     public function it_can_propose_a_solution_for_bad_method_call_exceptions_on_models()
     {
-        if (version_compare($this->app->version(), '5.7', '<')) {
-            $this->markTestSkipped('Laravel version < 5.7.0 does not provide the actual called class for model exceptions.');
-        }
-
         try {
             $user = new User();
             $user->sarve();
@@ -117,9 +90,7 @@ class ExceptionSolutionTest extends TestCase
     /** @test */
     public function it_can_propose_a_solution_for_missing_app_key_exceptions()
     {
-        $exception = new RuntimeException(
-            'No application encryption key has been specified.'
-        );
+        $exception = new RuntimeException('No application encryption key has been specified.');
 
         $solution = new MissingAppKeySolutionProvider();
 

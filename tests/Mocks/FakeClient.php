@@ -13,7 +13,7 @@ class FakeClient extends Client
 
     public function __construct()
     {
-        parent::__construct(uniqid(), null);
+        parent::__construct(uniqid(), 'https://fake.com');
     }
 
     public function makeCurlRequest(

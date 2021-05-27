@@ -2,12 +2,12 @@
 
 namespace Spatie\LaravelIgnition\Tests;
 
-use Illuminate\Support\Arr;
+use Exception;
+use Flare as FlareFacade;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Spatie\FlareClient\Flare;
-use Spatie\Ignition\Tests\Mocks\FakeClient;
+use Spatie\LaravelIgnition\Tests\Mocks\FakeClient;
 
 class FlareTest extends TestCase
 {
@@ -23,15 +23,13 @@ class FlareTest extends TestCase
             'driver' => 'flare',
         ];
 
-        $this->app['config']['logging.default'] = 'flare';
-
-        $this->app['config']['flare.key'] = 'some-key';
+        config()->set('logging.channels.flare.driver', 'flare');
+        config()->set('logging.default', 'flare');
+        config()->set('flare.key', 'some-key');
 
         $this->fakeClient = new FakeClient();
 
-        $this->app->singleton(Flare::class, function () {
-            return new Flare($this->fakeClient);
-        });
+        $this->app->singleton(Flare::class, fn() => new Flare($this->fakeClient));
 
         $this->useTime('2019-01-01 12:34:56');
 
@@ -41,34 +39,8 @@ class FlareTest extends TestCase
     /** @test */
     public function it_can_manually_report_exceptions()
     {
-        \Flare::report(new \Exception());
+        FlareFacade::report(new Exception());
 
         $this->fakeClient->assertRequestsSent(1);
-    }
-
-    /** @test */
-    public function it_can_remove_view_data()
-    {
-        Route::get('exception', function () {
-            return view('blade-exception', ['foo' => 'bar']);
-        });
-
-        $this->get('/exception');
-
-        $lastRequest = $this->fakeClient->getLastRequest();
-
-        $this->assertNotNull(Arr::get($lastRequest, 'arguments.context.view.data.foo'));
-
-        $this->app['config']['flare.reporting.report_view_data'] = false;
-
-        Route::get('exception', function () {
-            return view('blade-exception', ['foo' => 'bar']);
-        });
-
-        $this->get('/exception');
-
-        $lastRequest = $this->fakeClient->getLastRequest();
-
-        $this->assertNull(Arr::get($lastRequest, 'arguments.context.view.data.foo'));
     }
 }

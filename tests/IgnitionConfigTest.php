@@ -8,19 +8,19 @@ use Spatie\Ignition\Config\IgnitionConfig;
 class IgnitionConfigTest extends TestCase
 {
     /** @test */
-    public function it_enables_runnable_solutions_in_debug_mode()
+    public function it_does_not_enable_runnable_solutions_in_debug_mode_by_default()
     {
-        $this->app['config']['app.debug'] = true;
+       config()->set('app.debug', true);
 
         $config = new IgnitionConfig([]);
 
-        $this->assertTrue($config->runnableSolutionsEnabled());
+        $this->assertFalse($config->runnableSolutionsEnabled());
     }
 
     /** @test */
     public function it_disables_runnable_solutions_in_production_mode()
     {
-        $this->app['config']['app.debug'] = false;
+        config()->set('app.debug', false);
 
         $config = new IgnitionConfig([]);
 
@@ -30,7 +30,7 @@ class IgnitionConfigTest extends TestCase
     /** @test */
     public function it_prioritizes_config_value_over_debug_mode()
     {
-        $this->app['config']['app.debug'] = true;
+        config()->set('app.debug', true);
 
         $config = new IgnitionConfig([
             'enable_runnable_solutions' => false,
