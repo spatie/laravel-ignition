@@ -9,7 +9,7 @@ use Spatie\LaravelIgnition\Tests\TestCase;
 class IgnitionEnabledTest extends TestCase
 {
     /** @test */
-    public function it_returns_404_with_debug_mode_disabled()
+    public function it_returns_404_when_debug_mode_disabled()
     {
         config()->set('app.debug', false);
 
@@ -19,7 +19,7 @@ class IgnitionEnabledTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_ok_with_debug_mode_enabled()
+    public function it_returns_ok_when_debug_mode_enabled()
     {
         config()->set('app.debug', true);
 
