@@ -2,7 +2,6 @@
 
 namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Broadcasting\BroadcastException;
 use Spatie\IgnitionContracts\BaseSolution;
 use Spatie\IgnitionContracts\HasSolutionsForThrowable;
@@ -31,11 +30,12 @@ class GenericLaravelExceptionSolutionProvider implements HasSolutionsForThrowabl
 
     protected function getSolutionTexts(Throwable $throwable) : ?array
     {
-        foreach($this->getSupportedExceptions() as $supportedClass => $texts) {
+        foreach ($this->getSupportedExceptions() as $supportedClass => $texts) {
             if ($throwable instanceof $supportedClass) {
                 return $texts;
             }
         }
+
         return null;
     }
 
@@ -49,11 +49,9 @@ class GenericLaravelExceptionSolutionProvider implements HasSolutionsForThrowabl
                 'title' => 'Here are some links that might help solve this problem',
                 'description' => '',
                 'links' => [
-                    'Laravel docs on authentication' => "https://laravel.com/docs/{$majorVersion}.x/authentication"
-                ]
-            ]
+                    'Laravel docs on authentication' => "https://laravel.com/docs/{$majorVersion}.x/authentication",
+                ],
+            ],
         ];
     }
-
-
 }
