@@ -4,6 +4,7 @@ use Spatie\Ignition\Solutions\SolutionProviders\BadMethodCallSolutionProvider;
 use Spatie\Ignition\Solutions\SolutionProviders\MergeConflictSolutionProvider;
 use Spatie\Ignition\Solutions\SolutionProviders\UndefinedPropertySolutionProvider;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\DefaultDbNameSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\GenericLaravelExceptionSolutionProvider;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\IncorrectValetDbCredentialsSolutionProvider;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\InvalidRouteActionSolutionProvider;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingAppKeySolutionProvider;
@@ -105,7 +106,8 @@ return [
         UnknownValidationSolutionProvider::class,
         MissingMixManifestSolutionProvider::class,
         MissingLivewireComponentSolutionProvider::class,
-        UndefinedViewVariableSolutionProvider::class
+        UndefinedViewVariableSolutionProvider::class,
+        GenericLaravelExceptionSolutionProvider::class,
     ],
 
     /*

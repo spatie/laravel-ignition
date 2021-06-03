@@ -11,6 +11,7 @@ use Illuminate\View\Engines\PhpEngine as LaravelPhpEngine;
 use Livewire\CompilerEngineForIgnition;
 use Monolog\Logger;
 use Spatie\FlareClient\Flare;
+use Spatie\FlareClient\FlareMiddleware\AddSolutions;
 use Spatie\Ignition\Config\IgnitionConfig;
 use Spatie\Ignition\Ignition;
 use Spatie\IgnitionContracts\SolutionProviderRepository as SolutionProviderRepositoryContract;
@@ -81,8 +82,6 @@ class IgnitionServiceProvider extends PackageServiceProvider
     protected function registerRenderer(): self
     {
         if (interface_exists(HandlerInterface::class)) {
-            ray('register renderer');
-
             $this->app->bind(
                 HandlerInterface::class,
                 fn (Application $app) => $app->make(IgnitionWhoopsHandler::class)
@@ -106,7 +105,9 @@ class IgnitionServiceProvider extends PackageServiceProvider
                 ->setApiToken(config('flare.key') ?? '')
                 ->setBaseUrl(config('flare.base_url', 'https://flareapp.io/api'))
                 ->setStage(config('app.env'))
-                ->registerMiddleware($this->getFlareMiddleware());
+                ->registerMiddleware($this->getFlareMiddleware())
+                ->registerMiddleware(new AddSolutions(new SolutionProviderRepository($this->getSolutionProviders())));
+
         });
 
         return $this;

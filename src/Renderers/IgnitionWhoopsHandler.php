@@ -20,8 +20,6 @@ class IgnitionWhoopsHandler extends Handler
 
     public function handle(): ?int
     {
-        ray('handling in whoopshandler');
-
         try {
             $this->errorPageHandler->render($this->exception);
         } catch (Error $error) {
