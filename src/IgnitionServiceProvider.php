@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\Engines\CompilerEngine as LaravelCompilerEngine;
 use Illuminate\View\Engines\PhpEngine as LaravelPhpEngine;
+use Laravel\Octane\Events\RequestReceived;
+use Laravel\Octane\Events\TaskReceived;
+use Laravel\Octane\Events\TickReceived;
 use Livewire\CompilerEngineForIgnition;
 use Monolog\Logger;
 use Spatie\FlareClient\Flare;
@@ -36,9 +39,6 @@ use Spatie\LaravelIgnition\Views\Engines\PhpEngine;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Whoops\Handler\HandlerInterface;
-use Laravel\Octane\Events\RequestReceived;
-use Laravel\Octane\Events\TaskReceived;
-use Laravel\Octane\Events\TickReceived;
 
 class IgnitionServiceProvider extends PackageServiceProvider
 {
@@ -88,14 +88,14 @@ class IgnitionServiceProvider extends PackageServiceProvider
         if (interface_exists(HandlerInterface::class)) {
             $this->app->bind(
                 HandlerInterface::class,
-                fn(Application $app) => $app->make(IgnitionWhoopsHandler::class)
+                fn (Application $app) => $app->make(IgnitionWhoopsHandler::class)
             );
         }
 
         if (interface_exists(ExceptionRenderer::class)) {
             $this->app->bind(
                 ExceptionRenderer::class,
-                fn(Application $app) => $app->make(IgnitionExceptionRenderer::class)
+                fn (Application $app) => $app->make(IgnitionExceptionRenderer::class)
             );
         }
 
@@ -123,11 +123,11 @@ class IgnitionServiceProvider extends PackageServiceProvider
         $solutionProviders = $this->getSolutionProviders();
         $solutionProviderRepository = new SolutionProviderRepository($solutionProviders);
 
-        $this->app->singleton(IgnitionConfig::class, fn() => $ignitionConfig);
+        $this->app->singleton(IgnitionConfig::class, fn () => $ignitionConfig);
 
-        $this->app->singleton(SolutionProviderRepositoryContract::class, fn() => $solutionProviderRepository);
+        $this->app->singleton(SolutionProviderRepositoryContract::class, fn () => $solutionProviderRepository);
 
-        $this->app->singleton(Ignition::class, fn() => (new Ignition()));
+        $this->app->singleton(Ignition::class, fn () => (new Ignition()));
 
         return $this;
     }
@@ -165,7 +165,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
     public function configureTinker(): self
     {
-        if (!$this->app->runningInConsole()) {
+        if (! $this->app->runningInConsole()) {
             if (isset($_SERVER['argv']) && ['artisan', 'tinker'] === $_SERVER['argv']) {
                 app(Flare::class)->sendReportsImmediately();
             }
@@ -185,7 +185,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
     protected function registerViewEngines(): self
     {
-        if (!$this->hasCustomViewEnginesRegistered()) {
+        if (! $this->hasCustomViewEnginesRegistered()) {
             return $this;
         }
 
@@ -238,11 +238,11 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
             return tap(
                 new Logger('Flare'),
-                fn(Logger $logger) => $logger->pushHandler($handler)
+                fn (Logger $logger) => $logger->pushHandler($handler)
             );
         });
 
-        Log::extend('flare', fn($app) => $app['flare.logger']);
+        Log::extend('flare', fn ($app) => $app['flare.logger']);
 
         return $this;
     }
@@ -264,13 +264,13 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
     protected function configureQueue(): self
     {
-        if (!$this->app->bound('queue')) {
+        if (! $this->app->bound('queue')) {
             return $this;
         }
 
         $queue = $this->app->get('queue');
 
-        $queue->looping(fn() => $this->resetLaravelIgnition());
+        $queue->looping(fn () => $this->resetLaravelIgnition());
 
         return $this;
     }
@@ -279,7 +279,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
     {
         $logLevel = Logger::getLevels()[strtoupper($logLevelString)] ?? null;
 
-        if (!$logLevel) {
+        if (! $logLevel) {
             throw InvalidConfig::invalidLogLevel($logLevelString);
         }
 
@@ -290,11 +290,11 @@ class IgnitionServiceProvider extends PackageServiceProvider
     {
         $resolver = $this->app->make('view.engine.resolver');
 
-        if (!$resolver->resolve('php') instanceof LaravelPhpEngine) {
+        if (! $resolver->resolve('php') instanceof LaravelPhpEngine) {
             return false;
         }
 
-        if (!$resolver->resolve('blade') instanceof LaravelCompilerEngine) {
+        if (! $resolver->resolve('blade') instanceof LaravelCompilerEngine) {
             return false;
         }
 
@@ -323,7 +323,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
     {
         return collect(config('ignition.solution_providers'))
             ->reject(
-                fn(string $class) => in_array($class, config('ignition.ignored_solution_providers'))
+                fn (string $class) => in_array($class, config('ignition.ignored_solution_providers'))
             )
             ->toArray();
     }
