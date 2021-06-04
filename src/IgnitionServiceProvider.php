@@ -111,7 +111,6 @@ class IgnitionServiceProvider extends PackageServiceProvider
                 ->setStage(config('app.env'))
                 ->registerMiddleware($this->getFlareMiddleware())
                 ->registerMiddleware(new AddSolutions(new SolutionProviderRepository($this->getSolutionProviders())));
-
         });
 
         return $this;
