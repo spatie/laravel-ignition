@@ -1,37 +1,46 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Solutions;
+namespace Spatie\LaravelIgnition\Solutions\SolutionTransformers;
 
-use Illuminate\Contracts\Support\Arrayable;
+use Spatie\Ignition\Solutions\SolutionTransformer;
 use Spatie\IgnitionContracts\RunnableSolution;
 use Spatie\IgnitionContracts\Solution;
 use Spatie\LaravelIgnition\Http\Controllers\ExecuteSolutionController;
 use Throwable;
 
-class SolutionTransformer implements Arrayable
+class LaravelSolutionTransformer extends SolutionTransformer
 {
-    protected Solution $solution;
-
-    public function __construct(Solution $solution)
-    {
-        $this->solution = $solution;
-    }
-
     public function toArray(): array
     {
-        $isRunnable = ($this->solution instanceof RunnableSolution);
+        $baseProperties = parent::toArray();
 
-        return [
+        if (! $this->isRunnable()) {
+            return $baseProperties;
+        }
+
+        $runnableProperties = [
+            'is_runnable' => true,
             'class' => get_class($this->solution),
             'title' => $this->solution->getSolutionTitle(),
             'description' => $this->solution->getSolutionDescription(),
             'links' => $this->solution->getDocumentationLinks(),
-            'is_runnable' => $isRunnable,
-            'run_button_text' => $isRunnable ? $this->solution->getRunButtonText() : '',
-            'run_parameters' => $isRunnable ? $this->solution->getRunParameters() : [],
-            'action_description' => $isRunnable ? $this->solution->getSolutionActionDescription() : '',
             'execute_endpoint' => $this->executeEndpoint(),
         ];
+
+        return array_merge($baseProperties, $runnableProperties);
+    }
+
+    protected function isRunnable(): bool
+    {
+        if (! $this->solution instanceof RunnableSolution) {
+            return false;
+        }
+
+        if ($this->executeEndpoint() === '') {
+            return false;
+        }
+
+        return true;
     }
 
     protected function executeEndpoint(): string

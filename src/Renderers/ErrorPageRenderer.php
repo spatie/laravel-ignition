@@ -7,6 +7,7 @@ use Spatie\Ignition\Config\IgnitionConfig;
 use Spatie\Ignition\Ignition;
 use Spatie\IgnitionContracts\SolutionProviderRepository;
 use Spatie\LaravelIgnition\ContextProviders\LaravelContextProviderDetector;
+use Spatie\LaravelIgnition\Solutions\SolutionTransformers\LaravelSolutionTransformer;
 use Throwable;
 
 class ErrorPageRenderer
@@ -18,6 +19,7 @@ class ErrorPageRenderer
             ->setConfig(app(IgnitionConfig::class))
             ->setSolutionProviderRepository(app(SolutionProviderRepository::class))
             ->setContextProviderDetector(new LaravelContextProviderDetector())
+            ->setSolutionTransformerClass(LaravelSolutionTransformer::class)
             ->applicationPath(base_path())
             ->handleException($throwable);
     }
