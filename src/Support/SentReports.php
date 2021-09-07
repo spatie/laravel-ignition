@@ -22,18 +22,14 @@ class SentReports
         return $this->reports;
     }
 
-    public function allUuids(): array
+    public function allTrackingUuids(): array
     {
-        return array_map(fn(Report $report) => $report->uuid(), $this->reports);
+        return array_map(fn(Report $report) => $report->trackingUuid(), $this->reports);
     }
 
-    public function latestUuid(): ?string
+    public function latestTrackingUuid(): ?string
     {
-        if (! $lastReport = Arr::last($this->reports)) {
-            return null;
-        }
-
-        return $lastReport->uuid();
+        return Arr::last($this->reports)?->trackingUuid();
     }
 
     public function clear()

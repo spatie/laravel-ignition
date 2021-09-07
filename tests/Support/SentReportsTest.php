@@ -22,20 +22,20 @@ class SentReportsTest extends TestCase
     /** @test */
     public function it_can_get_the_uuids()
     {
-        $this->assertNull($this->sentReports->latestUuid());
+        $this->assertNull($this->sentReports->latestTrackingUuid());
 
         $report = $this->getReport('first-report');
         $this->sentReports->add($report);
-        $this->assertEquals('first-report', $this->sentReports->latestUuid());
+        $this->assertEquals('first-report', $this->sentReports->latestTrackingUuid());
 
         $report = $this->getReport('second-report');
         $this->sentReports->add($report);
-        $this->assertEquals('second-report', $this->sentReports->latestUuid());
+        $this->assertEquals('second-report', $this->sentReports->latestTrackingUuid());
 
         $this->assertEquals([
             'first-report',
             'second-report',
-        ], $this->sentReports->allUuids());
+        ], $this->sentReports->allTrackingUuids());
     }
 
     /** @test */
@@ -51,7 +51,7 @@ class SentReportsTest extends TestCase
 
     protected function getReport(string $fakeUuid = 'fake-uuid'): Report
     {
-        Report::$fakeUuid = $fakeUuid;
+        Report::$fakeTrackingUuid = $fakeUuid;
 
         return Flare::report(new Exception());
     }

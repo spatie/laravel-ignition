@@ -48,19 +48,6 @@ class IgnitionServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-ignition')
             ->hasConfigFile(['flare', 'ignition']);
-
-        if ($this->app['config']->get('flare.key')) {
-            $package->hasCommands([
-                TestCommand::class,
-            ]);
-        }
-
-        if ($this->app['config']->get('ignition.register_commands')) {
-            $package->hasCommands([
-                SolutionMakeCommand::class,
-                SolutionProviderMakeCommand::class,
-            ]);
-        }
     }
 
     public function packageRegistered(): void
@@ -70,6 +57,22 @@ class IgnitionServiceProvider extends PackageServiceProvider
             ->registerIgnition()
             ->registerRenderer()
             ->registerRecorders();
+    }
+
+    public function bootingPackage()
+    {
+        if ($this->app['config']->get('flare.key')) {
+            $this->package->hasCommands([
+                TestCommand::class,
+            ]);
+        }
+
+        if ($this->app['config']->get('ignition.register_commands')) {
+            $this->package->hasCommands([
+                SolutionMakeCommand::class,
+                SolutionProviderMakeCommand::class,
+            ]);
+        }
     }
 
     public function packageBooted(): void
