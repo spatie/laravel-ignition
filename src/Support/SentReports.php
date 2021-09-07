@@ -24,7 +24,7 @@ class SentReports
 
     public function allTrackingUuids(): array
     {
-        return array_map(fn(Report $report) => $report->trackingUuid(), $this->reports);
+        return array_map(fn (Report $report) => $report->trackingUuid(), $this->reports);
     }
 
     public function latestTrackingUuid(): ?string
