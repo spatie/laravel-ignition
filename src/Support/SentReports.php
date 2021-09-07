@@ -12,6 +12,7 @@ class SentReports
 
     public function add(Report $report): self
     {
+        info('adding');
         $this->reports[] = $report;
 
         return $this;
@@ -29,6 +30,7 @@ class SentReports
 
     public function latestTrackingUuid(): ?string
     {
+        ray('here');
         return Arr::last($this->reports)?->trackingUuid();
     }
 
