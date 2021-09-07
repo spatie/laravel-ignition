@@ -5,6 +5,7 @@ namespace Spatie\LaravelIgnition\Tests;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Spatie\FlareClient\Flare;
+use Spatie\LaravelIgnition\Support\SentReports;
 use Spatie\LaravelIgnition\Tests\Mocks\FakeClient;
 
 class LogTest extends TestCase
@@ -175,5 +176,19 @@ class LogTest extends TestCase
         $logs = $arguments['context']['logs'];
 
         $this->assertEquals(['meta' => 'data'], $logs[0]['context']);
+    }
+
+    /** @test */
+    public function it_will_keep_sent_reports()
+    {
+        Route::get('exception', fn () => nonExistingFunction());
+
+        $response = $this
+            ->get('/exception')
+            ->assertStatus(500);
+
+        $this->fakeClient->assertRequestsSent(1);
+
+        $this->assertCount(1, app(SentReports::class)->all());
     }
 }
