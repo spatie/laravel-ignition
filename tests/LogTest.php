@@ -190,5 +190,6 @@ class LogTest extends TestCase
         $this->fakeClient->assertRequestsSent(1);
 
         $this->assertCount(1, app(SentReports::class)->all());
+        $this->assertCount(1, \Spatie\LaravelIgnition\Facades\Flare::sentReports()->all());
     }
 }
