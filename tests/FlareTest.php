@@ -5,10 +5,8 @@ namespace Spatie\LaravelIgnition\Tests;
 use Exception;
 use Flare as FlareFacade;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Spatie\FlareClient\Flare;
-use Spatie\LaravelIgnition\Support\SentReports;
 use Spatie\LaravelIgnition\Tests\Mocks\FakeClient;
 
 class FlareTest extends TestCase
