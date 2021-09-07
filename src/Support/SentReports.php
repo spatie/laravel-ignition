@@ -7,7 +7,7 @@ use Spatie\FlareClient\Report;
 
 class SentReports
 {
-    /** @var array<int, Report>  */
+    /** @var array<int, Report> */
     protected array $reports = [];
 
     public function add(Report $report): self
@@ -24,7 +24,7 @@ class SentReports
 
     public function allUuids(): array
     {
-        return array_map(fn(Report $report) => $report->uuid(), $this->reports);
+        return array_map(fn (Report $report) => $report->uuid(), $this->reports);
     }
 
     public function latestUuid(): ?string
