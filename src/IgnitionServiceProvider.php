@@ -34,6 +34,7 @@ use Spatie\LaravelIgnition\Renderers\IgnitionExceptionRenderer;
 use Spatie\LaravelIgnition\Renderers\IgnitionWhoopsHandler;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\SolutionProviderRepository;
 use Spatie\LaravelIgnition\Support\FlareLogHandler;
+use Spatie\LaravelIgnition\Support\SentReports;
 use Spatie\LaravelIgnition\Views\Engines\CompilerEngine;
 use Spatie\LaravelIgnition\Views\Engines\PhpEngine;
 use Spatie\LaravelPackageTools\Package;
@@ -112,6 +113,8 @@ class IgnitionServiceProvider extends PackageServiceProvider
                 ->registerMiddleware($this->getFlareMiddleware())
                 ->registerMiddleware(new AddSolutions(new SolutionProviderRepository($this->getSolutionProviders())));
         });
+
+        $this->app->singleton(SentReports::class);
 
         return $this;
     }
@@ -228,7 +231,10 @@ class IgnitionServiceProvider extends PackageServiceProvider
     protected function registerLogHandler(): self
     {
         $this->app->singleton('flare.logger', function ($app) {
-            $handler = new FlareLogHandler($app->make(Flare::class));
+            $handler = new FlareLogHandler(
+                $app->make(Flare::class),
+                $app->make(SentReports::class),
+            );
 
             $logLevelString = config('logging.channels.flare.level', 'error');
 
@@ -270,7 +276,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
         $queue = $this->app->get('queue');
 
-        $queue->looping(fn () => $this->resetLaravelIgnition());
+        $queue->looping(fn () => $this->resetFlareAndLaravelIgnition());
 
         return $this;
     }
@@ -331,20 +337,21 @@ class IgnitionServiceProvider extends PackageServiceProvider
     protected function setupOctane()
     {
         $this->app['events']->listen(RequestReceived::class, function () {
-            $this->resetLaravelIgnition();
+            $this->resetFlareAndLaravelIgnition();
         });
 
         $this->app['events']->listen(TaskReceived::class, function () {
-            $this->resetLaravelIgnition();
+            $this->resetFlareAndLaravelIgnition();
         });
 
         $this->app['events']->listen(TickReceived::class, function () {
-            $this->resetLaravelIgnition();
+            $this->resetFlareAndLaravelIgnition();
         });
     }
 
-    protected function resetLaravelIgnition()
+    protected function resetFlareAndLaravelIgnition()
     {
+        $this->app->get(SentReports::class)->clear();
         $this->app->get(Ignition::class)->reset();
 
         if (config('flare.flare_middleware.' . AddLogs::class)) {

@@ -13,11 +13,15 @@ class FlareLogHandler extends AbstractProcessingHandler
 {
     protected Flare $flare;
 
+    protected SentReports $sentReports;
+
     protected int $minimumReportLogLevel = Logger::ERROR;
 
-    public function __construct(Flare $flare, $level = Logger::DEBUG, $bubble = true)
+    public function __construct(Flare $flare, SentReports $sentReports, $level = Logger::DEBUG, $bubble = true)
     {
         $this->flare = $flare;
+
+        $this->sentReports = $sentReports;
 
         parent::__construct($level, $bubble);
     }
@@ -36,9 +40,13 @@ class FlareLogHandler extends AbstractProcessingHandler
         if (! $this->shouldReport($record)) {
             return;
         }
-
         if ($this->hasException($record)) {
-            $this->flare->report($record['context']['exception']);
+
+            $report = $this->flare->report($record['context']['exception']);
+
+            if ($report) {
+                $this->sentReports->add($report);
+            }
 
             return;
         }
