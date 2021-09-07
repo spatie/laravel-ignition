@@ -31,6 +31,7 @@ class SentReports
     public function latestTrackingUuid(): ?string
     {
         ray('here');
+
         return Arr::last($this->reports)?->trackingUuid();
     }
 
