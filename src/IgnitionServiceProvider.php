@@ -279,7 +279,18 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
         $queue = $this->app->get('queue');
 
-        $queue->looping(fn () => $this->resetFlareAndLaravelIgnition());
+        // Reset before executing a queue job to make sure the job's log/query/dump recorders are empty.
+        // When using a sync queue this also reports the queued reports from previous exceptions.
+        $queue->before(function () {
+            $this->resetFlareAndLaravelIgnition();
+        });
+
+        // Send queued reports (and reset) after executing a queue job.
+        $queue->after(function () {
+            $this->resetFlareAndLaravelIgnition();
+        });
+
+        // Note: the $queue->looping() event can't be used because it's not triggered on Vapor
 
         return $this;
     }
