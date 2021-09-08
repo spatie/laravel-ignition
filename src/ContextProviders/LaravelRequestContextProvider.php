@@ -2,6 +2,7 @@
 
 namespace Spatie\LaravelIgnition\ContextProviders;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Spatie\FlareClient\Context\RequestContextProvider;
 use Throwable;
@@ -69,7 +70,9 @@ class LaravelRequestContextProvider extends RequestContextProvider
     protected function getRouteParameters(): array
     {
         try {
-            return collect(optional($this->request->route())->parameters ?? [])->toArray();
+            return collect(optional($this->request->route())->parameters ?? [])
+                ->map(fn ($parameter) => $parameter instanceof Model ? $parameter->withoutRelations() : $parameter)
+                ->toArray();
         } catch (Throwable $e) {
             return [];
         }
