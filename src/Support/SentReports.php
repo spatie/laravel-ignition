@@ -28,11 +28,21 @@ class SentReports
         return array_map(fn (Report $report) => $report->trackingUuid(), $this->reports);
     }
 
+    public function allErrorUrls(): array
+    {
+        return array_map(function(string $trackingUuid) {
+            return "https://flareapp.io/tracked-occurrence/{$trackingUuid}";
+        }, $this->allTrackingUuids());
+    }
+
     public function latestTrackingUuid(): ?string
     {
-        ray('here');
-
         return Arr::last($this->reports)?->trackingUuid();
+    }
+
+    public function latestErrorUrl(): ?string
+    {
+        return Arr::last($this->allErrorUrls());
     }
 
     public function clear()

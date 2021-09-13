@@ -39,6 +39,25 @@ class SentReportsTest extends TestCase
     }
 
     /** @test */
+    public function it_can_get_the_error_urls()
+    {
+        $report = $this->getReport('first-report');
+        $this->sentReports->add($report);
+
+        $this->assertEquals('https://flareapp.io/tracked-occurrence/first-report', $this->sentReports->latestErrorUrl());
+
+        $report = $this->getReport('second-report');
+        $this->sentReports->add($report);
+        $this->assertEquals('https://flareapp.io/tracked-occurrence/second-report', $this->sentReports->latestErrorUrl());
+
+        $this->assertEquals([
+            'https://flareapp.io/tracked-occurrence/first-report',
+            'https://flareapp.io/tracked-occurrence/second-report',
+        ], $this->sentReports->allErrorUrls());
+
+    }
+
+    /** @test */
     public function it_can_be_cleared()
     {
         $report = $this->getReport('first-report');
