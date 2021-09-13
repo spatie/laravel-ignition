@@ -54,7 +54,6 @@ class SentReportsTest extends TestCase
             'https://flareapp.io/tracked-occurrence/first-report',
             'https://flareapp.io/tracked-occurrence/second-report',
         ], $this->sentReports->allErrorUrls());
-
     }
 
     /** @test */
