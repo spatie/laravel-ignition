@@ -22,20 +22,20 @@ class SentReportsTest extends TestCase
     /** @test */
     public function it_can_get_the_uuids()
     {
-        $this->assertNull($this->sentReports->latestTrackingUuid());
+        $this->assertNull($this->sentReports->latestUuid());
 
         $report = $this->getReport('first-report');
         $this->sentReports->add($report);
-        $this->assertEquals('first-report', $this->sentReports->latestTrackingUuid());
+        $this->assertEquals('first-report', $this->sentReports->latestUuid());
 
         $report = $this->getReport('second-report');
         $this->sentReports->add($report);
-        $this->assertEquals('second-report', $this->sentReports->latestTrackingUuid());
+        $this->assertEquals('second-report', $this->sentReports->latestUuid());
 
         $this->assertEquals([
             'first-report',
             'second-report',
-        ], $this->sentReports->allTrackingUuids());
+        ], $this->sentReports->uuids());
     }
 
     /** @test */
@@ -44,16 +44,16 @@ class SentReportsTest extends TestCase
         $report = $this->getReport('first-report');
         $this->sentReports->add($report);
 
-        $this->assertEquals('https://flareapp.io/tracked-occurrence/first-report', $this->sentReports->latestErrorUrl());
+        $this->assertEquals('https://flareapp.io/tracked-occurrence/first-report', $this->sentReports->latestUrl());
 
         $report = $this->getReport('second-report');
         $this->sentReports->add($report);
-        $this->assertEquals('https://flareapp.io/tracked-occurrence/second-report', $this->sentReports->latestErrorUrl());
+        $this->assertEquals('https://flareapp.io/tracked-occurrence/second-report', $this->sentReports->latestUrl());
 
         $this->assertEquals([
             'https://flareapp.io/tracked-occurrence/first-report',
             'https://flareapp.io/tracked-occurrence/second-report',
-        ], $this->sentReports->allErrorUrls());
+        ], $this->sentReports->urls());
 
     }
 

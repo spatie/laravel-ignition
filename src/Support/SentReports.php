@@ -12,7 +12,6 @@ class SentReports
 
     public function add(Report $report): self
     {
-        info('adding');
         $this->reports[] = $report;
 
         return $this;
@@ -23,26 +22,26 @@ class SentReports
         return $this->reports;
     }
 
-    public function allTrackingUuids(): array
+    public function uuids(): array
     {
         return array_map(fn (Report $report) => $report->trackingUuid(), $this->reports);
     }
 
-    public function allErrorUrls(): array
+    public function urls(): array
     {
         return array_map(function(string $trackingUuid) {
             return "https://flareapp.io/tracked-occurrence/{$trackingUuid}";
-        }, $this->allTrackingUuids());
+        }, $this->uuids());
     }
 
-    public function latestTrackingUuid(): ?string
+    public function latestUuid(): ?string
     {
         return Arr::last($this->reports)?->trackingUuid();
     }
 
-    public function latestErrorUrl(): ?string
+    public function latestUrl(): ?string
     {
-        return Arr::last($this->allErrorUrls());
+        return Arr::last($this->urls());
     }
 
     public function clear()
