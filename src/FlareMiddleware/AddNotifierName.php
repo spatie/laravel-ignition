@@ -2,9 +2,8 @@
 
 namespace Spatie\LaravelIgnition\FlareMiddleware;
 
-use Composer\Composer;
-use Spatie\FlareClient\Report;
 use Spatie\FlareClient\FlareMiddleware\FlareMiddleware;
+use Spatie\FlareClient\Report;
 
 class AddNotifierName implements FlareMiddleware
 {
