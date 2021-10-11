@@ -7,6 +7,7 @@ use Illuminate\Config\Repository;
 use Illuminate\Console\Command;
 use Illuminate\Log\LogManager;
 use Spatie\FlareClient\Flare;
+use Spatie\FlareClient\Http\Exceptions\BadResponseCode;
 
 class TestCommand extends Command
 {
@@ -73,9 +74,42 @@ class TestCommand extends Command
 
         try {
             app(Flare::class)->sendTestReport($testException);
-            $this->info(PHP_EOL);
+            $this->info('');
         } catch (Exception $exception) {
-            $this->warn('❌ We were unable to send an exception to Flare. Make sure that your key is correct and that you have a valid subscription. '.PHP_EOL.PHP_EOL.'For more info visit the docs on installing Flare in a Laravel project: https://flareapp.io/docs/ignition-for-laravel/introduction');
+            $this->warn('❌ We were unable to send an exception to Flare. ');
+
+            if ($exception instanceof BadResponseCode) {
+                $this->info('');
+                $message = 'Unknown error';
+
+                $body = $exception->response->getBody();
+
+                if (is_array($body) && isset($body['message'])) {
+                    $message = $body['message'];
+                }
+
+                $this->warn("{$exception->response->getHttpResponseCode()} - {$message}");
+            } else {
+                $this->warn($exception->getMessage());
+            }
+
+            $this->warn('Make sure that your key is correct and that you have a valid subscription.');
+            $this->info('');
+            $this->info('For more info visit the docs on https://flareapp.io/docs/ignition-for-laravel/introduction');
+            $this->info('You can see the status page of Flare at https://status.flareapp.io');
+            $this->info('Flare support can be reached at support@flareapp.io');
+
+            $this->line('');
+            $this->line('Extra info');
+            $this->table([], [
+                ['Platform', PHP_OS],
+                ['PHP', phpversion()],
+                ['Laravel', app()->version()],
+                ['facade/ignition', InstalledVersions::getVersion('facade/ignition')],
+                ['facade/flare-client-php', InstalledVersions::getVersion('facade/flare-client-php')],
+                ['Curl', curl_version()['version'] ?? 'Unknown'],
+                ['SSL', curl_version()['ssl_version'] ?? 'Unknown'],
+            ]);
 
             if ($this->output->isVerbose()) {
                 throw $exception;
