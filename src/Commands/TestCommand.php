@@ -105,8 +105,9 @@ class TestCommand extends Command
                 ['Platform', PHP_OS],
                 ['PHP', phpversion()],
                 ['Laravel', app()->version()],
-                ['facade/ignition', InstalledVersions::getVersion('facade/ignition')],
-                ['facade/flare-client-php', InstalledVersions::getVersion('facade/flare-client-php')],
+                ['spatie/ignition', InstalledVersions::getVersion('spatie/ignition')],
+                ['spatie/laravel-ignition', InstalledVersions::getVersion('spatie/laravel-ignition')],
+                ['spatie/flare-client-php', InstalledVersions::getVersion('spatie/flare-client-php')],
                 ['Curl', curl_version()['version'] ?? 'Unknown'],
                 ['SSL', curl_version()['ssl_version'] ?? 'Unknown'],
             ]);
