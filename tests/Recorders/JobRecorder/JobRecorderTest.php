@@ -4,17 +4,15 @@ namespace Spatie\LaravelIgnition\Tests\Recorders\JobRecorder;
 
 use Carbon\CarbonImmutable;
 use Closure;
+use Exception;
 use Illuminate\Container\Container;
 use Illuminate\Queue\Events\JobExceptionOccurred;
 use Illuminate\Queue\Jobs\RedisJob;
 use Illuminate\Queue\RedisQueue;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Str;
-use Spatie\LaravelIgnition\FlareMiddleware\AddJobs;
 use Spatie\LaravelIgnition\Recorders\JobRecorder\JobRecorder;
 use Spatie\LaravelIgnition\Tests\stubs\Jobs\QueueableJob;
 use Spatie\LaravelIgnition\Tests\TestCase;
-use Exception;
 
 class JobRecorderTest extends TestCase
 {

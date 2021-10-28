@@ -22,8 +22,7 @@ class JobRecorder
     public function __construct(
         protected Application $app,
         protected int $maxChainedJobReportingDepth = 5,
-    )
-    {
+    ) {
     }
 
     public function start(): self
