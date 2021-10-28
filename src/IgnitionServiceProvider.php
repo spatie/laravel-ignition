@@ -22,12 +22,14 @@ use Spatie\LaravelIgnition\Commands\SolutionMakeCommand;
 use Spatie\LaravelIgnition\Commands\SolutionProviderMakeCommand;
 use Spatie\LaravelIgnition\Commands\TestCommand;
 use Spatie\LaravelIgnition\Exceptions\InvalidConfig;
+use Spatie\LaravelIgnition\FlareMiddleware\AddJobs;
 use Spatie\LaravelIgnition\FlareMiddleware\AddLogs;
 use Spatie\LaravelIgnition\FlareMiddleware\AddQueries;
 use Spatie\LaravelIgnition\Http\Controllers\ExecuteSolutionController;
 use Spatie\LaravelIgnition\Http\Controllers\HealthCheckController;
 use Spatie\LaravelIgnition\Http\Middleware\RunnableSolutionsEnabled;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\DumpRecorder;
+use Spatie\LaravelIgnition\Recorders\JobRecorder\JobRecorder;
 use Spatie\LaravelIgnition\Recorders\LogRecorder\LogRecorder;
 use Spatie\LaravelIgnition\Recorders\QueryRecorder\QueryRecorder;
 use Spatie\LaravelIgnition\Renderers\IgnitionExceptionRenderer;
@@ -166,6 +168,15 @@ class IgnitionServiceProvider extends PackageServiceProvider
             );
         }
 
+        if (config('flare.flare_middleware.' . AddJobs::class)) {
+            $this->app->singleton(JobRecorder::class, function (Application $app): JobRecorder {
+                return new JobRecorder(
+                    $app,
+                    config()->get('flare.flare_middleware.' . AddJobs::class . '.max_chained_job_reporting_depth')
+                );
+            });
+        }
+
         return $this;
     }
 
@@ -264,6 +275,10 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
         if (config('flare.flare_middleware.' . AddQueries::class)) {
             $this->app->make(QueryRecorder::class)->start();
+        }
+
+        if (config('flare.flare_middleware.' . AddJobs::class)) {
+            $this->app->make(JobRecorder::class)->start();
         }
 
         $this->app->make(DumpRecorder::class)->start();
@@ -374,6 +389,10 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
         if (config('flare.flare_middleware.' . AddQueries::class)) {
             $this->app->make(QueryRecorder::class)->reset();
+        }
+
+        if (config('flare.flare_middleware.' . AddJobs::class)) {
+            $this->app->make(JobRecorder::class)->reset();
         }
 
         $this->app->make(DumpRecorder::class)->reset();

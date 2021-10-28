@@ -5,6 +5,7 @@ use Spatie\FlareClient\FlareMiddleware\RemoveRequestIp;
 use Spatie\FlareClient\FlareMiddleware\CensorRequestBodyFields;
 use Spatie\LaravelIgnition\FlareMiddleware\AddDumps;
 use Spatie\LaravelIgnition\FlareMiddleware\AddEnvironmentInformation;
+use Spatie\LaravelIgnition\FlareMiddleware\AddJobs;
 use Spatie\LaravelIgnition\FlareMiddleware\AddLogs;
 use Spatie\LaravelIgnition\FlareMiddleware\AddQueries;
 use Spatie\LaravelIgnition\FlareMiddleware\AddNotifierName;
@@ -45,6 +46,9 @@ return [
         AddQueries::class => [
             'maximum_number_of_collected_queries' => 200,
             'report_query_bindings' => 200,
+        ],
+        AddJobs::class => [
+            'max_chained_job_reporting_depth' => 5,
         ],
         CensorRequestBodyFields::class => [
             'censor_fields' => [
