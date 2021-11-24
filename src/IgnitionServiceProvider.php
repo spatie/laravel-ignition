@@ -12,6 +12,7 @@ use Laravel\Octane\Events\RequestReceived;
 use Laravel\Octane\Events\TaskReceived;
 use Laravel\Octane\Events\TickReceived;
 use Livewire\CompilerEngineForIgnition;
+use Livewire\LivewireManager;
 use Monolog\Logger;
 use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\FlareMiddleware\AddSolutions;
@@ -38,6 +39,7 @@ use Spatie\LaravelIgnition\Solutions\SolutionProviders\SolutionProviderRepositor
 use Spatie\LaravelIgnition\Support\FlareLogHandler;
 use Spatie\LaravelIgnition\Support\SentReports;
 use Spatie\LaravelIgnition\Views\Engines\CompilerEngine;
+use Spatie\LaravelIgnition\Views\Engines\LivewireComplilerEngine;
 use Spatie\LaravelIgnition\Views\Engines\PhpEngine;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -211,8 +213,8 @@ class IgnitionServiceProvider extends PackageServiceProvider
         });
 
         $this->app->make('view.engine.resolver')->register('blade', function () {
-            if (class_exists(CompilerEngineForIgnition::class)) {
-                return new CompilerEngineForIgnition($this->app['blade.compiler']);
+            if (class_exists(LivewireManager::class)) {
+                return new LivewireComplilerEngine($this->app['blade.compiler']);
             }
 
             return new CompilerEngine($this->app['blade.compiler']);
