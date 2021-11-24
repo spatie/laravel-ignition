@@ -8,7 +8,7 @@ use Spatie\LaravelIgnition\Solutions\SuggestLivewirePropertyNameSolution;
 use Spatie\LaravelIgnition\Support\LivewireComponentParser;
 use Throwable;
 
-class UndefinedLivewirePropertySolutionProvider  implements HasSolutionsForThrowable
+class UndefinedLivewirePropertySolutionProvider implements HasSolutionsForThrowable
 {
     public function canSolve(Throwable $throwable): bool
     {

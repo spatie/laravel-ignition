@@ -2,15 +2,11 @@
 
 namespace Spatie\LaravelIgnition\Tests\Solutions\SolutionProviders;
 
-use Livewire\Exceptions\MethodNotFoundException;
 use Livewire\Exceptions\PropertyNotFoundException;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\UndefinedLivewirePropertySolutionProvider;
-use Spatie\LaravelIgnition\Solutions\SuggestLivewireMethodNameSolution;
-use Spatie\LaravelIgnition\Support\LivewireComponentParser;
 use Spatie\LaravelIgnition\Tests\stubs\Components\TestLivewireComponent;
 use Spatie\LaravelIgnition\Tests\TestCase;
 use Spatie\LaravelIgnition\Tests\TestClasses\FakeLivewireManager;
-use Throwable;
 
 class UndefinedLivewirePropertySolutionProviderTest extends TestCase
 {
