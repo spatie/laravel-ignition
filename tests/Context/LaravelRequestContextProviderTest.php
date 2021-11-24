@@ -9,7 +9,7 @@ use Spatie\LaravelIgnition\ContextProviders\LaravelRequestContextProvider;
 use Spatie\LaravelIgnition\Tests\TestCase;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
-class LaravelRequestContextTest extends TestCase
+class LaravelRequestContextProviderTest extends TestCase
 {
     /** @test */
     public function it_returns_route_name_in_context_data()
@@ -62,21 +62,6 @@ class LaravelRequestContextTest extends TestCase
         $request = $context->getRequest();
 
         $this->assertSame('http://localhost/route', $request['url']);
-    }
-
-    /** @test */
-    public function it_returns_the_referer_url_if_it_is_an_livewire_request()
-    {
-        $request = $this->createRequest('GET', '/route', []);
-
-        $request->headers->set('x-livewire', true);
-        $request->headers->set('referer', 'http://localhost/referred');
-
-        $context = new LaravelRequestContextProvider($request);
-
-        $request = $context->getRequest();
-
-        $this->assertSame('http://localhost/referred', $request['url']);
     }
 
     /** @test */

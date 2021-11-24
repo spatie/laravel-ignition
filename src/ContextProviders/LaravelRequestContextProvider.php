@@ -3,15 +3,16 @@
 namespace Spatie\LaravelIgnition\ContextProviders;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request as LaravelRequest;
 use Spatie\FlareClient\Context\RequestContextProvider;
+use Symfony\Component\HttpFoundation\Request as SymphonyRequest;
 use Throwable;
 
 class LaravelRequestContextProvider extends RequestContextProvider
 {
-    protected ?\Symfony\Component\HttpFoundation\Request $request;
+    protected null|SymphonyRequest|LaravelRequest $request;
 
-    public function __construct(Request $request)
+    public function __construct(LaravelRequest $request)
     {
         $this->request = $request;
     }
@@ -53,18 +54,6 @@ class LaravelRequestContextProvider extends RequestContextProvider
             'controllerAction' => optional($route)->getActionName(),
             'middleware' => array_values(optional($route)->gatherMiddleware() ?? []),
         ];
-    }
-
-    public function getRequest(): array
-    {
-        $properties = parent::getRequest();
-
-
-        if ($this->request->hasHeader('x-livewire') && $this->request->hasHeader('referer')) {
-            $properties['url'] = $this->request->header('referer');
-        }
-
-        return $properties;
     }
 
     protected function getRouteParameters(): array
