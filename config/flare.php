@@ -5,6 +5,7 @@ use Spatie\FlareClient\FlareMiddleware\RemoveRequestIp;
 use Spatie\FlareClient\FlareMiddleware\CensorRequestBodyFields;
 use Spatie\LaravelIgnition\FlareMiddleware\AddDumps;
 use Spatie\LaravelIgnition\FlareMiddleware\AddEnvironmentInformation;
+use Spatie\LaravelIgnition\FlareMiddleware\AddExceptionInformation;
 use Spatie\LaravelIgnition\FlareMiddleware\AddJobs;
 use Spatie\LaravelIgnition\FlareMiddleware\AddLogs;
 use Spatie\LaravelIgnition\FlareMiddleware\AddQueries;
@@ -39,6 +40,7 @@ return [
         AddGitInformation::class,
         AddNotifierName::class,
         AddEnvironmentInformation::class,
+        AddExceptionInformation::class,
         AddDumps::class,
         AddLogs::class => [
             'maximum_number_of_collected_logs' => 200,

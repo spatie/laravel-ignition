@@ -2,6 +2,7 @@
 
 namespace Spatie\LaravelIgnition\Commands;
 
+use Composer\InstalledVersions;
 use Exception;
 use Illuminate\Config\Repository;
 use Illuminate\Console\Command;
