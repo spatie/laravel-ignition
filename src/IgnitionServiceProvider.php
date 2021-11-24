@@ -11,7 +11,6 @@ use Illuminate\View\Engines\PhpEngine as LaravelPhpEngine;
 use Laravel\Octane\Events\RequestReceived;
 use Laravel\Octane\Events\TaskReceived;
 use Laravel\Octane\Events\TickReceived;
-use Livewire\LivewireManager;
 use Monolog\Logger;
 use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\FlareMiddleware\AddSolutions;
@@ -38,7 +37,6 @@ use Spatie\LaravelIgnition\Solutions\SolutionProviders\SolutionProviderRepositor
 use Spatie\LaravelIgnition\Support\FlareLogHandler;
 use Spatie\LaravelIgnition\Support\SentReports;
 use Spatie\LaravelIgnition\Views\Engines\CompilerEngine;
-use Spatie\LaravelIgnition\Views\Engines\LivewireComplilerEngine;
 use Spatie\LaravelIgnition\Views\Engines\PhpEngine;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
