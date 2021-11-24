@@ -212,10 +212,6 @@ class IgnitionServiceProvider extends PackageServiceProvider
         });
 
         $this->app->make('view.engine.resolver')->register('blade', function () {
-            if (class_exists(LivewireManager::class)) {
-                return new LivewireComplilerEngine($this->app['blade.compiler']);
-            }
-
             return new CompilerEngine($this->app['blade.compiler']);
         });
 
