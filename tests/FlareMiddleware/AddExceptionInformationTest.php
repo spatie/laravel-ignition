@@ -5,7 +5,6 @@ namespace Spatie\LaravelIgnition\Tests\FlareMiddleware;
 use Exception;
 use Illuminate\Database\QueryException;
 use Spatie\LaravelIgnition\Facades\Flare;
-use Spatie\LaravelIgnition\FlareMiddleware\AddExceptionInformation;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
 class AddExceptionInformationTest extends TestCase
