@@ -11,6 +11,7 @@ class HealthCheckController
     {
         return [
             'can_execute_commands' => $this->canExecuteCommands(),
+            // TODO: add check for runnable_solutions_enabled config (and fail with 400) if not
         ];
     }
 
