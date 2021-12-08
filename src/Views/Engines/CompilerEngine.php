@@ -7,7 +7,7 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use ReflectionProperty;
-use Spatie\IgnitionContracts\ProvidesSolution;
+use Spatie\Ignition\Contracts\ProvidesSolution;
 use Spatie\LaravelIgnition\Exceptions\ViewException;
 use Spatie\LaravelIgnition\Exceptions\ViewExceptionWithSolution;
 use Spatie\LaravelIgnition\Views\Compilers\BladeSourceMapCompiler;

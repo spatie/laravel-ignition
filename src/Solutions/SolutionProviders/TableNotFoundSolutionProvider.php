@@ -3,7 +3,7 @@
 namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
 use Illuminate\Database\QueryException;
-use Spatie\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Contracts\HasSolutionsForThrowable;
 use Spatie\LaravelIgnition\Solutions\RunMigrationsSolution;
 use Throwable;
 

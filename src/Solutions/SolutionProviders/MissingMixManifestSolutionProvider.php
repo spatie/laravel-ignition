@@ -4,8 +4,8 @@
 namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
 use Illuminate\Support\Str;
-use Spatie\IgnitionContracts\BaseSolution;
-use Spatie\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Contracts\BaseSolution;
+use Spatie\Ignition\Contracts\HasSolutionsForThrowable;
 use Throwable;
 
 class MissingMixManifestSolutionProvider implements HasSolutionsForThrowable

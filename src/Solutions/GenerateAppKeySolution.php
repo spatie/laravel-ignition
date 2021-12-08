@@ -3,7 +3,7 @@
 namespace Spatie\LaravelIgnition\Solutions;
 
 use Illuminate\Support\Facades\Artisan;
-use Spatie\IgnitionContracts\RunnableSolution;
+use Spatie\Ignition\Contracts\RunnableSolution;
 
 class GenerateAppKeySolution implements RunnableSolution
 {
@@ -39,7 +39,7 @@ class GenerateAppKeySolution implements RunnableSolution
         return [];
     }
 
-    public function run(array $parameters = [])
+    public function run(array $parameters = []): void
     {
         Artisan::call('key:generate');
     }

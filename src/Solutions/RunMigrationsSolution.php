@@ -3,7 +3,7 @@
 namespace Spatie\LaravelIgnition\Solutions;
 
 use Illuminate\Support\Facades\Artisan;
-use Spatie\IgnitionContracts\RunnableSolution;
+use Spatie\Ignition\Contracts\RunnableSolution;
 
 class RunMigrationsSolution implements RunnableSolution
 {

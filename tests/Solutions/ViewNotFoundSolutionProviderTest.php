@@ -28,7 +28,7 @@ class ViewNotFoundSolutionProviderTest extends TestCase
     /** @test */
     public function it_can_recommend_changing_a_typo_in_the_view_name()
     {
-        /** @var \Spatie\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\Ignition\Contracts\Solution $solution */
         $solution = app(ViewNotFoundSolutionProvider::class)->getSolutions($this->getViewNotFoundException())[0];
 
         $this->assertTrue(Str::contains($solution->getSolutionDescription(), 'Did you mean `php-exception`?'));
@@ -39,7 +39,7 @@ class ViewNotFoundSolutionProviderTest extends TestCase
     {
         $unknownView = 'a-view-that-doesnt-exist-and-is-not-a-typo';
 
-        /** @var \Spatie\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\Ignition\Contracts\Solution $solution */
         $solution = app(ViewNotFoundSolutionProvider::class)->getSolutions($this->getViewNotFoundException($unknownView))[0];
 
         $this->assertFalse(Str::contains($solution->getSolutionDescription(), 'Did you mean'));

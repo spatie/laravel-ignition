@@ -3,9 +3,9 @@
 namespace Spatie\LaravelIgnition\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Spatie\IgnitionContracts\RunnableSolution;
-use Spatie\IgnitionContracts\Solution;
-use Spatie\IgnitionContracts\SolutionProviderRepository;
+use Spatie\Ignition\Contracts\RunnableSolution;
+use Spatie\Ignition\Contracts\Solution;
+use Spatie\Ignition\Contracts\SolutionProviderRepository;
 
 class ExecuteSolutionRequest extends FormRequest
 {

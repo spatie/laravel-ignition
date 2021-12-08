@@ -22,7 +22,7 @@ class MixManifestNotFoundSolutionProviderTest extends TestCase
     /** @test */
     public function it_can_recommend_running_npm_install_and_npm_run_dev()
     {
-        /** @var \Spatie\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\Ignition\Contracts\Solution $solution */
         $solution = app(MissingMixManifestSolutionProvider::class)
             ->getSolutions(new Exception('The Mix manifest does not exist.'))[0];
 

@@ -8,8 +8,8 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Validator;
 use ReflectionClass;
 use ReflectionMethod;
-use Spatie\IgnitionContracts\BaseSolution;
-use Spatie\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Contracts\BaseSolution;
+use Spatie\Ignition\Contracts\HasSolutionsForThrowable;
 use Spatie\LaravelIgnition\Support\StringComparator;
 use Throwable;
 

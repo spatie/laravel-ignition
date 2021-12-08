@@ -23,7 +23,7 @@ class RouteNotDefinedSolutionProviderTest extends TestCase
     {
         Route::get('/test', 'TestController@typo')->name('test.typo');
 
-        /** @var \Spatie\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\Ignition\Contracts\Solution $solution */
         $solution = app(RouteNotDefinedSolutionProvider::class)->getSolutions($this->getRouteNotDefinedException())[0];
 
         $this->assertTrue(Str::contains($solution->getSolutionDescription(), 'Did you mean `test.typo`?'));
@@ -34,7 +34,7 @@ class RouteNotDefinedSolutionProviderTest extends TestCase
     {
         Route::get('/test', 'TestController@typo')->name('test.typo');
 
-        /** @var \Spatie\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\Ignition\Contracts\Solution $solution */
         $solution = app(RouteNotDefinedSolutionProvider::class)->getSolutions($this->getRouteNotDefinedException('test.is-too-different'))[0];
 
         $this->assertFalse(Str::contains($solution->getSolutionDescription(), 'Did you mean'));

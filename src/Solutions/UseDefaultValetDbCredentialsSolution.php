@@ -3,7 +3,7 @@
 namespace Spatie\LaravelIgnition\Solutions;
 
 use Illuminate\Support\Str;
-use Spatie\IgnitionContracts\RunnableSolution;
+use Spatie\Ignition\Contracts\RunnableSolution;
 
 class UseDefaultValetDbCredentialsSolution implements RunnableSolution
 {

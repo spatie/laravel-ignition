@@ -29,7 +29,7 @@ class UnknownValidationSolutionProviderTest extends TestCase
 
         Validator::extendImplicit('bar_a', fn ($attribute, $value, $parameters, $validator) => $value == 'bar');
 
-        /** @var \Spatie\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\Ignition\Contracts\Solution $solution */
         $solution = app(UnknownValidationSolutionProvider::class)->getSolutions($this->getBadMethodCallException($invalidRule))[0];
 
         $this->assertEquals("Did you mean `{$recommendedRule}` ?", $solution->getSolutionDescription());

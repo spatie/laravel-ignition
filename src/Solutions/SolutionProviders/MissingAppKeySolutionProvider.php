@@ -3,7 +3,7 @@
 namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
 use RuntimeException;
-use Spatie\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Contracts\HasSolutionsForThrowable;
 use Spatie\LaravelIgnition\Solutions\GenerateAppKeySolution;
 use Throwable;
 

@@ -3,7 +3,7 @@
 namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
 use Livewire\Exceptions\PropertyNotFoundException;
-use Spatie\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Contracts\HasSolutionsForThrowable;
 use Spatie\LaravelIgnition\Solutions\SuggestLivewirePropertyNameSolution;
 use Spatie\LaravelIgnition\Support\LivewireComponentParser;
 use Throwable;

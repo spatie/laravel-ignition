@@ -2,8 +2,8 @@
 
 namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
-use Spatie\IgnitionContracts\BaseSolution;
-use Spatie\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Contracts\BaseSolution;
+use Spatie\Ignition\Contracts\HasSolutionsForThrowable;
 use Spatie\LaravelIgnition\Exceptions\ViewException;
 use Spatie\LaravelIgnition\Solutions\MakeViewVariableOptionalSolution;
 use Spatie\LaravelIgnition\Solutions\SuggestCorrectVariableNameSolution;

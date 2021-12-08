@@ -37,7 +37,7 @@ class InvalidRouteActionSolutionProviderTest extends TestCase
     {
         Route::get('/test', TestTypoController::class);
 
-        /** @var \Spatie\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\Ignition\Contracts\Solution $solution */
         $solution = app(InvalidRouteActionSolutionProvider::class)->getSolutions($this->getInvalidRouteActionException())[0];
 
         $this->assertTrue(Str::contains($solution->getSolutionDescription(), 'Did you mean `TestTypoController`'));
@@ -50,7 +50,7 @@ class InvalidRouteActionSolutionProviderTest extends TestCase
 
         $invalidController = 'UnrelatedTestTypoController';
 
-        /** @var \Spatie\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\Ignition\Contracts\Solution $solution */
         $solution = app(InvalidRouteActionSolutionProvider::class)->getSolutions($this->getInvalidRouteActionException($invalidController))[0];
 
         $this->assertFalse(Str::contains($solution->getSolutionDescription(), 'Did you mean `TestTypoController`'));

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User;
 use RuntimeException;
 use Spatie\Ignition\Solutions\SolutionProviders\BadMethodCallSolutionProvider;
 use Spatie\Ignition\Solutions\SolutionProviders\SolutionProviderRepository;
-use Spatie\IgnitionContracts\BaseSolution;
+use Spatie\Ignition\Contracts\BaseSolution;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingAppKeySolutionProvider;
 use Spatie\LaravelIgnition\Tests\Exceptions\AlwaysFalseSolutionProvider;
 use Spatie\LaravelIgnition\Tests\Exceptions\AlwaysTrueSolutionProvider;

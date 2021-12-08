@@ -4,7 +4,7 @@ namespace Spatie\LaravelIgnition\Solutions;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Str;
-use Spatie\IgnitionContracts\RunnableSolution;
+use Spatie\Ignition\Contracts\RunnableSolution;
 
 class MakeViewVariableOptionalSolution implements RunnableSolution
 {
@@ -62,7 +62,7 @@ class MakeViewVariableOptionalSolution implements RunnableSolution
         return $this->makeOptional($this->getRunParameters()) !== false;
     }
 
-    public function run(array $parameters = [])
+    public function run(array $parameters = []): void
     {
         $output = $this->makeOptional($parameters);
         if ($output !== false) {

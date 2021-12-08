@@ -2,7 +2,7 @@
 
 namespace DummyNamespace;
 
-use Spatie\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Contracts\HasSolutionsForThrowable;
 use Throwable;
 
 class DummyClass implements HasSolutionsForThrowable

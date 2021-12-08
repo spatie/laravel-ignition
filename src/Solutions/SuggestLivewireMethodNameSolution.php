@@ -2,7 +2,7 @@
 
 namespace Spatie\LaravelIgnition\Solutions;
 
-use Spatie\IgnitionContracts\Solution;
+use Spatie\Ignition\Contracts\Solution;
 
 class SuggestLivewireMethodNameSolution implements Solution
 {

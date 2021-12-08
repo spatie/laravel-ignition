@@ -3,9 +3,9 @@
 namespace Spatie\LaravelIgnition\Exceptions;
 
 use Exception;
-use Spatie\IgnitionContracts\BaseSolution;
-use Spatie\IgnitionContracts\ProvidesSolution;
-use Spatie\IgnitionContracts\Solution;
+use Spatie\Ignition\Contracts\BaseSolution;
+use Spatie\Ignition\Contracts\ProvidesSolution;
+use Spatie\Ignition\Contracts\Solution;
 
 class CannotExecuteSolutionForNonLocalEnvironment extends Exception implements ProvidesSolution
 {

@@ -2,8 +2,8 @@
 
 namespace Spatie\LaravelIgnition\Tests\Exceptions;
 
-use Spatie\IgnitionContracts\BaseSolution;
-use Spatie\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Contracts\BaseSolution;
+use Spatie\Ignition\Contracts\HasSolutionsForThrowable;
 use Throwable;
 
 class AlwaysTrueSolutionProvider implements HasSolutionsForThrowable

@@ -3,7 +3,7 @@
 namespace Spatie\LaravelIgnition\Solutions;
 
 use Livewire\LivewireComponentsFinder;
-use Spatie\IgnitionContracts\RunnableSolution;
+use Spatie\Ignition\Contracts\RunnableSolution;
 
 class LivewireDiscoverSolution implements RunnableSolution
 {

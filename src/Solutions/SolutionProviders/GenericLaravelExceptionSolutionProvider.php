@@ -3,8 +3,8 @@
 namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
 use Illuminate\Broadcasting\BroadcastException;
-use Spatie\IgnitionContracts\BaseSolution;
-use Spatie\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Contracts\BaseSolution;
+use Spatie\Ignition\Contracts\HasSolutionsForThrowable;
 use Spatie\LaravelIgnition\Support\LaravelVersion;
 use Throwable;
 

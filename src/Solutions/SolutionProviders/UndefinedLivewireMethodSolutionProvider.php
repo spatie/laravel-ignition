@@ -3,7 +3,7 @@
 namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
 use Livewire\Exceptions\MethodNotFoundException;
-use Spatie\IgnitionContracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Contracts\HasSolutionsForThrowable;
 use Spatie\LaravelIgnition\Solutions\SuggestLivewireMethodNameSolution;
 use Spatie\LaravelIgnition\Support\LivewireComponentParser;
 use Throwable;

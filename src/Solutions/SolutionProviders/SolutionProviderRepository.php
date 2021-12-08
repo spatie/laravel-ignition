@@ -3,10 +3,10 @@
 namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
 use Illuminate\Support\Collection;
-use Spatie\IgnitionContracts\HasSolutionsForThrowable;
-use Spatie\IgnitionContracts\ProvidesSolution;
-use Spatie\IgnitionContracts\Solution;
-use Spatie\IgnitionContracts\SolutionProviderRepository as SolutionProviderRepositoryContract;
+use Spatie\Ignition\Contracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Contracts\ProvidesSolution;
+use Spatie\Ignition\Contracts\Solution;
+use Spatie\Ignition\Contracts\SolutionProviderRepository as SolutionProviderRepositoryContract;
 use Throwable;
 
 class SolutionProviderRepository implements SolutionProviderRepositoryContract

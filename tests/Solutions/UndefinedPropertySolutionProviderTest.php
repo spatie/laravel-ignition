@@ -27,7 +27,7 @@ class UndefinedPropertySolutionProviderTest extends TestCase
     /** @test */
     public function it_can_recommend_a_property_name_when_there_is_a_similar_property()
     {
-        /** @var \Spatie\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\Ignition\Contracts\Solution $solution */
         $solution = app(UndefinedPropertySolutionProvider::class)->getSolutions($this->getUndefinedPropertyException())[0];
 
         $this->assertEquals('Did you mean Spatie\LaravelIgnition\Tests\Support\Models\Car::$color ?', $solution->getSolutionDescription());
@@ -36,7 +36,7 @@ class UndefinedPropertySolutionProviderTest extends TestCase
     /** @test */
     public function it_cannot_recommend_a_property_name_when_there_is_no_similar_property()
     {
-        /** @var \Spatie\IgnitionContracts\Solution $solution */
+        /** @var \Spatie\Ignition\Contracts\Solution $solution */
         $solution = app(UndefinedPropertySolutionProvider::class)->getSolutions($this->getUndefinedPropertyException('balance'))[0];
 
         $this->assertEquals('', $solution->getSolutionDescription());

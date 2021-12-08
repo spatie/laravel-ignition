@@ -3,7 +3,7 @@
 namespace Spatie\LaravelIgnition\Solutions\SolutionTransformers;
 
 use Spatie\Ignition\Solutions\SolutionTransformer;
-use Spatie\IgnitionContracts\RunnableSolution;
+use Spatie\Ignition\Contracts\RunnableSolution;
 use Spatie\LaravelIgnition\Http\Controllers\ExecuteSolutionController;
 use Throwable;
 

@@ -16,7 +16,7 @@ use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\FlareMiddleware\AddSolutions;
 use Spatie\Ignition\Config\IgnitionConfig;
 use Spatie\Ignition\Ignition;
-use Spatie\IgnitionContracts\SolutionProviderRepository as SolutionProviderRepositoryContract;
+use Spatie\Ignition\Contracts\SolutionProviderRepository as SolutionProviderRepositoryContract;
 use Spatie\LaravelIgnition\Commands\SolutionMakeCommand;
 use Spatie\LaravelIgnition\Commands\SolutionProviderMakeCommand;
 use Spatie\LaravelIgnition\Commands\TestCommand;
