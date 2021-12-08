@@ -4,8 +4,8 @@ namespace Spatie\LaravelIgnition\Renderers;
 
 use Spatie\FlareClient\Flare;
 use Spatie\Ignition\Config\IgnitionConfig;
-use Spatie\Ignition\Ignition;
 use Spatie\Ignition\Contracts\SolutionProviderRepository;
+use Spatie\Ignition\Ignition;
 use Spatie\LaravelIgnition\ContextProviders\LaravelContextProviderDetector;
 use Spatie\LaravelIgnition\Solutions\SolutionTransformers\LaravelSolutionTransformer;
 use Throwable;
