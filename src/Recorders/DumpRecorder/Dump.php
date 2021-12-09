@@ -20,6 +20,7 @@ class Dump
         $this->microtime = $microtime ?? microtime(true);
     }
 
+    /** @return array<string, mixed> */
     public function toArray(): array
     {
         return [

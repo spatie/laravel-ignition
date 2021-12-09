@@ -11,7 +11,7 @@ class CannotExecuteSolutionForNonLocalEnvironment extends Exception implements P
 {
     public static function make(): self
     {
-        return new static('Cannot run solution in this environment');
+        return new self('Cannot run solution in this environment');
     }
 
     public function getSolution(): Solution

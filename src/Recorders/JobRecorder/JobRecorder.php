@@ -27,6 +27,7 @@ class JobRecorder
 
     public function start(): self
     {
+        /** @phpstan-ignore-next-line */
         $this->app['events']->listen(JobExceptionOccurred::class, [$this, 'record']);
 
         return $this;
@@ -37,6 +38,9 @@ class JobRecorder
         $this->job = $event->job;
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     public function getJob(): ?array
     {
         if ($this->job === null) {
@@ -119,6 +123,12 @@ class JobRecorder
         return $properties->all();
     }
 
+    /**
+     * @param array<string, mixed> $chainedCommands
+     * @param int $maxDepth
+     *
+     * @return array
+     */
     protected function resolveJobChain(array $chainedCommands, int $maxDepth): array
     {
         if ($maxDepth === 0) {
@@ -146,6 +156,7 @@ class JobRecorder
         }
 
         if ($this->app->bound(Encrypter::class)) {
+            /** @phpstan-ignore-next-line */
             return unserialize($this->app[Encrypter::class]->decrypt($command));
         }
 

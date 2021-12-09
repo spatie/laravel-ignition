@@ -4,12 +4,15 @@ namespace Spatie\LaravelIgnition\Recorders\DumpRecorder;
 
 class MultiDumpHandler
 {
+    /** @var array<int, callable|null> */
     protected array $handlers = [];
 
-    public function dump($value): void
+    public function dump(mixed $value): void
     {
         foreach ($this->handlers as $handler) {
-            $handler($value);
+            if ($handler) {
+                $handler($value);
+            }
         }
     }
 

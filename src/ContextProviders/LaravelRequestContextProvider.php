@@ -17,15 +17,18 @@ class LaravelRequestContextProvider extends RequestContextProvider
         $this->request = $request;
     }
 
+    /** @return array<string, mixed> */
     public function getUser(): array
     {
         try {
-            $user = $this->request->user();
+            /** @var object|null $user */
+            /** @phpstan-ignore-next-line */
+            $user = $this->request?->user();
 
             if (! $user) {
                 return [];
             }
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return [];
         }
 
@@ -44,8 +47,10 @@ class LaravelRequestContextProvider extends RequestContextProvider
         return [];
     }
 
+    /** @return array<string, mixed> */
     public function getRoute(): array
     {
+        /** @phpstan-ignore-next-line */
         $route = $this->request->route();
 
         return [
@@ -56,17 +61,20 @@ class LaravelRequestContextProvider extends RequestContextProvider
         ];
     }
 
+    /** @return array<int, mixed> */
     protected function getRouteParameters(): array
     {
         try {
+            /** @phpstan-ignore-next-line */
             return collect(optional($this->request->route())->parameters ?? [])
                 ->map(fn ($parameter) => $parameter instanceof Model ? $parameter->withoutRelations() : $parameter)
                 ->toArray();
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return [];
         }
     }
 
+    /** @return array<int, mixed> */
     public function toArray(): array
     {
         $properties = parent::toArray();

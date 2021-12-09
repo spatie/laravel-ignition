@@ -7,7 +7,15 @@ parameters:
         - src
         - config
     excludePaths:
-        - src/Renderers/IgnitionExceptionRenderer.php
+        - src/Renderers/IgnitionExceptionRenderer
+        - src/Recorders/JobRecorder/JobRecorder
+        - src/Recorders/DumpRecorder/HtmlDumper
+        - src/Recorders/DumpRecorder/DumpRecorder
+        - src/IgnitionServiceProvider
+        - src/Http
+        - src/FlareMiddleware
+
+
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
     checkModelProperties: true

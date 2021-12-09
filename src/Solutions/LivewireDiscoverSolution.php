@@ -9,7 +9,7 @@ class LivewireDiscoverSolution implements RunnableSolution
 {
     protected string $customTitle;
 
-    public function __construct($customTitle = '')
+    public function __construct(string $customTitle = '')
     {
         $this->customTitle = $customTitle;
     }

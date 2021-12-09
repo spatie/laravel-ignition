@@ -12,7 +12,7 @@ class InvalidConfig extends Exception implements ProvidesSolution
 {
     public static function invalidLogLevel(string $logLevel): self
     {
-        return new static("Invalid log level `{$logLevel}` specified.");
+        return new self("Invalid log level `{$logLevel}` specified.");
     }
 
     public function getSolution(): Solution

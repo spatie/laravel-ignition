@@ -12,20 +12,29 @@ class Query
 
     protected string $connectionName;
 
+    /** @var array<string, string>|null */
     protected ?array $bindings;
 
     protected float $microtime;
 
     public static function fromQueryExecutedEvent(QueryExecuted $queryExecuted, bool $reportBindings = false): self
     {
-        return new static(
+        return new self(
             $queryExecuted->sql,
             $queryExecuted->time,
+            /** @phpstan-ignore-next-line  */
             $queryExecuted->connectionName ?? '',
             $reportBindings ? $queryExecuted->bindings : null
         );
     }
 
+    /**
+     * @param string $sql
+     * @param float $time
+     * @param string $connectionName
+     * @param array<string, string>|null $bindings
+     * @param float|null $microtime
+     */
     protected function __construct(
         string $sql,
         float $time,
@@ -40,6 +49,9 @@ class Query
         $this->microtime = $microtime ?? microtime(true);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [

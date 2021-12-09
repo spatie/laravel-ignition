@@ -10,10 +10,17 @@ class LogMessage
 
     protected string $level;
 
+    /** @var array<string, string> */
     protected array $context = [];
 
     protected ?float $microtime;
 
+    /**
+     * @param string|null $message
+     * @param string $level
+     * @param array<string, string> $context
+     * @param float|null $microtime
+     */
     public function __construct(
         ?string $message,
         string $level,
@@ -35,6 +42,7 @@ class LogMessage
         );
     }
 
+    /** @return array<string, mixed> */
     public function toArray(): array
     {
         return [

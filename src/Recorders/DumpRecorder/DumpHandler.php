@@ -13,7 +13,7 @@ class DumpHandler
         $this->dumpRecorder = $dumpRecorder;
     }
 
-    public function dump($value): void
+    public function dump(mixed $value): void
     {
         $data = (new VarCloner)->cloneVar($value);
 

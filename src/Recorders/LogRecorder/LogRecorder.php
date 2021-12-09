@@ -24,6 +24,7 @@ class LogRecorder
 
     public function start(): self
     {
+        /** @phpstan-ignore-next-line */
         $this->app['events']->listen(MessageLogged::class, [$this, 'record']);
 
         return $this;
@@ -42,11 +43,13 @@ class LogRecorder
         }
     }
 
+    /** @return array<array<int,string>> */
     public function getLogMessages(): array
     {
         return $this->toArray();
     }
 
+    /** @return array<int, mixed> */
     public function toArray(): array
     {
         $logMessages = [];
@@ -58,7 +61,7 @@ class LogRecorder
         return $logMessages;
     }
 
-    protected function shouldIgnore($event): bool
+    protected function shouldIgnore(mixed $event): bool
     {
         if (! isset($event->context['exception'])) {
             return false;

@@ -27,7 +27,7 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
         return $properties;
     }
 
-    /** @return array<string, mixed> */
+    /** @return array<int|string, mixed> */
     public function toArray(): array
     {
         $properties = parent::toArray();
@@ -37,9 +37,13 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
         return $properties;
     }
 
+    /** @return array<string, mixed> */
     protected function getLiveWireInformation(): array
     {
+        /** @phpstan-ignore-next-line */
         $componentId = $this->request->input('fingerprint.id');
+
+        /** @phpstan-ignore-next-line */
         $componentAlias = $this->request->input('fingerprint.name');
 
         if ($componentAlias === null) {
@@ -61,16 +65,21 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
         ];
     }
 
+    /** @return array<string, mixed> */
     protected function resolveData(): array
     {
+        /** @phpstan-ignore-next-line */
         $data = $this->request->input('serverMemo.data') ?? [];
 
+        /** @phpstan-ignore-next-line */
         $dataMeta = $this->request->input('serverMemo.dataMeta') ?? [];
 
+        /** @phpstan-ignore-next-line */
         foreach ($dataMeta['modelCollections'] ?? [] as $key => $value) {
             $data[$key] = array_merge($data[$key] ?? [], $value);
         }
 
+        /** @phpstan-ignore-next-line */
         foreach ($dataMeta['models'] ?? [] as $key => $value) {
             $data[$key] = array_merge($data[$key] ?? [], $value);
         }
@@ -78,8 +87,10 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
         return $data;
     }
 
+    /** @return array<string, mixed> */
     protected function resolveUpdates(): array
     {
+        /** @phpstan-ignore-next-line */
         $updates = $this->request->input('updates') ?? [];
 
         return array_map(function (array $update) {

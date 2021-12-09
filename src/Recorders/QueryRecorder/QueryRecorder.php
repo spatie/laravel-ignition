@@ -28,12 +28,13 @@ class QueryRecorder
 
     public function start(): self
     {
+        /** @phpstan-ignore-next-line  */
         $this->app['events']->listen(QueryExecuted::class, [$this, 'record']);
 
         return $this;
     }
 
-    public function record(QueryExecuted $queryExecuted)
+    public function record(QueryExecuted $queryExecuted): void
     {
         $this->queries[] = Query::fromQueryExecutedEvent($queryExecuted, $this->reportBindings);
 
@@ -42,6 +43,9 @@ class QueryRecorder
         }
     }
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     public function getQueries(): array
     {
         $queries = [];

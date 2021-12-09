@@ -8,30 +8,38 @@ use Spatie\LaravelIgnition\Recorders\DumpRecorder\HtmlDumper;
 
 class ViewException extends ErrorException implements ProvidesFlareContext
 {
+    /** @var array<string, mixed>  */
     protected array $viewData = [];
 
     protected string $view = '';
 
-    public function setViewData(array $data)
+    /**
+     * @param array<string, mixed> $data
+     *
+     * @return void
+     */
+    public function setViewData(array $data): void
     {
         $this->viewData = $data;
     }
 
+    /** @return array<string, mixed> */
     public function getViewData(): array
     {
         return $this->viewData;
     }
 
-    public function setView(string $path)
+    public function setView(string $path): void
     {
         $this->view = $path;
     }
 
-    protected function dumpViewData($variable): string
+    protected function dumpViewData(mixed $variable): string
     {
         return (new HtmlDumper())->dumpVariable($variable);
     }
 
+    /** @return array<string, mixed> */
     public function context(): array
     {
         $context = [

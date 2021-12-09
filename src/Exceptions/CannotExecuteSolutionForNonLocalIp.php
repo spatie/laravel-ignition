@@ -11,7 +11,7 @@ class CannotExecuteSolutionForNonLocalIp extends Exception implements ProvidesSo
 {
     public static function make(): self
     {
-        return new static('Solutions cannot be run from your current IP address.');
+        return new self('Solutions cannot be run from your current IP address.');
     }
 
     public function getSolution(): Solution

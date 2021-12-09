@@ -9,7 +9,7 @@ class ViewExceptionWithSolution extends ViewException implements ProvidesSolutio
 {
     protected Solution $solution;
 
-    public function setSolution(Solution $solution)
+    public function setSolution(Solution $solution): void
     {
         $this->solution = $solution;
     }
