@@ -4,7 +4,6 @@ namespace Spatie\LaravelIgnition\Renderers;
 
 use Illuminate\Contracts\Foundation\ExceptionRenderer;
 
-
 class IgnitionExceptionRenderer implements ExceptionRenderer
 {
     protected ErrorPageRenderer $errorPageHandler;
