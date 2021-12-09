@@ -56,6 +56,7 @@ class ViewNotFoundSolutionProvider implements HasSolutionsForThrowable
         return StringComparator::findClosestMatch($views, $missingView);
     }
 
+    /** @return array<int, string> */
     protected function getAllViews(): array
     {
         /** @var \Illuminate\View\FileViewFinder $fileViewFinder */
