@@ -24,7 +24,7 @@ class CompilerEngine extends \Illuminate\View\Engines\CompilerEngine
      * Get the evaluated contents of the view.
      *
      * @param string $path
-     * @param array<int, mixed> $data
+     * @param array<string, mixed> $data
      *
      * @return string
      */

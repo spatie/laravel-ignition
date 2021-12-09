@@ -15,7 +15,7 @@ class PhpEngine extends \Illuminate\View\Engines\PhpEngine
      * Get the evaluated contents of the view.
      *
      * @param  string  $path
-     * @param  array<int, mixed>   $data
+     * @param  array<string, mixed>   $data
      * @return string
      */
     public function get($path, array $data = [])

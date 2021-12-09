@@ -10,7 +10,7 @@ class BladeSourceMapCompiler extends BladeCompiler
     public function detectLineNumber(string $filename, int $exceptionLineNumber): int
     {
         try {
-            $map = $this->compileString(file_get_contents($filename));
+            $map = $this->compileString((string)file_get_contents($filename));
         } catch (ErrorException $e) {
             return 1;
         }
@@ -42,7 +42,7 @@ class BladeSourceMapCompiler extends BladeCompiler
         }
     }
 
-    protected function addEchoLineNumbers(string $value)
+    protected function addEchoLineNumbers(string $value): string
     {
         $pattern = sprintf('/(@)?%s\s*(.+?)\s*%s(\r?\n)?/s', $this->contentTags[0], $this->contentTags[1]);
 
@@ -57,7 +57,7 @@ class BladeSourceMapCompiler extends BladeCompiler
         return $value;
     }
 
-    protected function addStatementLineNumbers(string $value)
+    protected function addStatementLineNumbers(string $value): string
     {
         $shouldInsertLineNumbers = preg_match_all(
             '/\B@(@?\w+(?:::\w+)?)([ \t]*)(\( ( (?>[^()]+) | (?3) )* \))?/x',
@@ -77,7 +77,7 @@ class BladeSourceMapCompiler extends BladeCompiler
         return $value;
     }
 
-    protected function insertLineNumberAtPosition(int $position, string $value)
+    protected function insertLineNumberAtPosition(int $position, string $value): string
     {
         $before = mb_substr($value, 0, $position);
         $lineNumber = count(explode("\n", $before));
@@ -85,10 +85,10 @@ class BladeSourceMapCompiler extends BladeCompiler
         return mb_substr($value, 0, $position)."|---LINE:{$lineNumber}---|".mb_substr($value, $position);
     }
 
-    protected function trimEmptyLines(string $value)
+    protected function trimEmptyLines(string $value): string
     {
         $value = preg_replace('/^\|---LINE:([0-9]+)---\|$/m', '', $value);
 
-        return ltrim($value, PHP_EOL);
+        return ltrim((string)$value, PHP_EOL);
     }
 }

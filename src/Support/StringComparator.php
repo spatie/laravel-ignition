@@ -6,6 +6,13 @@ use Illuminate\Support\Collection;
 
 class StringComparator
 {
+    /**
+     * @param array<int, string> $strings
+     * @param string $input
+     * @param int $sensitivity
+     *
+     * @return string|null
+     */
     public static function findClosestMatch(array $strings, string $input, int $sensitivity = 4): ?string
     {
         $closestDistance = -1;
@@ -35,6 +42,12 @@ class StringComparator
         return null;
     }
 
+    /**
+     * @param array<int, string> $strings
+     * @param string $input
+     *
+     * @return string|null
+     */
     public static function findSimilarText(array $strings, string $input): ?string
     {
         if (empty($strings)) {

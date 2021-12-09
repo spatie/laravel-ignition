@@ -8,9 +8,16 @@ use Illuminate\View\Engines\CompilerEngine;
 
 trait CollectsViewExceptions
 {
+    /** @var array<int|string, mixed> $lastCompiledData */
     protected array $lastCompiledData = [];
 
-    public function collectViewData($path, array $data): void
+    /**
+     * @param string $path
+     * @param array<string, mixed> $data
+     *
+     * @return void
+     */
+    public function collectViewData(string $path, array $data): void
     {
         $this->lastCompiledData[] = [
             'path' => $path,
@@ -19,6 +26,11 @@ trait CollectsViewExceptions
         ];
     }
 
+    /**
+     * @param  array<string, mixed> $data
+     *
+     * @return array<string, mixed>
+     */
     public function filterViewData(array $data): array
     {
         // By default, Laravel views get two d data keys:
@@ -32,21 +44,31 @@ trait CollectsViewExceptions
         }, ARRAY_FILTER_USE_BOTH);
     }
 
-    public function getCompiledViewData($compiledPath): array
+    /**
+     * @param string $compiledPath
+     *
+     * @return array<string, mixed>
+     */
+    public function getCompiledViewData(string $compiledPath): array
     {
         $compiledView = $this->findCompiledView($compiledPath);
 
         return $compiledView['data'] ?? [];
     }
 
-    public function getCompiledViewName($compiledPath): string
+    public function getCompiledViewName(string $compiledPath): string
     {
         $compiledView = $this->findCompiledView($compiledPath);
 
         return $compiledView['path'] ?? $compiledPath;
     }
 
-    protected function findCompiledView($compiledPath): ?array
+    /**
+     * @param string $compiledPath
+     *
+     * @return null|array<string, mixed>
+     */
+    protected function findCompiledView(string $compiledPath): ?array
     {
         return Collection::make($this->lastCompiledData)
             ->first(function ($compiledData) use ($compiledPath) {
@@ -56,7 +78,7 @@ trait CollectsViewExceptions
             });
     }
 
-    protected function getCompiledPath($path): string
+    protected function getCompiledPath(string $path): string
     {
         if ($this instanceof CompilerEngine) {
             return $this->getCompiler()->getCompiledPath($path);
