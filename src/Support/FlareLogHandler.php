@@ -26,7 +26,7 @@ class FlareLogHandler extends AbstractProcessingHandler
         parent::__construct($level, $bubble);
     }
 
-    public function setMinimumReportLogLevel(int $level)
+    public function setMinimumReportLogLevel(int $level): void
     {
         if (! in_array($level, Logger::getLevels())) {
             throw new InvalidArgumentException('The given minimum log level is not supported.');
@@ -65,6 +65,11 @@ class FlareLogHandler extends AbstractProcessingHandler
         }
     }
 
+    /**
+     * @param array<string, mixed> $report
+     *
+     * @return bool
+     */
     protected function shouldReport(array $report): bool
     {
         if (! config('flare.key')) {
@@ -74,6 +79,11 @@ class FlareLogHandler extends AbstractProcessingHandler
         return $this->hasException($report) || $this->hasValidLogLevel($report);
     }
 
+    /**
+     * @param array<string, mixed> $report
+     *
+     * @return bool
+     */
     protected function hasException(array $report): bool
     {
         $context = $report['context'];
@@ -81,6 +91,11 @@ class FlareLogHandler extends AbstractProcessingHandler
         return isset($context['exception']) && $context['exception'] instanceof Throwable;
     }
 
+    /**
+     * @param array<string, mixed> $report
+     *
+     * @return bool
+     */
     protected function hasValidLogLevel(array $report): bool
     {
         return $report['level'] >= $this->minimumReportLogLevel;

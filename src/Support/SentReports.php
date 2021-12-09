@@ -17,16 +17,19 @@ class SentReports
         return $this;
     }
 
+    /**  @return array<int, Report> */
     public function all(): array
     {
         return $this->reports;
     }
 
+    /** @return array<int, string> */
     public function uuids(): array
     {
         return array_map(fn (Report $report) => $report->trackingUuid(), $this->reports);
     }
 
+    /** @return array<int, string> */
     public function urls(): array
     {
         return array_map(function (string $trackingUuid) {
@@ -44,7 +47,7 @@ class SentReports
         return Arr::last($this->urls());
     }
 
-    public function clear()
+    public function clear(): void
     {
         $this->reports = [];
     }
