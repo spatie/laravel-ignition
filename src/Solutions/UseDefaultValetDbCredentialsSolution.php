@@ -22,7 +22,7 @@ class UseDefaultValetDbCredentialsSolution implements RunnableSolution
         return 'Could not connect to database';
     }
 
-    public function run(array $parameters = [])
+    public function run(array $parameters = []): void
     {
         if (! file_exists(base_path('.env'))) {
             return;

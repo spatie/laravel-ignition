@@ -46,7 +46,7 @@ class LivewireDiscoverSolution implements RunnableSolution
         return 'Run livewire:discover';
     }
 
-    public function run(array $parameters = [])
+    public function run(array $parameters = []): void
     {
         app(LivewireComponentsFinder::class)->build();
     }

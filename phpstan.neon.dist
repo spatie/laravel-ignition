@@ -6,6 +6,8 @@ parameters:
     paths:
         - src
         - config
+    excludePaths:
+        - src/Renderers/IgnitionExceptionRenderer.php
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
     checkModelProperties: true

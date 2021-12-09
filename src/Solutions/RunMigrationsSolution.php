@@ -46,7 +46,7 @@ class RunMigrationsSolution implements RunnableSolution
         return 'Run migrations';
     }
 
-    public function run(array $parameters = [])
+    public function run(array $parameters = []): void
     {
         Artisan::call('migrate');
     }
