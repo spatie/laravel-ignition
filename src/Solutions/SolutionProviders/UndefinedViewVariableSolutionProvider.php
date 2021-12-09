@@ -4,6 +4,7 @@ namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
 use Spatie\Ignition\Contracts\BaseSolution;
 use Spatie\Ignition\Contracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Contracts\Solution;
 use Spatie\LaravelIgnition\Exceptions\ViewException;
 use Spatie\LaravelIgnition\Solutions\MakeViewVariableOptionalSolution;
 use Spatie\LaravelIgnition\Solutions\SuggestCorrectVariableNameSolution;
@@ -11,9 +12,9 @@ use Throwable;
 
 class UndefinedViewVariableSolutionProvider implements HasSolutionsForThrowable
 {
-    protected $variableName;
+    protected string $variableName;
 
-    protected $viewFile;
+    protected string $viewFile;
 
     public function canSolve(Throwable $throwable): bool
     {
@@ -28,18 +29,30 @@ class UndefinedViewVariableSolutionProvider implements HasSolutionsForThrowable
     {
         $solutions = [];
 
+        /** @phpstan-ignore-next-line  */
         extract($this->getNameAndView($throwable));
 
         if (! isset($variableName)) {
             return [];
         }
 
-        $solutions = $this->findCorrectVariableSolutions($throwable, $variableName, $viewFile);
-        $solutions[] = $this->findOptionalVariableSolution($variableName, $viewFile);
+        if (isset($viewFile)) {
+            /** @phpstan-ignore-next-line  */
+            $solutions = $this->findCorrectVariableSolutions($throwable, $variableName, $viewFile);
+            $solutions[] = $this->findOptionalVariableSolution($variableName, $viewFile);
+        }
+
 
         return $solutions;
     }
 
+    /**
+     * @param \Spatie\LaravelIgnition\Exceptions\ViewException $throwable
+     * @param string $variableName
+     * @param string $viewFile
+     *
+     * @return array<int, \Spatie\Ignition\Contracts\Solution>
+     */
     protected function findCorrectVariableSolutions(
         ViewException $throwable,
         string $variableName,
@@ -54,6 +67,7 @@ class UndefinedViewVariableSolutionProvider implements HasSolutionsForThrowable
             ->sortByDesc('match')
             ->filter(fn ($var) => $var['match'] > 40)
             ->keys()
+            /** @phpstan-ignore-next-line  */
             ->map(fn ($suggestion) => new SuggestCorrectVariableNameSolution($variableName, $viewFile, $suggestion))
             ->map(function ($solution) {
                 return $solution->isRunnable()
@@ -64,7 +78,7 @@ class UndefinedViewVariableSolutionProvider implements HasSolutionsForThrowable
             ->toArray();
     }
 
-    protected function findOptionalVariableSolution(string $variableName, string $viewFile)
+    protected function findOptionalVariableSolution(string $variableName, string $viewFile): Solution
     {
         $optionalSolution = new MakeViewVariableOptionalSolution($variableName, $viewFile);
 
@@ -74,6 +88,11 @@ class UndefinedViewVariableSolutionProvider implements HasSolutionsForThrowable
                 ->setSolutionDescription($optionalSolution->getSolutionDescription());
     }
 
+    /**
+     * @param \Throwable $throwable
+     *
+     * @return array<string, string>|null
+     */
     protected function getNameAndView(Throwable $throwable): ?array
     {
         $pattern = '/Undefined variable:? (.*?) \(View: (.*?)\)/';

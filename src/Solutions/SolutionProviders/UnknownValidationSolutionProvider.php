@@ -37,7 +37,7 @@ class UnknownValidationSolutionProvider implements HasSolutionsForThrowable
 
     protected function getSolutionDescription(Throwable $throwable): string
     {
-        $method = $this->getMethodFromExceptionMessage($throwable->getMessage());
+        $method = (string)$this->getMethodFromExceptionMessage($throwable->getMessage());
 
         $possibleMethod = StringComparator::findSimilarText(
             $this->getAvailableMethods()->toArray(),
