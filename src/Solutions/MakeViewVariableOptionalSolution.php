@@ -119,10 +119,10 @@ class MakeViewVariableOptionalSolution implements RunnableSolution
     }
 
     /**
-     * @param array<string, string> $originalTokens
+     * @param array<int, mixed> $originalTokens
      * @param string $variableName
      *
-     * @return array
+     * @return array<int, mixed>
      */
     protected function generateExpectedTokens(array $originalTokens, string $variableName): array
     {
