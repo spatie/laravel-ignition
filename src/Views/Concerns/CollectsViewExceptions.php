@@ -8,7 +8,7 @@ use Illuminate\View\Engines\CompilerEngine;
 
 trait CollectsViewExceptions
 {
-    /** @var array<int|string, mixed> $lastCompiledData */
+    /** @var array<int|string, mixed> */
     protected array $lastCompiledData = [];
 
     /**
