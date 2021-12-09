@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 class StringComparator
 {
     /**
-     * @param array<int, string> $strings
+     * @param array<int|string, string> $strings
      * @param string $input
      * @param int $sensitivity
      *

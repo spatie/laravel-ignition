@@ -23,7 +23,7 @@ class TableNotFoundSolutionProvider implements HasSolutionsForThrowable
         return  $this->isBadTableErrorCode($throwable->getCode());
     }
 
-    protected function isBadTableErrorCode($code): bool
+    protected function isBadTableErrorCode(string $code): bool
     {
         return $code === static::MYSQL_BAD_TABLE_CODE;
     }

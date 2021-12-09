@@ -50,7 +50,7 @@ class IncorrectValetDbCredentialsSolutionProvider implements HasSolutionsForThro
         return file_exists(base_path('.env'));
     }
 
-    protected function isAccessDeniedCode($code): bool
+    protected function isAccessDeniedCode(string $code): bool
     {
         return $code === static::MYSQL_ACCESS_DENIED_CODE;
     }

@@ -36,6 +36,7 @@ class UndefinedLivewireMethodSolutionProvider implements HasSolutionsForThrowabl
             ->toArray();
     }
 
+    /** @return array<string, string|null> */
     protected function getMethodAndComponent(Throwable $throwable): array
     {
         preg_match_all('/\[([\d\w\-_]*)\]/m', $throwable->getMessage(), $matches, PREG_SET_ORDER);

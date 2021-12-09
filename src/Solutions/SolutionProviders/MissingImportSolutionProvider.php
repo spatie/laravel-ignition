@@ -30,12 +30,21 @@ class MissingImportSolutionProvider implements HasSolutionsForThrowable
         return ! is_null($this->foundClass);
     }
 
+    /**
+     * @param \Throwable $throwable
+     *
+     * @return array<int, SuggestImportSolution>
+     */
     public function getSolutions(Throwable $throwable): array
     {
+        if (is_null($this->foundClass)) {
+            return [];
+        }
+
         return [new SuggestImportSolution($this->foundClass)];
     }
 
-    protected function search(string $missingClass)
+    protected function search(string $missingClass): void
     {
         $this->foundClass = $this->composerClassMap->searchClassMap($missingClass);
 

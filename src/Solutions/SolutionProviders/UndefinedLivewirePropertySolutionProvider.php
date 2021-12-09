@@ -12,7 +12,7 @@ class UndefinedLivewirePropertySolutionProvider implements HasSolutionsForThrowa
 {
     public function canSolve(Throwable $throwable): bool
     {
-        return $throwable instanceof PropertyNotFoundException || $throwable instanceof PublicPropertyNotFoundException;
+        return $throwable instanceof PropertyNotFoundException;
     }
 
     public function getSolutions(Throwable $throwable): array
@@ -36,6 +36,11 @@ class UndefinedLivewirePropertySolutionProvider implements HasSolutionsForThrowa
             ->toArray();
     }
 
+    /**
+     * @param \Throwable $throwable
+     *
+     * @return array<string, string|null>
+     */
     protected function getMethodAndComponent(Throwable $throwable): array
     {
         preg_match_all('/\[([\d\w\-_\$]*)\]/m', $throwable->getMessage(), $matches, PREG_SET_ORDER, 0);

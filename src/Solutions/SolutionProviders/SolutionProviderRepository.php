@@ -13,6 +13,9 @@ class SolutionProviderRepository implements SolutionProviderRepositoryContract
 {
     protected Collection $solutionProviders;
 
+    /**
+     * @param array<int, ProvidesSolution> $solutionProviders
+     */
     public function __construct(array $solutionProviders = [])
     {
         $this->solutionProviders = Collection::make($solutionProviders);
@@ -44,9 +47,10 @@ class SolutionProviderRepository implements SolutionProviderRepositoryContract
             $solutions[] = $throwable->getSolution();
         }
 
+        /** @phpstan-ignore-next-line  */
         $providedSolutions = $this->solutionProviders
             ->filter(function (string $solutionClass) {
-                if (! in_array(HasSolutionsForThrowable::class, class_implements($solutionClass))) {
+                if (! in_array(HasSolutionsForThrowable::class, class_implements($solutionClass) ?: [])) {
                     return false;
                 }
 
@@ -83,7 +87,7 @@ class SolutionProviderRepository implements SolutionProviderRepositoryContract
             return null;
         }
 
-        if (! in_array(Solution::class, class_implements($solutionClass))) {
+        if (! in_array(Solution::class, class_implements($solutionClass) ?: [])) {
             return null;
         }
 
