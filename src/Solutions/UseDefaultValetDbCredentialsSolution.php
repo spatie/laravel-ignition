@@ -32,13 +32,13 @@ class UseDefaultValetDbCredentialsSolution implements RunnableSolution
         $this->ensureLineExists('DB_PASSWORD', '');
     }
 
-    protected function ensureLineExists(string $key, string $value)
+    protected function ensureLineExists(string $key, string $value): void
     {
         $envPath = base_path('.env');
 
         $envLines = array_map(fn (string $envLine) => Str::startsWith($envLine, $key)
             ? "{$key}={$value}".PHP_EOL
-            : $envLine, file($envPath));
+            : $envLine, file($envPath) ?: []);
 
         file_put_contents($envPath, implode('', $envLines));
     }
@@ -48,6 +48,7 @@ class UseDefaultValetDbCredentialsSolution implements RunnableSolution
         return [];
     }
 
+    /** @return array<string, mixed> */
     public function getRunParameters(): array
     {
         return [

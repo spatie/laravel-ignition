@@ -18,6 +18,7 @@ class SuggestUsingCorrectDbNameSolution implements Solution
         return "You're using the default database name `$defaultDatabaseName`. This database does not exist.\n\nEdit the `.env` file and use the correct database name in the `DB_DATABASE` key.";
     }
 
+    /** @return array<string, string> */
     public function getDocumentationLinks(): array
     {
         return [
