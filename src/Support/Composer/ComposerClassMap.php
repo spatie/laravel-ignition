@@ -10,7 +10,8 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class ComposerClassMap
 {
-    protected $composer;
+    /** @var \Spatie\LaravelIgnition\Support\Composer\Composer  */
+    protected object $composer;
 
     protected string $basePath;
 
@@ -25,6 +26,7 @@ class ComposerClassMap
         $this->basePath = app_path();
     }
 
+    /** @return array<string, string> */
     public function listClasses(): array
     {
         $classes = $this->composer->getClassMap();
@@ -45,6 +47,7 @@ class ComposerClassMap
         return null;
     }
 
+    /** @return array<string, mixed> */
     public function listClassesInPsrMaps(): array
     {
         // TODO: This is incorrect. Doesnt list all fqcns. Need to parse namespace? e.g. App\LoginController is wrong
@@ -111,7 +114,7 @@ class ComposerClassMap
 
     protected function getFullyQualifiedClassNameFromFile(string $rootNamespace, SplFileInfo $file): string
     {
-        $class = trim(str_replace($this->basePath, '', $file->getRealPath()), DIRECTORY_SEPARATOR);
+        $class = trim(str_replace($this->basePath, '', (string)$file->getRealPath()), DIRECTORY_SEPARATOR);
 
         $class = str_replace(
             [DIRECTORY_SEPARATOR, 'App\\'],
