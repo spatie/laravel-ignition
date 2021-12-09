@@ -9,6 +9,7 @@ use Throwable;
 
 class LaravelSolutionTransformer extends SolutionTransformer
 {
+    /** @return array<string|mixed> */
     public function toArray(): array
     {
         $baseProperties = parent::toArray();
