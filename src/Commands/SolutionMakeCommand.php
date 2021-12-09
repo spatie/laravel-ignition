@@ -25,6 +25,7 @@ class SolutionMakeCommand extends GeneratorCommand
         return "{$rootNamespace}\\Solutions";
     }
 
+    /** @return array<int, mixed> */
     protected function getOptions(): array
     {
         return [

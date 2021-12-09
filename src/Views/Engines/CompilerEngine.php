@@ -24,7 +24,7 @@ class CompilerEngine extends \Illuminate\View\Engines\CompilerEngine
      * Get the evaluated contents of the view.
      *
      * @param string $path
-     * @param array $data
+     * @param array<int, mixed> $data
      *
      * @return string
      */
@@ -73,6 +73,7 @@ class CompilerEngine extends \Illuminate\View\Engines\CompilerEngine
         );
 
         if ($baseException instanceof ProvidesSolution) {
+            /** @var ViewExceptionWithSolution $exception */
             $exception->setSolution($baseException->getSolution());
         }
 
@@ -98,9 +99,9 @@ class CompilerEngine extends \Illuminate\View\Engines\CompilerEngine
         return $sourceMapCompiler->detectLineNumber($viewPath, $exceptionLineNumber);
     }
 
-    protected function modifyViewsInTrace(ViewException $exception)
+    protected function modifyViewsInTrace(ViewException $exception): void
     {
-        $trace = Collection::make($exception->getPrevious()->getTrace())
+        $trace = Collection::make($exception->getPrevious()?->getTrace())
             ->map(function ($trace) {
                 if ($compiledData = $this->findCompiledView(Arr::get($trace, 'file', ''))) {
                     $trace['file'] = $compiledData['path'];
