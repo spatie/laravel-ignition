@@ -18,7 +18,7 @@ class TestCommand extends Command
 
     protected Repository $config;
 
-    public function handle(Repository $config)
+    public function handle(Repository $config): void
     {
         $this->config = $config;
 
@@ -31,7 +31,7 @@ class TestCommand extends Command
         $this->sendTestException();
     }
 
-    protected function checkFlareKey()
+    protected function checkFlareKey(): self
     {
         $message = empty($this->config->get('flare.key'))
             ? '❌ Flare key not specified. Make sure you specify a value in the `key` key of the `flare` config file.'
@@ -109,7 +109,9 @@ class TestCommand extends Command
                 ['spatie/ignition', InstalledVersions::getVersion('spatie/ignition')],
                 ['spatie/laravel-ignition', InstalledVersions::getVersion('spatie/laravel-ignition')],
                 ['spatie/flare-client-php', InstalledVersions::getVersion('spatie/flare-client-php')],
+                /** @phpstan-ignore-next-line */
                 ['Curl', curl_version()['version'] ?? 'Unknown'],
+                /** @phpstan-ignore-next-line */
                 ['SSL', curl_version()['ssl_version'] ?? 'Unknown'],
             ]);
 

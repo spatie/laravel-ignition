@@ -12,7 +12,7 @@ class MakeViewVariableOptionalSolution implements RunnableSolution
 
     protected ?string $viewFile;
 
-    public function __construct($variableName = null, $viewFile = null)
+    public function __construct(string $variableName = null, string $viewFile = null)
     {
         $this->variableName = $variableName;
 
@@ -57,11 +57,21 @@ class MakeViewVariableOptionalSolution implements RunnableSolution
         ];
     }
 
-    public function isRunnable(array $parameters = [])
+    /**
+     * @param array<string, mixed>  $parameters
+     *
+     * @return bool
+     */
+    public function isRunnable(array $parameters = []): bool
     {
         return $this->makeOptional($this->getRunParameters()) !== false;
     }
 
+    /**
+     * @param array<string, string> $parameters
+     *
+     * @return void
+     */
     public function run(array $parameters = []): void
     {
         $output = $this->makeOptional($parameters);
@@ -82,13 +92,18 @@ class MakeViewVariableOptionalSolution implements RunnableSolution
         return true;
     }
 
-    public function makeOptional(array $parameters = [])
+    /**
+     * @param array<string, string> $parameters
+     *
+     * @return bool|string
+     */
+    public function makeOptional(array $parameters = []): bool|string
     {
         if (! $this->isSafePath($parameters['viewFile'])) {
             return false;
         }
 
-        $originalContents = file_get_contents($parameters['viewFile']);
+        $originalContents = (string)file_get_contents($parameters['viewFile']);
         $newContents = str_replace('$'.$parameters['variableName'], '$'.$parameters['variableName']." ?? ''", $originalContents);
 
         $originalTokens = token_get_all(Blade::compileString($originalContents));
@@ -103,6 +118,12 @@ class MakeViewVariableOptionalSolution implements RunnableSolution
         return $newContents;
     }
 
+    /**
+     * @param array<string, string> $originalTokens
+     * @param string $variableName
+     *
+     * @return array
+     */
     protected function generateExpectedTokens(array $originalTokens, string $variableName): array
     {
         $expectedTokens = [];

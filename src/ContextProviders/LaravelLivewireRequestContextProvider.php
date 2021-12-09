@@ -16,6 +16,7 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
         parent::__construct($request);
     }
 
+    /** @return array<string, string> */
     public function getRequest(): array
     {
         $properties = parent::getRequest();
@@ -26,6 +27,7 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
         return $properties;
     }
 
+    /** @return array<string, mixed> */
     public function toArray(): array
     {
         $properties = parent::toArray();

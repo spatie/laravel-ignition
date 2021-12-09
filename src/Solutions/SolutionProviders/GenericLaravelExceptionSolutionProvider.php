@@ -28,6 +28,11 @@ class GenericLaravelExceptionSolutionProvider implements HasSolutionsForThrowabl
         return ([$solution]);
     }
 
+    /**
+     * @param \Throwable $throwable
+     *
+     * @return array<string, mixed>|null
+     */
     protected function getSolutionTexts(Throwable $throwable) : ?array
     {
         foreach ($this->getSupportedExceptions() as $supportedClass => $texts) {
@@ -39,7 +44,8 @@ class GenericLaravelExceptionSolutionProvider implements HasSolutionsForThrowabl
         return null;
     }
 
-    protected function getSupportedExceptions()
+    /** @return array<string, mixed> */
+    protected function getSupportedExceptions(): array
     {
         $majorVersion = LaravelVersion::major();
 

@@ -24,7 +24,7 @@ class LaravelContextProviderDetector implements ContextProviderDetector
         return new LaravelRequestContextProvider($request);
     }
 
-    protected function isRunningLiveWire(Request $request)
+    protected function isRunningLiveWire(Request $request): bool
     {
         return $request->hasHeader('x-livewire') && $request->hasHeader('referer');
     }
