@@ -80,6 +80,12 @@ class ViewNotFoundSolutionProvider implements HasSolutionsForThrowable
         return $viewsForHints->merge($viewsForViewPaths)->toArray();
     }
 
+    /**
+     * @param string $path
+     * @param array<int, string> $extensions
+     *
+     * @return array<int, string>
+     */
     protected function getViewsInPath(string $path, array $extensions): array
     {
         $filePatterns = array_map(fn (string $extension) => "*.{$extension}", $extensions);
