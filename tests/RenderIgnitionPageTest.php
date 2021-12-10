@@ -3,8 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
-uses(TestCase::class);
-
 beforeEach(function () {
     config()->set('app.debug', true);
 

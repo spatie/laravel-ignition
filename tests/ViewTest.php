@@ -6,8 +6,7 @@ use Spatie\Ignition\Contracts\BaseSolution;
 use Spatie\Ignition\Contracts\Solution;
 use Spatie\LaravelIgnition\Exceptions\ViewException;
 use Spatie\LaravelIgnition\Exceptions\ViewExceptionWithSolution;
-
-uses(TestCase::class);
+use Spatie\LaravelIgnition\Tests\TestClasses\ExceptionWithSolution;
 
 beforeEach(function () {
     View::addLocation(__DIR__.'/stubs/views');
@@ -65,10 +64,3 @@ it('detects php view exceptions', function () {
 
     view('php-exception')->render();
 });
-
-// Helpers
-function getSolution(): Solution
-{
-    return BaseSolution::create('This is a solution')
-        ->setSolutionDescription('With a description');
-}

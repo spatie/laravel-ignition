@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\View;
 use Spatie\FlareClient\Flare;
 use Spatie\LaravelIgnition\Tests\Mocks\FakeClient;
 
-uses(TestCase::class);
-
 beforeEach(function () {
     Artisan::call('view:clear');
 

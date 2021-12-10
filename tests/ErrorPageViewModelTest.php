@@ -5,8 +5,6 @@ use Spatie\FlareClient\Report;
 use Spatie\Ignition\Config\IgnitionConfig;
 use Spatie\Ignition\ErrorPage\ErrorPageViewModel;
 
-uses(TestCase::class);
-
 it('can encode invalid user data', function () {
     $flareClient = app()->make(Flare::class);
 

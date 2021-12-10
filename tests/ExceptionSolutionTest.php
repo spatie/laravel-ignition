@@ -8,8 +8,6 @@ use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingAppKeySolutionProv
 use Spatie\LaravelIgnition\Tests\Exceptions\AlwaysFalseSolutionProvider;
 use Spatie\LaravelIgnition\Tests\Exceptions\AlwaysTrueSolutionProvider;
 
-uses(TestCase::class);
-
 it('returns possible solutions', function () {
     $repository = new SolutionProviderRepository();
 

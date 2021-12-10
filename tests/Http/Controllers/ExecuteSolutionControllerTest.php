@@ -1,12 +1,8 @@
 <?php
 
-
-
 it('can execute solutions on a local environment with debugging enabled', function () {
     app()['env'] = 'local';
     config()->set('app.debug', true);
-
-    $this->withoutExceptionHandling();
 
     $this
         ->postJson(route('ignition.executeSolution'), solutionPayload())
@@ -41,14 +37,6 @@ it('wont execute solutions for a non local ip', function () {
         ->assertStatus(500);
 });
 
-// Helpers
-function resolveApplicationConfiguration($app)
-{
-    parent::resolveApplicationConfiguration($app);
-
-    // Routes will not register in a console environment.
-    $_ENV['APP_RUNNING_IN_CONSOLE'] = false;
-}
 
 function solutionPayload(): array
 {

@@ -20,12 +20,3 @@ it('can update the config', function () {
     expect($config->editor())->toEqual('fancy-editor');
     expect($config->hideSolutions())->toEqual(true);
 });
-
-// Helpers
-function resolveApplicationConfiguration($app)
-{
-    parent::resolveApplicationConfiguration($app);
-
-    // Routes will not register in a console environment.
-    $_ENV['APP_RUNNING_IN_CONSOLE'] = false;
-}

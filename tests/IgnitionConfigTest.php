@@ -3,8 +3,6 @@
 use Illuminate\Container\Container;
 use Spatie\Ignition\Config\IgnitionConfig;
 
-uses(TestCase::class);
-
 it('does not enable runnable solutions in debug mode by default', function () {
     config()->set('app.debug', true);
 

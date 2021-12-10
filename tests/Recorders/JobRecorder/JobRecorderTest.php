@@ -89,7 +89,7 @@ it('can record a closure job', function () {
 
     $recorded = $recorder->getJob();
 
-    expect($recorded['name'])->toEqual('Closure (JobRecorderTest.php:97)');
+    expect($recorded['name'])->toEqual('Closure (JobRecorderTest.php:82)');
 });
 
 it('can record a chained job', function () {
