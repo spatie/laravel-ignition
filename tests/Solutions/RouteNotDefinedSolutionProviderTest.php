@@ -1,47 +1,36 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Tests\Solutions;
-
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\RouteNotDefinedSolutionProvider;
-use Spatie\LaravelIgnition\Tests\TestCase;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
-class RouteNotDefinedSolutionProviderTest extends TestCase
+it('can solve a route not defined exception', function () {
+    $canSolve = app(RouteNotDefinedSolutionProvider::class)->canSolve(getRouteNotDefinedException());
+
+    expect($canSolve)->toBeTrue();
+});
+
+it('can recommend changing the route name', function () {
+    Route::get('/test', 'TestController@typo')->name('test.typo');
+
+    /** @var \Spatie\Ignition\Contracts\Solution $solution */
+    $solution = app(RouteNotDefinedSolutionProvider::class)->getSolutions(getRouteNotDefinedException())[0];
+
+    expect(Str::contains($solution->getSolutionDescription(), 'Did you mean `test.typo`?'))->toBeTrue();
+});
+
+it('wont recommend another route if the names are too different', function () {
+    Route::get('/test', 'TestController@typo')->name('test.typo');
+
+    /** @var \Spatie\Ignition\Contracts\Solution $solution */
+    $solution = app(RouteNotDefinedSolutionProvider::class)->getSolutions(getRouteNotDefinedException('test.is-too-different'))[0];
+
+    expect(Str::contains($solution->getSolutionDescription(), 'Did you mean'))->toBeFalse();
+});
+
+// Helpers
+function getRouteNotDefinedException(string $route = 'test.typoo'): RouteNotFoundException
 {
-    /** @test */
-    public function it_can_solve_a_route_not_defined_exception()
-    {
-        $canSolve = app(RouteNotDefinedSolutionProvider::class)->canSolve($this->getRouteNotDefinedException());
-
-        $this->assertTrue($canSolve);
-    }
-
-    /** @test */
-    public function it_can_recommend_changing_the_route_name()
-    {
-        Route::get('/test', 'TestController@typo')->name('test.typo');
-
-        /** @var \Spatie\Ignition\Contracts\Solution $solution */
-        $solution = app(RouteNotDefinedSolutionProvider::class)->getSolutions($this->getRouteNotDefinedException())[0];
-
-        $this->assertTrue(Str::contains($solution->getSolutionDescription(), 'Did you mean `test.typo`?'));
-    }
-
-    /** @test */
-    public function it_wont_recommend_another_route_if_the_names_are_too_different()
-    {
-        Route::get('/test', 'TestController@typo')->name('test.typo');
-
-        /** @var \Spatie\Ignition\Contracts\Solution $solution */
-        $solution = app(RouteNotDefinedSolutionProvider::class)->getSolutions($this->getRouteNotDefinedException('test.is-too-different'))[0];
-
-        $this->assertFalse(Str::contains($solution->getSolutionDescription(), 'Did you mean'));
-    }
-
-    protected function getRouteNotDefinedException(string $route = 'test.typoo'): RouteNotFoundException
-    {
-        return new RouteNotFoundException("Route [{$route}] not defined.");
-    }
+    return new RouteNotFoundException("Route [{$route}] not defined.");
 }

@@ -1,64 +1,47 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Tests\Solutions;
-
-use BadMethodCallException;
-use Exception;
 use Illuminate\Support\Facades\Validator;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\UnknownValidationSolutionProvider;
-use Spatie\LaravelIgnition\Tests\TestCase;
 
-class UnknownValidationSolutionProviderTest extends TestCase
+it('can solve the exception', function () {
+    $canSolve = app(UnknownValidationSolutionProvider::class)->canSolve(getBadMethodCallException());
+
+    expect($canSolve)->toBeTrue();
+});
+
+it('can recommend changing the rule', function (string $invalidRule, string $recommendedRule) {
+    Validator::extend('foo', fn ($attribute, $value, $parameters, $validator) => $value == 'foo');
+
+    Validator::extendImplicit('bar_a', fn ($attribute, $value, $parameters, $validator) => $value == 'bar');
+
+    /** @var \Spatie\Ignition\Contracts\Solution $solution */
+    $solution = app(UnknownValidationSolutionProvider::class)->getSolutions(getBadMethodCallException($invalidRule))[0];
+
+    expect($solution->getSolutionDescription())->toEqual("Did you mean `{$recommendedRule}` ?");
+    expect($solution->getSolutionTitle())->toEqual('Unknown Validation Rule');
+})->with('rulesProvider');
+
+// Datasets
+dataset('rulesProvider', [
+    ['number', 'numeric'],
+    ['unik', 'unique'],
+    ['fooo', 'foo'],
+    ['bar_b', 'bar_a'],
+]);
+
+// Helpers
+function getBadMethodCallException(string $rule = 'number'): BadMethodCallException
 {
-    /** @test */
-    public function it_can_solve_the_exception()
-    {
-        $canSolve = app(UnknownValidationSolutionProvider::class)->canSolve($this->getBadMethodCallException());
+    $default = new BadMethodCallException('Not a validation rule exception!');
 
-        $this->assertTrue($canSolve);
-    }
+    try {
+        $validator = Validator::make(['number' => 10], ['number' => "{$rule}"]);
+        $validator->validate();
 
-    /**
-     * @test
-     *
-     * @dataProvider rulesProvider
-     */
-    public function it_can_recommend_changing_the_rule(string $invalidRule, string $recommendedRule)
-    {
-        Validator::extend('foo', fn ($attribute, $value, $parameters, $validator) => $value == 'foo');
-
-        Validator::extendImplicit('bar_a', fn ($attribute, $value, $parameters, $validator) => $value == 'bar');
-
-        /** @var \Spatie\Ignition\Contracts\Solution $solution */
-        $solution = app(UnknownValidationSolutionProvider::class)->getSolutions($this->getBadMethodCallException($invalidRule))[0];
-
-        $this->assertEquals("Did you mean `{$recommendedRule}` ?", $solution->getSolutionDescription());
-        $this->assertEquals('Unknown Validation Rule', $solution->getSolutionTitle());
-    }
-
-    protected function getBadMethodCallException(string $rule = 'number'): BadMethodCallException
-    {
-        $default = new BadMethodCallException('Not a validation rule exception!');
-
-        try {
-            $validator = Validator::make(['number' => 10], ['number' => "{$rule}"]);
-            $validator->validate();
-
-            return $default;
-        } catch (BadMethodCallException $badMethodCallException) {
-            return $badMethodCallException;
-        } catch (Exception $exception) {
-            return $default;
-        }
-    }
-
-    public function rulesProvider(): array
-    {
-        return [
-            ['number', 'numeric'],
-            ['unik', 'unique'],
-            ['fooo', 'foo'],
-            ['bar_b', 'bar_a'],
-        ];
+        return $default;
+    } catch (BadMethodCallException $badMethodCallException) {
+        return $badMethodCallException;
+    } catch (Exception $exception) {
+        return $default;
     }
 }

@@ -1,166 +1,129 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Tests\Context;
-
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Spatie\LaravelIgnition\ContextProviders\LaravelRequestContextProvider;
-use Spatie\LaravelIgnition\Tests\TestCase;
+
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
-class LaravelRequestContextProviderTest extends TestCase
-{
-    /** @test */
-    public function it_returns_route_name_in_context_data()
-    {
-        $route = Route::get('/route/', fn () => null)->name('routeName');
 
-        $request = $this->createRequest('GET', '/route');
+it('returns route name in context data', function () {
+    $route = Route::get('/route/', fn () => null)->name('routeName');
 
-        $route->bind($request);
+    $request = test()->createRequest('GET', '/route');
 
-        $request->setRouteResolver(fn () => $route);
+    $route->bind($request);
 
-        $context = new LaravelRequestContextProvider($request);
+    $request->setRouteResolver(fn () => $route);
 
-        $contextData = $context->toArray();
+    $context = new LaravelRequestContextProvider($request);
 
-        $this->assertSame('routeName', $contextData['route']['route']);
-    }
+    $contextData = $context->toArray();
 
-    /** @test */
-    public function it_returns_route_parameters_in_context_data()
-    {
-        $route = Route::get('/route/{parameter}/{otherParameter}', fn () => null);
+    expect($contextData['route']['route'])->toBe('routeName');
+});
 
-        $request = $this->createRequest('GET', '/route/value/second');
+it('returns route parameters in context data', function () {
+    $route = Route::get('/route/{parameter}/{otherParameter}', fn () => null);
 
-        $route->bind($request);
+    $request = test()->createRequest('GET', '/route/value/second');
 
-        $request->setRouteResolver(function () use ($route) {
-            return $route;
-        });
+    $route->bind($request);
 
-        $context = new LaravelRequestContextProvider($request);
+    $request->setRouteResolver(function () use ($route) {
+        return $route;
+    });
 
-        $contextData = $context->toArray();
+    $context = new LaravelRequestContextProvider($request);
 
-        $this->assertSame([
-            'parameter' => 'value',
-            'otherParameter' => 'second',
-        ], $contextData['route']['routeParameters']);
-    }
+    $contextData = $context->toArray();
 
-    /** @test */
-    public function it_returns_the_url()
-    {
-        $request = $this->createRequest('GET', '/route', []);
+    $this->assertSame([
+        'parameter' => 'value',
+        'otherParameter' => 'second',
+    ], $contextData['route']['routeParameters']);
+});
 
-        $context = new LaravelRequestContextProvider($request);
+it('returns the url', function () {
+    $request = test()->createRequest('GET', '/route', []);
 
-        $request = $context->getRequest();
+    $context = new LaravelRequestContextProvider($request);
 
-        $this->assertSame('http://localhost/route', $request['url']);
-    }
+    $request = $context->getRequest();
 
-    /** @test */
-    public function it_returns_the_cookies()
-    {
-        $request = $this->createRequest('GET', '/route', [], ['cookie' => 'noms']);
+    expect($request['url'])->toBe('http://localhost/route');
+});
 
-        $context = new LaravelRequestContextProvider($request);
+it('returns the cookies', function () {
+    $request = test()->createRequest('GET', '/route', [], ['cookie' => 'noms']);
 
-        $this->assertSame(['cookie' => 'noms'], $context->getCookies());
-    }
+    $context = new LaravelRequestContextProvider($request);
 
-    /** @test */
-    public function it_returns_the_authenticated_user()
-    {
-        $user = new User();
-        $user->forceFill([
-            'id' => 1,
-            'email' => 'john@example.com',
-        ]);
+    expect($context->getCookies())->toBe(['cookie' => 'noms']);
+});
 
-        $request = $this->createRequest('GET', '/route', [], ['cookie' => 'noms']);
-        $request->setUserResolver(fn () => $user);
+it('returns the authenticated user', function () {
+    $user = new User();
+    $user->forceFill([
+        'id' => 1,
+        'email' => 'john@example.com',
+    ]);
 
-        $context = new LaravelRequestContextProvider($request);
-        $contextData = $context->toArray();
+    $request = test()->createRequest('GET', '/route', [], ['cookie' => 'noms']);
+    $request->setUserResolver(fn () => $user);
 
-        $this->assertSame($user->toArray(), $contextData['user']);
-    }
+    $context = new LaravelRequestContextProvider($request);
+    $contextData = $context->toArray();
 
-    /** @test */
-    public function it_the_authenticated_user_model_has_a_toFlare_method_it_will_be_used_to_collect_user_data()
-    {
-        $user = new class extends User {
-            public function toFlare()
-            {
-                return ['id' => $this->id];
-            }
-        };
+    expect($contextData['user'])->toBe($user->toArray());
+});
 
-        $user->forceFill([
-            'id' => 1,
-            'email' => 'john@example.com',
-        ]);
+it('the authenticated user model has a to flare method it will be used to collect user data', function () {
+    $user = new class extends User {
+        public function toFlare()
+        {
+            return ['id' => $this->id];
+        }
+    };
 
-        $request = $this->createRequest('GET', '/route', [], ['cookie' => 'noms']);
-        $request->setUserResolver(fn () => $user);
+    $user->forceFill([
+        'id' => 1,
+        'email' => 'john@example.com',
+    ]);
 
-        $context = new LaravelRequestContextProvider($request);
-        $contextData = $context->toArray();
+    $request = test()->createRequest('GET', '/route', [], ['cookie' => 'noms']);
+    $request->setUserResolver(fn () => $user);
 
-        $this->assertSame(['id' => $user->id], $contextData['user']);
-    }
+    $context = new LaravelRequestContextProvider($request);
+    $contextData = $context->toArray();
 
-    /** @test */
-    public function it_the_authenticated_user_model_has_no_matching_method_it_will_return_no_user_data()
-    {
-        $user = new class {
-        };
+    expect($contextData['user'])->toBe(['id' => $user->id]);
+});
 
-        $request = $this->createRequest('GET', '/route', [], ['cookie' => 'noms']);
-        $request->setUserResolver(fn () => $user);
+it('the authenticated user model has no matching method it will return no user data', function () {
+    $user = new class {
+    };
 
-        $context = new LaravelRequestContextProvider($request);
-        $contextData = $context->toArray();
+    $request = test()->createRequest('GET', '/route', [], ['cookie' => 'noms']);
+    $request->setUserResolver(fn () => $user);
 
-        $this->assertSame([], $contextData['user']);
-    }
+    $context = new LaravelRequestContextProvider($request);
+    $contextData = $context->toArray();
 
-    /** @test */
-    public function it_the_authenticated_user_model_is_broken_it_will_return_no_user_data()
-    {
-        $user = new class extends User {
-            protected $appends = ['invalid'];
-        };
+    expect($contextData['user'])->toBe([]);
+});
 
-        $request = $this->createRequest('GET', '/route', [], ['cookie' => 'noms']);
-        $request->setUserResolver(fn () => $user);
+it('the authenticated user model is broken it will return no user data', function () {
+    $user = new class extends User {
+        protected $appends = ['invalid'];
+    };
 
-        $context = new LaravelRequestContextProvider($request);
-        $contextData = $context->toArray();
+    $request = test()->createRequest('GET', '/route', [], ['cookie' => 'noms']);
+    $request->setUserResolver(fn () => $user);
 
-        $this->assertSame([], $contextData['user']);
-    }
+    $context = new LaravelRequestContextProvider($request);
+    $contextData = $context->toArray();
 
-    protected function createRequest($method, $uri, $parameters = [], $cookies = [], $files = [], $server = [], $content = null): Request
-    {
-        $files = array_merge($files, $this->extractFilesFromDataArray($parameters));
-
-        $symfonyRequest = SymfonyRequest::create(
-            $this->prepareUrlForRequest($uri),
-            $method,
-            $parameters,
-            $cookies,
-            $files,
-            array_replace($this->serverVariables, $server),
-            $content
-        );
-
-        return Request::createFromBase($symfonyRequest);
-    }
-}
+    expect($contextData['user'])->toBe([]);
+});

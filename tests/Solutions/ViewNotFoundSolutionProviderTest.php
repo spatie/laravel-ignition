@@ -1,52 +1,37 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Tests\Solutions;
-
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\ViewNotFoundSolutionProvider;
-use Spatie\LaravelIgnition\Tests\TestCase;
 
-class ViewNotFoundSolutionProviderTest extends TestCase
+beforeEach(function () {
+    View::addLocation(__DIR__.'/../stubs/views');
+});
+
+it('can solve the exception', function () {
+    $canSolve = app(ViewNotFoundSolutionProvider::class)->canSolve(getViewNotFoundException());
+
+    expect($canSolve)->toBeTrue();
+});
+
+it('can recommend changing a typo in the view name', function () {
+    /** @var \Spatie\Ignition\Contracts\Solution $solution */
+    $solution = app(ViewNotFoundSolutionProvider::class)->getSolutions(getViewNotFoundException())[0];
+
+    expect(Str::contains($solution->getSolutionDescription(), 'Did you mean `php-exception`?'))->toBeTrue();
+});
+
+it('wont recommend another controller class if the names are too different', function () {
+    $unknownView = 'a-view-that-doesnt-exist-and-is-not-a-typo';
+
+    /** @var \Spatie\Ignition\Contracts\Solution $solution */
+    $solution = app(ViewNotFoundSolutionProvider::class)->getSolutions(getViewNotFoundException($unknownView))[0];
+
+    expect(Str::contains($solution->getSolutionDescription(), 'Did you mean'))->toBeFalse();
+});
+
+// Helpers
+function getViewNotFoundException(string $view = 'phpp-exceptionn'): InvalidArgumentException
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        View::addLocation(__DIR__.'/../stubs/views');
-    }
-
-    /** @test */
-    public function it_can_solve_the_exception()
-    {
-        $canSolve = app(ViewNotFoundSolutionProvider::class)->canSolve($this->getViewNotFoundException());
-
-        $this->assertTrue($canSolve);
-    }
-
-    /** @test */
-    public function it_can_recommend_changing_a_typo_in_the_view_name()
-    {
-        /** @var \Spatie\Ignition\Contracts\Solution $solution */
-        $solution = app(ViewNotFoundSolutionProvider::class)->getSolutions($this->getViewNotFoundException())[0];
-
-        $this->assertTrue(Str::contains($solution->getSolutionDescription(), 'Did you mean `php-exception`?'));
-    }
-
-    /** @test */
-    public function it_wont_recommend_another_controller_class_if_the_names_are_too_different()
-    {
-        $unknownView = 'a-view-that-doesnt-exist-and-is-not-a-typo';
-
-        /** @var \Spatie\Ignition\Contracts\Solution $solution */
-        $solution = app(ViewNotFoundSolutionProvider::class)->getSolutions($this->getViewNotFoundException($unknownView))[0];
-
-        $this->assertFalse(Str::contains($solution->getSolutionDescription(), 'Did you mean'));
-    }
-
-    protected function getViewNotFoundException(string $view = 'phpp-exceptionn'): InvalidArgumentException
-    {
-        return new InvalidArgumentException("View [{$view}] not found.");
-    }
+    return new InvalidArgumentException("View [{$view}] not found.");
 }

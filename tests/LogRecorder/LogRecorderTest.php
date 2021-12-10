@@ -1,71 +1,56 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Tests\LogRecorder;
-
-use Exception;
 use Illuminate\Log\Events\MessageLogged;
 use Spatie\LaravelIgnition\Recorders\LogRecorder\LogRecorder;
-use Spatie\LaravelIgnition\Tests\TestCase;
 
-class LogRecorderTest extends TestCase
-{
-    /** @test */
-    public function it_limits_the_amount_of_recorded_logs()
-    {
-        $recorder = new LogRecorder($this->app, 200);
+it('limits the amount of recorded logs', function () {
+    $recorder = new LogRecorder(app(), 200);
 
-        foreach (range(1, 400) as $i) {
-            $log = new MessageLogged('info', 'test ' . $i, []);
-            $recorder->record($log);
-        }
-
-        $this->assertCount(200, $recorder->getLogMessages());
-        $this->assertSame('test 201', $recorder->getLogMessages()[0]['message']);
+    foreach (range(1, 400) as $i) {
+        $log = new MessageLogged('info', 'test ' . $i, []);
+        $recorder->record($log);
     }
 
-    /** @test */
-    public function it_does_not_limit_the_amount_of_recorded_queries()
-    {
-        $recorder = new LogRecorder($this->app);
+    expect($recorder->getLogMessages())->toHaveCount(200);
+    expect($recorder->getLogMessages()[0]['message'])->toBe('test 201');
+});
 
-        foreach (range(1, 400) as $i) {
-            $log = new MessageLogged('info', 'test ' . $i, []);
-            $recorder->record($log);
-        }
+it('does not limit the amount of recorded queries', function () {
+    $recorder = new LogRecorder(app());
 
-        $this->assertCount(400, $recorder->getLogMessages());
-        $this->assertSame('test 1', $recorder->getLogMessages()[0]['message']);
+    foreach (range(1, 400) as $i) {
+        $log = new MessageLogged('info', 'test ' . $i, []);
+        $recorder->record($log);
     }
 
-    /** @test */
-    public function it_does_not_record_log_containing_an_exception()
-    {
-        $recorder = new LogRecorder($this->app);
+    expect($recorder->getLogMessages())->toHaveCount(400);
+    expect($recorder->getLogMessages()[0]['message'])->toBe('test 1');
+});
 
-        $log = new MessageLogged('info', 'test 1', ['exception' => new Exception('test')]);
-        $recorder->record($log);
-        $log = new MessageLogged('info', 'test 2', []);
-        $recorder->record($log);
+it('does not record log containing an exception', function () {
+    $recorder = new LogRecorder(app());
 
-        $this->assertCount(1, $recorder->getLogMessages());
-        $this->assertSame('test 2', $recorder->getLogMessages()[0]['message']);
-    }
+    $log = new MessageLogged('info', 'test 1', ['exception' => new Exception('test')]);
+    $recorder->record($log);
+    $log = new MessageLogged('info', 'test 2', []);
+    $recorder->record($log);
 
-    /** @test */
-    public function it_does_not_ignore_log_if_exception_key_does_not_contain_exception()
-    {
-        $recorder = new LogRecorder($this->app);
+    expect($recorder->getLogMessages())->toHaveCount(1);
+    expect($recorder->getLogMessages()[0]['message'])->toBe('test 2');
+});
 
-        $log = new MessageLogged('info', 'test 1', ['exception' => 'test']);
-        $recorder->record($log);
-        $log = new MessageLogged('info', 'test 2', []);
-        $recorder->record($log);
+it('does not ignore log if exception key does not contain exception', function () {
+    $recorder = new LogRecorder(app());
 
-        $this->assertCount(2, $recorder->getLogMessages());
-        $this->assertSame('test 1', $recorder->getLogMessages()[0]['message']);
-        $this->assertSame('test 2', $recorder->getLogMessages()[1]['message']);
-        $this->assertIsArray($recorder->getLogMessages()[0]['context']);
-        $this->assertArrayHasKey('exception', $recorder->getLogMessages()[0]['context']);
-        $this->assertSame('test', $recorder->getLogMessages()[0]['context']['exception']);
-    }
-}
+    $log = new MessageLogged('info', 'test 1', ['exception' => 'test']);
+    $recorder->record($log);
+    $log = new MessageLogged('info', 'test 2', []);
+    $recorder->record($log);
+
+    expect($recorder->getLogMessages())->toHaveCount(2);
+    expect($recorder->getLogMessages()[0]['message'])->toBe('test 1');
+    expect($recorder->getLogMessages()[1]['message'])->toBe('test 2');
+    expect($recorder->getLogMessages()[0]['context'])->toBeArray();
+    $this->assertArrayHasKey('exception', $recorder->getLogMessages()[0]['context']);
+    expect($recorder->getLogMessages()[0]['context']['exception'])->toBe('test');
+});

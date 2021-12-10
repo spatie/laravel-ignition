@@ -1,71 +1,57 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Tests\QueryRecorder;
-
 use Illuminate\Database\Connection;
 use Illuminate\Database\Events\QueryExecuted;
 use Spatie\LaravelIgnition\Recorders\QueryRecorder\QueryRecorder;
-use Spatie\LaravelIgnition\Tests\TestCase;
 
-class QueryRecorderTest extends TestCase
-{
-    /** @test */
-    public function it_limits_the_amount_of_recorded_queries()
-    {
-        $recorder = new QueryRecorder($this->app, true, 200);
-        $connection = app(Connection::class);
+it('limits the amount of recorded queries', function () {
+    $recorder = new QueryRecorder(app(), true, 200);
+    $connection = app(Connection::class);
 
-        foreach (range(1, 400) as $i) {
-            $query = new QueryExecuted('query '.$i, [], time(), $connection);
-            $recorder->record($query);
-        }
-
-        $this->assertCount(200, $recorder->getQueries());
-        $this->assertSame('query 201', $recorder->getQueries()[0]['sql']);
-    }
-
-    /** @test */
-    public function it_does_not_limit_the_amount_of_recorded_queries()
-    {
-        $recorder = new QueryRecorder($this->app, true);
-        $connection = app(Connection::class);
-
-        foreach (range(1, 400) as $i) {
-            $query = new QueryExecuted('query '.$i, [], time(), $connection);
-            $recorder->record($query);
-        }
-
-        $this->assertCount(400, $recorder->getQueries());
-        $this->assertSame('query 1', $recorder->getQueries()[0]['sql']);
-    }
-
-    /** @test */
-    public function it_records_bindings()
-    {
-        $recorder = new QueryRecorder($this->app, true);
-        $connection = app(Connection::class);
-
-        $query = new QueryExecuted('query 1', ['abc' => 123], time(), $connection);
+    foreach (range(1, 400) as $i) {
+        $query = new QueryExecuted('query '.$i, [], time(), $connection);
         $recorder->record($query);
-
-        $this->assertCount(1, $recorder->getQueries());
-        $this->assertSame('query 1', $recorder->getQueries()[0]['sql']);
-        $this->assertIsArray($recorder->getQueries()[0]['bindings']);
-        $this->assertSame('query 1', $recorder->getQueries()[0]['sql']);
-        $this->assertSame(123, $recorder->getQueries()[0]['bindings']['abc']);
     }
 
-    /** @test */
-    public function it_does_not_record_bindings()
-    {
-        $recorder = new QueryRecorder($this->app, false);
-        $connection = app(Connection::class);
+    expect($recorder->getQueries())->toHaveCount(200);
+    expect($recorder->getQueries()[0]['sql'])->toBe('query 201');
+});
 
-        $query = new QueryExecuted('query 1', ['abc' => 123], time(), $connection);
+it('does not limit the amount of recorded queries', function () {
+    $recorder = new QueryRecorder(app(), true);
+    $connection = app(Connection::class);
+
+    foreach (range(1, 400) as $i) {
+        $query = new QueryExecuted('query '.$i, [], time(), $connection);
         $recorder->record($query);
-
-        $this->assertCount(1, $recorder->getQueries());
-        $this->assertSame('query 1', $recorder->getQueries()[0]['sql']);
-        $this->assertNull($recorder->getQueries()[0]['bindings']);
     }
-}
+
+    expect($recorder->getQueries())->toHaveCount(400);
+    expect($recorder->getQueries()[0]['sql'])->toBe('query 1');
+});
+
+it('records bindings', function () {
+    $recorder = new QueryRecorder(app(), true);
+    $connection = app(Connection::class);
+
+    $query = new QueryExecuted('query 1', ['abc' => 123], time(), $connection);
+    $recorder->record($query);
+
+    expect($recorder->getQueries())->toHaveCount(1);
+    expect($recorder->getQueries()[0]['sql'])->toBe('query 1');
+    expect($recorder->getQueries()[0]['bindings'])->toBeArray();
+    expect($recorder->getQueries()[0]['sql'])->toBe('query 1');
+    expect($recorder->getQueries()[0]['bindings']['abc'])->toBe(123);
+});
+
+it('does not record bindings', function () {
+    $recorder = new QueryRecorder(app(), false);
+    $connection = app(Connection::class);
+
+    $query = new QueryExecuted('query 1', ['abc' => 123], time(), $connection);
+    $recorder->record($query);
+
+    expect($recorder->getQueries())->toHaveCount(1);
+    expect($recorder->getQueries()[0]['sql'])->toBe('query 1');
+    expect($recorder->getQueries()[0]['bindings'])->toBeNull();
+});

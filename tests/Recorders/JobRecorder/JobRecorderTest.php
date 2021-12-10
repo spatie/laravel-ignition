@@ -1,10 +1,6 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Tests\Recorders\JobRecorder;
-
 use Carbon\CarbonImmutable;
-use Closure;
-use Exception;
 use Illuminate\Container\Container;
 use Illuminate\Queue\Events\JobExceptionOccurred;
 use Illuminate\Queue\Jobs\RedisJob;
@@ -12,225 +8,206 @@ use Illuminate\Queue\RedisQueue;
 use Illuminate\Support\Facades\Event;
 use Spatie\LaravelIgnition\Recorders\JobRecorder\JobRecorder;
 use Spatie\LaravelIgnition\Tests\stubs\Jobs\QueueableJob;
-use Spatie\LaravelIgnition\Tests\TestCase;
 
-class JobRecorderTest extends TestCase
-{
-    /** @test */
-    public function it_can_record_a_failed_job()
-    {
-        $recorder = (new JobRecorder($this->app));
+it('can record a failed job', function () {
+    $recorder = (new JobRecorder(app()));
 
-        $recorder->record($this->createEvent(function () {
-            dispatch(new QueueableJob([]));
-        }));
+    $recorder->record(createEvent(function () {
+        dispatch(new QueueableJob([]));
+    }));
 
-        $recorded = $recorder->getJob();
+    $recorded = $recorder->getJob();
 
-        $this->assertEquals('Spatie\LaravelIgnition\Tests\stubs\Jobs\QueueableJob', $recorded['name']);
-        $this->assertEquals('sync', $recorded['connection']);
-        $this->assertEquals('sync', $recorded['queue']);
-        $this->assertNotEmpty($recorded['uuid']);
-        $this->assertNotEmpty($recorded['data']);
-        $this->assertEquals([], $recorded['data']['property']);
-    }
+    expect($recorded['name'])->toEqual('Spatie\LaravelIgnition\Tests\stubs\Jobs\QueueableJob');
+    expect($recorded['connection'])->toEqual('sync');
+    expect($recorded['queue'])->toEqual('sync');
+    $this->assertNotEmpty($recorded['uuid']);
+    $this->assertNotEmpty($recorded['data']);
+    expect($recorded['data']['property'])->toEqual([]);
+});
 
-    /** @test */
-    public function it_can_record_a_failed_job_with_data()
-    {
-        $recorder = (new JobRecorder($this->app));
+it('can record a failed job with data', function () {
+    $recorder = (new JobRecorder(app()));
 
-        $job = new QueueableJob([
-            'int' => 42,
-            'boolean' => true,
+    $job = new QueueableJob([
+        'int' => 42,
+        'boolean' => true,
+    ]);
+
+    $recorder->record(createEvent(function () use ($job) {
+        dispatch($job);
+    }));
+
+    $recorded = $recorder->getJob();
+
+    $this->assertNotEmpty($recorded['data']);
+    $this->assertEquals([
+        'int' => 42,
+        'boolean' => true,
+    ], $recorded['data']['property']);
+});
+
+it('can read specific properties from a job', function () {
+    $recorder = (new JobRecorder(app()));
+
+    $date = CarbonImmutable::create(2020, 05, 16, 12, 0, 0);
+
+    $job = new QueueableJob(
+        [],
+        $date,  // retryUntil
+        5, // tries
+        10, // maxExceptions
+        120 // timeout
+    );
+
+    $recorder->record(createEvent(function () use ($date, $job) {
+        dispatch($job)
+            ->onQueue('default')
+            ->beforeCommit()
+            ->delay($date);
+    }));
+
+    $recorded = $recorder->getJob();
+
+    expect($recorded['maxTries'])->toEqual(5);
+    expect($recorded['maxExceptions'])->toEqual(10);
+    expect($recorded['timeout'])->toEqual(120);
+    $this->assertNotEmpty($recorded['data']);
+    expect($recorded['data']['queue'])->toEqual('default');
+});
+
+it('can record a closure job', function () {
+    $recorder = (new JobRecorder(app()));
+
+    $job = function () {
+        throw new Exception('Die');
+    };
+
+    $recorder->record(createEvent(function () use ($job) {
+        dispatch($job);
+    }));
+
+    $recorded = $recorder->getJob();
+
+    expect($recorded['name'])->toEqual('Closure (JobRecorderTest.php:82)');
+});
+
+it('can record a chained job', function () {
+    $recorder = (new JobRecorder(app()));
+
+    $recorder->record(createEvent(function () {
+        dispatch(new QueueableJob(['level-one']))->chain([
+            new QueueableJob(['level-two-a']),
+            (new QueueableJob(['level-two-b']))->chain([
+                (new QueueableJob(['level-three'])),
+            ]),
         ]);
+    }));
 
-        $recorder->record($this->createEvent(function () use ($job) {
-            dispatch($job);
-        }));
+    $recorded = $recorder->getJob();
 
-        $recorded = $recorder->getJob();
+    expect($chained = $recorded['data']['chained'])->toHaveCount(2);
 
-        $this->assertNotEmpty($recorded['data']);
-        $this->assertEquals([
-            'int' => 42,
-            'boolean' => true,
-        ], $recorded['data']['property']);
-    }
+    expect($chained[0]['name'])->toEqual(QueueableJob::class);
+    expect($chained[0]['data']['property'])->toEqual(['level-two-a']);
+    expect($chained[1]['name'])->toEqual(QueueableJob::class);
+    expect($chained[1]['data']['property'])->toEqual(['level-two-b']);
 
-    /** @test */
-    public function it_can_read_specific_properties_from_a_job()
-    {
-        $recorder = (new JobRecorder($this->app));
+    expect($chained = $chained[1]['data']['chained'])->toHaveCount(1);
 
-        $date = CarbonImmutable::create(2020, 05, 16, 12, 0, 0);
+    expect($chained[0]['name'])->toEqual(QueueableJob::class);
+    expect($chained[0]['data']['property'])->toEqual(['level-three']);
+});
 
-        $job = new QueueableJob(
-            [],
-            $date,  // retryUntil
-            5, // tries
-            10, // maxExceptions
-            120 // timeout
-        );
+it('can restrict the recorded chained jobs depth', function () {
+    $recorder = (new JobRecorder(app(), 1));
 
-        $recorder->record($this->createEvent(function () use ($date, $job) {
-            dispatch($job)
-                ->onQueue('default')
-                ->beforeCommit()
-                ->delay($date);
-        }));
-
-        $recorded = $recorder->getJob();
-
-        $this->assertEquals(5, $recorded['maxTries']);
-        $this->assertEquals(10, $recorded['maxExceptions']);
-        $this->assertEquals(120, $recorded['timeout']);
-        $this->assertNotEmpty($recorded['data']);
-        $this->assertEquals('default', $recorded['data']['queue']);
-    }
-
-    /** @test */
-    public function it_can_record_a_closure_job()
-    {
-        $recorder = (new JobRecorder($this->app));
-
-        $job = function () {
-            throw new Exception('Die');
-        };
-
-        $recorder->record($this->createEvent(function () use ($job) {
-            dispatch($job);
-        }));
-
-        $recorded = $recorder->getJob();
-
-        $this->assertEquals('Closure (JobRecorderTest.php:97)', $recorded['name']);
-    }
-
-    /** @test */
-    public function it_can_record_a_chained_job()
-    {
-        $recorder = (new JobRecorder($this->app));
-
-        $recorder->record($this->createEvent(function () {
-            dispatch(new QueueableJob(['level-one']))->chain([
-                new QueueableJob(['level-two-a']),
-                (new QueueableJob(['level-two-b']))->chain([
-                    (new QueueableJob(['level-three'])),
-                ]),
-            ]);
-        }));
-
-        $recorded = $recorder->getJob();
-
-        $this->assertCount(2, $chained = $recorded['data']['chained']);
-
-        $this->assertEquals(QueueableJob::class, $chained[0]['name']);
-        $this->assertEquals(['level-two-a'], $chained[0]['data']['property']);
-        $this->assertEquals(QueueableJob::class, $chained[1]['name']);
-        $this->assertEquals(['level-two-b'], $chained[1]['data']['property']);
-
-        $this->assertCount(1, $chained = $chained[1]['data']['chained']);
-
-        $this->assertEquals(QueueableJob::class, $chained[0]['name']);
-        $this->assertEquals(['level-three'], $chained[0]['data']['property']);
-    }
-
-    /** @test */
-    public function it_can_restrict_the_recorded_chained_jobs_depth()
-    {
-        $recorder = (new JobRecorder($this->app, 1));
-
-        $recorder->record($this->createEvent(function () {
-            dispatch(new QueueableJob(['level-one']))->chain([
-                new QueueableJob(['level-two-a']),
-                (new QueueableJob(['level-two-b']))->chain([
-                    (new QueueableJob(['level-three'])),
-                ]),
-            ]);
-        }));
-
-        $recorded = $recorder->getJob();
-
-        $this->assertCount(2, $chained = $recorded['data']['chained']);
-
-        $this->assertEquals(QueueableJob::class, $chained[0]['name']);
-        $this->assertEquals(['level-two-a'], $chained[0]['data']['property']);
-        $this->assertEquals(QueueableJob::class, $chained[1]['name']);
-        $this->assertEquals(['level-two-b'], $chained[1]['data']['property']);
-
-        $this->assertCount(1, $chained = $chained[1]['data']['chained']);
-        $this->assertEquals(['Ignition stopped recording jobs after this point since the max chain depth was reached'], $chained);
-    }
-
-    /** @test */
-    public function it_can_disable_recording_chained_jobs()
-    {
-        $recorder = (new JobRecorder($this->app, 0));
-
-        $recorder->record($this->createEvent(function () {
-            dispatch(new QueueableJob(['level-one']))->chain([
-                new QueueableJob(['level-two-a']),
-                (new QueueableJob(['level-two-b']))->chain([
-                    (new QueueableJob(['level-three'])),
-                ]),
-            ]);
-        }));
-
-        $recorded = $recorder->getJob();
-
-        $this->assertCount(1, $chained = $recorded['data']['chained']);
-        $this->assertEquals(['Ignition stopped recording jobs after this point since the max chain depth was reached'], $chained);
-    }
-
-    /** @test */
-    public function it_can_handle_a_job_with_an_unserializeable_payload()
-    {
-        $recorder = (new JobRecorder($this->app));
-
-        $payload = json_encode([
-            'job' => 'Fake Job Name',
+    $recorder->record(createEvent(function () {
+        dispatch(new QueueableJob(['level-one']))->chain([
+            new QueueableJob(['level-two-a']),
+            (new QueueableJob(['level-two-b']))->chain([
+                (new QueueableJob(['level-three'])),
+            ]),
         ]);
+    }));
 
-        $event = new JobExceptionOccurred(
+    $recorded = $recorder->getJob();
+
+    expect($chained = $recorded['data']['chained'])->toHaveCount(2);
+
+    expect($chained[0]['name'])->toEqual(QueueableJob::class);
+    expect($chained[0]['data']['property'])->toEqual(['level-two-a']);
+    expect($chained[1]['name'])->toEqual(QueueableJob::class);
+    expect($chained[1]['data']['property'])->toEqual(['level-two-b']);
+
+    expect($chained = $chained[1]['data']['chained'])->toHaveCount(1);
+    expect($chained)->toEqual(['Ignition stopped recording jobs after this point since the max chain depth was reached']);
+});
+
+it('can disable recording chained jobs', function () {
+    $recorder = (new JobRecorder(app(), 0));
+
+    $recorder->record(createEvent(function () {
+        dispatch(new QueueableJob(['level-one']))->chain([
+            new QueueableJob(['level-two-a']),
+            (new QueueableJob(['level-two-b']))->chain([
+                (new QueueableJob(['level-three'])),
+            ]),
+        ]);
+    }));
+
+    $recorded = $recorder->getJob();
+
+    expect($chained = $recorded['data']['chained'])->toHaveCount(1);
+    expect($chained)->toEqual(['Ignition stopped recording jobs after this point since the max chain depth was reached']);
+});
+
+it('can handle a job with an unserializeable payload', function () {
+    $recorder = (new JobRecorder(app()));
+
+    $payload = json_encode([
+        'job' => 'Fake Job Name',
+    ]);
+
+    $event = new JobExceptionOccurred(
+        'redis',
+        new RedisJob(
+            app(Container::class),
+            app(RedisQueue::class),
+            $payload,
+            $payload,
             'redis',
-            new RedisJob(
-                app(Container::class),
-                app(RedisQueue::class),
-                $payload,
-                $payload,
-                'redis',
-                'default'
-            ),
-            new Exception()
-        );
+            'default'
+        ),
+        new Exception()
+    );
 
-        $recorder->record($event);
+    $recorder->record($event);
 
-        $recorded = $recorder->getJob();
+    $recorded = $recorder->getJob();
 
-        $this->assertEquals('Fake Job Name', $recorded['name']);
-        $this->assertEquals('redis', $recorded['connection']);
-        $this->assertEquals('default', $recorded['queue']);
+    expect($recorded['name'])->toEqual('Fake Job Name');
+    expect($recorded['connection'])->toEqual('redis');
+    expect($recorded['queue'])->toEqual('default');
+});
+
+// Helpers
+function createEvent(Closure $dispatch): JobExceptionOccurred
+{
+    $triggeredEvent = null;
+
+    Event::listen(JobExceptionOccurred::class, function (JobExceptionOccurred $event) use (&$triggeredEvent) {
+        $triggeredEvent = $event;
+    });
+
+    try {
+        $dispatch();
+    } catch (Exception $exception) {
     }
 
-    private function createEvent(Closure $dispatch): JobExceptionOccurred
-    {
-        $triggeredEvent = null;
-
-        Event::listen(JobExceptionOccurred::class, function (JobExceptionOccurred $event) use (&$triggeredEvent) {
-            $triggeredEvent = $event;
-        });
-
-        try {
-            $dispatch();
-        } catch (Exception $exception) {
-        }
-
-        if ($triggeredEvent === null) {
-            throw new Exception("Could not create test event");
-        }
-
-        return $triggeredEvent;
+    if ($triggeredEvent === null) {
+        throw new Exception("Could not create test event");
     }
+
+    return $triggeredEvent;
 }

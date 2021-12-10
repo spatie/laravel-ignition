@@ -1,38 +1,22 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Tests\Http\Controllers;
-
 use Spatie\Ignition\Config\IgnitionConfig;
-use Spatie\LaravelIgnition\Tests\TestCase;
 
-class UpdateConfigControllerTest extends TestCase
-{
-    protected function resolveApplicationConfiguration($app)
-    {
-        parent::resolveApplicationConfiguration($app);
+it('can update the config', function () {
+    app()['env'] = 'local';
+    config()->set('app.debug', true);
 
-        // Routes will not register in a console environment.
-        $_ENV['APP_RUNNING_IN_CONSOLE'] = false;
-    }
+    $this
+        ->postJson(route('ignition.updateConfig'), [
+            'theme' => 'auto',
+            'editor' => 'fancy-editor',
+            'hide_solutions' => true,
+        ])
+        ->assertSuccessful();
 
-    /** @test */
-    public function it_can_update_the_config()
-    {
-        $this->app['env'] = 'local';
-        config()->set('app.debug', true);
+    $config = (new IgnitionConfig())->loadConfigFile();
 
-        $this
-            ->postJson(route('ignition.updateConfig'), [
-                'theme' => 'auto',
-                'editor' => 'fancy-editor',
-                'hide_solutions' => true,
-            ])
-            ->assertSuccessful();
-
-        $config = (new IgnitionConfig())->loadConfigFile();
-
-        $this->assertEquals('auto', $config->theme());
-        $this->assertEquals('fancy-editor', $config->editor());
-        $this->assertEquals(true, $config->hideSolutions());
-    }
-}
+    expect($config->theme())->toEqual('auto');
+    expect($config->editor())->toEqual('fancy-editor');
+    expect($config->hideSolutions())->toEqual(true);
+});

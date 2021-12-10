@@ -1,20 +1,12 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Tests\Support;
-
 use Spatie\LaravelIgnition\Support\Composer\ComposerClassMap;
-use Spatie\LaravelIgnition\Tests\TestCase;
 
-class ComposerClassMapTest extends TestCase
-{
-    /** @test */
-    public function it_uses_fake_classmap_if_the_autoloader_does_not_exist()
-    {
-        $classMap = new ComposerClassMap('invalid');
+it('uses fake classmap if the autoloader does not exist', function () {
+    $classMap = new ComposerClassMap('invalid');
 
-        $this->assertSame([], $classMap->listClasses());
-        $this->assertSame([], $classMap->listClassesInPsrMaps());
-        $this->assertNull($classMap->searchClassMap('SomeClass'));
-        $this->assertNull($classMap->searchPsrMaps('SomeClass'));
-    }
-}
+    expect($classMap->listClasses())->toBe([]);
+    expect($classMap->listClassesInPsrMaps())->toBe([]);
+    expect($classMap->searchClassMap('SomeClass'))->toBeNull();
+    expect($classMap->searchPsrMaps('SomeClass'))->toBeNull();
+});

@@ -1,51 +1,37 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Tests\Solutions;
-
 use Illuminate\Support\Facades\View;
 use Spatie\LaravelIgnition\Solutions\MakeViewVariableOptionalSolution;
 use Spatie\LaravelIgnition\Support\Composer\ComposerClassMap;
-use Spatie\LaravelIgnition\Tests\TestCase;
 
-class MakeViewVariableOptionalSolutionTest extends TestCase
+beforeEach(function () {
+    View::addLocation(__DIR__.'/../stubs/views');
+
+    app()->bind(
+        ComposerClassMap::class,
+        function () {
+            return new ComposerClassMap(__DIR__.'/../../vendor/autoload.php');
+        }
+    );
+});
+
+it('does not open scheme paths', function () {
+    $solution = getSolutionForPath('php://filter/resource=./tests/stubs/views/blade-exception.blade.php');
+    expect($solution->isRunnable())->toBeFalse();
+});
+
+it('does open relative paths', function () {
+    $solution = getSolutionForPath('./tests/stubs/views/blade-exception.blade.php');
+    expect($solution->isRunnable())->toBeTrue();
+});
+
+it('does not open other extensions', function () {
+    $solution = getSolutionForPath('./tests/stubs/views/php-exception.php');
+    expect($solution->isRunnable())->toBeFalse();
+});
+
+// Helpers
+function getSolutionForPath($path): MakeViewVariableOptionalSolution
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        View::addLocation(__DIR__.'/../stubs/views');
-
-        $this->app->bind(
-            ComposerClassMap::class,
-            function () {
-                return new ComposerClassMap(__DIR__.'/../../vendor/autoload.php');
-            }
-        );
-    }
-
-    /** @test */
-    public function it_does_not_open_scheme_paths()
-    {
-        $solution = $this->getSolutionForPath('php://filter/resource=./tests/stubs/views/blade-exception.blade.php');
-        $this->assertFalse($solution->isRunnable());
-    }
-
-    /** @test */
-    public function it_does_open_relative_paths()
-    {
-        $solution = $this->getSolutionForPath('./tests/stubs/views/blade-exception.blade.php');
-        $this->assertTrue($solution->isRunnable());
-    }
-
-    /** @test */
-    public function it_does_not_open_other_extensions()
-    {
-        $solution = $this->getSolutionForPath('./tests/stubs/views/php-exception.php');
-        $this->assertFalse($solution->isRunnable());
-    }
-
-    protected function getSolutionForPath($path): MakeViewVariableOptionalSolution
-    {
-        return new MakeViewVariableOptionalSolution('notSet', $path);
-    }
+    return new MakeViewVariableOptionalSolution('notSet', $path);
 }
