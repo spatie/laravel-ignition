@@ -1,12 +1,8 @@
 <?php
 
 use Illuminate\Foundation\Auth\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Spatie\LaravelIgnition\ContextProviders\LaravelRequestContextProvider;
-
-use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
-
 
 it('returns route name in context data', function () {
     $route = Route::get('/route/', fn () => null)->name('routeName');
