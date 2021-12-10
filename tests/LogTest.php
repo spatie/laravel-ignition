@@ -6,7 +6,6 @@ use Spatie\FlareClient\Flare;
 use Spatie\LaravelIgnition\Support\SentReports;
 use Spatie\LaravelIgnition\Tests\Mocks\FakeClient;
 
-
 beforeEach(function () {
     config()->set('logging.channels.flare.driver', 'flare');
     config()->set('logging.default', 'flare');

@@ -11,7 +11,6 @@ use Spatie\LaravelIgnition\IgnitionServiceProvider;
 use Spatie\LaravelIgnition\Tests\TestClasses\FakeTime;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
-
 class TestCase extends \Orchestra\Testbench\TestCase
 {
     use MakesHttpRequests;
@@ -73,11 +72,9 @@ class TestCase extends \Orchestra\Testbench\TestCase
             'it wont execute solutions when debugging is disabled',
             'it wont execute solutions for a non local ip',
 
-        ]))
-        {
+        ])) {
             // Routes will not register in a console environment.
             $_ENV['APP_RUNNING_IN_CONSOLE'] = false;
         }
     }
-
 }
