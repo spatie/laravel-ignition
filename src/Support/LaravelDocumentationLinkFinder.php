@@ -20,7 +20,15 @@ class LaravelDocumentationLinkFinder
         return match ($type) {
             'Auth' => "https://laravel.com/docs/{$majorVersion}.x/authentication",
             'Broadcasting' => "https://laravel.com/docs/{$majorVersion}.x/broadcasting",
-            default => null,
+            'Container' => "https://laravel.com/docs/{$majorVersion}.x/container",
+            'Database' => "https://laravel.com/docs/{$majorVersion}.x/eloquent",
+            'Pagination' => "https://laravel.com/docs/{$majorVersion}.x/pagination",
+            'Queue' => "https://laravel.com/docs/{$majorVersion}.x/queues",
+            'Routing' => "https://laravel.com/docs/{$majorVersion}.x/routing",
+            'Session' => "https://laravel.com/docs/{$majorVersion}.x/session",
+            'Validation' => "https://laravel.com/docs/{$majorVersion}.x/validation",
+            'View' => "https://laravel.com/docs/{$majorVersion}.x/views",
+            default => 'https://laravel.com/docs/{$majorVersion}.x/',
         };
     }
 }
