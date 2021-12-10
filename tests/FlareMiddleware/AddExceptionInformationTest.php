@@ -1,6 +1,5 @@
 <?php
 
-use Exception;
 use Illuminate\Database\QueryException;
 use Spatie\LaravelIgnition\Facades\Flare;
 use Spatie\LaravelIgnition\Tests\TestCase;

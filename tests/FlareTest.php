@@ -1,6 +1,5 @@
 <?php
 
-use Exception;
 use Flare as FlareFacade;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\View;

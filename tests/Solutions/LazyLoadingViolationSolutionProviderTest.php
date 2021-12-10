@@ -1,6 +1,5 @@
 <?php
 
-use Exception;
 use Illuminate\Database\LazyLoadingViolationException;
 use Illuminate\Foundation\Auth\User;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\LazyLoadingViolationSolutionProvider;

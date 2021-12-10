@@ -1,7 +1,5 @@
 <?php
 
-use Exception;
-use Flare;
 use Spatie\FlareClient\Report;
 use Spatie\LaravelIgnition\Support\SentReports;
 use Spatie\LaravelIgnition\Tests\TestCase;

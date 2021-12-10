@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\View;
-use ParseError;
 use Spatie\Ignition\Solutions\SolutionProviders\MergeConflictSolutionProvider;
 use Spatie\LaravelIgnition\Tests\stubs\Controllers\GitConflictController;
 use Spatie\LaravelIgnition\Tests\TestCase;

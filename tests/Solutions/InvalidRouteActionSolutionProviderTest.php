@@ -6,7 +6,6 @@ use Spatie\LaravelIgnition\Solutions\SolutionProviders\InvalidRouteActionSolutio
 use Spatie\LaravelIgnition\Support\Composer\ComposerClassMap;
 use Spatie\LaravelIgnition\Tests\stubs\Controllers\TestTypoController;
 use Spatie\LaravelIgnition\Tests\TestCase;
-use UnexpectedValueException;
 
 uses(TestCase::class);
 

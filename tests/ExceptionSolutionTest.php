@@ -1,8 +1,6 @@
 <?php
 
-use Exception;
 use Illuminate\Foundation\Auth\User;
-use RuntimeException;
 use Spatie\Ignition\Contracts\BaseSolution;
 use Spatie\Ignition\Solutions\SolutionProviders\BadMethodCallSolutionProvider;
 use Spatie\Ignition\Solutions\SolutionProviders\SolutionProviderRepository;

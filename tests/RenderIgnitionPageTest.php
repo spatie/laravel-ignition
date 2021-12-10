@@ -1,6 +1,5 @@
 <?php
 
-use Exception;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 

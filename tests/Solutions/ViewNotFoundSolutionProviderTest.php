@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\ViewNotFoundSolutionProvider;
 use Spatie\LaravelIgnition\Tests\TestCase;
 

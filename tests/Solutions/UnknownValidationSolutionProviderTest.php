@@ -1,7 +1,5 @@
 <?php
 
-use BadMethodCallException;
-use Exception;
 use Illuminate\Support\Facades\Validator;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\UnknownValidationSolutionProvider;
 use Spatie\LaravelIgnition\Tests\TestCase;

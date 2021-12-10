@@ -1,8 +1,6 @@
 <?php
 
 use Carbon\CarbonImmutable;
-use Closure;
-use Exception;
 use Illuminate\Container\Container;
 use Illuminate\Queue\Events\JobExceptionOccurred;
 use Illuminate\Queue\Jobs\RedisJob;

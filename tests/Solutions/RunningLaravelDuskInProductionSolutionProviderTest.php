@@ -1,6 +1,5 @@
 <?php
 
-use Exception;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\RunningLaravelDuskInProductionProvider;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
