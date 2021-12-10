@@ -16,7 +16,8 @@ it('can update the config', function () {
 
     $config = (new IgnitionConfig())->loadConfigFile();
 
-    expect($config->theme())->toEqual('auto');
-    expect($config->editor())->toEqual('fancy-editor');
-    expect($config->hideSolutions())->toEqual(true);
+    expect($config)
+        ->theme()->toBe('auto')
+        ->editor()->toBe('fancy-editor')
+        ->hideSolutions()->toBeTrue();
 });
