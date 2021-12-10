@@ -81,7 +81,8 @@ it('returns the authenticated user', function () {
 
 it('the authenticated user model has a to flare method it will be used to collect user data', function () {
     $user = new class extends User {
-        public function toFlare() {
+        public function toFlare()
+        {
             return ['id' => $this->id];
         }
     };
