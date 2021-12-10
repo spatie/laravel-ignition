@@ -1,59 +1,48 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Tests;
-
 use Illuminate\Container\Container;
 use Spatie\Ignition\Config\IgnitionConfig;
 
-class IgnitionConfigTest extends TestCase
-{
-    /** @test */
-    public function it_does_not_enable_runnable_solutions_in_debug_mode_by_default()
-    {
-        config()->set('app.debug', true);
+uses(TestCase::class);
 
-        $config = new IgnitionConfig([]);
+it('does not enable runnable solutions in debug mode by default', function () {
+    config()->set('app.debug', true);
 
-        $this->assertFalse($config->runnableSolutionsEnabled());
-    }
+    $config = new IgnitionConfig([]);
 
-    /** @test */
-    public function it_disables_runnable_solutions_in_production_mode()
-    {
-        config()->set('app.debug', false);
+    $this->assertFalse($config->runnableSolutionsEnabled());
+});
 
-        $config = new IgnitionConfig([]);
+it('disables runnable solutions in production mode', function () {
+    config()->set('app.debug', false);
 
-        $this->assertFalse($config->runnableSolutionsEnabled());
-    }
+    $config = new IgnitionConfig([]);
 
-    /** @test */
-    public function it_prioritizes_config_value_over_debug_mode()
-    {
-        config()->set('app.debug', true);
+    $this->assertFalse($config->runnableSolutionsEnabled());
+});
 
-        $config = new IgnitionConfig([
-            'enable_runnable_solutions' => false,
-        ]);
+it('prioritizes config value over debug mode', function () {
+    config()->set('app.debug', true);
 
-        $this->assertFalse($config->runnableSolutionsEnabled());
-    }
+    $config = new IgnitionConfig([
+        'enable_runnable_solutions' => false,
+    ]);
 
-    /** @test */
-    public function it_disables_share_report_when_app_has_not_finished_booting()
-    {
-        $bootingApp = $this->resolveApplication();
-        $this->resolveApplicationBindings($bootingApp);
-        $this->resolveApplicationExceptionHandler($bootingApp);
-        $this->resolveApplicationCore($bootingApp);
-        $this->resolveApplicationConfiguration($bootingApp);
-        $this->resolveApplicationHttpKernel($bootingApp);
-        $this->resolveApplicationConsoleKernel($bootingApp);
+    $this->assertFalse($config->runnableSolutionsEnabled());
+});
 
-        Container::setInstance($bootingApp);
+it('disables share report when app has not finished booting', function () {
+    $bootingApp = $this->resolveApplication();
+    $this->resolveApplicationBindings($bootingApp);
+    $this->resolveApplicationExceptionHandler($bootingApp);
+    $this->resolveApplicationCore($bootingApp);
+    $this->resolveApplicationConfiguration($bootingApp);
+    $this->resolveApplicationHttpKernel($bootingApp);
+    $this->resolveApplicationConsoleKernel($bootingApp);
 
-        $config = new IgnitionConfig([]);
+    Container::setInstance($bootingApp);
 
-        $this->assertFalse($config->shareButtonEnabled());
-    }
-}
+    $config = new IgnitionConfig([]);
+
+    $this->assertFalse($config->shareButtonEnabled());
+});

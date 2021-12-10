@@ -1,22 +1,17 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Tests;
-
 use Illuminate\Support\Facades\Route;
 
-class WhoopsHandlerTest extends TestCase
-{
-    /** @test */
-    public function it_uses_a_custom_whoops_handler()
-    {
-        config()->set('app.debug', true);
+uses(TestCase::class);
 
-        Route::get('exception', function () {
-            whoops();
-        });
+it('uses a custom whoops handler', function () {
+    config()->set('app.debug', true);
 
-        $result = $this->get('/exception');
+    Route::get('exception', function () {
+        whoops();
+    });
 
-        $this->assertTrue(is_string($result->getContent()));
-    }
-}
+    $result = $this->get('/exception');
+
+    $this->assertTrue(is_string($result->getContent()));
+});

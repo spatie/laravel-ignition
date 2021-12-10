@@ -1,7 +1,5 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Tests;
-
 use Exception;
 use Flare as FlareFacade;
 use Illuminate\Support\Facades\Artisan;
@@ -9,38 +7,30 @@ use Illuminate\Support\Facades\View;
 use Spatie\FlareClient\Flare;
 use Spatie\LaravelIgnition\Tests\Mocks\FakeClient;
 
-class FlareTest extends TestCase
-{
-    protected FakeClient $fakeClient;
+uses(TestCase::class);
 
-    public function setUp(): void
-    {
-        parent::setUp();
+beforeEach(function () {
+    Artisan::call('view:clear');
 
-        Artisan::call('view:clear');
+    app()['config']['logging.channels.flare'] = [
+        'driver' => 'flare',
+    ];
 
-        $this->app['config']['logging.channels.flare'] = [
-            'driver' => 'flare',
-        ];
+    config()->set('logging.channels.flare.driver', 'flare');
+    config()->set('logging.default', 'flare');
+    config()->set('flare.key', 'some-key');
 
-        config()->set('logging.channels.flare.driver', 'flare');
-        config()->set('logging.default', 'flare');
-        config()->set('flare.key', 'some-key');
+    $this->fakeClient = new FakeClient();
 
-        $this->fakeClient = new FakeClient();
+    app()->singleton(Flare::class, fn () => new Flare($this->fakeClient));
 
-        $this->app->singleton(Flare::class, fn () => new Flare($this->fakeClient));
+    $this->useTime('2019-01-01 12:34:56');
 
-        $this->useTime('2019-01-01 12:34:56');
+    View::addLocation(__DIR__.'/stubs/views');
+});
 
-        View::addLocation(__DIR__.'/stubs/views');
-    }
+it('can manually report exceptions', function () {
+    FlareFacade::report(new Exception());
 
-    /** @test */
-    public function it_can_manually_report_exceptions()
-    {
-        FlareFacade::report(new Exception());
-
-        $this->fakeClient->assertRequestsSent(1);
-    }
-}
+    $this->fakeClient->assertRequestsSent(1);
+});

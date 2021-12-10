@@ -1,38 +1,31 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Tests\FlareMiddleware;
-
 use Exception;
 use Illuminate\Database\QueryException;
 use Spatie\LaravelIgnition\Facades\Flare;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
-class AddExceptionInformationTest extends TestCase
-{
-    /** @test */
-    public function it_will_add_query_information_with_a_query_exception()
-    {
-        $sql = 'select * from users where emai = "ruben@spatie.be"';
+uses(TestCase::class);
 
-        $report = Flare::createReport(new QueryException(
-            '' . $sql . '',
-            [],
-            new Exception()
-        ));
+it('will add query information with a query exception', function () {
+    $sql = 'select * from users where emai = "ruben@spatie.be"';
 
-        $context = $report->toArray()['context'];
+    $report = Flare::createReport(new QueryException(
+        '' . $sql . '',
+        [],
+        new Exception()
+    ));
 
-        $this->assertArrayHasKey('exception', $context);
-        $this->assertSame($sql, $context['exception']['raw_sql']);
-    }
+    $context = $report->toArray()['context'];
 
-    /** @test */
-    public function it_wont_add_query_information_without_a_query_exception()
-    {
-        $report = Flare::createReport(new Exception());
+    $this->assertArrayHasKey('exception', $context);
+    $this->assertSame($sql, $context['exception']['raw_sql']);
+});
 
-        $context = $report->toArray()['context'];
+it('wont add query information without a query exception', function () {
+    $report = Flare::createReport(new Exception());
 
-        $this->assertArrayNotHasKey('exception', $context);
-    }
-}
+    $context = $report->toArray()['context'];
+
+    $this->assertArrayNotHasKey('exception', $context);
+});

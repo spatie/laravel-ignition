@@ -1,7 +1,5 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Tests;
-
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\View;
 use Spatie\Ignition\Contracts\BaseSolution;
@@ -10,86 +8,68 @@ use Spatie\Ignition\Contracts\Solution;
 use Spatie\LaravelIgnition\Exceptions\ViewException;
 use Spatie\LaravelIgnition\Exceptions\ViewExceptionWithSolution;
 
-class ViewTest extends TestCase
-{
-    public function setUp(): void
-    {
-        parent::setUp();
+uses(TestCase::class);
 
-        View::addLocation(__DIR__.'/stubs/views');
-    }
+beforeEach(function () {
+    View::addLocation(__DIR__.'/stubs/views');
+});
 
-    /** @test */
-    public function it_detects_blade_view_exceptions()
-    {
-        $this->expectException(ViewException::class);
+it('detects blade view exceptions', function () {
+    $this->expectException(ViewException::class);
 
+    view('blade-exception')->render();
+});
+
+it('detects the original line number in view exceptions', function () {
+    try {
         view('blade-exception')->render();
+    } catch (ViewException $exception) {
+        $this->assertSame(3, $exception->getLine());
     }
+});
 
-    /** @test */
-    public function it_detects_the_original_line_number_in_view_exceptions()
-    {
-        try {
-            view('blade-exception')->render();
-        } catch (ViewException $exception) {
-            $this->assertSame(3, $exception->getLine());
-        }
+it('detects the original line number in view exceptions with utf8 characters', function () {
+    try {
+        view('blade-exception-utf8')->render();
+    } catch (ViewException $exception) {
+        $this->assertSame(11, $exception->getLine());
     }
+});
 
-    /** @test */
-    public function it_detects_the_original_line_number_in_view_exceptions_with_utf8_characters()
-    {
-        try {
-            view('blade-exception-utf8')->render();
-        } catch (ViewException $exception) {
-            $this->assertSame(11, $exception->getLine());
-        }
+it('adds additional blade information to the exception', function () {
+    $viewData = [
+        'app' => 'foo',
+        'data' => true,
+        'user' => new User(),
+    ];
+
+    try {
+        view('blade-exception', $viewData)->render();
+    } catch (ViewException $exception) {
+        $this->assertSame($viewData, $exception->getViewData());
     }
+});
 
-    /** @test */
-    public function it_adds_additional_blade_information_to_the_exception()
-    {
-        $viewData = [
-            'app' => 'foo',
-            'data' => true,
-            'user' => new User(),
-        ];
-
-        try {
-            view('blade-exception', $viewData)->render();
-        } catch (ViewException $exception) {
-            $this->assertSame($viewData, $exception->getViewData());
-        }
+it('adds base exception solution to view exception', function () {
+    try {
+        $exception = new ExceptionWithSolution;
+        view('solution-exception', ['exception' => $exception])->render();
+    } catch (ViewException $exception) {
+        $this->assertTrue($exception instanceof ViewExceptionWithSolution);
+        $this->assertInstanceOf(Solution::class, $exception->getSolution());
+        $this->assertSame('This is a solution', $exception->getSolution()->getSolutionTitle());
     }
+});
 
-    /** @test */
-    public function it_adds_base_exception_solution_to_view_exception()
-    {
-        try {
-            $exception = new ExceptionWithSolution;
-            view('solution-exception', ['exception' => $exception])->render();
-        } catch (ViewException $exception) {
-            $this->assertTrue($exception instanceof ViewExceptionWithSolution);
-            $this->assertInstanceOf(Solution::class, $exception->getSolution());
-            $this->assertSame('This is a solution', $exception->getSolution()->getSolutionTitle());
-        }
-    }
+it('detects php view exceptions', function () {
+    $this->expectException(ViewException::class);
 
-    /** @test */
-    public function it_detects_php_view_exceptions()
-    {
-        $this->expectException(ViewException::class);
+    view('php-exception')->render();
+});
 
-        view('php-exception')->render();
-    }
-}
-
-class ExceptionWithSolution extends \Exception implements ProvidesSolution
+// Helpers
+function getSolution(): Solution
 {
-    public function getSolution(): Solution
-    {
-        return BaseSolution::create('This is a solution')
-            ->setSolutionDescription('With a description');
-    }
+    return BaseSolution::create('This is a solution')
+        ->setSolutionDescription('With a description');
 }

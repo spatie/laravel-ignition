@@ -1,7 +1,5 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Tests;
-
 use Exception;
 use Illuminate\Foundation\Auth\User;
 use RuntimeException;
@@ -12,88 +10,75 @@ use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingAppKeySolutionProv
 use Spatie\LaravelIgnition\Tests\Exceptions\AlwaysFalseSolutionProvider;
 use Spatie\LaravelIgnition\Tests\Exceptions\AlwaysTrueSolutionProvider;
 
-class ExceptionSolutionTest extends TestCase
-{
-    /** @test */
-    public function it_returns_possible_solutions()
-    {
-        $repository = new SolutionProviderRepository();
+uses(TestCase::class);
 
-        $repository->registerSolutionProvider(AlwaysTrueSolutionProvider::class);
-        $repository->registerSolutionProvider(AlwaysFalseSolutionProvider::class);
+it('returns possible solutions', function () {
+    $repository = new SolutionProviderRepository();
 
-        $solutions = $repository->getSolutionsForThrowable(new Exception());
+    $repository->registerSolutionProvider(AlwaysTrueSolutionProvider::class);
+    $repository->registerSolutionProvider(AlwaysFalseSolutionProvider::class);
 
-        $this->assertNotNull($solutions);
-        $this->assertCount(1, $solutions);
-        $this->assertTrue($solutions[0] instanceof BaseSolution);
+    $solutions = $repository->getSolutionsForThrowable(new Exception());
+
+    $this->assertNotNull($solutions);
+    $this->assertCount(1, $solutions);
+    $this->assertTrue($solutions[0] instanceof BaseSolution);
+});
+
+it('returns possible solutions when registered together', function () {
+    $repository = new SolutionProviderRepository();
+
+    $repository->registerSolutionProviders([
+        AlwaysTrueSolutionProvider::class,
+        AlwaysFalseSolutionProvider::class,
+    ]);
+
+    $solutions = $repository->getSolutionsForThrowable(new Exception());
+
+    $this->assertNotNull($solutions);
+    $this->assertCount(1, $solutions);
+    $this->assertTrue($solutions[0] instanceof BaseSolution);
+});
+
+it('can suggest bad method call exceptions', function () {
+    if (version_compare(app()->version(), '5.6.3', '<')) {
+        $this->markTestSkipped('Laravel version < 5.6.3 do not support bad method call solutions');
     }
 
-    /** @test */
-    public function it_returns_possible_solutions_when_registered_together()
-    {
-        $repository = new SolutionProviderRepository();
+    try {
+        collect([])->faltten();
+    } catch (Exception $exception) {
+        $solution = new BadMethodCallSolutionProvider();
 
-        $repository->registerSolutionProviders([
-            AlwaysTrueSolutionProvider::class,
-            AlwaysFalseSolutionProvider::class,
-        ]);
-
-        $solutions = $repository->getSolutionsForThrowable(new Exception());
-
-        $this->assertNotNull($solutions);
-        $this->assertCount(1, $solutions);
-        $this->assertTrue($solutions[0] instanceof BaseSolution);
+        $this->assertTrue($solution->canSolve($exception));
     }
+});
 
-    /** @test */
-    public function it_can_suggest_bad_method_call_exceptions()
-    {
-        if (version_compare($this->app->version(), '5.6.3', '<')) {
-            $this->markTestSkipped('Laravel version < 5.6.3 do not support bad method call solutions');
-        }
+it('can propose a solution for bad method call exceptions on collections', function () {
+    try {
+        collect([])->frist(fn ($item) => null);
+    } catch (Exception $exception) {
+        $solution = new BadMethodCallSolutionProvider();
 
-        try {
-            collect([])->faltten();
-        } catch (Exception $exception) {
-            $solution = new BadMethodCallSolutionProvider();
-
-            $this->assertTrue($solution->canSolve($exception));
-        }
+        $this->assertSame('Did you mean Illuminate\Support\Collection::first() ?', $solution->getSolutions($exception)[0]->getSolutionDescription());
     }
+});
 
-    /** @test */
-    public function it_can_propose_a_solution_for_bad_method_call_exceptions_on_collections()
-    {
-        try {
-            collect([])->frist(fn ($item) => null);
-        } catch (Exception $exception) {
-            $solution = new BadMethodCallSolutionProvider();
+it('can propose a solution for bad method call exceptions on models', function () {
+    try {
+        $user = new User();
+        $user->sarve();
+    } catch (Exception $exception) {
+        $solution = new BadMethodCallSolutionProvider();
 
-            $this->assertSame('Did you mean Illuminate\Support\Collection::first() ?', $solution->getSolutions($exception)[0]->getSolutionDescription());
-        }
+        $this->assertSame('Did you mean Illuminate\Foundation\Auth\User::save() ?', $solution->getSolutions($exception)[0]->getSolutionDescription());
     }
+});
 
-    /** @test */
-    public function it_can_propose_a_solution_for_bad_method_call_exceptions_on_models()
-    {
-        try {
-            $user = new User();
-            $user->sarve();
-        } catch (Exception $exception) {
-            $solution = new BadMethodCallSolutionProvider();
+it('can propose a solution for missing app key exceptions', function () {
+    $exception = new RuntimeException('No application encryption key has been specified.');
 
-            $this->assertSame('Did you mean Illuminate\Foundation\Auth\User::save() ?', $solution->getSolutions($exception)[0]->getSolutionDescription());
-        }
-    }
+    $solution = new MissingAppKeySolutionProvider();
 
-    /** @test */
-    public function it_can_propose_a_solution_for_missing_app_key_exceptions()
-    {
-        $exception = new RuntimeException('No application encryption key has been specified.');
-
-        $solution = new MissingAppKeySolutionProvider();
-
-        $this->assertSame('Generate your application encryption key using `php artisan key:generate`.', $solution->getSolutions($exception)[0]->getSolutionActionDescription());
-    }
-}
+    $this->assertSame('Generate your application encryption key using `php artisan key:generate`.', $solution->getSolutions($exception)[0]->getSolutionActionDescription());
+});

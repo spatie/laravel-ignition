@@ -1,27 +1,17 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Tests\Support;
-
 use Illuminate\Auth\AuthenticationException;
 use Spatie\LaravelIgnition\Support\LaravelDocumentationLinkFinder;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
-class LaravelDocumentationLinkFinderTest extends TestCase
-{
-    protected LaravelDocumentationLinkFinder $finder;
+uses(TestCase::class);
 
-    public function setUp(): void
-    {
-        parent::setUp();
+beforeEach(function () {
+    $this->finder = new LaravelDocumentationLinkFinder();
+});
 
-        $this->finder = new LaravelDocumentationLinkFinder();
-    }
+it('can find a link for a laravel exception', function () {
+    $link = $this->finder->findLinkForThrowable(new AuthenticationException());
 
-    /** @test */
-    public function it_can_find_a_link_for_a_laravel_exception()
-    {
-        $link = $this->finder->findLinkForThrowable(new AuthenticationException());
-
-        $this->assertEquals('https://laravel.com/docs/8.x/authentication', $link);
-    }
-}
+    $this->assertEquals('https://laravel.com/docs/8.x/authentication', $link);
+});

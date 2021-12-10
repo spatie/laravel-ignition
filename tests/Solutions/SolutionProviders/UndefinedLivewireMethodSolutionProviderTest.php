@@ -1,28 +1,23 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Tests\Solutions\SolutionProviders;
-
 use Livewire\Exceptions\MethodNotFoundException;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\UndefinedLivewireMethodSolutionProvider;
 use Spatie\LaravelIgnition\Tests\stubs\Components\TestLivewireComponent;
 use Spatie\LaravelIgnition\Tests\TestCase;
 use Spatie\LaravelIgnition\Tests\TestClasses\FakeLivewireManager;
 
-class UndefinedLivewireMethodSolutionProviderTest extends TestCase
-{
-    /** @test */
-    public function it_can_solve_an_unknown_livewire_method()
-    {
-        FakeLivewireManager::setUp()->addAlias('test-livewire-component', TestLivewireComponent::class);
+uses(TestCase::class);
 
-        $exception = new MethodNotFoundException('chnge', 'test-livewire-component');
+it('can solve an unknown livewire method', function () {
+    FakeLivewireManager::setUp()->addAlias('test-livewire-component', TestLivewireComponent::class);
 
-        $canSolve = app(UndefinedLivewireMethodSolutionProvider::class)->canSolve($exception);
-        [$solution] = app(UndefinedLivewireMethodSolutionProvider::class)->getSolutions($exception);
+    $exception = new MethodNotFoundException('chnge', 'test-livewire-component');
 
-        $this->assertTrue($canSolve);
+    $canSolve = app(UndefinedLivewireMethodSolutionProvider::class)->canSolve($exception);
+    [$solution] = app(UndefinedLivewireMethodSolutionProvider::class)->getSolutions($exception);
 
-        $this->assertSame('Possible typo `Spatie\LaravelIgnition\Tests\stubs\Components\TestLivewireComponent::chnge`', $solution->getSolutionTitle());
-        $this->assertSame('Did you mean `Spatie\LaravelIgnition\Tests\stubs\Components\TestLivewireComponent::change`?', $solution->getSolutionDescription());
-    }
-}
+    $this->assertTrue($canSolve);
+
+    $this->assertSame('Possible typo `Spatie\LaravelIgnition\Tests\stubs\Components\TestLivewireComponent::chnge`', $solution->getSolutionTitle());
+    $this->assertSame('Did you mean `Spatie\LaravelIgnition\Tests\stubs\Components\TestLivewireComponent::change`?', $solution->getSolutionDescription());
+});
