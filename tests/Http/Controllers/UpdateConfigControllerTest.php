@@ -34,6 +34,5 @@ class UpdateConfigControllerTest extends TestCase
         $this->assertEquals('auto', $config->theme());
         $this->assertEquals('fancy-editor', $config->editor());
         $this->assertEquals(true, $config->hideSolutions());
-
     }
 }
