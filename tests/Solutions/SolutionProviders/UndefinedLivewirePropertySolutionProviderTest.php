@@ -3,9 +3,7 @@
 use Livewire\Exceptions\PropertyNotFoundException;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\UndefinedLivewirePropertySolutionProvider;
 use Spatie\LaravelIgnition\Tests\stubs\Components\TestLivewireComponent;
-use Spatie\LaravelIgnition\Tests\TestCase;
 use Spatie\LaravelIgnition\Tests\TestClasses\FakeLivewireManager;
-
 
 it('can solve an unknown livewire computed property', function () {
     FakeLivewireManager::setUp()->addAlias('test-livewire-component', TestLivewireComponent::class);

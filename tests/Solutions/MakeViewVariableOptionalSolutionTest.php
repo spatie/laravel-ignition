@@ -3,8 +3,6 @@
 use Illuminate\Support\Facades\View;
 use Spatie\LaravelIgnition\Solutions\MakeViewVariableOptionalSolution;
 use Spatie\LaravelIgnition\Support\Composer\ComposerClassMap;
-use Spatie\LaravelIgnition\Tests\TestCase;
-
 
 beforeEach(function () {
     View::addLocation(__DIR__.'/../stubs/views');

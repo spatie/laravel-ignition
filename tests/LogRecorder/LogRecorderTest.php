@@ -2,8 +2,6 @@
 
 use Illuminate\Log\Events\MessageLogged;
 use Spatie\LaravelIgnition\Recorders\LogRecorder\LogRecorder;
-use Spatie\LaravelIgnition\Tests\TestCase;
-
 
 it('limits the amount of recorded logs', function () {
     $recorder = new LogRecorder(app(), 200);

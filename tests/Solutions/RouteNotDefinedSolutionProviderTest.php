@@ -3,9 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\RouteNotDefinedSolutionProvider;
-use Spatie\LaravelIgnition\Tests\TestCase;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
-
 
 it('can solve a route not defined exception', function () {
     $canSolve = app(RouteNotDefinedSolutionProvider::class)->canSolve(getRouteNotDefinedException());

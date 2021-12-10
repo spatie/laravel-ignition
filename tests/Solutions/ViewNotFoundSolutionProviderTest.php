@@ -3,8 +3,6 @@
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\ViewNotFoundSolutionProvider;
-use Spatie\LaravelIgnition\Tests\TestCase;
-
 
 beforeEach(function () {
     View::addLocation(__DIR__.'/../stubs/views');

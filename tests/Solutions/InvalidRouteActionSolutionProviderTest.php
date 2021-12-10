@@ -5,8 +5,6 @@ use Illuminate\Support\Str;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\InvalidRouteActionSolutionProvider;
 use Spatie\LaravelIgnition\Support\Composer\ComposerClassMap;
 use Spatie\LaravelIgnition\Tests\stubs\Controllers\TestTypoController;
-use Spatie\LaravelIgnition\Tests\TestCase;
-
 
 beforeEach(function () {
     app()->bind(

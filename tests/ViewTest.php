@@ -3,7 +3,6 @@
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\View;
 use Spatie\Ignition\Contracts\BaseSolution;
-use Spatie\Ignition\Contracts\ProvidesSolution;
 use Spatie\Ignition\Contracts\Solution;
 use Spatie\LaravelIgnition\Exceptions\ViewException;
 use Spatie\LaravelIgnition\Exceptions\ViewExceptionWithSolution;

@@ -2,8 +2,6 @@
 
 use Spatie\FlareClient\Report;
 use Spatie\LaravelIgnition\Support\SentReports;
-use Spatie\LaravelIgnition\Tests\TestCase;
-
 
 beforeEach(function () {
     $this->sentReports = new SentReports();

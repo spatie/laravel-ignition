@@ -8,8 +8,6 @@ use Illuminate\Queue\RedisQueue;
 use Illuminate\Support\Facades\Event;
 use Spatie\LaravelIgnition\Recorders\JobRecorder\JobRecorder;
 use Spatie\LaravelIgnition\Tests\stubs\Jobs\QueueableJob;
-use Spatie\LaravelIgnition\Tests\TestCase;
-
 
 it('can record a failed job', function () {
     $recorder = (new JobRecorder(app()));

@@ -1,6 +1,5 @@
 <?php
 
-use Spatie\LaravelIgnition\Tests\TestCase;
 
 
 it('can execute the test command when a flare key is present', function () {

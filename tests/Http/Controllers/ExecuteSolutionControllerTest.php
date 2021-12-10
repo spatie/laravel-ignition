@@ -1,6 +1,5 @@
 <?php
 
-use Spatie\LaravelIgnition\Tests\TestCase;
 
 
 it('can execute solutions on a local environment with debugging enabled', function () {

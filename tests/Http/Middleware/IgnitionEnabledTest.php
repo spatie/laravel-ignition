@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Spatie\LaravelIgnition\Http\Middleware\RunnableSolutionsEnabled;
-use Spatie\LaravelIgnition\Tests\TestCase;
-
 
 it('returns 404 with debug mode disabled', function () {
     config()->set('app.debug', false);

@@ -4,7 +4,6 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Spatie\LaravelIgnition\ContextProviders\LaravelRequestContextProvider;
-use Spatie\LaravelIgnition\Tests\TestCase;
 
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
