@@ -7,7 +7,6 @@ use Spatie\LaravelIgnition\ContextProviders\LaravelLivewireRequestContextProvide
 use Spatie\LaravelIgnition\Tests\TestCase;
 use Spatie\LaravelIgnition\Tests\TestClasses\FakeLivewireManager;
 
-uses(TestCase::class);
 
 beforeEach(function () {
     $this->livewireManager = FakeLivewireManager::setUp();

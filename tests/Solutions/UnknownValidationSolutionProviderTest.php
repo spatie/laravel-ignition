@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Validator;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\UnknownValidationSolutionProvider;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
-uses(TestCase::class);
 
 it('can solve the exception', function () {
     $canSolve = app(UnknownValidationSolutionProvider::class)->canSolve(getBadMethodCallException());

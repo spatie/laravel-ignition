@@ -2,7 +2,6 @@
 
 use Spatie\LaravelIgnition\Tests\TestCase;
 
-uses(TestCase::class);
 
 it('can execute solutions on a local environment with debugging enabled', function () {
     app()['env'] = 'local';

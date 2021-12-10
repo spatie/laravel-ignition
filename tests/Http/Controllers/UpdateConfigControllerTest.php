@@ -3,7 +3,6 @@
 use Spatie\Ignition\Config\IgnitionConfig;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
-uses(TestCase::class);
 
 it('can update the config', function () {
     app()['env'] = 'local';

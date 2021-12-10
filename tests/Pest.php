@@ -1,5 +1,8 @@
 <?php
 
+uses(\Spatie\LaravelIgnition\Tests\TestCase::class)->in('Commands', 'Context', 'ContextProviders', 'FlareMiddleware', 'Http', 'LogRecorder', 'QueryRecorder', 'Recorders', 'Solutions', 'Support');
+uses(\TestCase::class)->in('');
+
 /*
 |--------------------------------------------------------------------------
 | Test Case

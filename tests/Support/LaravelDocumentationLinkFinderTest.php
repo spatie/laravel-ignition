@@ -4,7 +4,6 @@ use Illuminate\Auth\AuthenticationException;
 use Spatie\LaravelIgnition\Support\LaravelDocumentationLinkFinder;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
-uses(TestCase::class);
 
 beforeEach(function () {
     $this->finder = new LaravelDocumentationLinkFinder();

@@ -7,7 +7,6 @@ use Spatie\LaravelIgnition\Support\Composer\ComposerClassMap;
 use Spatie\LaravelIgnition\Tests\stubs\Controllers\TestTypoController;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
-uses(TestCase::class);
 
 beforeEach(function () {
     app()->bind(

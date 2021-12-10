@@ -6,7 +6,6 @@ use Spatie\LaravelIgnition\Solutions\SolutionProviders\RouteNotDefinedSolutionPr
 use Spatie\LaravelIgnition\Tests\TestCase;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
-uses(TestCase::class);
 
 it('can solve a route not defined exception', function () {
     $canSolve = app(RouteNotDefinedSolutionProvider::class)->canSolve(getRouteNotDefinedException());

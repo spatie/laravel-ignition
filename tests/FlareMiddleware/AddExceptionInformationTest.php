@@ -4,7 +4,6 @@ use Illuminate\Database\QueryException;
 use Spatie\LaravelIgnition\Facades\Flare;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
-uses(TestCase::class);
 
 it('will add query information with a query exception', function () {
     $sql = 'select * from users where emai = "ruben@spatie.be"';

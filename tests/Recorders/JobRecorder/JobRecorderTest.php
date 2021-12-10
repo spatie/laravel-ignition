@@ -10,7 +10,6 @@ use Spatie\LaravelIgnition\Recorders\JobRecorder\JobRecorder;
 use Spatie\LaravelIgnition\Tests\stubs\Jobs\QueueableJob;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
-uses(TestCase::class);
 
 it('can record a failed job', function () {
     $recorder = (new JobRecorder(app()));

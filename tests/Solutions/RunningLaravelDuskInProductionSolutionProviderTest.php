@@ -3,7 +3,6 @@
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\RunningLaravelDuskInProductionProvider;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
-uses(TestCase::class);
 
 it('can solve dusk in production exception', function () {
     $exception = generate_dusk_exception();

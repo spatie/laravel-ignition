@@ -5,7 +5,6 @@ use Illuminate\Support\Str;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\ViewNotFoundSolutionProvider;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
-uses(TestCase::class);
 
 beforeEach(function () {
     View::addLocation(__DIR__.'/../stubs/views');

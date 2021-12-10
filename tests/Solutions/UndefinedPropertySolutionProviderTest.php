@@ -3,7 +3,6 @@
 use Spatie\Ignition\Solutions\SolutionProviders\UndefinedPropertySolutionProvider;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
-uses(TestCase::class);
 
 it('can solve an undefined property exception when there is a similar property', function () {
     $canSolve = app(UndefinedPropertySolutionProvider::class)->canSolve(getUndefinedPropertyException());

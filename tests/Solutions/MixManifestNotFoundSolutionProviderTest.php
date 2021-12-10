@@ -5,7 +5,6 @@ use Illuminate\Support\Str;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingMixManifestSolutionProvider;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
-uses(TestCase::class);
 
 it('can solve a missing mix manifest exception', function () {
     $canSolve = app(MissingMixManifestSolutionProvider::class)

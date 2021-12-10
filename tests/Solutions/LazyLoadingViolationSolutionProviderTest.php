@@ -5,7 +5,6 @@ use Illuminate\Foundation\Auth\User;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\LazyLoadingViolationSolutionProvider;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
-uses(TestCase::class);
 
 it('can solve lazy loading violations', function () {
     $canSolve = app(LazyLoadingViolationSolutionProvider::class)

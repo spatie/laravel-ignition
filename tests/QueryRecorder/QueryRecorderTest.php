@@ -5,7 +5,6 @@ use Illuminate\Database\Events\QueryExecuted;
 use Spatie\LaravelIgnition\Recorders\QueryRecorder\QueryRecorder;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
-uses(TestCase::class);
 
 it('limits the amount of recorded queries', function () {
     $recorder = new QueryRecorder(app(), true, 200);

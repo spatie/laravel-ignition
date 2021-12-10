@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 use Spatie\LaravelIgnition\ContextProviders\LaravelRequestContextProvider;
 use Spatie\LaravelIgnition\Tests\TestCase;
 
-uses(TestCase::class);
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 it('returns route name in context data', function () {

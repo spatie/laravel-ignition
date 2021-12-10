@@ -2,7 +2,6 @@
 
 use Spatie\LaravelIgnition\Tests\TestCase;
 
-uses(TestCase::class);
 
 it('can execute the test command when a flare key is present', function () {
     withFlareKey();
