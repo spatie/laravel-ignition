@@ -26,6 +26,7 @@ use Spatie\LaravelIgnition\FlareMiddleware\AddLogs;
 use Spatie\LaravelIgnition\FlareMiddleware\AddQueries;
 use Spatie\LaravelIgnition\Http\Controllers\ExecuteSolutionController;
 use Spatie\LaravelIgnition\Http\Controllers\HealthCheckController;
+use Spatie\LaravelIgnition\Http\Controllers\UpdateConfigController;
 use Spatie\LaravelIgnition\Http\Middleware\RunnableSolutionsEnabled;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\DumpRecorder;
 use Spatie\LaravelIgnition\Recorders\JobRecorder\JobRecorder;
@@ -232,6 +233,8 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
             Route::post('execute-solution', ExecuteSolutionController::class)
                 ->name('executeSolution');
+
+            Route::post('update-config', UpdateConfigController::class)->name('updateConfig');
         });
 
         return $this;

@@ -3,7 +3,6 @@
 namespace Spatie\LaravelIgnition\Tests\Support;
 
 use Illuminate\Auth\AuthenticationException;
-use Illuminate\Broadcasting\BroadcastException;
 use Spatie\LaravelIgnition\Support\LaravelDocumentationLinkFinder;
 use Spatie\LaravelIgnition\Tests\TestCase;
 

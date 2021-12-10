@@ -6,6 +6,14 @@ use Spatie\LaravelIgnition\Tests\TestCase;
 
 class ExecuteSolutionControllerTest extends TestCase
 {
+    protected function resolveApplicationConfiguration($app)
+    {
+        parent::resolveApplicationConfiguration($app);
+
+        // Routes will not register in a console environment.
+        $_ENV['APP_RUNNING_IN_CONSOLE'] = false;
+    }
+
     /** @test */
     public function it_can_execute_solutions_on_a_local_environment_with_debugging_enabled()
     {
@@ -62,13 +70,5 @@ class ExecuteSolutionControllerTest extends TestCase
             ],
             'solution' => 'Spatie\\LaravelIgnition\\Solutions\\MakeViewVariableOptionalSolution',
         ];
-    }
-
-    protected function resolveApplicationConfiguration($app)
-    {
-        parent::resolveApplicationConfiguration($app);
-
-        // Routes wont register in a console environment.
-        $_ENV['APP_RUNNING_IN_CONSOLE'] = false;
     }
 }
