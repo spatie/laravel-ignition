@@ -9,7 +9,7 @@ uses(TestCase::class);
 it('can solve the exception', function () {
     $canSolve = app(UnknownValidationSolutionProvider::class)->canSolve(getBadMethodCallException());
 
-    $this->assertTrue($canSolve);
+    expect($canSolve)->toBeTrue();
 });
 
 it('can recommend changing the rule', function (string $invalidRule, string $recommendedRule) {
@@ -20,8 +20,8 @@ it('can recommend changing the rule', function (string $invalidRule, string $rec
     /** @var \Spatie\Ignition\Contracts\Solution $solution */
     $solution = app(UnknownValidationSolutionProvider::class)->getSolutions(getBadMethodCallException($invalidRule))[0];
 
-    $this->assertEquals("Did you mean `{$recommendedRule}` ?", $solution->getSolutionDescription());
-    $this->assertEquals('Unknown Validation Rule', $solution->getSolutionTitle());
+    expect($solution->getSolutionDescription())->toEqual("Did you mean `{$recommendedRule}` ?");
+    expect($solution->getSolutionTitle())->toEqual('Unknown Validation Rule');
 })->with('rulesProvider');
 
 // Datasets

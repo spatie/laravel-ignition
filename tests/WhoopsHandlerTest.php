@@ -13,5 +13,5 @@ it('uses a custom whoops handler', function () {
 
     $result = $this->get('/exception');
 
-    $this->assertTrue(is_string($result->getContent()));
+    expect(is_string($result->getContent()))->toBeTrue();
 });

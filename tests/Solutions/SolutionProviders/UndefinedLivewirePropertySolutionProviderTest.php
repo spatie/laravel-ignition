@@ -16,10 +16,10 @@ it('can solve an unknown livewire computed property', function () {
     $canSolve = app(UndefinedLivewirePropertySolutionProvider::class)->canSolve($exception);
     [$solution] = app(UndefinedLivewirePropertySolutionProvider::class)->getSolutions($exception);
 
-    $this->assertTrue($canSolve);
+    expect($canSolve)->toBeTrue();
 
-    $this->assertSame('Possible typo $compted', $solution->getSolutionTitle());
-    $this->assertSame('Did you mean `$computed`?', $solution->getSolutionDescription());
+    expect($solution->getSolutionTitle())->toBe('Possible typo $compted');
+    expect($solution->getSolutionDescription())->toBe('Did you mean `$computed`?');
 });
 
 // Helpers
@@ -32,11 +32,11 @@ function it_can_solve_an_unknown_livewire_property()
     $canSolve = app(UndefinedLivewirePropertySolutionProvider::class)->canSolve($exception);
     [$firstSolution, $secondSolution] = app(UndefinedLivewirePropertySolutionProvider::class)->getSolutions($exception);
 
-    test()->assertTrue($canSolve);
+    expect($canSolve)->toBeTrue();
 
-    test()->assertSame('Possible typo $strng', $firstSolution->getSolutionTitle());
-    test()->assertSame('Did you mean `$string`?', $firstSolution->getSolutionDescription());
+    expect($firstSolution->getSolutionTitle())->toBe('Possible typo $strng');
+    expect($firstSolution->getSolutionDescription())->toBe('Did you mean `$string`?');
 
-    test()->assertSame('Possible typo $strng', $secondSolution->getSolutionTitle());
-    test()->assertSame('Did you mean `$stringable`?', $secondSolution->getSolutionDescription());
+    expect($secondSolution->getSolutionTitle())->toBe('Possible typo $strng');
+    expect($secondSolution->getSolutionDescription())->toBe('Did you mean `$stringable`?');
 }

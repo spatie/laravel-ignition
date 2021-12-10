@@ -24,7 +24,7 @@ it('detects the original line number in view exceptions', function () {
     try {
         view('blade-exception')->render();
     } catch (ViewException $exception) {
-        $this->assertSame(3, $exception->getLine());
+        expect($exception->getLine())->toBe(3);
     }
 });
 
@@ -32,7 +32,7 @@ it('detects the original line number in view exceptions with utf8 characters', f
     try {
         view('blade-exception-utf8')->render();
     } catch (ViewException $exception) {
-        $this->assertSame(11, $exception->getLine());
+        expect($exception->getLine())->toBe(11);
     }
 });
 
@@ -46,7 +46,7 @@ it('adds additional blade information to the exception', function () {
     try {
         view('blade-exception', $viewData)->render();
     } catch (ViewException $exception) {
-        $this->assertSame($viewData, $exception->getViewData());
+        expect($exception->getViewData())->toBe($viewData);
     }
 });
 
@@ -55,9 +55,9 @@ it('adds base exception solution to view exception', function () {
         $exception = new ExceptionWithSolution;
         view('solution-exception', ['exception' => $exception])->render();
     } catch (ViewException $exception) {
-        $this->assertTrue($exception instanceof ViewExceptionWithSolution);
-        $this->assertInstanceOf(Solution::class, $exception->getSolution());
-        $this->assertSame('This is a solution', $exception->getSolution()->getSolutionTitle());
+        expect($exception instanceof ViewExceptionWithSolution)->toBeTrue();
+        expect($exception->getSolution())->toBeInstanceOf(Solution::class);
+        expect($exception->getSolution()->getSolutionTitle())->toBe('This is a solution');
     }
 });
 

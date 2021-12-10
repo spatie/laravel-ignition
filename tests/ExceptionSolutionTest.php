@@ -19,8 +19,8 @@ it('returns possible solutions', function () {
     $solutions = $repository->getSolutionsForThrowable(new Exception());
 
     $this->assertNotNull($solutions);
-    $this->assertCount(1, $solutions);
-    $this->assertTrue($solutions[0] instanceof BaseSolution);
+    expect($solutions)->toHaveCount(1);
+    expect($solutions[0] instanceof BaseSolution)->toBeTrue();
 });
 
 it('returns possible solutions when registered together', function () {
@@ -34,8 +34,8 @@ it('returns possible solutions when registered together', function () {
     $solutions = $repository->getSolutionsForThrowable(new Exception());
 
     $this->assertNotNull($solutions);
-    $this->assertCount(1, $solutions);
-    $this->assertTrue($solutions[0] instanceof BaseSolution);
+    expect($solutions)->toHaveCount(1);
+    expect($solutions[0] instanceof BaseSolution)->toBeTrue();
 });
 
 it('can suggest bad method call exceptions', function () {
@@ -48,7 +48,7 @@ it('can suggest bad method call exceptions', function () {
     } catch (Exception $exception) {
         $solution = new BadMethodCallSolutionProvider();
 
-        $this->assertTrue($solution->canSolve($exception));
+        expect($solution->canSolve($exception))->toBeTrue();
     }
 });
 
@@ -58,7 +58,7 @@ it('can propose a solution for bad method call exceptions on collections', funct
     } catch (Exception $exception) {
         $solution = new BadMethodCallSolutionProvider();
 
-        $this->assertSame('Did you mean Illuminate\Support\Collection::first() ?', $solution->getSolutions($exception)[0]->getSolutionDescription());
+        expect($solution->getSolutions($exception)[0]->getSolutionDescription())->toBe('Did you mean Illuminate\Support\Collection::first() ?');
     }
 });
 
@@ -69,7 +69,7 @@ it('can propose a solution for bad method call exceptions on models', function (
     } catch (Exception $exception) {
         $solution = new BadMethodCallSolutionProvider();
 
-        $this->assertSame('Did you mean Illuminate\Foundation\Auth\User::save() ?', $solution->getSolutions($exception)[0]->getSolutionDescription());
+        expect($solution->getSolutions($exception)[0]->getSolutionDescription())->toBe('Did you mean Illuminate\Foundation\Auth\User::save() ?');
     }
 });
 
@@ -78,5 +78,5 @@ it('can propose a solution for missing app key exceptions', function () {
 
     $solution = new MissingAppKeySolutionProvider();
 
-    $this->assertSame('Generate your application encryption key using `php artisan key:generate`.', $solution->getSolutions($exception)[0]->getSolutionActionDescription());
+    expect($solution->getSolutions($exception)[0]->getSolutionActionDescription())->toBe('Generate your application encryption key using `php artisan key:generate`.');
 });

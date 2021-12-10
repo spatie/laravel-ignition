@@ -18,14 +18,14 @@ test('when requesting html it will respond with html', function () {
         ->get('will-fail')
         ->baseResponse;
 
-    $this->assertStringStartsWith('text/html', $response->headers->get('Content-Type'));
-    $this->assertTrue(Str::contains($response->getContent(), 'html'));
+    expect($response->headers->get('Content-Type'))->toStartWith('text/html');
+    expect(Str::contains($response->getContent(), 'html'))->toBeTrue();
 });
 
 test('when requesting json it will respond with json', function () {
     /** @var \Illuminate\Http\Response $response */
     $response = $this->getJson('will-fail');
 
-    $this->assertStringStartsWith('application/json', $response->headers->get('Content-Type'));
-    $this->assertEquals('My exception', json_decode($response->getContent(), true)['message']);
+    expect($response->headers->get('Content-Type'))->toStartWith('application/json');
+    expect(json_decode($response->getContent(), true)['message'])->toEqual('My exception');
 });

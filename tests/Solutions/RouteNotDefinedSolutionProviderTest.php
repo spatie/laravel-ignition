@@ -11,7 +11,7 @@ uses(TestCase::class);
 it('can solve a route not defined exception', function () {
     $canSolve = app(RouteNotDefinedSolutionProvider::class)->canSolve(getRouteNotDefinedException());
 
-    $this->assertTrue($canSolve);
+    expect($canSolve)->toBeTrue();
 });
 
 it('can recommend changing the route name', function () {
@@ -20,7 +20,7 @@ it('can recommend changing the route name', function () {
     /** @var \Spatie\Ignition\Contracts\Solution $solution */
     $solution = app(RouteNotDefinedSolutionProvider::class)->getSolutions(getRouteNotDefinedException())[0];
 
-    $this->assertTrue(Str::contains($solution->getSolutionDescription(), 'Did you mean `test.typo`?'));
+    expect(Str::contains($solution->getSolutionDescription(), 'Did you mean `test.typo`?'))->toBeTrue();
 });
 
 it('wont recommend another route if the names are too different', function () {
@@ -29,7 +29,7 @@ it('wont recommend another route if the names are too different', function () {
     /** @var \Spatie\Ignition\Contracts\Solution $solution */
     $solution = app(RouteNotDefinedSolutionProvider::class)->getSolutions(getRouteNotDefinedException('test.is-too-different'))[0];
 
-    $this->assertFalse(Str::contains($solution->getSolutionDescription(), 'Did you mean'));
+    expect(Str::contains($solution->getSolutionDescription(), 'Did you mean'))->toBeFalse();
 });
 
 // Helpers

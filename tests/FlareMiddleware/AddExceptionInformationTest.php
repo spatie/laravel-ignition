@@ -18,7 +18,7 @@ it('will add query information with a query exception', function () {
     $context = $report->toArray()['context'];
 
     $this->assertArrayHasKey('exception', $context);
-    $this->assertSame($sql, $context['exception']['raw_sql']);
+    expect($context['exception']['raw_sql'])->toBe($sql);
 });
 
 it('wont add query information without a query exception', function () {

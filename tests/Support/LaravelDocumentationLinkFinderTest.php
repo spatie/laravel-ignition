@@ -13,5 +13,5 @@ beforeEach(function () {
 it('can find a link for a laravel exception', function () {
     $link = $this->finder->findLinkForThrowable(new AuthenticationException());
 
-    $this->assertEquals('https://laravel.com/docs/8.x/authentication', $link);
+    expect($link)->toEqual('https://laravel.com/docs/8.x/authentication');
 });

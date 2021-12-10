@@ -16,8 +16,8 @@ it('can solve an unknown livewire method', function () {
     $canSolve = app(UndefinedLivewireMethodSolutionProvider::class)->canSolve($exception);
     [$solution] = app(UndefinedLivewireMethodSolutionProvider::class)->getSolutions($exception);
 
-    $this->assertTrue($canSolve);
+    expect($canSolve)->toBeTrue();
 
-    $this->assertSame('Possible typo `Spatie\LaravelIgnition\Tests\stubs\Components\TestLivewireComponent::chnge`', $solution->getSolutionTitle());
-    $this->assertSame('Did you mean `Spatie\LaravelIgnition\Tests\stubs\Components\TestLivewireComponent::change`?', $solution->getSolutionDescription());
+    expect($solution->getSolutionTitle())->toBe('Possible typo `Spatie\LaravelIgnition\Tests\stubs\Components\TestLivewireComponent::chnge`');
+    expect($solution->getSolutionDescription())->toBe('Did you mean `Spatie\LaravelIgnition\Tests\stubs\Components\TestLivewireComponent::change`?');
 });

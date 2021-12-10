@@ -20,17 +20,17 @@ beforeEach(function () {
 
 it('does not open scheme paths', function () {
     $solution = getSolutionForPath('php://filter/resource=./tests/stubs/views/blade-exception.blade.php');
-    $this->assertFalse($solution->isRunnable());
+    expect($solution->isRunnable())->toBeFalse();
 });
 
 it('does open relative paths', function () {
     $solution = getSolutionForPath('./tests/stubs/views/blade-exception.blade.php');
-    $this->assertTrue($solution->isRunnable());
+    expect($solution->isRunnable())->toBeTrue();
 });
 
 it('does not open other extensions', function () {
     $solution = getSolutionForPath('./tests/stubs/views/php-exception.php');
-    $this->assertFalse($solution->isRunnable());
+    expect($solution->isRunnable())->toBeFalse();
 });
 
 // Helpers

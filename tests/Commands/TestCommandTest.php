@@ -10,7 +10,7 @@ it('can execute the test command when a flare key is present', function () {
     $testResult = $this->artisan('flare:test');
 
     is_int($testResult)
-        ? $this->assertSame(0, $testResult)
+        ? expect($testResult)->toBe(0)
         : $testResult->assertExitCode(0);
 });
 

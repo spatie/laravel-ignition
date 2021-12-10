@@ -21,7 +21,7 @@ beforeEach(function () {
 it('can solve the exception', function () {
     $canSolve = app(InvalidRouteActionSolutionProvider::class)->canSolve(getInvalidRouteActionException());
 
-    $this->assertTrue($canSolve);
+    expect($canSolve)->toBeTrue();
 });
 
 it('can recommend changing the routes method', function () {
@@ -30,7 +30,7 @@ it('can recommend changing the routes method', function () {
     /** @var \Spatie\Ignition\Contracts\Solution $solution */
     $solution = app(InvalidRouteActionSolutionProvider::class)->getSolutions(getInvalidRouteActionException())[0];
 
-    $this->assertTrue(Str::contains($solution->getSolutionDescription(), 'Did you mean `TestTypoController`'));
+    expect(Str::contains($solution->getSolutionDescription(), 'Did you mean `TestTypoController`'))->toBeTrue();
 });
 
 it('wont recommend another controller class if the names are too different', function () {
@@ -41,7 +41,7 @@ it('wont recommend another controller class if the names are too different', fun
     /** @var \Spatie\Ignition\Contracts\Solution $solution */
     $solution = app(InvalidRouteActionSolutionProvider::class)->getSolutions(getInvalidRouteActionException($invalidController))[0];
 
-    $this->assertFalse(Str::contains($solution->getSolutionDescription(), 'Did you mean `TestTypoController`'));
+    expect(Str::contains($solution->getSolutionDescription(), 'Did you mean `TestTypoController`'))->toBeFalse();
 });
 
 // Helpers

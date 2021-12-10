@@ -22,7 +22,7 @@ it('returns route name in context data', function () {
 
     $contextData = $context->toArray();
 
-    $this->assertSame('routeName', $contextData['route']['route']);
+    expect($contextData['route']['route'])->toBe('routeName');
 });
 
 it('returns route parameters in context data', function () {
@@ -53,7 +53,7 @@ it('returns the url', function () {
 
     $request = $context->getRequest();
 
-    $this->assertSame('http://localhost/route', $request['url']);
+    expect($request['url'])->toBe('http://localhost/route');
 });
 
 it('returns the cookies', function () {
@@ -61,7 +61,7 @@ it('returns the cookies', function () {
 
     $context = new LaravelRequestContextProvider($request);
 
-    $this->assertSame(['cookie' => 'noms'], $context->getCookies());
+    expect($context->getCookies())->toBe(['cookie' => 'noms']);
 });
 
 it('returns the authenticated user', function () {
@@ -77,7 +77,7 @@ it('returns the authenticated user', function () {
     $context = new LaravelRequestContextProvider($request);
     $contextData = $context->toArray();
 
-    $this->assertSame($user->toArray(), $contextData['user']);
+    expect($contextData['user'])->toBe($user->toArray());
 });
 
 it('the authenticated user model has a to flare method it will be used to collect user data', function () {
@@ -98,7 +98,7 @@ it('the authenticated user model has a to flare method it will be used to collec
     $context = new LaravelRequestContextProvider($request);
     $contextData = $context->toArray();
 
-    $this->assertSame(['id' => $user->id], $contextData['user']);
+    expect($contextData['user'])->toBe(['id' => $user->id]);
 });
 
 it('the authenticated user model has no matching method it will return no user data', function () {
@@ -111,7 +111,7 @@ it('the authenticated user model has no matching method it will return no user d
     $context = new LaravelRequestContextProvider($request);
     $contextData = $context->toArray();
 
-    $this->assertSame([], $contextData['user']);
+    expect($contextData['user'])->toBe([]);
 });
 
 it('the authenticated user model is broken it will return no user data', function () {
@@ -125,7 +125,7 @@ it('the authenticated user model is broken it will return no user data', functio
     $context = new LaravelRequestContextProvider($request);
     $contextData = $context->toArray();
 
-    $this->assertSame([], $contextData['user']);
+    expect($contextData['user'])->toBe([]);
 });
 
 // Helpers

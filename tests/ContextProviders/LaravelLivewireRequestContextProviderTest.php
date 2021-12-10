@@ -21,8 +21,8 @@ it('returns the referer url and method', function () {
 
     $request = $context->getRequest();
 
-    $this->assertSame('http://localhost/referred', $request['url']);
-    $this->assertSame('GET', $request['method']);
+    expect($request['url'])->toBe('http://localhost/referred');
+    expect($request['method'])->toBe('GET');
 });
 
 it('returns livewire component information', function () {
@@ -40,9 +40,9 @@ it('returns livewire component information', function () {
 
     $livewire = $context->toArray()['livewire'];
 
-    $this->assertSame($id, $livewire['component_id']);
-    $this->assertSame($alias, $livewire['component_alias']);
-    $this->assertSame($class, $livewire['component_class']);
+    expect($livewire['component_id'])->toBe($id);
+    expect($livewire['component_alias'])->toBe($alias);
+    expect($livewire['component_class'])->toBe($class);
 });
 
 it('returns livewire component information when it does not exist', function () {
@@ -55,9 +55,9 @@ it('returns livewire component information when it does not exist', function () 
 
     $livewire = $context->toArray()['livewire'];
 
-    $this->assertSame($id, $livewire['component_id']);
-    $this->assertSame($name, $livewire['component_alias']);
-    $this->assertNull($livewire['component_class']);
+    expect($livewire['component_id'])->toBe($id);
+    expect($livewire['component_alias'])->toBe($name);
+    expect($livewire['component_class'])->toBeNull();
 });
 
 it('removes ids from update payloads', function () {
@@ -79,9 +79,9 @@ it('removes ids from update payloads', function () {
 
     $livewire = $context->toArray()['livewire'];
 
-    $this->assertSame($id, $livewire['component_id']);
-    $this->assertSame($name, $livewire['component_alias']);
-    $this->assertNull($livewire['component_class']);
+    expect($livewire['component_id'])->toBe($id);
+    expect($livewire['component_alias'])->toBe($name);
+    expect($livewire['component_class'])->toBeNull();
 });
 
 it('combines data into one payload', function () {

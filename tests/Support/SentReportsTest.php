@@ -11,15 +11,15 @@ beforeEach(function () {
 });
 
 it('can get the uuids', function () {
-    $this->assertNull($this->sentReports->latestUuid());
+    expect($this->sentReports->latestUuid())->toBeNull();
 
     $report = getReport('first-report');
     $this->sentReports->add($report);
-    $this->assertEquals('first-report', $this->sentReports->latestUuid());
+    expect($this->sentReports->latestUuid())->toEqual('first-report');
 
     $report = getReport('second-report');
     $this->sentReports->add($report);
-    $this->assertEquals('second-report', $this->sentReports->latestUuid());
+    expect($this->sentReports->latestUuid())->toEqual('second-report');
 
     $this->assertEquals([
         'first-report',
@@ -31,11 +31,11 @@ it('can get the error urls', function () {
     $report = getReport('first-report');
     $this->sentReports->add($report);
 
-    $this->assertEquals('https://flareapp.io/tracked-occurrence/first-report', $this->sentReports->latestUrl());
+    expect($this->sentReports->latestUrl())->toEqual('https://flareapp.io/tracked-occurrence/first-report');
 
     $report = getReport('second-report');
     $this->sentReports->add($report);
-    $this->assertEquals('https://flareapp.io/tracked-occurrence/second-report', $this->sentReports->latestUrl());
+    expect($this->sentReports->latestUrl())->toEqual('https://flareapp.io/tracked-occurrence/second-report');
 
     $this->assertEquals([
         'https://flareapp.io/tracked-occurrence/first-report',
@@ -46,10 +46,10 @@ it('can get the error urls', function () {
 it('can be cleared', function () {
     $report = getReport('first-report');
     $this->sentReports->add($report);
-    $this->assertCount(1, $this->sentReports->all());
+    expect($this->sentReports->all())->toHaveCount(1);
 
     $this->sentReports->clear();
-    $this->assertCount(0, $this->sentReports->all());
+    expect($this->sentReports->all())->toHaveCount(0);
 });
 
 // Helpers

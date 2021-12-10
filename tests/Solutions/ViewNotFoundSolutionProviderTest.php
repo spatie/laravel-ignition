@@ -14,14 +14,14 @@ beforeEach(function () {
 it('can solve the exception', function () {
     $canSolve = app(ViewNotFoundSolutionProvider::class)->canSolve(getViewNotFoundException());
 
-    $this->assertTrue($canSolve);
+    expect($canSolve)->toBeTrue();
 });
 
 it('can recommend changing a typo in the view name', function () {
     /** @var \Spatie\Ignition\Contracts\Solution $solution */
     $solution = app(ViewNotFoundSolutionProvider::class)->getSolutions(getViewNotFoundException())[0];
 
-    $this->assertTrue(Str::contains($solution->getSolutionDescription(), 'Did you mean `php-exception`?'));
+    expect(Str::contains($solution->getSolutionDescription(), 'Did you mean `php-exception`?'))->toBeTrue();
 });
 
 it('wont recommend another controller class if the names are too different', function () {
@@ -30,7 +30,7 @@ it('wont recommend another controller class if the names are too different', fun
     /** @var \Spatie\Ignition\Contracts\Solution $solution */
     $solution = app(ViewNotFoundSolutionProvider::class)->getSolutions(getViewNotFoundException($unknownView))[0];
 
-    $this->assertFalse(Str::contains($solution->getSolutionDescription(), 'Did you mean'));
+    expect(Str::contains($solution->getSolutionDescription(), 'Did you mean'))->toBeFalse();
 });
 
 // Helpers

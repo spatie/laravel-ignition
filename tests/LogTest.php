@@ -95,7 +95,7 @@ it('adds log messages to the report', function () {
 
     $logs = $arguments['context']['logs'];
 
-    $this->assertCount(3, $logs);
+    expect($logs)->toHaveCount(3);
 });
 
 it('can report an exception with logs', function ($logLevel) {
@@ -113,10 +113,10 @@ it('can report an exception with logs', function ($logLevel) {
 
     $logs = $arguments['context']['logs'];
 
-    $this->assertCount(1, $logs);
-    $this->assertEquals($logLevel, $logs[0]['level']);
-    $this->assertEquals('log', $logs[0]['message']);
-    $this->assertEquals([], $logs[0]['context']);
+    expect($logs)->toHaveCount(1);
+    expect($logs[0]['level'])->toEqual($logLevel);
+    expect($logs[0]['message'])->toEqual('log');
+    expect($logs[0]['context'])->toEqual([]);
 })->with('provideMessageLevels');
 
 it('can report an exception with logs with metadata', function () {
@@ -136,7 +136,7 @@ it('can report an exception with logs with metadata', function () {
 
     $logs = $arguments['context']['logs'];
 
-    $this->assertEquals(['meta' => 'data'], $logs[0]['context']);
+    expect($logs[0]['context'])->toEqual(['meta' => 'data']);
 });
 
 it('will keep sent reports', function () {
@@ -148,8 +148,8 @@ it('will keep sent reports', function () {
 
     $this->fakeClient->assertRequestsSent(1);
 
-    $this->assertCount(1, app(SentReports::class)->all());
-    $this->assertCount(1, \Spatie\LaravelIgnition\Facades\Flare::sentReports()->all());
+    expect(app(SentReports::class)->all())->toHaveCount(1);
+    expect(\Spatie\LaravelIgnition\Facades\Flare::sentReports()->all())->toHaveCount(1);
 });
 
 // Datasets

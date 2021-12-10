@@ -14,8 +14,8 @@ it('limits the amount of recorded logs', function () {
         $recorder->record($log);
     }
 
-    $this->assertCount(200, $recorder->getLogMessages());
-    $this->assertSame('test 201', $recorder->getLogMessages()[0]['message']);
+    expect($recorder->getLogMessages())->toHaveCount(200);
+    expect($recorder->getLogMessages()[0]['message'])->toBe('test 201');
 });
 
 it('does not limit the amount of recorded queries', function () {
@@ -26,8 +26,8 @@ it('does not limit the amount of recorded queries', function () {
         $recorder->record($log);
     }
 
-    $this->assertCount(400, $recorder->getLogMessages());
-    $this->assertSame('test 1', $recorder->getLogMessages()[0]['message']);
+    expect($recorder->getLogMessages())->toHaveCount(400);
+    expect($recorder->getLogMessages()[0]['message'])->toBe('test 1');
 });
 
 it('does not record log containing an exception', function () {
@@ -38,8 +38,8 @@ it('does not record log containing an exception', function () {
     $log = new MessageLogged('info', 'test 2', []);
     $recorder->record($log);
 
-    $this->assertCount(1, $recorder->getLogMessages());
-    $this->assertSame('test 2', $recorder->getLogMessages()[0]['message']);
+    expect($recorder->getLogMessages())->toHaveCount(1);
+    expect($recorder->getLogMessages()[0]['message'])->toBe('test 2');
 });
 
 it('does not ignore log if exception key does not contain exception', function () {
@@ -50,10 +50,10 @@ it('does not ignore log if exception key does not contain exception', function (
     $log = new MessageLogged('info', 'test 2', []);
     $recorder->record($log);
 
-    $this->assertCount(2, $recorder->getLogMessages());
-    $this->assertSame('test 1', $recorder->getLogMessages()[0]['message']);
-    $this->assertSame('test 2', $recorder->getLogMessages()[1]['message']);
-    $this->assertIsArray($recorder->getLogMessages()[0]['context']);
+    expect($recorder->getLogMessages())->toHaveCount(2);
+    expect($recorder->getLogMessages()[0]['message'])->toBe('test 1');
+    expect($recorder->getLogMessages()[1]['message'])->toBe('test 2');
+    expect($recorder->getLogMessages()[0]['context'])->toBeArray();
     $this->assertArrayHasKey('exception', $recorder->getLogMessages()[0]['context']);
-    $this->assertSame('test', $recorder->getLogMessages()[0]['context']['exception']);
+    expect($recorder->getLogMessages()[0]['context']['exception'])->toBe('test');
 });

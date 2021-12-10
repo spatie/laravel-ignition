@@ -10,7 +10,7 @@ it('does not enable runnable solutions in debug mode by default', function () {
 
     $config = new IgnitionConfig([]);
 
-    $this->assertFalse($config->runnableSolutionsEnabled());
+    expect($config->runnableSolutionsEnabled())->toBeFalse();
 });
 
 it('disables runnable solutions in production mode', function () {
@@ -18,7 +18,7 @@ it('disables runnable solutions in production mode', function () {
 
     $config = new IgnitionConfig([]);
 
-    $this->assertFalse($config->runnableSolutionsEnabled());
+    expect($config->runnableSolutionsEnabled())->toBeFalse();
 });
 
 it('prioritizes config value over debug mode', function () {
@@ -28,7 +28,7 @@ it('prioritizes config value over debug mode', function () {
         'enable_runnable_solutions' => false,
     ]);
 
-    $this->assertFalse($config->runnableSolutionsEnabled());
+    expect($config->runnableSolutionsEnabled())->toBeFalse();
 });
 
 it('disables share report when app has not finished booting', function () {
@@ -44,5 +44,5 @@ it('disables share report when app has not finished booting', function () {
 
     $config = new IgnitionConfig([]);
 
-    $this->assertFalse($config->shareButtonEnabled());
+    expect($config->shareButtonEnabled())->toBeFalse();
 });

@@ -19,5 +19,5 @@ it('can solve merge conflict exception', function () {
     }
     $canSolve = app(MergeConflictSolutionProvider::class)->canSolve($exception);
 
-    $this->assertTrue($canSolve);
+    expect($canSolve)->toBeTrue();
 });

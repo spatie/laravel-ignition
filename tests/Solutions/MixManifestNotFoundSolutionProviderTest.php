@@ -11,7 +11,7 @@ it('can solve a missing mix manifest exception', function () {
     $canSolve = app(MissingMixManifestSolutionProvider::class)
         ->canSolve(new Exception('The Mix manifest does not exist.'));
 
-    $this->assertTrue($canSolve);
+    expect($canSolve)->toBeTrue();
 });
 
 it('can recommend running npm install and npm run dev', function () {
@@ -19,5 +19,5 @@ it('can recommend running npm install and npm run dev', function () {
     $solution = app(MissingMixManifestSolutionProvider::class)
         ->getSolutions(new Exception('The Mix manifest does not exist.'))[0];
 
-    $this->assertTrue(Str::contains($solution->getSolutionDescription(), 'Did you forget to run `npm ci && npm run dev`?'));
+    expect(Str::contains($solution->getSolutionDescription(), 'Did you forget to run `npm ci && npm run dev`?'))->toBeTrue();
 });

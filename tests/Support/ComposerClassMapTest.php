@@ -8,8 +8,8 @@ uses(TestCase::class);
 it('uses fake classmap if the autoloader does not exist', function () {
     $classMap = new ComposerClassMap('invalid');
 
-    $this->assertSame([], $classMap->listClasses());
-    $this->assertSame([], $classMap->listClassesInPsrMaps());
-    $this->assertNull($classMap->searchClassMap('SomeClass'));
-    $this->assertNull($classMap->searchPsrMaps('SomeClass'));
+    expect($classMap->listClasses())->toBe([]);
+    expect($classMap->listClassesInPsrMaps())->toBe([]);
+    expect($classMap->searchClassMap('SomeClass'))->toBeNull();
+    expect($classMap->searchPsrMaps('SomeClass'))->toBeNull();
 });

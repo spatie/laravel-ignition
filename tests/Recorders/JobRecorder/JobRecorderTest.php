@@ -21,12 +21,12 @@ it('can record a failed job', function () {
 
     $recorded = $recorder->getJob();
 
-    $this->assertEquals('Spatie\LaravelIgnition\Tests\stubs\Jobs\QueueableJob', $recorded['name']);
-    $this->assertEquals('sync', $recorded['connection']);
-    $this->assertEquals('sync', $recorded['queue']);
+    expect($recorded['name'])->toEqual('Spatie\LaravelIgnition\Tests\stubs\Jobs\QueueableJob');
+    expect($recorded['connection'])->toEqual('sync');
+    expect($recorded['queue'])->toEqual('sync');
     $this->assertNotEmpty($recorded['uuid']);
     $this->assertNotEmpty($recorded['data']);
-    $this->assertEquals([], $recorded['data']['property']);
+    expect($recorded['data']['property'])->toEqual([]);
 });
 
 it('can record a failed job with data', function () {
@@ -72,11 +72,11 @@ it('can read specific properties from a job', function () {
 
     $recorded = $recorder->getJob();
 
-    $this->assertEquals(5, $recorded['maxTries']);
-    $this->assertEquals(10, $recorded['maxExceptions']);
-    $this->assertEquals(120, $recorded['timeout']);
+    expect($recorded['maxTries'])->toEqual(5);
+    expect($recorded['maxExceptions'])->toEqual(10);
+    expect($recorded['timeout'])->toEqual(120);
     $this->assertNotEmpty($recorded['data']);
-    $this->assertEquals('default', $recorded['data']['queue']);
+    expect($recorded['data']['queue'])->toEqual('default');
 });
 
 it('can record a closure job', function () {
@@ -92,7 +92,7 @@ it('can record a closure job', function () {
 
     $recorded = $recorder->getJob();
 
-    $this->assertEquals('Closure (JobRecorderTest.php:97)', $recorded['name']);
+    expect($recorded['name'])->toEqual('Closure (JobRecorderTest.php:97)');
 });
 
 it('can record a chained job', function () {
@@ -109,17 +109,17 @@ it('can record a chained job', function () {
 
     $recorded = $recorder->getJob();
 
-    $this->assertCount(2, $chained = $recorded['data']['chained']);
+    expect($chained = $recorded['data']['chained'])->toHaveCount(2);
 
-    $this->assertEquals(QueueableJob::class, $chained[0]['name']);
-    $this->assertEquals(['level-two-a'], $chained[0]['data']['property']);
-    $this->assertEquals(QueueableJob::class, $chained[1]['name']);
-    $this->assertEquals(['level-two-b'], $chained[1]['data']['property']);
+    expect($chained[0]['name'])->toEqual(QueueableJob::class);
+    expect($chained[0]['data']['property'])->toEqual(['level-two-a']);
+    expect($chained[1]['name'])->toEqual(QueueableJob::class);
+    expect($chained[1]['data']['property'])->toEqual(['level-two-b']);
 
-    $this->assertCount(1, $chained = $chained[1]['data']['chained']);
+    expect($chained = $chained[1]['data']['chained'])->toHaveCount(1);
 
-    $this->assertEquals(QueueableJob::class, $chained[0]['name']);
-    $this->assertEquals(['level-three'], $chained[0]['data']['property']);
+    expect($chained[0]['name'])->toEqual(QueueableJob::class);
+    expect($chained[0]['data']['property'])->toEqual(['level-three']);
 });
 
 it('can restrict the recorded chained jobs depth', function () {
@@ -136,15 +136,15 @@ it('can restrict the recorded chained jobs depth', function () {
 
     $recorded = $recorder->getJob();
 
-    $this->assertCount(2, $chained = $recorded['data']['chained']);
+    expect($chained = $recorded['data']['chained'])->toHaveCount(2);
 
-    $this->assertEquals(QueueableJob::class, $chained[0]['name']);
-    $this->assertEquals(['level-two-a'], $chained[0]['data']['property']);
-    $this->assertEquals(QueueableJob::class, $chained[1]['name']);
-    $this->assertEquals(['level-two-b'], $chained[1]['data']['property']);
+    expect($chained[0]['name'])->toEqual(QueueableJob::class);
+    expect($chained[0]['data']['property'])->toEqual(['level-two-a']);
+    expect($chained[1]['name'])->toEqual(QueueableJob::class);
+    expect($chained[1]['data']['property'])->toEqual(['level-two-b']);
 
-    $this->assertCount(1, $chained = $chained[1]['data']['chained']);
-    $this->assertEquals(['Ignition stopped recording jobs after this point since the max chain depth was reached'], $chained);
+    expect($chained = $chained[1]['data']['chained'])->toHaveCount(1);
+    expect($chained)->toEqual(['Ignition stopped recording jobs after this point since the max chain depth was reached']);
 });
 
 it('can disable recording chained jobs', function () {
@@ -161,8 +161,8 @@ it('can disable recording chained jobs', function () {
 
     $recorded = $recorder->getJob();
 
-    $this->assertCount(1, $chained = $recorded['data']['chained']);
-    $this->assertEquals(['Ignition stopped recording jobs after this point since the max chain depth was reached'], $chained);
+    expect($chained = $recorded['data']['chained'])->toHaveCount(1);
+    expect($chained)->toEqual(['Ignition stopped recording jobs after this point since the max chain depth was reached']);
 });
 
 it('can handle a job with an unserializeable payload', function () {
@@ -189,9 +189,9 @@ it('can handle a job with an unserializeable payload', function () {
 
     $recorded = $recorder->getJob();
 
-    $this->assertEquals('Fake Job Name', $recorded['name']);
-    $this->assertEquals('redis', $recorded['connection']);
-    $this->assertEquals('default', $recorded['queue']);
+    expect($recorded['name'])->toEqual('Fake Job Name');
+    expect($recorded['connection'])->toEqual('redis');
+    expect($recorded['queue'])->toEqual('default');
 });
 
 // Helpers
