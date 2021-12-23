@@ -1,6 +1,5 @@
 <?php
 
-use Facade\Ignition\Context\LaravelRequestContext;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Route;
 use Spatie\LaravelIgnition\ContextProviders\LaravelRequestContextProvider;
@@ -51,7 +50,7 @@ it('will call the to flare method on route parameters when it exists', function 
     $route->bind($request);
 
     $request->setRouteResolver(function () use ($route) {
-        $route->setParameter('user', new class{
+        $route->setParameter('user', new class {
             public function toFlare(): array
             {
                 return ['stripped'];

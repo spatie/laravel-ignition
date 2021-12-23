@@ -68,7 +68,7 @@ class LaravelRequestContextProvider extends RequestContextProvider
             /** @phpstan-ignore-next-line */
             return collect(optional($this->request->route())->parameters ?? [])
                 ->map(fn ($parameter) => $parameter instanceof Model ? $parameter->withoutRelations() : $parameter)
-                ->map(function ($parameter){
+                ->map(function ($parameter) {
                     return method_exists($parameter, 'toFlare') ? $parameter->toFlare() : $parameter;
                 })
                 ->toArray();
