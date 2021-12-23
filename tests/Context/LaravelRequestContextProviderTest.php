@@ -1,5 +1,6 @@
 <?php
 
+use Facade\Ignition\Context\LaravelRequestContext;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Route;
 use Spatie\LaravelIgnition\ContextProviders\LaravelRequestContextProvider;
@@ -38,6 +39,34 @@ it('returns route parameters in context data', function () {
     $this->assertSame([
         'parameter' => 'value',
         'otherParameter' => 'second',
+    ], $contextData['route']['routeParameters']);
+});
+
+it('will call the to flare method on route parameters when it exists', function () {
+    $route = Route::get('/route/{user}', function ($user) {
+    });
+
+    $request = $this->createRequest('GET', '/route/1');
+
+    $route->bind($request);
+
+    $request->setRouteResolver(function () use ($route) {
+        $route->setParameter('user', new class{
+            public function toFlare(): array
+            {
+                return ['stripped'];
+            }
+        });
+
+        return $route;
+    });
+
+    $context = new LaravelRequestContextProvider($request);
+
+    $contextData = $context->toArray();
+
+    $this->assertSame([
+        'user' => ['stripped'],
     ], $contextData['route']['routeParameters']);
 });
 
