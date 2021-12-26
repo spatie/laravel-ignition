@@ -18,13 +18,15 @@ class LaravelSolutionTransformer extends SolutionTransformer
             return $baseProperties;
         }
 
+        /** @var RunnableSolution $solution Type shenanigans */
+        $solution = $this->solution;
+
         $runnableProperties = [
             'is_runnable' => true,
-            'class' => get_class($this->solution),
-            'title' => $this->solution->getSolutionTitle(),
-            'description' => $this->solution->getSolutionDescription(),
-            'links' => $this->solution->getDocumentationLinks(),
+            'action_description' => $solution->getSolutionActionDescription(),
+            'run_button_text' => $solution->getRunButtonText(),
             'execute_endpoint' => $this->executeEndpoint(),
+            'run_parameters' => $solution->getRunParameters(),
         ];
 
         return array_merge($baseProperties, $runnableProperties);
@@ -36,19 +38,19 @@ class LaravelSolutionTransformer extends SolutionTransformer
             return false;
         }
 
-        if ($this->executeEndpoint() === '') {
+        if (! $this->executeEndpoint()) {
             return false;
         }
 
         return true;
     }
 
-    protected function executeEndpoint(): string
+    protected function executeEndpoint(): ?string
     {
         try {
             return action(ExecuteSolutionController::class);
         } catch (Throwable $exception) {
-            return '';
+            return null;
         }
     }
 }

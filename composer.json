@@ -23,7 +23,7 @@
         "ext-mbstring": "*",
         "illuminate/support": "^8.44",
         "monolog/monolog": "^2.0",
-        "spatie/flare-client-php": "^0.0.2",
+        "spatie/flare-client-php": "dev-main",
         "spatie/ignition": "dev-main as 1.8",
         "spatie/laravel-package-tools": "^1.9",
         "symfony/console": "^5.0",

@@ -143,9 +143,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
     protected function registerRecorders(): self
     {
-        $dumpCollector = $this->app->make(DumpRecorder::class);
         $this->app->singleton(DumpRecorder::class);
-        $this->app->instance(DumpRecorder::class, $dumpCollector);
 
         if (config('flare.flare_middleware.' . AddLogs::class)) {
             $this->app->singleton(LogRecorder::class, function (Application $app): LogRecorder {
@@ -239,7 +237,6 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
         return $this;
     }
-
 
     protected function registerLogHandler(): self
     {
