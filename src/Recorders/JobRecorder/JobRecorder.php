@@ -3,6 +3,7 @@
 namespace Spatie\LaravelIgnition\Recorders\JobRecorder;
 
 use DateTime;
+use Error;
 use Exception;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Contracts\Foundation\Application;
@@ -111,9 +112,13 @@ class JobRecorder
                 return in_array($property->name, $propertiesToIgnore);
             })
             ->mapWithKeys(function (ReflectionProperty $property) use ($command) {
-                $property->setAccessible(true);
+                try{
+                    $property->setAccessible(true);
 
-                return [$property->name => $property->getValue($command)];
+                    return [$property->name => $property->getValue($command)];
+                }catch(Error $error) {
+                    return [$property->name => 'uninitialized'];
+                }
             });
 
         if ($properties->has('chained')) {
