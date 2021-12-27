@@ -4,6 +4,8 @@ namespace Spatie\LaravelIgnition\Recorders\DumpRecorder;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Arr;
+use ReflectionMethod;
+use ReflectionProperty;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 use Symfony\Component\VarDumper\Dumper\CliDumper;
@@ -17,6 +19,8 @@ class DumpRecorder
 
     protected Application $app;
 
+    protected static bool $registeredHandler = false;
+
     public function __construct(Application $app)
     {
         $this->app = $app;
@@ -28,13 +32,17 @@ class DumpRecorder
 
         $this->app->singleton(MultiDumpHandler::class, fn () => $multiDumpHandler);
 
-        $previousHandler = VarDumper::setHandler(fn ($var) => $multiDumpHandler->dump($var));
+        if (! self::$registeredHandler) {
+            static::$registeredHandler = true;
 
-        $previousHandler
-            ? $multiDumpHandler->addHandler($previousHandler)
-            : $multiDumpHandler->addHandler($this->getDefaultHandler());
+            $this->ensureOriginalHandlerExists();
 
-        $multiDumpHandler->addHandler(fn ($var) => (new DumpHandler($this))->dump($var));
+            $originalHandler = VarDumper::setHandler(fn($dumpedVariable) => $multiDumpHandler->dump($dumpedVariable));
+
+            $multiDumpHandler?->addHandler($originalHandler);
+
+            $multiDumpHandler->addHandler(fn ($var) => (new DumpHandler($this))->dump($var));
+        }
 
         return $this;
     }
@@ -76,29 +84,26 @@ class DumpRecorder
         return $dumps;
     }
 
-    protected function getDefaultHandler(): callable
+
+    /*
+     * Only the `VarDumper` knows how to create the orignal HTML or CLI VarDumper.
+     * Using reflection and the private VarDumper::register() method we can force it
+     * to create and register a new VarDumper::$handler before we'll overwrite it.
+     * Of course, we only need to do this if there isn't a registered VarDumper::$handler.
+     *
+     * @throws \ReflectionException
+     */
+    protected function ensureOriginalHandlerExists(): void
     {
-        return function ($value) {
-            $data = (new VarCloner)->cloneVar($value);
+        $reflectionProperty = new ReflectionProperty(VarDumper::class, 'handler');
+        $reflectionProperty->setAccessible(true);
+        $handler = $reflectionProperty->getValue();
 
-            $this->getDumper()->dump($data);
-        };
-    }
-
-    protected function getDumper()
-    {
-        if (isset($_SERVER['VAR_DUMPER_FORMAT'])) {
-            if ($_SERVER['VAR_DUMPER_FORMAT'] === 'html') {
-                return new BaseHtmlDumper();
-            }
-
-            return new CliDumper();
+        if (!$handler) {
+            // No handler registered yet, so we'll force VarDumper to create one.
+            $reflectionMethod = new ReflectionMethod(VarDumper::class, 'register');
+            $reflectionMethod->setAccessible(true);
+            $reflectionMethod->invoke(null);
         }
-
-        if (in_array(PHP_SAPI, ['cli', 'phpdbg']) && ! isset($_SERVER['LARAVEL_OCTANE'])) {
-            return new CliDumper() ;
-        }
-
-        return new BaseHtmlDumper();
     }
 }
