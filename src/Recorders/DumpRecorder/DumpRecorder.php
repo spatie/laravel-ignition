@@ -7,9 +7,6 @@ use Illuminate\Support\Arr;
 use ReflectionMethod;
 use ReflectionProperty;
 use Symfony\Component\VarDumper\Cloner\Data;
-use Symfony\Component\VarDumper\Cloner\VarCloner;
-use Symfony\Component\VarDumper\Dumper\CliDumper;
-use Symfony\Component\VarDumper\Dumper\HtmlDumper as BaseHtmlDumper;
 use Symfony\Component\VarDumper\VarDumper;
 
 class DumpRecorder
@@ -37,7 +34,7 @@ class DumpRecorder
 
             $this->ensureOriginalHandlerExists();
 
-            $originalHandler = VarDumper::setHandler(fn($dumpedVariable) => $multiDumpHandler->dump($dumpedVariable));
+            $originalHandler = VarDumper::setHandler(fn ($dumpedVariable) => $multiDumpHandler->dump($dumpedVariable));
 
             $multiDumpHandler?->addHandler($originalHandler);
 
@@ -99,7 +96,7 @@ class DumpRecorder
         $reflectionProperty->setAccessible(true);
         $handler = $reflectionProperty->getValue();
 
-        if (!$handler) {
+        if (! $handler) {
             // No handler registered yet, so we'll force VarDumper to create one.
             $reflectionMethod = new ReflectionMethod(VarDumper::class, 'register');
             $reflectionMethod->setAccessible(true);
