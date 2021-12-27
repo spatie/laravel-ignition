@@ -112,11 +112,11 @@ class JobRecorder
                 return in_array($property->name, $propertiesToIgnore);
             })
             ->mapWithKeys(function (ReflectionProperty $property) use ($command) {
-                try{
+                try {
                     $property->setAccessible(true);
 
                     return [$property->name => $property->getValue($command)];
-                }catch(Error $error) {
+                } catch (Error $error) {
                     return [$property->name => 'uninitialized'];
                 }
             });
