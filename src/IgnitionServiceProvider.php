@@ -94,7 +94,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
         if (interface_exists(HandlerInterface::class)) {
             $this->app->bind(
                 HandlerInterface::class,
-                fn (Application $app) => $app->make(IgnitionWhoopsHandler::class)
+                fn(Application $app) => $app->make(IgnitionWhoopsHandler::class)
             );
         }
 
@@ -102,7 +102,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
         if (interface_exists(ExceptionRenderer::class)) {
             $this->app->bind(
                 ExceptionRenderer::class,
-                fn (Application $app) => $app->make(IgnitionExceptionRenderer::class)
+                fn(Application $app) => $app->make(IgnitionExceptionRenderer::class)
             );
         }
 
@@ -132,11 +132,11 @@ class IgnitionServiceProvider extends PackageServiceProvider
         $solutionProviders = $this->getSolutionProviders();
         $solutionProviderRepository = new SolutionProviderRepository($solutionProviders);
 
-        $this->app->singleton(IgnitionConfig::class, fn () => $ignitionConfig);
+        $this->app->singleton(IgnitionConfig::class, fn() => $ignitionConfig);
 
-        $this->app->singleton(SolutionProviderRepositoryContract::class, fn () => $solutionProviderRepository);
+        $this->app->singleton(SolutionProviderRepositoryContract::class, fn() => $solutionProviderRepository);
 
-        $this->app->singleton(Ignition::class, fn () => (new Ignition()));
+        $this->app->singleton(Ignition::class, fn() => (new Ignition()));
 
         return $this;
     }
@@ -145,43 +145,37 @@ class IgnitionServiceProvider extends PackageServiceProvider
     {
         $this->app->singleton(DumpRecorder::class);
 
-        if (config('flare.flare_middleware.' . AddLogs::class)) {
-            $this->app->singleton(LogRecorder::class, function (Application $app): LogRecorder {
-                return new LogRecorder(
-                    $app,
-                    config()->get('flare.flare_middleware' . AddLogs::class . 'maximum_number_of_collected_logs')
-                );
-            });
-        }
-
-        if (config('flare.middleware.' . AddQueries::class)) {
-            $this->app->singleton(
-                QueryRecorder::class,
-                function (Application $app): QueryRecorder {
-                    return new QueryRecorder(
-                        $app,
-                        config()->get('flare.middleware.' . AddQueries::class . '.report_query_bindings'),
-                        config()->get('flare.middleware.' . AddQueries::class . '.maximum_number_of_collected_queries')
-                    );
-                }
+        $this->app->singleton(LogRecorder::class, function (Application $app): LogRecorder {
+            return new LogRecorder(
+                $app,
+                config()->get('flare.flare_middleware' . AddLogs::class . 'maximum_number_of_collected_logs')
             );
-        }
+        });
 
-        if (config('flare.flare_middleware.' . AddJobs::class)) {
-            $this->app->singleton(JobRecorder::class, function (Application $app): JobRecorder {
-                return new JobRecorder(
+        $this->app->singleton(
+            QueryRecorder::class,
+            function (Application $app): QueryRecorder {
+                return new QueryRecorder(
                     $app,
-                    config()->get('flare.flare_middleware.' . AddJobs::class . '.max_chained_job_reporting_depth')
+                    config()->get('flare.flare_middleware.' . AddQueries::class . '.report_query_bindings'),
+                    config()->get('flare.flare_middleware.' . AddQueries::class . '.maximum_number_of_collected_queries')
                 );
-            });
-        }
+            }
+        );
+
+        $this->app->singleton(JobRecorder::class, function (Application $app): JobRecorder {
+            return new JobRecorder(
+                $app,
+                config()->get('flare.flare_middleware.' . AddJobs::class . '.max_chained_job_reporting_depth')
+            );
+        });
 
         return $this;
     }
 
     public function configureTinker(): self
     {
-        if (! $this->app->runningInConsole()) {
+        if (!$this->app->runningInConsole()) {
             if (isset($_SERVER['argv']) && ['artisan', 'tinker'] === $_SERVER['argv']) {
                 app(Flare::class)->sendReportsImmediately();
             }
@@ -201,7 +195,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
     protected function registerViewEngines(): self
     {
-        if (! $this->hasCustomViewEnginesRegistered()) {
+        if (!$this->hasCustomViewEnginesRegistered()) {
             return $this;
         }
 
@@ -254,37 +248,33 @@ class IgnitionServiceProvider extends PackageServiceProvider
 
             return tap(
                 new Logger('Flare'),
-                fn (Logger $logger) => $logger->pushHandler($handler)
+                fn(Logger $logger) => $logger->pushHandler($handler)
             );
         });
 
-        Log::extend('flare', fn ($app) => $app['flare.logger']);
+        Log::extend('flare', fn($app) => $app['flare.logger']);
 
         return $this;
     }
 
     protected function startRecorders(): self
     {
-        if (config('flare.flare_middleware.' . AddLogs::class)) {
-            $this->app->make(LogRecorder::class)->start();
-        }
-
-        if (config('flare.flare_middleware.' . AddQueries::class)) {
-            $this->app->make(QueryRecorder::class)->start();
-        }
-
-        if (config('flare.flare_middleware.' . AddJobs::class)) {
-            $this->app->make(JobRecorder::class)->start();
-        }
+        // TODO: Ignition feature toggles
 
         $this->app->make(DumpRecorder::class)->start();
+
+        $this->app->make(LogRecorder::class)->start();
+
+        $this->app->make(QueryRecorder::class)->start();
+
+        $this->app->make(JobRecorder::class)->start();
 
         return $this;
     }
 
     protected function configureQueue(): self
     {
-        if (! $this->app->bound('queue')) {
+        if (!$this->app->bound('queue')) {
             return $this;
         }
 
@@ -310,7 +300,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
     {
         $logLevel = Logger::getLevels()[strtoupper($logLevelString)] ?? null;
 
-        if (! $logLevel) {
+        if (!$logLevel) {
             throw InvalidConfig::invalidLogLevel($logLevelString);
         }
 
@@ -321,11 +311,11 @@ class IgnitionServiceProvider extends PackageServiceProvider
     {
         $resolver = $this->app->make('view.engine.resolver');
 
-        if (! $resolver->resolve('php') instanceof LaravelPhpEngine) {
+        if (!$resolver->resolve('php') instanceof LaravelPhpEngine) {
             return false;
         }
 
-        if (! $resolver->resolve('blade') instanceof LaravelCompilerEngine) {
+        if (!$resolver->resolve('blade') instanceof LaravelCompilerEngine) {
             return false;
         }
 
@@ -354,7 +344,7 @@ class IgnitionServiceProvider extends PackageServiceProvider
     {
         return collect(config('ignition.solution_providers'))
             ->reject(
-                fn (string $class) => in_array($class, config('ignition.ignored_solution_providers'))
+                fn(string $class) => in_array($class, config('ignition.ignored_solution_providers'))
             )
             ->toArray();
     }

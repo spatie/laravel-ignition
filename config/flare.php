@@ -47,7 +47,7 @@ return [
         ],
         AddQueries::class => [
             'maximum_number_of_collected_queries' => 200,
-            'report_query_bindings' => 200,
+            'report_query_bindings' => true,
         ],
         AddJobs::class => [
             'max_chained_job_reporting_depth' => 5,
