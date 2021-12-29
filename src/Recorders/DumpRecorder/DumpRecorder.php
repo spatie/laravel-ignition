@@ -27,18 +27,18 @@ class DumpRecorder
     {
         $multiDumpHandler = new MultiDumpHandler();
 
-        $this->app->singleton(MultiDumpHandler::class, fn() => $multiDumpHandler);
+        $this->app->singleton(MultiDumpHandler::class, fn () => $multiDumpHandler);
 
-        if (!self::$registeredHandler) {
+        if (! self::$registeredHandler) {
             static::$registeredHandler = true;
 
             $this->ensureOriginalHandlerExists();
 
-            $originalHandler = VarDumper::setHandler(fn($dumpedVariable) => $multiDumpHandler->dump($dumpedVariable));
+            $originalHandler = VarDumper::setHandler(fn ($dumpedVariable) => $multiDumpHandler->dump($dumpedVariable));
 
             $multiDumpHandler?->addHandler($originalHandler);
 
-            $multiDumpHandler->addHandler(fn($var) => (new DumpHandler($this))->dump($var));
+            $multiDumpHandler->addHandler(fn ($var) => (new DumpHandler($this))->dump($var));
         }
 
         return $this;
@@ -93,7 +93,7 @@ class DumpRecorder
         $reflectionProperty->setAccessible(true);
         $handler = $reflectionProperty->getValue();
 
-        if (!$handler) {
+        if (! $handler) {
             // No handler registered yet, so we'll force VarDumper to create one.
             $reflectionMethod = new ReflectionMethod(VarDumper::class, 'register');
             $reflectionMethod->setAccessible(true);
@@ -121,11 +121,11 @@ class DumpRecorder
                 continue;
             }
 
-            if (!$seenVarDumper) {
+            if (! $seenVarDumper) {
                 continue;
             }
 
-            if (!Arr::get($frame, 'class') && Arr::get($frame, 'function') === 'dump') {
+            if (! Arr::get($frame, 'class') && Arr::get($frame, 'function') === 'dump') {
                 continue;
             }
 
