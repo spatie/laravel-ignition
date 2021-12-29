@@ -129,10 +129,6 @@ class DumpRecorder
                 continue;
             }
 
-            if (!Arr::get($frame, 'class') && Arr::get($frame, 'function') === 'ddd') {
-                continue;
-            }
-
             return $frame;
         }
 
