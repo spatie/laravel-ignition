@@ -77,7 +77,6 @@ class CompilerEngine extends \Illuminate\View\Engines\CompilerEngine
             $exception->setSolution($baseException->getSolution());
         }
 
-
         $this->modifyViewsInTrace($exception);
 
         $exception->setView($this->getCompiledViewName($baseException->getFile()));

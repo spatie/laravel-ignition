@@ -50,7 +50,10 @@ class LaravelRequestContextProvider extends RequestContextProvider
     /** @return array<string, mixed> */
     public function getRoute(): array
     {
-        /** @phpstan-ignore-next-line */
+        /**
+         * @phpstan-ignore-next-line
+         * @var \Illuminate\Routing\Route|null $route
+         */
         $route = $this->request->route();
 
         return [

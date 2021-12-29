@@ -32,13 +32,13 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
     {
         $properties = parent::toArray();
 
-        $properties['livewire'] = $this->getLiveWireInformation();
+        $properties['livewire'] = $this->getLivewireInformation();
 
         return $properties;
     }
 
     /** @return array<string, mixed> */
-    protected function getLiveWireInformation(): array
+    protected function getLivewireInformation(): array
     {
         /** @phpstan-ignore-next-line */
         $componentId = $this->request->input('fingerprint.id');
