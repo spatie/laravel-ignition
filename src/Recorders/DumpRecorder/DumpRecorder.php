@@ -27,18 +27,18 @@ class DumpRecorder
     {
         $multiDumpHandler = new MultiDumpHandler();
 
-        $this->app->singleton(MultiDumpHandler::class, fn () => $multiDumpHandler);
+        $this->app->singleton(MultiDumpHandler::class, fn() => $multiDumpHandler);
 
-        if (! self::$registeredHandler) {
+        if (!self::$registeredHandler) {
             static::$registeredHandler = true;
 
             $this->ensureOriginalHandlerExists();
 
-            $originalHandler = VarDumper::setHandler(fn ($dumpedVariable) => $multiDumpHandler->dump($dumpedVariable));
+            $originalHandler = VarDumper::setHandler(fn($dumpedVariable) => $multiDumpHandler->dump($dumpedVariable));
 
             $multiDumpHandler?->addHandler($originalHandler);
 
-            $multiDumpHandler->addHandler(fn ($var) => (new DumpHandler($this))->dump($var));
+            $multiDumpHandler->addHandler(fn($var) => (new DumpHandler($this))->dump($var));
         }
 
         return $this;
@@ -46,14 +46,12 @@ class DumpRecorder
 
     public function record(Data $data): void
     {
-        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 8);
-        $file = (string)Arr::get($backtrace, '6.file');
-        $lineNumber = (int)Arr::get($backtrace, '6.line');
+        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 11);
 
-        if (! Arr::exists($backtrace, '7.class') && (string)Arr::get($backtrace, '7.function') === 'ddd') {
-            $file = (string)Arr::get($backtrace, '7.file');
-            $lineNumber = (int)Arr::get($backtrace, '7.line');
-        }
+        $sourceFrame = $this->findSourceFrame($backtrace);
+
+        $file = (string) Arr::get($sourceFrame, 'file');
+        $lineNumber = (int) Arr::get($sourceFrame, 'line');
 
         $htmlDump = (new HtmlDumper())->dump($data);
 
@@ -81,7 +79,6 @@ class DumpRecorder
         return $dumps;
     }
 
-
     /*
      * Only the `VarDumper` knows how to create the orignal HTML or CLI VarDumper.
      * Using reflection and the private VarDumper::register() method we can force it
@@ -96,11 +93,49 @@ class DumpRecorder
         $reflectionProperty->setAccessible(true);
         $handler = $reflectionProperty->getValue();
 
-        if (! $handler) {
+        if (!$handler) {
             // No handler registered yet, so we'll force VarDumper to create one.
             $reflectionMethod = new ReflectionMethod(VarDumper::class, 'register');
             $reflectionMethod->setAccessible(true);
             $reflectionMethod->invoke(null);
         }
+    }
+
+    /**
+     * Find the first meaningful stack frame that is not the `DumpRecorder` itself.
+     *
+     * @template T of array{class?: class-string, function?: string, line?: int, file?: string}
+     *
+     * @param array<T> $stacktrace
+     *
+     * @return null|T
+     */
+    protected function findSourceFrame(array $stacktrace): ?array
+    {
+        $seenVarDumper = false;
+
+        foreach ($stacktrace as $frame) {
+            if (Arr::get($frame, 'class') === VarDumper::class && Arr::get($frame, 'function') === 'dump') {
+                $seenVarDumper = true;
+
+                continue;
+            }
+
+            if (!$seenVarDumper) {
+                continue;
+            }
+
+            if (!Arr::get($frame, 'class') && Arr::get($frame, 'function') === 'dump') {
+                continue;
+            }
+
+            if (!Arr::get($frame, 'class') && Arr::get($frame, 'function') === 'ddd') {
+                continue;
+            }
+
+            return $frame;
+        }
+
+        return null;
     }
 }

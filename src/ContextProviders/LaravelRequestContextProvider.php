@@ -17,8 +17,8 @@ class LaravelRequestContextProvider extends RequestContextProvider
         $this->request = $request;
     }
 
-    /** @return array<string, mixed> */
-    public function getUser(): array
+    /** @return null|array<string, mixed> */
+    public function getUser(): array|null
     {
         try {
             /** @var object|null $user */
@@ -26,10 +26,10 @@ class LaravelRequestContextProvider extends RequestContextProvider
             $user = $this->request?->user();
 
             if (! $user) {
-                return [];
+                return null;
             }
         } catch (Throwable) {
-            return [];
+            return null;
         }
 
         try {
@@ -41,14 +41,14 @@ class LaravelRequestContextProvider extends RequestContextProvider
                 return $user->toArray();
             }
         } catch (Throwable $e) {
-            return [];
+            return null;
         }
 
-        return [];
+        return null;
     }
 
-    /** @return array<string, mixed> */
-    public function getRoute(): array
+    /** @return null|array<string, mixed> */
+    public function getRoute(): array|null
     {
         /**
          * @phpstan-ignore-next-line
@@ -56,11 +56,15 @@ class LaravelRequestContextProvider extends RequestContextProvider
          */
         $route = $this->request->route();
 
+        if (! $route) {
+            return null;
+        }
+
         return [
-            'route' => optional($route)->getName(),
+            'route' => $route->getName(),
             'routeParameters' => $this->getRouteParameters(),
-            'controllerAction' => optional($route)->getActionName(),
-            'middleware' => array_values(optional($route)->gatherMiddleware() ?? []),
+            'controllerAction' => $route->getActionName(),
+            'middleware' => array_values($route->gatherMiddleware() ?? []),
         ];
     }
 
@@ -85,9 +89,13 @@ class LaravelRequestContextProvider extends RequestContextProvider
     {
         $properties = parent::toArray();
 
-        $properties['route'] = $this->getRoute();
+        if ($route = $this->getRoute()) {
+            $properties['route'] = $route;
+        }
 
-        $properties['user'] = $this->getUser();
+        if ($user = $this->getUser()) {
+            $properties['user'] = $user;
+        }
 
         return $properties;
     }
