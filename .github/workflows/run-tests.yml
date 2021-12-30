@@ -22,6 +22,14 @@ jobs:
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
+              with:
+                  path: main
+
+            - name: Checkout ignition
+              uses: actions/checkout@v2
+              with:
+                  repository: spatie/ignition
+                  path: ignition
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
