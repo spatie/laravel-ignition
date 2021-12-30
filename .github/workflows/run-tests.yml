@@ -41,9 +41,12 @@ jobs:
 
             -  name: Install dependencies
                run: |
+                    cd main
                     composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
                     composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
             - name: Execute tests
-              run: vendor/bin/pest
+              run: |
+                    cd main
+                    vendor/bin/pest
 
