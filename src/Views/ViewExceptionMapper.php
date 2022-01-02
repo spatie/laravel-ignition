@@ -73,7 +73,7 @@ class ViewExceptionMapper
 
     protected function modifyViewsInTrace(
         \Spatie\LaravelIgnition\Exceptions\ViewException $exception,
-        $baseExceptionc
+        $baseException
     ): void {
         $trace = Collection::make($baseException->getTrace())
             ->map(function ($trace) {
@@ -92,6 +92,8 @@ class ViewExceptionMapper
 
     protected function getRootException(Throwable $exception): Throwable
     {
+        // Find the first exception that is not a ViewException
+
         $rootException = $exception->getPrevious() ?? $exception;
 
         while ($rootException->getPrevious()) {
