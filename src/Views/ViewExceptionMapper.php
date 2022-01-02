@@ -2,41 +2,47 @@
 
 namespace Spatie\LaravelIgnition\Views;
 
+use Exception;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\View\Compilers\BladeCompiler;
+use Illuminate\View\Engines\CompilerEngine;
+use Illuminate\View\Engines\Engine;
 use Illuminate\View\ViewException;
 use ReflectionProperty;
 use Spatie\Ignition\Contracts\ProvidesSolution;
 use Spatie\LaravelIgnition\Exceptions\ViewException as IgnitionViewException;
 use Spatie\LaravelIgnition\Exceptions\ViewExceptionWithSolution;
 use Spatie\LaravelIgnition\Views\Compilers\BladeSourceMapCompiler;
+use Throwable;
 
 class ViewExceptionMapper
 {
-    public function transform(ViewException $viewException): ViewException
+    private CompilerEngine $compilerEngine;
+
+    public function __construct()
     {
-        $baseException = $viewException->getPrevious();
-        while($baseException->getPrevious()) {
-            $baseException = $baseException->getPrevious();
-        }
+        $resolver = app('view.engine.resolver');
 
-//            dd($viewException, $baseException);
+        $this->compilerEngine = $resolver->resolve('blade');
+    }
 
-        $viewExceptionClass = \Spatie\LaravelIgnition\Exceptions\ViewException::class;
+    public function map(ViewException $viewException): IgnitionViewException
+    {
+//        dd($viewException);
+        $baseException = $this->getRootException($viewException);
 
-        if ($baseException instanceof $viewExceptionClass) {
+        if ($baseException instanceof IgnitionViewException) {
             return $baseException;
         }
 
-        if ($baseException instanceof ProvidesSolution) {
-            $viewExceptionClass = ViewExceptionWithSolution::class;
-        }
+        $viewExceptionClass = $baseException instanceof ProvidesSolution
+            ? ViewExceptionWithSolution::class
+            : IgnitionViewException::class;
 
         preg_match('/\(View: (?P<path>.*?)\)/', $viewException->getMessage(), $matches);
 
-//            dd($baseException, $matches['path']);
         $compiledViewPath = $matches['path'];
 
         $sourceMapCompiler = new BladeSourceMapCompiler(app(Filesystem::class), 'not-needed');
@@ -65,9 +71,10 @@ class ViewExceptionMapper
         return $exception;
     }
 
-    protected function modifyViewsInTrace(\Spatie\LaravelIgnition\Exceptions\ViewException $exception, $baseException): void
-    {
-//        dd($baseException->getTrace());
+    protected function modifyViewsInTrace(
+        \Spatie\LaravelIgnition\Exceptions\ViewException $exception,
+        $baseExceptionc
+    ): void {
         $trace = Collection::make($baseException->getTrace())
             ->map(function ($trace) {
                 if ($originalPath = $this->findCompiledView(Arr::get($trace, 'file', ''))) {
@@ -83,20 +90,32 @@ class ViewExceptionMapper
         $traceProperty->setValue($exception, $trace);
     }
 
+    protected function getRootException(Throwable $exception): Throwable
+    {
+        $rootException = $exception->getPrevious() ?? $exception;
+
+        while ($rootException->getPrevious()) {
+            $rootException = $rootException->getPrevious();
+        }
+
+        return $rootException;
+    }
+
     protected function findCompiledView(string $compiledPath): ?string
     {
-        $resolver = $this->app->make('view.engine.resolver');
-        $bladeEngine = $resolver->resolve('blade');
-        /** @var BladeCompiler $compiler */
-        $compiler = $bladeEngine->getCompiler();
+        static $knownPaths = null;
 
-        $lastCompiled = new ReflectionProperty($bladeEngine, 'lastCompiled');
-        $lastCompiled->setAccessible(true);
-        $lastCompiled = $lastCompiled->getValue($bladeEngine);
+        if (! $knownPaths) {
+            $lastCompiled = new ReflectionProperty($this->compilerEngine, 'lastCompiled');
+            $lastCompiled->setAccessible(true);
+            $lastCompiled = $lastCompiled->getValue($this->compilerEngine);
 
-        $knownPaths = [];
-        foreach($lastCompiled as $lastCompiledPath) {
-            $knownPaths[$compiler->getCompiledPath($lastCompiledPath)] = $lastCompiledPath;
+            $knownPaths = [];
+            foreach ($lastCompiled as $lastCompiledPath) {
+                $compiledPath = $this->compilerEngine->getCompiler()->getCompiledPath($lastCompiledPath);
+
+                $knownPaths[$compiledPath ?? $lastCompiledPath] = $lastCompiledPath;
+            }
         }
 
         return $knownPaths[$compiledPath] ?? null;
