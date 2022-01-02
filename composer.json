@@ -31,7 +31,6 @@
     },
     "require-dev": {
         "filp/whoops": "^2.12",
-        "livewire/livewire": "^2.4",
         "mockery/mockery": "^1.3",
         "nunomaduro/larastan": "^1.0",
         "orchestra/testbench": "^5.0|^6.0",
