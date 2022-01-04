@@ -3,7 +3,6 @@
 namespace Spatie\LaravelIgnition\Views;
 
 use Exception;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\View\Engines\CompilerEngine;
@@ -67,7 +66,8 @@ class ViewExceptionMapper
         return $exception;
     }
 
-    protected function modifyViewsInTrace(IgnitionViewException $exception): void {
+    protected function modifyViewsInTrace(IgnitionViewException $exception): void
+    {
         $trace = Collection::make($exception->getPrevious()->getTrace())
             ->map(function ($trace) {
                 if ($originalPath = $this->findCompiledView(Arr::get($trace, 'file', ''))) {

@@ -45,7 +45,7 @@ class BladeSourceMapCompiler extends BladeCompiler
     {
         $echoPairs = [$this->contentTags, $this->rawTags, $this->escapedTags];
 
-        foreach($echoPairs as $pair) {
+        foreach ($echoPairs as $pair) {
             // Matches {{ $value }}, {!! $value !!} and  {{{ $value }}} depending on $pair
             $pattern = sprintf('/(@)?%s\s*(.+?)\s*%s(\r?\n)?/s', $pair[0], $pair[1]);
 
@@ -130,7 +130,7 @@ class BladeSourceMapCompiler extends BladeCompiler
         $pattern = '/\|---LINE:(?P<line>[0-9]+)---\|/m';
         $lineNumberToCheck = $compiledLineNumber - 1;
 
-        while(true) {
+        while (true) {
             if ($lineNumberToCheck < $compiledLineNumber - $maxDistance) {
                 return $compiledLineNumber;
             }
