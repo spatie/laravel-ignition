@@ -13,7 +13,6 @@ use ReflectionProperty;
 use Spatie\Ignition\Contracts\ProvidesSolution;
 use Spatie\LaravelIgnition\Exceptions\ViewException as IgnitionViewException;
 use Spatie\LaravelIgnition\Exceptions\ViewExceptionWithSolution;
-use Spatie\LaravelIgnition\Views\Compilers\BladeSourceMapCompiler;
 use Throwable;
 
 class ViewExceptionMapper

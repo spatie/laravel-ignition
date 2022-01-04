@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LaravelIgnition\Views\Compilers;
+namespace Spatie\LaravelIgnition\Views;
 
 use ErrorException;
 use Illuminate\Filesystem\Filesystem;
