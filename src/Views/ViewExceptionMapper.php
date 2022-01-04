@@ -3,9 +3,12 @@
 namespace Spatie\LaravelIgnition\Views;
 
 use Exception;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\View\Engines\CompilerEngine;
+use Illuminate\View\Engines\PhpEngine;
 use Illuminate\View\ViewException;
 use ReflectionProperty;
 use Spatie\Ignition\Contracts\ProvidesSolution;
@@ -61,7 +64,7 @@ class ViewExceptionMapper
         $this->modifyViewsInTrace($exception);
 
         $exception->setView($compiledViewPath);
-        $exception->setViewData([]);
+        $exception->setViewData($this->getViewData($exception));
 
         return $exception;
     }
@@ -71,7 +74,6 @@ class ViewExceptionMapper
         $trace = Collection::make($exception->getPrevious()->getTrace())
             ->map(function ($trace) {
                 if ($originalPath = $this->findCompiledView(Arr::get($trace, 'file', ''))) {
-//                    dump($originalPath, '--------', $trace['line'], $this->getBladeLineNumber($originalPath, $trace['line']));
                     $trace['file'] = $originalPath;
                     $trace['line'] = $this->getBladeLineNumber($trace['file'], $trace['line']);
                 }
@@ -129,5 +131,31 @@ class ViewExceptionMapper
     protected function getBladeLineNumber(string $view, int $compiledLineNumber): int
     {
         return $this->bladeSourceMapCompiler->detectLineNumber($view, $compiledLineNumber);
+    }
+
+    protected function getViewData(Throwable $exception): array
+    {
+        foreach ($exception->getTrace() as $frame) {
+            if (Arr::get($frame, 'class') === PhpEngine::class) {
+                $data = Arr::get($frame, 'args.1', []);
+
+                return $this->filterViewData($data);
+            }
+        }
+
+        return [];
+    }
+
+    protected function filterViewData(array $data): array
+    {
+        // By default, Laravel views get two data keys:
+        // __env and app. We try to filter them out.
+        return array_filter($data, function ($value, $key) {
+            if ($key === 'app') {
+                return ! $value instanceof Application;
+            }
+
+            return $key !== '__env';
+        }, ARRAY_FILTER_USE_BOTH);
     }
 }
