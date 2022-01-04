@@ -3,11 +3,17 @@
 namespace Spatie\LaravelIgnition\Views\Compilers;
 
 use ErrorException;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Compilers\BladeCompiler;
 
 class BladeSourceMapCompiler extends BladeCompiler
 {
-    public function detectLineNumber(string $filename, int $exceptionLineNumber): int
+    public function __construct(Filesystem $filesystem)
+    {
+        parent::__construct($filesystem, 'not-needed-for-source-map');
+    }
+
+    public function detectLineNumber(string $filename, int $compiledLineNumber): int
     {
         try {
             $map = $this->compileString((string)file_get_contents($filename));
@@ -15,16 +21,7 @@ class BladeSourceMapCompiler extends BladeCompiler
             return 1;
         }
 
-        $map = explode("\n", $map);
-
-        $line = $map[$exceptionLineNumber - 1] ?? $exceptionLineNumber;
-        $pattern = '/\|---LINE:([0-9]+)---\|/m';
-
-        if (preg_match($pattern, (string)$line, $matches)) {
-            return (int)$matches[1];
-        }
-
-        return $exceptionLineNumber;
+        return $this->findClosestLineNumberMapping($map, $compiledLineNumber);
     }
 
     public function compileString($value)
@@ -33,6 +30,8 @@ class BladeSourceMapCompiler extends BladeCompiler
             $value = $this->addEchoLineNumbers($value);
 
             $value = $this->addStatementLineNumbers($value);
+
+            $value = $this->addBladeComponentLineNumbers($value);
 
             $value = parent::compileString($value);
 
@@ -44,9 +43,35 @@ class BladeSourceMapCompiler extends BladeCompiler
 
     protected function addEchoLineNumbers(string $value): string
     {
-        $pattern = sprintf('/(@)?%s\s*(.+?)\s*%s(\r?\n)?/s', $this->contentTags[0], $this->contentTags[1]);
+        $echoPairs = [$this->contentTags, $this->rawTags, $this->escapedTags];
 
-        if (preg_match_all($pattern, $value, $matches, PREG_OFFSET_CAPTURE)) {
+        foreach($echoPairs as $pair) {
+            // Matches {{ $value }}, {!! $value !!} and  {{{ $value }}} depending on $pair
+            $pattern = sprintf('/(@)?%s\s*(.+?)\s*%s(\r?\n)?/s', $pair[0], $pair[1]);
+
+            if (preg_match_all($pattern, $value, $matches, PREG_OFFSET_CAPTURE)) {
+                foreach (array_reverse($matches[0]) as $match) {
+                    $position = mb_strlen(substr($value, 0, $match[1]));
+
+                    $value = $this->insertLineNumberAtPosition($position, $value);
+                }
+            }
+        }
+
+        return $value;
+    }
+
+    protected function addStatementLineNumbers(string $value): string
+    {
+        // Matches @bladeStatements() like @if, @component(...), @etc;
+        $shouldInsertLineNumbers = preg_match_all(
+            '/\B@(@?\w+(?:::\w+)?)([ \t]*)(\( ( (?>[^()]+) | (?3) )* \))?/x',
+            $value,
+            $matches,
+            PREG_OFFSET_CAPTURE
+        );
+
+        if ($shouldInsertLineNumbers) {
             foreach (array_reverse($matches[0]) as $match) {
                 $position = mb_strlen(substr($value, 0, $match[1]));
 
@@ -57,10 +82,11 @@ class BladeSourceMapCompiler extends BladeCompiler
         return $value;
     }
 
-    protected function addStatementLineNumbers(string $value): string
+    protected function addBladeComponentLineNumbers(string $value): string
     {
+        // Matches the start of `<x-blade-component`
         $shouldInsertLineNumbers = preg_match_all(
-            '/\B@(@?\w+(?:::\w+)?)([ \t]*)(\( ( (?>[^()]+) | (?3) )* \))?/x',
+            '/<\s*x[-:]([\w\-:.]*)/mx',
             $value,
             $matches,
             PREG_OFFSET_CAPTURE
@@ -90,5 +116,30 @@ class BladeSourceMapCompiler extends BladeCompiler
         $value = preg_replace('/^\|---LINE:([0-9]+)---\|$/m', '', $value);
 
         return ltrim((string)$value, PHP_EOL);
+    }
+
+    protected function findClosestLineNumberMapping(string $map, int $compiledLineNumber): int
+    {
+        $map = explode("\n", $map);
+
+        // Max 10 lines between compiled and source line number.
+        // Blade components can span multiple lines and the compiled line number is often
+        // a couple lines below the source-mapped `<x-component>` code.
+        $maxDistance = 10;
+
+        $pattern = '/\|---LINE:(?P<line>[0-9]+)---\|/m';
+        $lineNumberToCheck = $compiledLineNumber - 1;
+
+        while(true) {
+            if ($lineNumberToCheck < $compiledLineNumber - $maxDistance) {
+                return $compiledLineNumber;
+            }
+
+            if (preg_match($pattern, (string) ($map[$lineNumberToCheck]), $matches)) {
+                return (int)$matches['line'];
+            }
+
+            $lineNumberToCheck--;
+        }
     }
 }
