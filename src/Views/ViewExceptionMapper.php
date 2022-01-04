@@ -19,6 +19,7 @@ class ViewExceptionMapper
 {
     protected CompilerEngine $compilerEngine;
     protected BladeSourceMapCompiler $bladeSourceMapCompiler;
+    protected array $knownPaths;
 
     public function __construct(BladeSourceMapCompiler $bladeSourceMapCompiler)
     {
@@ -37,22 +38,11 @@ class ViewExceptionMapper
             return $baseException;
         }
 
-        $viewExceptionClass = $baseException instanceof ProvidesSolution
-            ? ViewExceptionWithSolution::class
-            : IgnitionViewException::class;
-
         preg_match('/\(View: (?P<path>.*?)\)/', $viewException->getMessage(), $matches);
 
         $compiledViewPath = $matches['path'];
 
-        $exception = new $viewExceptionClass(
-            $baseException->getMessage(),
-            0,
-            1,
-            $baseException->getFile(),
-            $baseException->getLine(),
-            $baseException
-        );
+        $exception = $this->createException($baseException);
 
         if ($baseException instanceof ProvidesSolution) {
             /** @var ViewExceptionWithSolution $exception */
@@ -65,6 +55,26 @@ class ViewExceptionMapper
         $exception->setViewData($this->getViewData($exception));
 
         return $exception;
+    }
+
+    protected function createException(Throwable $baseException): IgnitionViewException
+    {
+        $viewExceptionClass = $baseException instanceof ProvidesSolution
+            ? ViewExceptionWithSolution::class
+            : IgnitionViewException::class;
+
+        $viewFile = $this->findCompiledView($baseException->getFile());
+        $file = $viewFile ?? $baseException->getFile();
+        $line = $viewFile ? $this->getBladeLineNumber($file, $baseException->getLine()) : $baseException->getLine();
+
+        return new $viewExceptionClass(
+            $baseException->getMessage(),
+            0,
+            1,
+            $file,
+            $line,
+            $baseException
+        );
     }
 
     protected function modifyViewsInTrace(IgnitionViewException $exception): void
@@ -101,13 +111,9 @@ class ViewExceptionMapper
 
     protected function findCompiledView(string $compiledPath): ?string
     {
-        static $knownPaths = null;
+        $this->knownPaths ??= $this->getKnownPaths();
 
-        if (! $knownPaths) {
-            $knownPaths = $this->getKnownPaths();
-        }
-
-        return $knownPaths[$compiledPath] ?? null;
+        return $this->knownPaths[$compiledPath] ?? null;
     }
 
     protected function getKnownPaths(): array
