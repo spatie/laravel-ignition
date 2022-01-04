@@ -3,7 +3,6 @@
 namespace Spatie\LaravelIgnition\Views;
 
 use Exception;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
