@@ -3,12 +3,17 @@
 namespace Spatie\LaravelIgnition\Support;
 
 use Illuminate\Support\Str;
+use Spatie\LaravelIgnition\Exceptions\ViewException;
 use Throwable;
 
 class LaravelDocumentationLinkFinder
 {
     public function findLinkForThrowable(Throwable $throwable): ?string
     {
+        if ($throwable instanceof ViewException) {
+            $throwable = $throwable->getPrevious();
+        }
+
         if (! str_starts_with($throwable::class, 'Illuminate')) {
             return null;
         }
