@@ -127,6 +127,10 @@ it('the authenticated user model has a to flare method it will be used to collec
 
 it('the authenticated user model has no matching method it will return no user data', function () {
     $user = new class {
+        public function toArray(): array
+        {
+            return ['name' => 'John Doe'];
+        }
     };
 
     $request = test()->createRequest('GET', '/route', [], ['cookie' => 'noms']);
@@ -135,7 +139,7 @@ it('the authenticated user model has no matching method it will return no user d
     $context = new LaravelRequestContextProvider($request);
     $contextData = $context->toArray();
 
-    expect($contextData['user'])->toBe([]);
+    expect($contextData['user'])->toBe(['name' => 'John Doe']);
 });
 
 it('the authenticated user model is broken it will return no user data', function () {
@@ -149,5 +153,5 @@ it('the authenticated user model is broken it will return no user data', functio
     $context = new LaravelRequestContextProvider($request);
     $contextData = $context->toArray();
 
-    expect($contextData['user'])->toBe([]);
+    expect($contextData)->not()->toHaveKey('user');
 });
