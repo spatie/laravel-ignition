@@ -3,10 +3,10 @@
 namespace Spatie\LaravelIgnition;
 
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Contracts\Foundation\ExceptionRenderer;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\ServiceProvider;
 use Illuminate\View\ViewException;
 use Laravel\Octane\Events\RequestReceived;
 use Laravel\Octane\Events\TaskReceived;
@@ -38,20 +38,10 @@ use Spatie\LaravelIgnition\Solutions\SolutionProviders\SolutionProviderRepositor
 use Spatie\LaravelIgnition\Support\FlareLogHandler;
 use Spatie\LaravelIgnition\Support\SentReports;
 use Spatie\LaravelIgnition\Views\ViewExceptionMapper;
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Whoops\Handler\HandlerInterface;
 
-class IgnitionServiceProvider extends PackageServiceProvider
+class IgnitionServiceProvider extends ServiceProvider
 {
-    public function configurePackage(Package $package): void
-    {
-        $package
-            ->name('laravel-ignition')
-            ->hasConfigFile(['flare', 'ignition']);
-    }
-
-    public function packageRegistered(): void
+    public function register(): void
     {
         $this->registerFlare();
         $this->registerIgnition();
@@ -59,24 +49,12 @@ class IgnitionServiceProvider extends PackageServiceProvider
         $this->registerRecorders();
     }
 
-    public function bootingPackage()
+    public function boot()
     {
-        if ($this->app['config']->get('flare.key')) {
-            $this->package->hasCommands([
-                TestCommand::class,
-            ]);
+        if ($this->app->runningInConsole()) {
+            $this->registerCommands();
         }
 
-        if ($this->app['config']->get('ignition.register_commands')) {
-            $this->package->hasCommands([
-                SolutionMakeCommand::class,
-                SolutionProviderMakeCommand::class,
-            ]);
-        }
-    }
-
-    public function packageBooted(): void
-    {
         $this->configureTinker();
         $this->configureOctane();
         $this->registerViewExceptionMapper();
@@ -86,19 +64,35 @@ class IgnitionServiceProvider extends PackageServiceProvider
         $this->configureQueue();
     }
 
+    protected function registerCommands(): void
+    {
+        if ($this->app['config']->get('flare.key')) {
+            $this->commands([
+                TestCommand::class,
+            ]);
+        }
+
+        if ($this->app['config']->get('ignition.register_commands')) {
+            $this->commands([
+                SolutionMakeCommand::class,
+                SolutionProviderMakeCommand::class,
+            ]);
+        }
+    }
+
     protected function registerRenderer(): void
     {
-        if (interface_exists(HandlerInterface::class)) {
+        if (interface_exists('Whoops\Handler\HandlerInterface')) {
             $this->app->bind(
-                HandlerInterface::class,
+                'Whoops\Handler\HandlerInterface',
                 fn (Application $app) => $app->make(IgnitionWhoopsHandler::class)
             );
         }
 
 
-        if (interface_exists(ExceptionRenderer::class)) {
+        if (interface_exists('Illuminate\Contracts\Foundation\ExceptionRenderer')) {
             $this->app->bind(
-                ExceptionRenderer::class,
+                'Illuminate\Contracts\Foundation\ExceptionRenderer',
                 fn (Application $app) => $app->make(IgnitionExceptionRenderer::class)
             );
         }
