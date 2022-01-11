@@ -130,7 +130,7 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function registerIgnition(): void
     {
-        $ignitionConfig = (new IgnitionConfig())->loadConfigFile()->merge(config('ignition'));
+        $ignitionConfig = (new IgnitionConfig())->merge(config('ignition'))->loadConfigFile();
 
         $solutionProviders = $this->getSolutionProviders();
         $solutionProviderRepository = new SolutionProviderRepository($solutionProviders);
