@@ -33,7 +33,7 @@ class LaravelDocumentationLinkFinder
             'Session' => "https://laravel.com/docs/{$majorVersion}.x/session",
             'Validation' => "https://laravel.com/docs/{$majorVersion}.x/validation",
             'View' => "https://laravel.com/docs/{$majorVersion}.x/views",
-            default => "https://laravel.com/docs/{$majorVersion}.x/",
+            default => null,
         };
     }
 }
