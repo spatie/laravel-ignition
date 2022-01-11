@@ -17,7 +17,8 @@ it('adds additional blade information to the exception', function () {
     $this->assertEquals($viewData, $mappedException?->getViewData());
 });
 
-function renderViewAndMapException(string $view, ?array $data = null): ViewException {
+function renderViewAndMapException(string $view, ?array $data = null): ViewException
+{
     try {
         view($view, $data)->render();
     } catch (\Illuminate\View\ViewException $originalViewException) {
