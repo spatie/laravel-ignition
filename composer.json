@@ -21,10 +21,9 @@
         "ext-curl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "illuminate/support": "^8.44",
+        "illuminate/support": "^8.44|^9.0",
         "monolog/monolog": "^2.0",
-        "spatie/flare-client-php": "dev-main",
-        "spatie/ignition": "dev-main",
+        "spatie/ignition": "^0.0.2",
         "spatie/laravel-package-tools": "^1.9",
         "symfony/console": "^5.0",
         "symfony/var-dumper": "^5.0"
@@ -43,12 +42,6 @@
     "config": {
         "sort-packages": true
     },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../ignition"
-        }
-    ],
     "extra": {
         "laravel": {
             "providers": [
