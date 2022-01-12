@@ -22,7 +22,7 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "monolog/monolog": "^2.0",
-        "spatie/ignition": "^0.0",
+        "spatie/ignition": "^1.0",
         "symfony/console": "^5.0|^6.0",
         "symfony/var-dumper": "^5.0|^6.0",
         "illuminate/support": "^8.44|^9.0"
@@ -50,6 +50,9 @@
             "aliases": {
                 "Flare": "Spatie\\LaravelIgnition\\Facades\\Flare"
             }
+        },
+        "branch-alias": {
+            "dev-mail": "1.x-dev"
         }
     },
     "autoload": {
