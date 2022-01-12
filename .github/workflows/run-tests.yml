@@ -1,18 +1,15 @@
 name: Run tests
 
-on:
-  push:
-  pull_request:
-  schedule:
-      - cron: '0 0 * * *'
+on: [push, pull_request]
 
 jobs:
     php-tests:
         runs-on: ${{ matrix.os }}
 
         strategy:
+            fail-fast: false
             matrix:
-                php: [7.4, 8.0, 8.1]
+                php: [8.0, 8.1]
                 laravel: [8.*]
                 dependency-version: [prefer-lowest, prefer-stable]
                 os: [ubuntu-latest, windows-latest]
