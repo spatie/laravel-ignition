@@ -52,7 +52,7 @@
             }
         },
         "branch-alias": {
-            "dev-mail": "1.x-dev"
+            "dev-main": "1.x-dev"
         }
     },
     "autoload": {
