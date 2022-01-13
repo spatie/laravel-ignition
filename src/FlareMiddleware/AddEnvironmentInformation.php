@@ -16,6 +16,8 @@ class AddEnvironmentInformation implements FlareMiddleware
             'laravel_version' => app()->version(),
             'laravel_locale' => app()->getLocale(),
             'laravel_config_cached' => app()->configurationIsCached(),
+            'app_debug' => config('app.debug'),
+            'app_env' => config('app.env'),
             'php_version' => phpversion(),
         ]);
 
