@@ -17,7 +17,7 @@ class LaravelDocumentationLinkFinder
 
         $majorVersion = substr(app()->version(), 0, 1);
 
-        if (str_starts_with($throwable->getMessage(), Collection::class)) {
+        if (str_contains($throwable->getMessage(), Collection::class)) {
             return "https://laravel.com/docs/{$majorVersion}.x/collections#available-methods";
         }
 
