@@ -15,15 +15,14 @@ class LaravelDocumentationLinkFinder
             $throwable = $throwable->getPrevious();
         }
 
-        if (! str_starts_with($throwable::class, 'Illuminate')) {
-            return null;
-        }
-
         $majorVersion = substr(app()->version(), 0, 1);
 
-
-        if (Str::startsWith($throwable->getMessage(), Collection::class)) {
+        if (str_starts_with($throwable->getMessage(), Collection::class)) {
             return "https://laravel.com/docs/{$majorVersion}.x/collections#available-methods";
+        }
+
+        if (! str_starts_with($throwable::class, 'Illuminate')) {
+            return null;
         }
 
         $type = Str::between($throwable::class, 'Illuminate\\', '\\');
