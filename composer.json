@@ -32,12 +32,12 @@
         "livewire/livewire": "^2.8",
         "mockery/mockery": "^1.3",
         "nunomaduro/larastan": "^1.0",
-        "orchestra/testbench": "^5.0|^6.0",
+        "orchestra/testbench": "^6.0|^7.0",
         "pestphp/pest": "^1.20",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
-        "spatie/laravel-ray": "^1.18"
+        "spatie/laravel-ray": "^1.27"
     },
     "config": {
         "sort-packages": true,
