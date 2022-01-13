@@ -28,7 +28,6 @@ class LaravelDocumentationLinkFinder
 
         $type = Str::between($throwable::class, 'Illuminate\\', '\\');
 
-
         return match ($type) {
             'Auth' => "https://laravel.com/docs/{$majorVersion}.x/authentication",
             'Broadcasting' => "https://laravel.com/docs/{$majorVersion}.x/broadcasting",
