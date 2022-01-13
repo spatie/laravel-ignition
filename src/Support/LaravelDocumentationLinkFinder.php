@@ -2,6 +2,7 @@
 
 namespace Spatie\LaravelIgnition\Support;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Spatie\LaravelIgnition\Exceptions\ViewException;
 use Throwable;
@@ -18,9 +19,15 @@ class LaravelDocumentationLinkFinder
             return null;
         }
 
+        $majorVersion = substr(app()->version(), 0, 1);
+
+
+        if (Str::startsWith($throwable->getMessage(), Collection::class)) {
+            return "https://laravel.com/docs/{$majorVersion}.x/collections#available-methods";
+        }
+
         $type = Str::between($throwable::class, 'Illuminate\\', '\\');
 
-        $majorVersion = substr(app()->version(), 0, 1);
 
         return match ($type) {
             'Auth' => "https://laravel.com/docs/{$majorVersion}.x/authentication",
