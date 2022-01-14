@@ -9,7 +9,7 @@ class UseDefaultValetDbCredentialsSolution implements RunnableSolution
 {
     public function getSolutionActionDescription(): string
     {
-        return 'Pressing the button below will change `DB_USER` and `DB_PASSWORD` in your `.env` file.';
+        return 'Pressing the button will change `DB_USER` and `DB_PASSWORD` in your `.env` file.';
     }
 
     public function getRunButtonText(): string
@@ -43,13 +43,12 @@ class UseDefaultValetDbCredentialsSolution implements RunnableSolution
         file_put_contents($envPath, implode('', $envLines));
     }
 
-    public function getDocumentationLinks(): array
+    public function getRunParameters(): array
     {
         return [];
     }
 
-    /** @return array<string, mixed> */
-    public function getRunParameters(): array
+    public function getDocumentationLinks(): array
     {
         return [
             'Valet documentation' => 'https://laravel.com/docs/master/valet',

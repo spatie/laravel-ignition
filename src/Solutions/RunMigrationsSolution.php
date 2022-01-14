@@ -21,7 +21,7 @@ class RunMigrationsSolution implements RunnableSolution
 
     public function getSolutionDescription(): string
     {
-        return 'You might have forgotten to run your migrations. You can run your migrations using `php artisan migrate`.';
+        return 'You might have forgotten to run your database migrations.';
     }
 
     public function getDocumentationLinks(): array
@@ -38,7 +38,7 @@ class RunMigrationsSolution implements RunnableSolution
 
     public function getSolutionActionDescription(): string
     {
-        return 'Pressing the button below will try to run your migrations.';
+        return 'You can try to run your migrations using `php artisan migrate`.';
     }
 
     public function getRunButtonText(): string
