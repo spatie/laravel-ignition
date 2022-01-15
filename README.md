@@ -1,5 +1,3 @@
-**THIS PACKAGE IS STILL IN DEVELOPMENT, FOR NOW USE FACADE/IGNITION**
-
 # Ignition: a beautiful error page for Laravel apps
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-ignition.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-ignition)
