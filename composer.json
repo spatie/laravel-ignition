@@ -21,7 +21,6 @@
         "ext-curl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "ext-fileinfo": "*",
         "monolog/monolog": "^2.3",
         "spatie/ignition": "^1.0",
         "symfony/console": "^5.0|^6.0",
