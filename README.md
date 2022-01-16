@@ -9,7 +9,7 @@
 
 `spatie/laravel-ignition` works for Laravel 8 and 9 applications running on PHP 8.0 and above. Looking for Ignition for Laravel 5.x, 6.x or 7.x or old PHP versions? `facade/ignition` is still compatible.
 
-![Screenshot of ignition](https://spatie.github.io/ignition/screenshot.png)
+![Screenshot of ignition](https://spatie.github.io/laravel-ignition/screenshot.png)
 
 ## Official Documentation
 
