@@ -61,21 +61,8 @@ class TestCase extends \Orchestra\Testbench\TestCase
         return Request::createFromBase($symfonyRequest);
     }
 
-    protected function resolveApplicationConfiguration($app)
+    public function registerRoutes()
     {
-        parent::resolveApplicationConfiguration($app);
-
-        if (in_array($this->getName(), [
-            'it can update the config',
-            'it can execute solutions on a local environment with debugging enabled',
-            'it wont execute solutions on a production environment',
-            'it wont execute solutions when debugging is disabled',
-            'it wont execute solutions for a non local ip',
-            'it can execute solutions on a local environment with debugging enabled',
-
-        ])) {
-            // Routes will not register in a console environment.
-            $_ENV['APP_RUNNING_IN_CONSOLE'] = false;
-        }
+        (new IgnitionServiceProvider($this->app))->registerRoutes();
     }
 }

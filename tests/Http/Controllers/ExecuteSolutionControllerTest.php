@@ -1,7 +1,8 @@
 <?php
 
 it('can execute solutions on a local environment with debugging enabled', function () {
-    (new \Spatie\LaravelIgnition\IgnitionServiceProvider($this->app))->registerRoutes();
+    registerRoutes();
+
     app()['env'] = 'local';
     config()->set('app.debug', true);
 
