@@ -9,9 +9,12 @@ class HealthCheckController
 {
     public function __invoke()
     {
+        if (! config('ignition.enable_runnable_solutions')) {
+            abort(400, 'Runnable solutions are not enabled');
+        }
+
         return [
             'can_execute_commands' => $this->canExecuteCommands(),
-            // TODO: add check for runnable_solutions_enabled config (and fail with 400) if not
         ];
     }
 

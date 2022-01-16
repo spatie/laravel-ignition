@@ -71,6 +71,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
             'it wont execute solutions on a production environment',
             'it wont execute solutions when debugging is disabled',
             'it wont execute solutions for a non local ip',
+            'it can execute solutions on a local environment with debugging enabled',
 
         ])) {
             // Routes will not register in a console environment.
