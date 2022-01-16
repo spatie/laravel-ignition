@@ -1,0 +1,112 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Cannot call method toFlare\\(\\) on class\\-string\\|object\\.$#"
+			count: 1
+			path: src/ContextProviders/LaravelRequestContextProvider.php
+
+		-
+			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: src/ContextProviders/LaravelRequestContextProvider.php
+
+		-
+			message: "#^Method Spatie\\\\LaravelIgnition\\\\ContextProviders\\\\LaravelRequestContextProvider\\:\\:toArray\\(\\) should return array\\<int, mixed\\> but returns array\\<string, mixed\\>\\.$#"
+			count: 1
+			path: src/ContextProviders/LaravelRequestContextProvider.php
+
+		-
+			message: "#^Return type \\(array\\<int, mixed\\>\\) of method Spatie\\\\LaravelIgnition\\\\ContextProviders\\\\LaravelRequestContextProvider\\:\\:toArray\\(\\) should be compatible with return type \\(array\\<string, mixed\\>\\) of method Spatie\\\\FlareClient\\\\Context\\\\RequestContextProvider\\:\\:toArray\\(\\)$#"
+			count: 1
+			path: src/ContextProviders/LaravelRequestContextProvider.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: src/Solutions/SolutionProviders/DefaultDbNameSolutionProvider.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<string,string\\>\\:\\:filter\\(\\) expects \\(callable\\(string\\)\\: bool\\)\\|null, Closure\\(string, string\\)\\: bool given\\.$#"
+			count: 1
+			path: src/Solutions/SolutionProviders/InvalidRouteActionSolutionProvider.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,ReflectionMethod\\>\\:\\:filter\\(\\) expects \\(callable\\(ReflectionMethod\\)\\: bool\\)\\|null, Closure\\(ReflectionMethod\\)\\: 0\\|1\\|false given\\.$#"
+			count: 1
+			path: src/Solutions/SolutionProviders/UnknownValidationSolutionProvider.php
+
+		-
+			message: "#^Cannot access constant class on Throwable\\|null\\.$#"
+			count: 2
+			path: src/Support/LaravelDocumentationLinkFinder.php
+
+		-
+			message: "#^Cannot call method getMessage\\(\\) on Throwable\\|null\\.$#"
+			count: 1
+			path: src/Support/LaravelDocumentationLinkFinder.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<TKey of \\(int\\|string\\),int\\>\\:\\:filter\\(\\) expects \\(callable\\(int\\)\\: bool\\)\\|null, Closure\\(ReflectionMethod\\)\\: bool given\\.$#"
+			count: 1
+			path: src/Support/LivewireComponentParser.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<TKey of \\(int\\|string\\),int\\>\\:\\:map\\(\\) expects callable\\(int, TKey of \\(int\\|string\\)\\)\\: string, Closure\\(ReflectionMethod\\)\\: string given\\.$#"
+			count: 2
+			path: src/Support/LivewireComponentParser.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<TKey of \\(int\\|string\\),int\\>\\:\\:map\\(\\) expects callable\\(int, TKey of \\(int\\|string\\)\\)\\: string, Closure\\(ReflectionProperty\\)\\: string given\\.$#"
+			count: 1
+			path: src/Support/LivewireComponentParser.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,ReflectionMethod\\>\\:\\:reject\\(\\) expects bool\\|\\(callable\\(int\\)\\: bool\\), Closure\\(ReflectionMethod\\)\\: bool given\\.$#"
+			count: 2
+			path: src/Support/LivewireComponentParser.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,ReflectionProperty\\>\\:\\:reject\\(\\) expects bool\\|\\(callable\\(int\\)\\: bool\\), Closure\\(ReflectionProperty\\)\\: bool given\\.$#"
+			count: 1
+			path: src/Support/LivewireComponentParser.php
+
+		-
+			message: "#^Cannot call method getTrace\\(\\) on Throwable\\|null\\.$#"
+			count: 1
+			path: src/Views/ViewExceptionMapper.php
+
+		-
+			message: "#^Method Spatie\\\\LaravelIgnition\\\\Views\\\\ViewExceptionMapper\\:\\:filterViewData\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Views/ViewExceptionMapper.php
+
+		-
+			message: "#^Method Spatie\\\\LaravelIgnition\\\\Views\\\\ViewExceptionMapper\\:\\:filterViewData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Views/ViewExceptionMapper.php
+
+		-
+			message: "#^Method Spatie\\\\LaravelIgnition\\\\Views\\\\ViewExceptionMapper\\:\\:getKnownPaths\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Views/ViewExceptionMapper.php
+
+		-
+			message: "#^Method Spatie\\\\LaravelIgnition\\\\Views\\\\ViewExceptionMapper\\:\\:getViewData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Views/ViewExceptionMapper.php
+
+		-
+			message: "#^Property Spatie\\\\LaravelIgnition\\\\Views\\\\ViewExceptionMapper\\:\\:\\$compilerEngine \\(Illuminate\\\\View\\\\Engines\\\\CompilerEngine\\) does not accept Illuminate\\\\Contracts\\\\View\\\\Engine\\.$#"
+			count: 1
+			path: src/Views/ViewExceptionMapper.php
+
+		-
+			message: "#^Property Spatie\\\\LaravelIgnition\\\\Views\\\\ViewExceptionMapper\\:\\:\\$knownPaths type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Views/ViewExceptionMapper.php
+
+		-
+			message: "#^Variable \\$compiledPath on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/Views/ViewExceptionMapper.php
+

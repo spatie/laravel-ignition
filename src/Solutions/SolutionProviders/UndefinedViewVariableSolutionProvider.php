@@ -67,7 +67,6 @@ class UndefinedViewVariableSolutionProvider implements HasSolutionsForThrowable
             ->sortByDesc('match')
             ->filter(fn ($var) => $var['match'] > 40)
             ->keys()
-            /** @phpstan-ignore-next-line  */
             ->map(fn ($suggestion) => new SuggestCorrectVariableNameSolution($variableName, $viewFile, $suggestion))
             ->map(function ($solution) {
                 return $solution->isRunnable()
