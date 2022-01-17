@@ -1,8 +1,6 @@
 <?php
 
 it('can execute solutions on a local environment with debugging enabled', function () {
-    registerRoutes();
-
     app()['env'] = 'local';
     config()->set('app.debug', true);
 

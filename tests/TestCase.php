@@ -60,9 +60,4 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
         return Request::createFromBase($symfonyRequest);
     }
-
-    public function registerRoutes()
-    {
-        (new IgnitionServiceProvider($this->app))->registerRoutes();
-    }
 }

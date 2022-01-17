@@ -60,11 +60,7 @@ class IgnitionServiceProvider extends ServiceProvider
         $this->configureTinker();
         $this->configureOctane();
         $this->registerViewExceptionMapper();
-
-        if ($this->app->runningInConsole()) {
-            $this->registerRoutes();
-        }
-
+        $this->registerRoutes();
         $this->registerLogHandler();
         $this->startRecorders();
         $this->configureQueue();
@@ -205,7 +201,7 @@ class IgnitionServiceProvider extends ServiceProvider
         });
     }
 
-    public function registerRoutes(): void
+    protected function registerRoutes(): void
     {
         Route::group([
             'as' => 'ignition.',
