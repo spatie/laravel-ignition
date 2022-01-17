@@ -2,8 +2,8 @@
 
 namespace Spatie\LaravelIgnition\Views;
 
-use Throwable;
 use Illuminate\View\Compilers\BladeCompiler;
+use Throwable;
 
 class BladeSourceMapCompiler
 {
