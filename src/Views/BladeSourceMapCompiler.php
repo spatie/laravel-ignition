@@ -2,29 +2,26 @@
 
 namespace Spatie\LaravelIgnition\Views;
 
-use ErrorException;
-use Illuminate\Filesystem\Filesystem;
+use Throwable;
 use Illuminate\View\Compilers\BladeCompiler;
 
-class BladeSourceMapCompiler extends BladeCompiler
+class BladeSourceMapCompiler
 {
-    public function __construct(Filesystem $filesystem)
+    protected BladeCompiler $bladeCompiler;
+
+    public function __construct()
     {
-        parent::__construct($filesystem, 'not-needed-for-source-map');
+        $this->bladeCompiler = app('blade.compiler');
     }
 
     public function detectLineNumber(string $filename, int $compiledLineNumber): int
     {
-        try {
-            $map = $this->compileString((string)file_get_contents($filename));
-        } catch (ErrorException $e) {
-            return 1;
-        }
+        $map = $this->compileSourcemap((string)file_get_contents($filename));
 
         return $this->findClosestLineNumberMapping($map, $compiledLineNumber);
     }
 
-    public function compileString($value)
+    protected function compileSourcemap(string $value): string
     {
         try {
             $value = $this->addEchoLineNumbers($value);
@@ -33,10 +30,10 @@ class BladeSourceMapCompiler extends BladeCompiler
 
             $value = $this->addBladeComponentLineNumbers($value);
 
-            $value = parent::compileString($value);
+            $value = $this->bladeCompiler->compileString($value);
 
             return $this->trimEmptyLines($value);
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             report($e);
 
             return $value;
@@ -45,7 +42,7 @@ class BladeSourceMapCompiler extends BladeCompiler
 
     protected function addEchoLineNumbers(string $value): string
     {
-        $echoPairs = [$this->contentTags, $this->rawTags, $this->escapedTags];
+        $echoPairs = [['{{', '}}'], ['{{{', '}}}'], ['{!!', '!!}']];
 
         foreach ($echoPairs as $pair) {
             // Matches {{ $value }}, {!! $value !!} and  {{{ $value }}} depending on $pair
@@ -138,7 +135,7 @@ class BladeSourceMapCompiler extends BladeCompiler
                 return $compiledLineNumber > count($map) ? count($map) : $compiledLineNumber;
             }
 
-            if (preg_match($pattern, (string) ($map[$lineNumberToCheck] ?? ''), $matches)) {
+            if (preg_match($pattern, $map[$lineNumberToCheck] ?? '', $matches)) {
                 return (int)$matches['line'];
             }
 
