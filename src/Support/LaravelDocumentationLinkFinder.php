@@ -21,11 +21,11 @@ class LaravelDocumentationLinkFinder
             return "https://laravel.com/docs/{$majorVersion}.x/collections#available-methods";
         }
 
-        if (! str_starts_with($throwable::class, 'Illuminate')) {
+        $type = $this->getType($throwable);
+
+        if (! $type) {
             return null;
         }
-
-        $type = Str::between($throwable::class, 'Illuminate\\', '\\');
 
         return match ($type) {
             'Auth' => "https://laravel.com/docs/{$majorVersion}.x/authentication",
@@ -40,5 +40,18 @@ class LaravelDocumentationLinkFinder
             'View' => "https://laravel.com/docs/{$majorVersion}.x/views",
             default => null,
         };
+    }
+
+    protected function getType(Throwable $throwable): ?string
+    {
+        if (str_contains($throwable::class, 'Illuminate')) {
+            return Str::between($throwable::class, 'Illuminate\\', '\\');
+        }
+
+        if (str_contains($throwable->getMessage(), 'Illuminate')) {
+            return explode('\\', Str::between($throwable->getMessage(), 'Illuminate\\', '\\'))[0];
+        }
+
+        return null;
     }
 }
