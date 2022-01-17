@@ -37,6 +37,8 @@ class BladeSourceMapCompiler extends BladeCompiler
 
             return $this->trimEmptyLines($value);
         } catch (\Exception $e) {
+            report($e);
+
             return $value;
         }
     }
@@ -132,10 +134,11 @@ class BladeSourceMapCompiler extends BladeCompiler
 
         while (true) {
             if ($lineNumberToCheck < $compiledLineNumber - $maxDistance) {
-                return $compiledLineNumber;
+                // Something wrong. Return the $compiledLineNumber (unless it's out of range)
+                return $compiledLineNumber > count($map) ? count($map) : $compiledLineNumber;
             }
 
-            if (preg_match($pattern, (string) ($map[$lineNumberToCheck]), $matches)) {
+            if (preg_match($pattern, (string) ($map[$lineNumberToCheck] ?? ''), $matches)) {
                 return (int)$matches['line'];
             }
 
