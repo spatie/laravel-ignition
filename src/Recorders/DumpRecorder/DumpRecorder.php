@@ -115,6 +115,7 @@ class DumpRecorder
         $seenVarDumper = false;
 
         foreach ($stacktrace as $frame) {
+            // Keep looping until we're past the VarDumper::dump() call in Symfony's helper functions file.
             if (Arr::get($frame, 'class') === VarDumper::class && Arr::get($frame, 'function') === 'dump') {
                 $seenVarDumper = true;
 
@@ -125,10 +126,7 @@ class DumpRecorder
                 continue;
             }
 
-            if (! Arr::get($frame, 'class') && Arr::get($frame, 'function') === 'dump') {
-                continue;
-            }
-
+            // Return the next frame in the stack after the VarDumper::dump() call:
             return $frame;
         }
 
