@@ -36,12 +36,12 @@ parameters:
 			path: src/Solutions/SolutionProviders/UnknownValidationSolutionProvider.php
 
 		-
-			message: "#^Cannot access constant class on Throwable\\|null\\.$#"
-			count: 2
+			message: "#^Cannot call method getMessage\\(\\) on Throwable\\|null\\.$#"
+			count: 1
 			path: src/Support/LaravelDocumentationLinkFinder.php
 
 		-
-			message: "#^Cannot call method getMessage\\(\\) on Throwable\\|null\\.$#"
+			message: "#^Parameter \\#1 \\$throwable of method Spatie\\\\LaravelIgnition\\\\Support\\\\LaravelDocumentationLinkFinder\\:\\:getType\\(\\) expects Throwable, Throwable\\|null given\\.$#"
 			count: 1
 			path: src/Support/LaravelDocumentationLinkFinder.php
 
