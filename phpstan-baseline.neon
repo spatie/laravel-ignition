@@ -41,11 +41,6 @@ parameters:
 			path: src/Support/LaravelDocumentationLinkFinder.php
 
 		-
-			message: "#^Parameter \\#1 \\$throwable of method Spatie\\\\LaravelIgnition\\\\Support\\\\LaravelDocumentationLinkFinder\\:\\:getType\\(\\) expects Throwable, Throwable\\|null given\\.$#"
-			count: 1
-			path: src/Support/LaravelDocumentationLinkFinder.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<TKey of \\(int\\|string\\),int\\>\\:\\:filter\\(\\) expects \\(callable\\(int\\)\\: bool\\)\\|null, Closure\\(ReflectionMethod\\)\\: bool given\\.$#"
 			count: 1
 			path: src/Support/LivewireComponentParser.php

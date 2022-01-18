@@ -42,8 +42,12 @@ class LaravelDocumentationLinkFinder
         };
     }
 
-    protected function getType(Throwable $throwable): ?string
+    protected function getType(?Throwable $throwable): ?string
     {
+        if (! $throwable) {
+            return null;
+        }
+
         if (str_contains($throwable::class, 'Illuminate')) {
             return Str::between($throwable::class, 'Illuminate\\', '\\');
         }
