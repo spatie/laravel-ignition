@@ -11,6 +11,12 @@
 
 ![Screenshot of ignition](https://spatie.github.io/laravel-ignition/images/screenshot.png)
 
+## Are you a visual learner?
+
+In [this video on YouTube](https://youtu.be/LEY0N0Bteew?t=739), you'll see a demo of all of the features.
+
+Do know more about the design decisions we made, read [this blog post](https://freek.dev/2168-ignition-the-most-beautiful-error-page-for-laravel-and-php-got-a-major-redesign).
+
 ## Official Documentation
 
 The official documentation for Ignition can be found on the [Flare website](https://flareapp.io/docs/ignition-for-laravel/installation).
