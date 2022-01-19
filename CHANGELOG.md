@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.0.1 - 2022-01-19
+
+## What's Changed
+
+- feat: fix support for Laravel versions `^10.x` by @owenvoke in https://github.com/spatie/laravel-ignition/pull/15
+
+## New Contributors
+
+- @owenvoke made their first contribution in https://github.com/spatie/laravel-ignition/pull/15
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.0.0...1.0.1
+
 ## 1.0.0 - 2022-01-18
 
 - initial release
