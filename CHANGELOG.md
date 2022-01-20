@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.0.2 - 2022-01-20
+
+- `enable_runnable_solutions` now defaults to the `APP_DEBUG` value
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.0.1...1.0.2
+
 ## 1.0.1 - 2022-01-19
 
 ## What's Changed
