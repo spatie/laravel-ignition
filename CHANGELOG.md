@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.0.3 - 2022-02-04
+
+- Add support for censoring headers
+
 ## 1.0.2 - 2022-01-20
 
 - `enable_runnable_solutions` now defaults to the `APP_DEBUG` value
