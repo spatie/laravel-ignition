@@ -3,6 +3,7 @@
 use Spatie\FlareClient\FlareMiddleware\AddGitInformation;
 use Spatie\FlareClient\FlareMiddleware\RemoveRequestIp;
 use Spatie\FlareClient\FlareMiddleware\CensorRequestBodyFields;
+use Spatie\FlareClient\FlareMiddleware\CensorRequestHeaders;
 use Spatie\LaravelIgnition\FlareMiddleware\AddDumps;
 use Spatie\LaravelIgnition\FlareMiddleware\AddEnvironmentInformation;
 use Spatie\LaravelIgnition\FlareMiddleware\AddExceptionInformation;
@@ -57,6 +58,11 @@ return [
                 'password',
             ],
         ],
+        CensorRequestHeaders::class => [
+            'headers' => [
+                'API-KEY'
+            ]
+        ]
     ],
 
     /*
