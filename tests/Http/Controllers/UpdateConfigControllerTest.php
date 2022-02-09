@@ -5,6 +5,7 @@ use Spatie\Ignition\Config\IgnitionConfig;
 it('can update the config', function () {
     app()['env'] = 'local';
     config()->set('app.debug', true);
+    config()->set('ignition.enable_runnable_solutions', true);
 
     $this
         ->postJson(route('ignition.updateConfig'), [

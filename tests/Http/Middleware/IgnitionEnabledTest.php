@@ -13,6 +13,7 @@ it('returns 404 with debug mode disabled', function () {
 
 it('returns ok with debug mode enabled', function () {
     config()->set('app.debug', true);
+    config()->set('ignition.enable_runnable_solutions', true);
 
     Route::get('middleware-test', fn () => 'success')->middleware([RunnableSolutionsEnabled::class]);
 

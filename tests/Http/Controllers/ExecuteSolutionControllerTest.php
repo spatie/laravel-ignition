@@ -3,6 +3,7 @@
 it('can execute solutions on a local environment with debugging enabled', function () {
     app()['env'] = 'local';
     config()->set('app.debug', true);
+    config()->set('ignition.enable_runnable_solutions', true);
 
     $this
         ->postJson(route('ignition.executeSolution'), solutionPayload())
@@ -15,7 +16,7 @@ it('wont execute solutions on a production environment', function () {
 
     $this
         ->postJson(route('ignition.executeSolution'), solutionPayload())
-        ->assertStatus(500);
+        ->assertStatus(404);
 });
 
 it('wont execute solutions when debugging is disabled', function () {
@@ -34,7 +35,7 @@ it('wont execute solutions for a non local ip', function () {
 
     $this
         ->postJson(route('ignition.executeSolution'), solutionPayload())
-        ->assertStatus(500);
+        ->assertStatus(404);
 });
 
 
