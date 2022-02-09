@@ -74,12 +74,10 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
         /** @phpstan-ignore-next-line */
         $dataMeta = $this->request->input('serverMemo.dataMeta') ?? [];
 
-        /** @phpstan-ignore-next-line */
         foreach ($dataMeta['modelCollections'] ?? [] as $key => $value) {
             $data[$key] = array_merge($data[$key] ?? [], $value);
         }
 
-        /** @phpstan-ignore-next-line */
         foreach ($dataMeta['models'] ?? [] as $key => $value) {
             $data[$key] = array_merge($data[$key] ?? [], $value);
         }
