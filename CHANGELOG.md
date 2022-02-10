@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.0.4 - 2022-02-10
+
+- allow any `Illuminate\Contracts\View\Engine` to be used
+
 ## 1.0.3 - 2022-02-04
 
 - Add support for censoring headers
