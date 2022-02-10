@@ -46,6 +46,11 @@ parameters:
 			path: src/Support/LivewireComponentParser.php
 
 		-
+			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\View\\\\Engine\\:\\:getCompiler\\(\\)\\.$#"
+			count: 1
+			path: src/Views/ViewExceptionMapper.php
+
+		-
 			message: "#^Cannot call method getTrace\\(\\) on Throwable\\|null\\.$#"
 			count: 1
 			path: src/Views/ViewExceptionMapper.php
@@ -76,17 +81,7 @@ parameters:
 			path: src/Views/ViewExceptionMapper.php
 
 		-
-			message: "#^Property Spatie\\\\LaravelIgnition\\\\Views\\\\ViewExceptionMapper\\:\\:\\$compilerEngine \\(Illuminate\\\\View\\\\Engines\\\\CompilerEngine\\) does not accept Illuminate\\\\Contracts\\\\View\\\\Engine\\.$#"
-			count: 1
-			path: src/Views/ViewExceptionMapper.php
-
-		-
 			message: "#^Property Spatie\\\\LaravelIgnition\\\\Views\\\\ViewExceptionMapper\\:\\:\\$knownPaths type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Views/ViewExceptionMapper.php
-
-		-
-			message: "#^Variable \\$compiledPath on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: src/Views/ViewExceptionMapper.php
 
