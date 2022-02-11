@@ -7,7 +7,6 @@ use Illuminate\Contracts\View\Engine;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\View\Engines\CompilerEngine;
 use Illuminate\View\Engines\PhpEngine;
 use Illuminate\View\ViewException;
 use ReflectionProperty;
