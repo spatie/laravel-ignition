@@ -22,7 +22,7 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "monolog/monolog": "^2.3",
-        "spatie/ignition": "^1.0",
+        "spatie/ignition": "^1.0|dev-l10",
         "spatie/flare-client-php": "^1.0.1|dev-l10",
         "symfony/console": "^5.0|^6.0",
         "symfony/var-dumper": "^5.0|^6.0",
