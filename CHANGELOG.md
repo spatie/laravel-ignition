@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.0.6 - 2022-02-15
+
+- register Flare logger earlier
+
 ## 1.0.5 - 2022-02-13
 
 ## What's Changed
