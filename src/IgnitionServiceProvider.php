@@ -48,6 +48,7 @@ class IgnitionServiceProvider extends ServiceProvider
         $this->registerIgnition();
         $this->registerRenderer();
         $this->registerRecorders();
+        $this->registerLogHandler();
     }
 
     public function boot()
@@ -61,7 +62,6 @@ class IgnitionServiceProvider extends ServiceProvider
         $this->configureOctane();
         $this->registerViewExceptionMapper();
         $this->registerRoutes();
-        $this->registerLogHandler();
         $this->startRecorders();
         $this->configureQueue();
     }
