@@ -74,6 +74,7 @@ return [
     | You can enable the command registration below.
     |
     */
+
     'register_commands' => env('REGISTER_IGNITION_COMMANDS', false),
 
     /*
@@ -175,6 +176,7 @@ return [
     | specify a route prefix that will be used to host all internal links.
     |
     */
+
     'housekeeping_endpoint_prefix' => '_ignition',
 
 ];
