@@ -179,4 +179,17 @@ return [
 
     'housekeeping_endpoint_prefix' => '_ignition',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Settings File
+    |--------------------------------------------------------------------------
+    |
+    | Ignition gives the possibility to save your settings to a specific file.
+    | You may specify a path where the settings will be saved. If no path is
+    | specified Ignition will save the settings to the current user directory.
+    |
+    */
+
+    'settings_file_path' => '',
+
 ];
