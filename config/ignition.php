@@ -190,6 +190,6 @@ return [
     |
     */
 
-    'settings_file_path' => '',
+    'settings_file_path' => storage_path('ignition'),
 
 ];
