@@ -23,3 +23,6 @@
 /tailwind.config.js export-ignore
 /tsconfig.json      export-ignore
 /yarn.lock          export-ignore
+.php_cs.php         export-ignore
+phpstan.neon.dist   export-ignore
+phpstan-baseline.neon export-ignore
