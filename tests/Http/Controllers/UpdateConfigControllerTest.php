@@ -4,6 +4,8 @@ use Spatie\Ignition\Config\IgnitionConfig;
 use Spatie\Ignition\Contracts\ConfigManager;
 
 it('can update the config', function () {
+    app()->instance(ConfigManager::class, createConfigManagerMock());
+
     app()['env'] = 'local';
     config()->set('app.debug', true);
     config()->set('ignition.enable_runnable_solutions', true);
