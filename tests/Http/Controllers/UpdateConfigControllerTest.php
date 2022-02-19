@@ -1,6 +1,7 @@
 <?php
 
 use Spatie\Ignition\Config\IgnitionConfig;
+use Spatie\Ignition\Contracts\ConfigManager;
 
 it('can update the config', function () {
     app()['env'] = 'local';
@@ -22,3 +23,20 @@ it('can update the config', function () {
         ->editor()->toBe('fancy-editor')
         ->hideSolutions()->toBeTrue();
 });
+
+function createConfigManagerMock(): ConfigManager
+{
+    $mock = Mockery::mock(ConfigManager::class);
+
+    $mock->shouldReceive('save')
+        ->andReturn(true);
+    $mock->shouldReceive('load')
+        ->once()
+        ->andReturn([
+            'theme' => 'auto',
+            'editor' => 'fancy-editor',
+            'hide_solutions' => true,
+        ]);
+
+    return $mock;
+}
