@@ -107,7 +107,6 @@ class IgnitionServiceProvider extends ServiceProvider
             );
         }
 
-
         if (interface_exists('Illuminate\Contracts\Foundation\ExceptionRenderer')) {
             $this->app->bind(
                 'Illuminate\Contracts\Foundation\ExceptionRenderer',
