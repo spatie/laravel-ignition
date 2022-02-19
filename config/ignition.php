@@ -185,9 +185,12 @@ return [
     |--------------------------------------------------------------------------
     |
     | Ignition gives the possibility to save your settings to a specific file.
-    | You may specify a path where the settings will be saved. If no path is
-    | specified Ignition will save the settings to the current user directory.
-    |
+    | You may specify a path where to save a file with settings (it should be
+    | an existing folder with a write access). If no path is specified a file
+    | with settings will be saved to the user's home directory (the settings
+    | will be applied to all of your projects where Laravel Ignition is used
+    | and where the path wasn't specified). However, if you want to keep your
+    | settings on a project basis just use storage_path('ignition').
     */
 
     'settings_file_path' => '',
