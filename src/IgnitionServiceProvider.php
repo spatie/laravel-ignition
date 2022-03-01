@@ -131,7 +131,9 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function registerIgnition(): void
     {
-        $this->app->singleton(ConfigManager::class, fn () =>
+        $this->app->singleton(
+            ConfigManager::class,
+            fn () =>
             new FileConfigManager(config('ignition.settings_file_path', ''))
         );
 
