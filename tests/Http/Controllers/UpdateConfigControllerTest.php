@@ -3,6 +3,10 @@
 use Spatie\Ignition\Config\IgnitionConfig;
 use Spatie\Ignition\Contracts\ConfigManager;
 
+afterEach(function () {
+    Mockery::close();
+});
+
 it('can update the config', function () {
     app()->instance(ConfigManager::class, createConfigManagerMock());
 
