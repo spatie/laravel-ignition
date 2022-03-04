@@ -31,6 +31,7 @@ function createConfigManagerMock(): ConfigManager
     $mock = Mockery::mock(ConfigManager::class);
 
     $mock->shouldReceive('save')
+        ->once()
         ->andReturn(true);
     $mock->shouldReceive('load')
         ->once()
