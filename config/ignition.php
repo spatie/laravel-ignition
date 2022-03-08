@@ -184,20 +184,22 @@ return [
     | Settings File
     |--------------------------------------------------------------------------
     |
-    | Ignition gives the possibility to save your settings to a specific file.
+    | Ignition allows you to save your settings to a specific global file.
     |
-    | If no path is specified a file with settings will be saved to the user's
-    | home directory (the directory name depends on the OS and its settings).
-    | In this case, the settings will be applied to all of your projects where
-    | Laravel Ignition is used and the path is not specified).
+    | If no path is specified, a file with settings will be saved to the user's
+    | home directory. The directory depends on the OS and its settings but it's
+    | typically `~/.ignition.json`. In this case, the settings will be applied
+    | to all of your projects where Ignition is used and the path is not
+    | specified.
     |
-    | However, if you want to keep your settings on a project basis, or you want
-    | to keep them outside your user home directory, you may specify a path where
-    | to save a file with all of your settings (the path should be an existing
-    | folder with correct write access).
+    | However, if you want to store your settings on a project basis, or you 
+    | want to keep them in another direcotry, you can specify a path where
+    | the settings file will be saved. The path should be an existing directory
+    | with correct write access.
+    | For example, create a new `ignition` folder in the storage directory and
+    | use `storage_path('ignition')` as the `settings_file_path`.
     |
-    | For example, create a new `ignition` folder in the storage folder then use
-    | the storage_path('ignition') as a `settings_file_path` key value.
+    | Default value: '' (empty string)
     */
 
     'settings_file_path' => '',
