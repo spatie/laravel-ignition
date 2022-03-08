@@ -22,7 +22,7 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "monolog/monolog": "^2.3",
-        "spatie/ignition": "dev-settings_test",
+        "spatie/ignition": "^1.2",
         "spatie/flare-client-php": "^1.0.1",
         "symfony/console": "^5.0|^6.0",
         "symfony/var-dumper": "^5.0|^6.0",
@@ -75,12 +75,6 @@
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/kudashevs/ignition"
-        }
-    ],
     "support": {
         "issues": "https://github.com/spatie/laravel-ignition/issues",
         "forum": "https://twitter.com/flareappio",
