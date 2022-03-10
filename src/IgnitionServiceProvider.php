@@ -205,18 +205,7 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function registerRoutes(): void
     {
-        Route::group([
-            'as' => 'ignition.',
-            'prefix' => config('ignition.housekeeping_endpoint_prefix'),
-            'middleware' => [RunnableSolutionsEnabled::class],
-        ], function () {
-            Route::get('health-check', HealthCheckController::class)->name('healthCheck');
-
-            Route::post('execute-solution', ExecuteSolutionController::class)
-                ->name('executeSolution');
-
-            Route::post('update-config', UpdateConfigController::class)->name('updateConfig');
-        });
+        $this->loadRoutesFrom(realpath(__DIR__ . '/ignition-routes.php'));
     }
 
     protected function registerLogHandler(): void
