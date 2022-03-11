@@ -19,6 +19,7 @@ use Spatie\Ignition\Ignition;
 use Spatie\LaravelIgnition\Commands\SolutionMakeCommand;
 use Spatie\LaravelIgnition\Commands\SolutionProviderMakeCommand;
 use Spatie\LaravelIgnition\Commands\TestCommand;
+use Spatie\LaravelIgnition\ContextProviders\LaravelContextProviderDetector;
 use Spatie\LaravelIgnition\Exceptions\InvalidConfig;
 use Spatie\LaravelIgnition\FlareMiddleware\AddJobs;
 use Spatie\LaravelIgnition\FlareMiddleware\AddLogs;
@@ -116,6 +117,7 @@ class IgnitionServiceProvider extends ServiceProvider
                 ->setApiToken(config('flare.key') ?? '')
                 ->setBaseUrl(config('flare.base_url', 'https://flareapp.io/api'))
                 ->setStage(app()->environment())
+                ->setContextProviderDetector(new LaravelContextProviderDetector())
                 ->registerMiddleware($this->getFlareMiddleware())
                 ->registerMiddleware(new AddSolutions(new SolutionProviderRepository($this->getSolutionProviders())));
         });
