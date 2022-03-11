@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.0.8 - 2022-03-11
+
+- Avoid generating the error report multiple times to save resources
+- Fix the reported URL when using Octane on Vapor
+- Fix a bug where the report was sent to Flare twice when the Ignition error page rendered
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.0.7...1.0.8
+
 ## 1.0.7 - 2022-03-10
 
 ## What's Changed
