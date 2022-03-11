@@ -25,6 +25,6 @@ class ErrorPageRenderer
             ->setContextProviderDetector(new LaravelContextProviderDetector())
             ->setSolutionTransformerClass(LaravelSolutionTransformer::class)
             ->applicationPath(base_path())
-            ->handleException($throwable);
+            ->renderException($throwable);
     }
 }
