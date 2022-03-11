@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.0.9 - 2022-03-11
+
+- Fix the reported URL when using Octane on Vapor
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.0.8...1.0.9
+
 ## 1.0.8 - 2022-03-11
 
 - Avoid generating the error report multiple times to save resources
