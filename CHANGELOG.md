@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.0.10 - 2022-03-17
+
+- Add option to publish Ignition config and Flare config files separately
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.0.9...1.0.10
+
 ## 1.0.9 - 2022-03-11
 
 - Fix the reported URL when using Octane on Vapor
