@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.0.11 - 2022-03-19
+
+## What's Changed
+
+- Fix: respect Ignition config to disable Share to Flare feature
+- Fix: avoid fatal error when Ignition config is `null`
+- Fix: move registering routes to boot method of IgnitionServiceProvider by @jnoordsij in https://github.com/spatie/laravel-ignition/pull/72
+
+## New Contributors
+
+- @jnoordsij made their first contribution in https://github.com/spatie/laravel-ignition/pull/72
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.0.10...1.0.11
+
 ## 1.0.10 - 2022-03-17
 
 - Add option to publish Ignition config and Flare config files separately
