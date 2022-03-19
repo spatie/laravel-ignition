@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.1.0 - 2022-03-19
+
+## What's Changed
+
+- Add the config options to specify the settings file path by @kudashevs in https://github.com/spatie/laravel-ignition/pull/66
+
+## New Contributors
+
+- @kudashevs made their first contribution in https://github.com/spatie/laravel-ignition/pull/66
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.0.11...1.1.0
+
 ## 1.0.11 - 2022-03-19
 
 ## What's Changed
