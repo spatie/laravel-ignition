@@ -74,6 +74,7 @@ return [
     | You can enable the command registration below.
     |
     */
+
     'register_commands' => env('REGISTER_IGNITION_COMMANDS', false),
 
     /*
@@ -175,6 +176,32 @@ return [
     | specify a route prefix that will be used to host all internal links.
     |
     */
+
     'housekeeping_endpoint_prefix' => '_ignition',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Settings File
+    |--------------------------------------------------------------------------
+    |
+    | Ignition allows you to save your settings to a specific global file.
+    |
+    | If no path is specified, a file with settings will be saved to the user's
+    | home directory. The directory depends on the OS and its settings but it's
+    | typically `~/.ignition.json`. In this case, the settings will be applied
+    | to all of your projects where Ignition is used and the path is not
+    | specified.
+    |
+    | However, if you want to store your settings on a project basis, or you 
+    | want to keep them in another direcotry, you can specify a path where
+    | the settings file will be saved. The path should be an existing directory
+    | with correct write access.
+    | For example, create a new `ignition` folder in the storage directory and
+    | use `storage_path('ignition')` as the `settings_file_path`.
+    |
+    | Default value: '' (empty string)
+    */
+
+    'settings_file_path' => '',
 
 ];
