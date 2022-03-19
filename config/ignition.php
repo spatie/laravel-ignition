@@ -192,8 +192,8 @@ return [
     | to all of your projects where Ignition is used and the path is not
     | specified.
     |
-    | However, if you want to store your settings on a project basis, or you 
-    | want to keep them in another direcotry, you can specify a path where
+    | However, if you want to store your settings on a project basis, or you
+    | want to keep them in another directory, you can specify a path where
     | the settings file will be saved. The path should be an existing directory
     | with correct write access.
     | For example, create a new `ignition` folder in the storage directory and

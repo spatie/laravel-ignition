@@ -133,8 +133,7 @@ class IgnitionServiceProvider extends ServiceProvider
     {
         $this->app->singleton(
             ConfigManager::class,
-            fn () =>
-            new FileConfigManager(config('ignition.settings_file_path', ''))
+            fn () => new FileConfigManager(config('ignition.settings_file_path', ''))
         );
 
         $ignitionConfig = (new IgnitionConfig())
