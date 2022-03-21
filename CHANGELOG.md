@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.1.1 - 2022-03-21
+
+## What's Changed
+
+- Remove duplicate composer.json requirement by @nuernbergerA in https://github.com/spatie/laravel-ignition/pull/77
+
+## New Contributors
+
+- @nuernbergerA made their first contribution in https://github.com/spatie/laravel-ignition/pull/77
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.1.0...1.1.1
+
 ## 1.1.0 - 2022-03-19
 
 ## What's Changed
