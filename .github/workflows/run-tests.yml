@@ -11,10 +11,10 @@ jobs:
             matrix:
                 php: [8.0, 8.1]
                 laravel: [9.*, 8.*]
-                dependency-version: [prefer-lowest, prefer-stable]
+                stability: [prefer-lowest, prefer-stable]
                 os: [ubuntu-latest, windows-latest]
 
-        name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
+        name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
         steps:
             - name: Checkout code
@@ -31,7 +31,7 @@ jobs:
             -  name: Install dependencies
                run: |
                     composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
-                    composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
+                    composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-suggest
 
             - name: Execute tests
               run: vendor/bin/pest
