@@ -21,6 +21,11 @@ parameters:
 			path: src/ContextProviders/LaravelRequestContextProvider.php
 
 		-
+			message: "#^Method Spatie\\\\Ignition\\\\Ignition\\:\\:renderException\\(\\) invoked with 1 parameter, 2 required\\.$#"
+			count: 1
+			path: src/Renderers/ErrorPageRenderer.php
+
+		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: src/Solutions/SolutionProviders/DefaultDbNameSolutionProvider.php
@@ -84,4 +89,9 @@ parameters:
 			message: "#^Property Spatie\\\\LaravelIgnition\\\\Views\\\\ViewExceptionMapper\\:\\:\\$knownPaths type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Views/ViewExceptionMapper.php
+
+		-
+			message: "#^Function ddd\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/helpers.php
 
