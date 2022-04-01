@@ -60,7 +60,10 @@
     "autoload": {
         "psr-4": {
             "Spatie\\LaravelIgnition\\": "src"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
