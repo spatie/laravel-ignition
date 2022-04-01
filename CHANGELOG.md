@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.2.0 - 2022-04-01
+
+## What's Changed
+
+- Speed up tests run process by @kudashevs in https://github.com/spatie/laravel-ignition/pull/79
+- Add `ddd` function by @freekmurze in https://github.com/spatie/laravel-ignition/pull/83
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.1.1...1.2.0
+
 ## 1.1.1 - 2022-03-21
 
 ## What's Changed
