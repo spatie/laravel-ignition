@@ -17,6 +17,7 @@
 /.styleci.yml       export-ignore
 /.travis.yml        export-ignore
 /CONTRIBUTING.md    export-ignore
+/CHANGELOG.md       export-ignore
 /package-lock.json  export-ignore
 /phpunit.xml.dist   export-ignore
 /postcss.config.js  export-ignore
