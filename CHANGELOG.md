@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.2.1 - 2022-04-13
+
+## What's Changed
+
+- Update .gitattributes by @angeljqv in https://github.com/spatie/laravel-ignition/pull/84
+- Fixed reading of maximum_number_of_collected_logs by @faustoFF in https://github.com/spatie/laravel-ignition/pull/86
+
+## New Contributors
+
+- @angeljqv made their first contribution in https://github.com/spatie/laravel-ignition/pull/84
+- @faustoFF made their first contribution in https://github.com/spatie/laravel-ignition/pull/86
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.2.0...1.2.1
+
 ## 1.2.0 - 2022-04-01
 
 ## What's Changed
