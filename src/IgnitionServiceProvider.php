@@ -157,7 +157,7 @@ class IgnitionServiceProvider extends ServiceProvider
         $this->app->singleton(LogRecorder::class, function (Application $app): LogRecorder {
             return new LogRecorder(
                 $app,
-                config()->get('flare.flare_middleware' . AddLogs::class . 'maximum_number_of_collected_logs')
+                config()->get('flare.flare_middleware.' . AddLogs::class . '.maximum_number_of_collected_logs')
             );
         });
 
