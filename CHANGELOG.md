@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.2.2 - 2022-04-14
+
+## What's Changed
+
+- Fix LaravelVersion by @bvtterfly in https://github.com/spatie/laravel-ignition/pull/87
+
+## New Contributors
+
+- @bvtterfly made their first contribution in https://github.com/spatie/laravel-ignition/pull/87
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.2.1...1.2.2
+
 ## 1.2.1 - 2022-04-13
 
 ## What's Changed
