@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.2.3 - 2022-05-05
+
+- use context from custom exceptions
+
 ## 1.2.2 - 2022-04-14
 
 ## What's Changed
