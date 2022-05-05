@@ -25,3 +25,33 @@ it('wont add query information without a query exception', function () {
 
     $this->assertArrayNotHasKey('exception', $context);
 });
+
+it('will add user context when provided on a custom exception', function () {
+    $report = Flare::createReport(new class extends Exception {
+        public function context()
+        {
+            return [
+                'hello' => 'world',
+            ];
+        }
+    });
+
+    $context = $report->toArray()['context'];
+
+    expect($context['context']['hello'])->toBe('world');
+});
+
+it('will only add arrays as user provided context', function () {
+    $report = Flare::createReport(new class extends Exception {
+        public function context()
+        {
+            return (object) [
+                'hello' => 'world',
+            ];
+        }
+    });
+
+    $context = $report->toArray()['context'];
+
+    expect($context)->not()->toHaveKey('context');
+});
