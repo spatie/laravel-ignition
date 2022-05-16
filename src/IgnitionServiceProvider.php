@@ -11,6 +11,7 @@ use Illuminate\View\ViewException;
 use Laravel\Octane\Events\RequestReceived;
 use Laravel\Octane\Events\TaskReceived;
 use Laravel\Octane\Events\TickReceived;
+use Monolog\Level;
 use Monolog\Logger;
 use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\FlareMiddleware\AddSolutions;
@@ -279,7 +280,7 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function getLogLevel(string $logLevelString): int
     {
-        $logLevel = Logger::getLevels()[strtoupper($logLevelString)] ?? null;
+        $logLevel = Level::VALUES[strtoupper($logLevelString)] ?? null;
 
         if (! $logLevel) {
             throw InvalidConfig::invalidLogLevel($logLevelString);
