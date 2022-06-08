@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.2.4 - 2022-06-08
+
+### What's Changed
+
+- Censor password confirmation payloads by @PHPGuus in https://github.com/spatie/laravel-ignition/pull/96
+
+### New Contributors
+
+- @PHPGuus made their first contribution in https://github.com/spatie/laravel-ignition/pull/96
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.2.3...1.2.4
+
 ## 1.2.3 - 2022-05-05
 
 - use context from custom exceptions
