@@ -29,6 +29,10 @@ class ExecuteSolutionController
 
     public function ensureLocalEnvironment(): self
     {
+        if (config("app.ignition.allow_local_usage", false)) {
+            return $this;
+        }
+
         if (! app()->environment('local')) {
             throw CannotExecuteSolutionForNonLocalEnvironment::make();
         }

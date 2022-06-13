@@ -204,4 +204,13 @@ return [
 
     'settings_file_path' => '',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Allow usage of ignition in local environment
+    |--------------------------------------------------------------------------
+    |
+    | If you are using Ignition in a local environment, you may want to allow it and enable it.
+    */
+
+    'allow_local_usage' => env('IGNITION_ALLOW_LOCAL_USAGE', false),
 ];
