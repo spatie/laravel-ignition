@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.3.0 - 2022-06-15
+
+### What's Changed
+
+- Fix solution for missing Mix manifest by @jessarcher in https://github.com/spatie/laravel-ignition/pull/99
+- Add solution for missing Vite manifest by @jessarcher in https://github.com/spatie/laravel-ignition/pull/100
+
+### New Contributors
+
+- @jessarcher made their first contribution in https://github.com/spatie/laravel-ignition/pull/99
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.2.4...1.3.0
+
 ## 1.2.4 - 2022-06-08
 
 ### What's Changed
