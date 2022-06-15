@@ -16,5 +16,5 @@ it('can recommend running npm install and npm run dev', function () {
     $solution = app(MissingMixManifestSolutionProvider::class)
         ->getSolutions(new Exception('Mix manifest not found.'))[0];
 
-    expect(Str::contains($solution->getSolutionDescription(), 'Did you forget to run `npm ci && npm run dev`?'))->toBeTrue();
+    expect(Str::contains($solution->getSolutionDescription(), 'Did you forget to run `npm install && npm run dev`?'))->toBeTrue();
 });
