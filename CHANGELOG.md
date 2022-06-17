@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.3.1 - 2022-06-17
+
+### What's Changed
+
+- Add missing solution provider registration for Vite manifest by @jessarcher in https://github.com/spatie/laravel-ignition/pull/101
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.3.0...1.3.1
+
 ## 1.3.0 - 2022-06-15
 
 ### What's Changed
