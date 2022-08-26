@@ -18,7 +18,7 @@ it('limits the amount of recorded queries', function () {
 });
 
 it('does not limit the amount of recorded queries', function () {
-    $recorder = new QueryRecorder(app(), true);
+    $recorder = new QueryRecorder(app(), true, null);
     $connection = app(Connection::class);
 
     foreach (range(1, 400) as $i) {
