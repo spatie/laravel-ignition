@@ -134,14 +134,19 @@ return [
     |--------------------------------------------------------------------------
     |
     | Some solutions that Ignition displays are runnable and can perform
-    | various tasks. By default, runnable solutions are enabled when your app
-    | has debug mode enabled. You may also fully disable this feature.
+    | various tasks. By default, runnable solutions are only enabled when your
+    | app has debug mode enabled and the environment is `local` or
+    | `development`.
     |
-    | Default: env('IGNITION_ENABLE_RUNNABLE_SOLUTIONS', env('APP_DEBUG', false))
+    | Using the `IGNITION_ENABLE_RUNNABLE_SOLUTIONS` environment variable, you
+    | can override this behaviour and enable or disable runnable solutions
+    | regardless of the application's environment.
+    |
+    | Default: env('IGNITION_ENABLE_RUNNABLE_SOLUTIONS')
     |
     */
 
-    'enable_runnable_solutions' => env('IGNITION_ENABLE_RUNNABLE_SOLUTIONS', env('APP_DEBUG', false)),
+    'enable_runnable_solutions' => env('IGNITION_ENABLE_RUNNABLE_SOLUTIONS'),
 
     /*
     |--------------------------------------------------------------------------
