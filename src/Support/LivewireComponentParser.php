@@ -35,14 +35,14 @@ class LivewireComponentParser
     {
         $properties = collect($this->reflectionClass->getProperties(ReflectionProperty::IS_PUBLIC))
             // @phpstan-ignore-next-line
-            ->reject(fn(ReflectionProperty $reflectionProperty) => $reflectionProperty->class !== $this->reflectionClass->name)
-            ->map(fn(ReflectionProperty $reflectionProperty) => $reflectionProperty->name);
+            ->reject(fn (ReflectionProperty $reflectionProperty) => $reflectionProperty->class !== $this->reflectionClass->name)
+            ->map(fn (ReflectionProperty $reflectionProperty) => $reflectionProperty->name);
 
         $computedProperties = collect($this->reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC))
             // @phpstan-ignore-next-line
-            ->reject(fn(ReflectionMethod $reflectionMethod) => $reflectionMethod->class !== $this->reflectionClass->name)
-            ->filter(fn(ReflectionMethod $reflectionMethod) => str_starts_with($reflectionMethod->name, 'get') && str_ends_with($reflectionMethod->name, 'Property'))
-            ->map(fn(ReflectionMethod $reflectionMethod) => lcfirst(Str::of($reflectionMethod->name)->after('get')->before('Property')));
+            ->reject(fn (ReflectionMethod $reflectionMethod) => $reflectionMethod->class !== $this->reflectionClass->name)
+            ->filter(fn (ReflectionMethod $reflectionMethod) => str_starts_with($reflectionMethod->name, 'get') && str_ends_with($reflectionMethod->name, 'Property'))
+            ->map(fn (ReflectionMethod $reflectionMethod) => lcfirst(Str::of($reflectionMethod->name)->after('get')->before('Property')));
 
         return $this->filterItemsBySimilarity(
             $properties->merge($computedProperties),
@@ -54,8 +54,8 @@ class LivewireComponentParser
     {
         $methods = collect($this->reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC))
             // @phpstan-ignore-next-line
-            ->reject(fn(ReflectionMethod $reflectionMethod) => $reflectionMethod->class !== $this->reflectionClass->name)
-            ->map(fn(ReflectionMethod $reflectionMethod) => $reflectionMethod->name);
+            ->reject(fn (ReflectionMethod $reflectionMethod) => $reflectionMethod->class !== $this->reflectionClass->name)
+            ->map(fn (ReflectionMethod $reflectionMethod) => $reflectionMethod->name);
 
         return $this->filterItemsBySimilarity($methods, $similar);
     }
