@@ -19,6 +19,26 @@ it('wont execute solutions on a production environment', function () {
         ->assertStatus(404);
 });
 
+it('will execute solutions on a production environment if the IGNITION_ENABLE_RUNNABLE_SOLUTIONS env var is true and app.debug is true', function () {
+    app()['env'] = 'production';
+    config()->set('app.debug', true);
+    config()->set('ignition.enable_runnable_solutions', true);
+
+    $this
+        ->postJson(route('ignition.executeSolution'), solutionPayload())
+        ->assertSuccessful();
+});
+
+it('wont execute solutions on a production environment if the IGNITION_ENABLE_RUNNABLE_SOLUTIONS env var is true but app.debug is false', function () {
+    app()['env'] = 'production';
+    config()->set('app.debug', false);
+    config()->set('ignition.enable_runnable_solutions', true);
+
+    $this
+        ->postJson(route('ignition.executeSolution'), solutionPayload())
+        ->assertStatus(404);
+});
+
 it('wont execute solutions when debugging is disabled', function () {
     app()['env'] = 'local';
     config()->set('app.debug', false);
@@ -35,7 +55,7 @@ it('wont execute solutions for a non local ip', function () {
 
     $this
         ->postJson(route('ignition.executeSolution'), solutionPayload())
-        ->assertStatus(404);
+        ->assertForbidden();
 });
 
 
