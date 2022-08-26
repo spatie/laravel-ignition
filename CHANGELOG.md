@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.4.0 - 2022-08-26
+
+### What's Changed
+
+- Replace condition with `min` function by @SubhanSh in https://github.com/spatie/laravel-ignition/pull/103
+- Allow explicit override for runnable solutions by @AlexVanderbist in https://github.com/spatie/laravel-ignition/pull/111
+- Limit recorded queries to 200 by default
+- Provide default values for `QueryRecorder` and `AddLogs` middleware
+
+### New Contributors
+
+- @SubhanSh made their first contribution in https://github.com/spatie/laravel-ignition/pull/103
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.3.1...1.4.0
+
 ## 1.3.1 - 2022-06-17
 
 ### What's Changed
