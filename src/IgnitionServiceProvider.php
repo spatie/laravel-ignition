@@ -166,8 +166,8 @@ class IgnitionServiceProvider extends ServiceProvider
             function (Application $app): QueryRecorder {
                 return new QueryRecorder(
                     $app,
-                    config()->get('flare.flare_middleware.' . AddQueries::class . '.report_query_bindings'),
-                    config()->get('flare.flare_middleware.' . AddQueries::class . '.maximum_number_of_collected_queries')
+                    config('flare.flare_middleware.' . AddQueries::class . '.report_query_bindings', true),
+                    config('flare.flare_middleware.' . AddQueries::class . '.maximum_number_of_collected_queries', 200)
                 );
             }
         );
@@ -175,7 +175,7 @@ class IgnitionServiceProvider extends ServiceProvider
         $this->app->singleton(JobRecorder::class, function (Application $app): JobRecorder {
             return new JobRecorder(
                 $app,
-                config()->get('flare.flare_middleware.' . AddJobs::class . '.max_chained_job_reporting_depth')
+                config('flare.flare_middleware.' . AddJobs::class . '.max_chained_job_reporting_depth', 5)
             );
         });
     }
