@@ -34,23 +34,15 @@ class LivewireComponentParser
     public function getPropertyNamesLike(string $similar): Collection
     {
         $properties = collect($this->reflectionClass->getProperties(ReflectionProperty::IS_PUBLIC))
-            ->reject(function (ReflectionProperty $reflectionProperty) {
-                return $reflectionProperty->class !== $this->reflectionClass->name;
-            })
-            ->map(function (ReflectionProperty $reflectionProperty) {
-                return $reflectionProperty->name;
-            });
+            // @phpstan-ignore-next-line
+            ->reject(fn (ReflectionProperty $reflectionProperty) => $reflectionProperty->class !== $this->reflectionClass->name)
+            ->map(fn (ReflectionProperty $reflectionProperty) => $reflectionProperty->name);
 
         $computedProperties = collect($this->reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC))
-            ->reject(function (ReflectionMethod $reflectionMethod) {
-                return $reflectionMethod->class !== $this->reflectionClass->name;
-            })
-            ->filter(function (ReflectionMethod $reflectionMethod) {
-                return str_starts_with($reflectionMethod->name, 'get') && str_ends_with($reflectionMethod->name, 'Property');
-            })
-            ->map(function (ReflectionMethod $reflectionMethod) {
-                return lcfirst(Str::of($reflectionMethod->name)->after('get')->before('Property'));
-            });
+            // @phpstan-ignore-next-line
+            ->reject(fn (ReflectionMethod $reflectionMethod) => $reflectionMethod->class !== $this->reflectionClass->name)
+            ->filter(fn (ReflectionMethod $reflectionMethod) => str_starts_with($reflectionMethod->name, 'get') && str_ends_with($reflectionMethod->name, 'Property'))
+            ->map(fn (ReflectionMethod $reflectionMethod) => lcfirst(Str::of($reflectionMethod->name)->after('get')->before('Property')));
 
         return $this->filterItemsBySimilarity(
             $properties->merge($computedProperties),
@@ -61,12 +53,9 @@ class LivewireComponentParser
     public function getMethodNamesLike(string $similar): Collection
     {
         $methods = collect($this->reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC))
-            ->reject(function (ReflectionMethod $reflectionMethod) {
-                return $reflectionMethod->class !== $this->reflectionClass->name;
-            })
-            ->map(function (ReflectionMethod $reflectionMethod) {
-                return $reflectionMethod->name;
-            });
+            // @phpstan-ignore-next-line
+            ->reject(fn (ReflectionMethod $reflectionMethod) => $reflectionMethod->class !== $this->reflectionClass->name)
+            ->map(fn (ReflectionMethod $reflectionMethod) => $reflectionMethod->name);
 
         return $this->filterItemsBySimilarity($methods, $similar);
     }

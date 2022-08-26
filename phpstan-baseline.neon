@@ -21,16 +21,6 @@ parameters:
 			path: src/ContextProviders/LaravelRequestContextProvider.php
 
 		-
-			message: "#^Method Spatie\\\\Ignition\\\\Ignition\\:\\:renderException\\(\\) invoked with 1 parameter, 2 required\\.$#"
-			count: 1
-			path: src/Renderers/ErrorPageRenderer.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: src/Solutions/SolutionProviders/DefaultDbNameSolutionProvider.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,ReflectionMethod\\>\\:\\:filter\\(\\) expects \\(callable\\(ReflectionMethod, int\\)\\: bool\\)\\|null, Closure\\(ReflectionMethod\\)\\: 0\\|1\\|false given\\.$#"
 			count: 1
 			path: src/Solutions/SolutionProviders/UnknownValidationSolutionProvider.php
@@ -39,16 +29,6 @@ parameters:
 			message: "#^Cannot call method getMessage\\(\\) on Throwable\\|null\\.$#"
 			count: 1
 			path: src/Support/LaravelDocumentationLinkFinder.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,ReflectionMethod\\>\\:\\:reject\\(\\) expects bool\\|\\(callable\\(int\\)\\: bool\\), Closure\\(ReflectionMethod\\)\\: bool given\\.$#"
-			count: 2
-			path: src/Support/LivewireComponentParser.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,ReflectionProperty\\>\\:\\:reject\\(\\) expects bool\\|\\(callable\\(int\\)\\: bool\\), Closure\\(ReflectionProperty\\)\\: bool given\\.$#"
-			count: 1
-			path: src/Support/LivewireComponentParser.php
 
 		-
 			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\View\\\\Engine\\:\\:getCompiler\\(\\)\\.$#"

@@ -2,16 +2,16 @@
 
 namespace Spatie\LaravelIgnition\Exceptions;
 
-use Exception;
 use Spatie\Ignition\Contracts\BaseSolution;
 use Spatie\Ignition\Contracts\ProvidesSolution;
 use Spatie\Ignition\Contracts\Solution;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class CannotExecuteSolutionForNonLocalIp extends Exception implements ProvidesSolution
+class CannotExecuteSolutionForNonLocalIp extends HttpException implements ProvidesSolution
 {
     public static function make(): self
     {
-        return new self('Solutions cannot be run from your current IP address.');
+        return new self(403, 'Solutions cannot be run from your current IP address.');
     }
 
     public function getSolution(): Solution
