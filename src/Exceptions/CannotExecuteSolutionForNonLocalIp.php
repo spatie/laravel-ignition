@@ -2,7 +2,6 @@
 
 namespace Spatie\LaravelIgnition\Exceptions;
 
-use Exception;
 use Spatie\Ignition\Contracts\BaseSolution;
 use Spatie\Ignition\Contracts\ProvidesSolution;
 use Spatie\Ignition\Contracts\Solution;

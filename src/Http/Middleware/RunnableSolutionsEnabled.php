@@ -15,5 +15,4 @@ class RunnableSolutionsEnabled
 
         return $next($request);
     }
-
 }
