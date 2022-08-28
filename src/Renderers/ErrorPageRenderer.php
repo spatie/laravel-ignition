@@ -21,7 +21,7 @@ class ErrorPageRenderer
 
             $vite = app(\Illuminate\Foundation\Vite::class);
 
-            $hotFile = method_exists($vite, 'hotFile')
+            $hotFile = version_compare(app()->version(), '9.27.0') >= 0
                              ? $vite->hotFile()
                              : public_path('/hot');
 
