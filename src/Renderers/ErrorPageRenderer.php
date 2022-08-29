@@ -21,11 +21,7 @@ class ErrorPageRenderer
 
             $vite = app(\Illuminate\Foundation\Vite::class);
 
-            $hotFile = version_compare(app()->version(), '9.27.0') >= 0
-                             ? $vite->hotFile()
-                             : public_path('/hot');
-
-            if (is_file($hotFile)) {
+            if (is_file($vite->hotFile())) {
                 $vitejsAutoRefresh = $vite->__invoke([]);
             }
         }

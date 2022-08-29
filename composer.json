@@ -26,7 +26,7 @@
         "spatie/flare-client-php": "^1.0.1",
         "symfony/console": "^5.0|^6.0",
         "symfony/var-dumper": "^5.0|^6.0",
-        "illuminate/support": "^8.77|^9.0"
+        "illuminate/support": "^8.77|^9.27"
     },
     "require-dev": {
         "filp/whoops": "^2.14",
