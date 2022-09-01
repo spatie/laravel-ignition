@@ -120,6 +120,7 @@ class IgnitionServiceProvider extends ServiceProvider
             return Flare::make()
                 ->setApiToken(config('flare.key') ?? '')
                 ->setBaseUrl(config('flare.base_url', 'https://flareapp.io/api'))
+                ->applicationPath(base_path())
                 ->setStage(app()->environment())
                 ->setContextProviderDetector(new LaravelContextProviderDetector())
                 ->registerMiddleware($this->getFlareMiddleware())
@@ -147,7 +148,10 @@ class IgnitionServiceProvider extends ServiceProvider
 
         $this->app->singleton(SolutionProviderRepositoryContract::class, fn () => $solutionProviderRepository);
 
-        $this->app->singleton(Ignition::class, fn () => (new Ignition()));
+        $this->app->singleton(Ignition::class,
+            fn () => (new Ignition())
+                ->applicationPath(base_path())
+        );
     }
 
     protected function registerRecorders(): void
