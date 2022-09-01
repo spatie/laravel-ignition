@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.4.1 - 2022-09-01
+
+- Fix missing `application_path` in Ignition reports
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.4.0...1.4.1
+
 ## 1.4.0 - 2022-08-26
 
 ### What's Changed
