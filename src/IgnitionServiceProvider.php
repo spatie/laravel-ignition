@@ -148,7 +148,8 @@ class IgnitionServiceProvider extends ServiceProvider
 
         $this->app->singleton(SolutionProviderRepositoryContract::class, fn () => $solutionProviderRepository);
 
-        $this->app->singleton(Ignition::class,
+        $this->app->singleton(
+            Ignition::class,
             fn () => (new Ignition())
                 ->applicationPath(base_path())
         );
