@@ -15,6 +15,17 @@ class ErrorPageRenderer
 {
     public function render(Throwable $throwable): void
     {
+        $vitejsAutoRefresh = '';
+
+        if (class_exists('Illuminate\Foundation\Vite')) {
+
+            $vite = app(\Illuminate\Foundation\Vite::class);
+
+            if (is_file($vite->hotFile())) {
+                $vitejsAutoRefresh = $vite->__invoke([]);
+            }
+        }
+
         app(Ignition::class)
             ->resolveDocumentationLink(
                 fn (Throwable $throwable) => (new LaravelDocumentationLinkFinder())->findLinkForThrowable($throwable)
@@ -25,6 +36,7 @@ class ErrorPageRenderer
             ->setContextProviderDetector(new LaravelContextProviderDetector())
             ->setSolutionTransformerClass(LaravelSolutionTransformer::class)
             ->applicationPath(base_path())
+            ->addCustomHtmlToHead($vitejsAutoRefresh)
             ->renderException($throwable);
     }
 }
