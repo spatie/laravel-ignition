@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.5.1 - 2022-10-04
+
+- Increase search radius for Blade exception line number mapping to 20 LOC
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.5.0...1.5.1
+
 ## 1.5.0 - 2022-09-16
 
 ### What's Changed
