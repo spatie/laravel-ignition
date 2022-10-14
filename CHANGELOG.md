@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.5.2 - 2022-10-14
+
+### What's Changed
+
+- Improve Vite solution provider by @innocenzi in https://github.com/spatie/laravel-ignition/pull/113
+
+### New Contributors
+
+- @innocenzi made their first contribution in https://github.com/spatie/laravel-ignition/pull/113
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.5.1...1.5.2
+
 ## 1.5.1 - 2022-10-04
 
 - Increase search radius for Blade exception line number mapping to 20 LOC
