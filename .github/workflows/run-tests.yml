@@ -10,7 +10,7 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest, windows-latest]
-                php: [8.0, 8.1]
+                php: [8.0, 8.1, 8.2]
                 laravel: [9.*, 8.*]
                 stability: [prefer-lowest, prefer-stable]
 
@@ -41,7 +41,7 @@ jobs:
 
             -  name: Install dependencies
                run: |
-                    composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+                    composer require "laravel/framework:${{ matrix.laravel }}" "nesbot/carbon:^2.62.1" --no-interaction --no-update
                     composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-suggest
 
             - name: Execute tests
