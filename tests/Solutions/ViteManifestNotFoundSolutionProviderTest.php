@@ -47,5 +47,5 @@ it('detects the package manager and adapts the recommended command', function (s
 })->with([
     ['pnpm-lock.yaml', 'pnpm dev'],
     ['yarn.lock', 'yarn dev'],
-    ['package-lock.json', 'npm run dev']
+    ['package-lock.json', 'npm run dev'],
 ]);
