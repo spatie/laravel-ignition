@@ -15,6 +15,8 @@ class TestCase extends \Orchestra\Testbench\TestCase
 {
     use MakesHttpRequests;
 
+    protected $fakeClient = null;
+
     protected function setUp(): void
     {
         ray()->newScreen($this->getName());
