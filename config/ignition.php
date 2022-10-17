@@ -213,7 +213,7 @@ return [
 
     'should_record' => env(
         'IGNITION_RECORD',
-        env('APP_ENV', 'local') != 'production' && env('APP_DEBUG', true)
+        env('APP_DEBUG', true) && env('APP_ENV', 'local') != 'production'
     ),
     
     'recordings' => [
