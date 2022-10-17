@@ -244,15 +244,24 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function startRecorders(): void
     {
-        // TODO: Ignition feature toggles
-
-        $this->app->make(DumpRecorder::class)->start();
-
-        $this->app->make(LogRecorder::class)->start();
-
-        $this->app->make(QueryRecorder::class)->start();
-
-        $this->app->make(JobRecorder::class)->start();
+        if ($this->app->config['ignition.should_record']) {
+            
+            if ($this->app->config['ignition.recorders.dumps']) { 
+                $this->app->make(DumpRecorder::class)->start();
+            }
+    
+            if ($this->app->config['ignition.recorders.logs']) { 
+                $this->app->make(LogRecorder::class)->start();
+            }
+    
+            if ($this->app->config['ignition.recorders.queries']) { 
+                $this->app->make(QueryRecorder::class)->start();
+            }
+    
+            if ($this->app->config['ignition.recorders.jobs']) { 
+                $this->app->make(JobRecorder::class)->start();
+            }
+        }
     }
 
     protected function configureQueue(): void

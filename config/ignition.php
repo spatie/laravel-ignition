@@ -211,4 +211,16 @@ return [
 
     'settings_file_path' => '',
 
+    'should_record' => env(
+        'IGNITION_RECORD',
+        env('APP_DEBUG', true) && env('APP_ENV', 'local') != 'production'
+    ),
+    
+    'recorders' => [
+        'jobs' => env('IGNITION_RECORD_JOBS', true),
+        'dumps' => env('IGNITION_RECORD_DUMPS', true),
+        'logs' => env('IGNITION_RECORD_LOGS', true),
+        'queries' => env('IGNITION_RECORD_QUERIES', true)
+    ]
+
 ];
