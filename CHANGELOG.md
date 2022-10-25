@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.6.0 - 2022-10-25
+
+### What's Changed
+
+- PHP 8.2 Build by @erikn69 in https://github.com/spatie/laravel-ignition/pull/114
+- fix memory leak in production environments; by @CharlesBilbo in https://github.com/spatie/laravel-ignition/pull/116
+
+### New Contributors
+
+- @erikn69 made their first contribution in https://github.com/spatie/laravel-ignition/pull/114
+- @CharlesBilbo made their first contribution in https://github.com/spatie/laravel-ignition/pull/116
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.5.2...1.6.0
+
 ## 1.5.2 - 2022-10-14
 
 ### What's Changed
