@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.6.1 - 2022-10-26
+
+- do not fail when recorders are set to `null`
+
 ## 1.6.0 - 2022-10-25
 
 ### What's Changed
