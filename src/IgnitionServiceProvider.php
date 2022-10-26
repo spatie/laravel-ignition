@@ -244,7 +244,7 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function startRecorders(): void
     {
-        foreach ($this->app->config['ignition.recorders'] as $recorder) {
+        foreach ($this->app->config['ignition.recorders'] ?? [] as $recorder) {
             $this->app->make($recorder)->start();
         }
     }
