@@ -138,7 +138,7 @@ class ViewExceptionMapper
         foreach ($lastCompiled as $lastCompiledPath) {
             $compiledPath = $this->compilerEngine->getCompiler()->getCompiledPath($lastCompiledPath);
 
-            $knownPaths[$compiledPath ?? $lastCompiledPath] = $lastCompiledPath;
+            $knownPaths[$this->cleanseFilePath($compiledPath ?? $lastCompiledPath)] = $this->cleanseFilePath($lastCompiledPath);
         }
 
         return $knownPaths;
@@ -173,5 +173,16 @@ class ViewExceptionMapper
 
             return $key !== '__env';
         }, ARRAY_FILTER_USE_BOTH);
+    }
+
+    /**
+     * cleanse the filepath based on the OS
+     *
+     * @param  string $filepath
+     * @return string
+     */
+    private function cleanseFilePath(string $filepath): string
+    {
+        return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $filepath);
     }
 }
