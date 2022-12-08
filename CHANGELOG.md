@@ -2,6 +2,26 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.6.2 - 2022-12-08
+
+### What's Changed
+
+- Add Dependabot Automation by @patinthehat in https://github.com/spatie/laravel-ignition/pull/124
+- Update Dependabot Automation by @patinthehat in https://github.com/spatie/laravel-ignition/pull/129
+- Bump stefanzweifel/git-auto-commit-action from 2.3.0 to 4.15.4 by @dependabot in https://github.com/spatie/laravel-ignition/pull/127
+- Bump actions/cache from 2 to 3 by @dependabot in https://github.com/spatie/laravel-ignition/pull/126
+- Bump actions/checkout from 2 to 3 by @dependabot in https://github.com/spatie/laravel-ignition/pull/125
+- Bump stefanzweifel/git-auto-commit-action from 4.15.4 to 4.16.0 by @dependabot in https://github.com/spatie/laravel-ignition/pull/130
+- Also run flare reset on RequestTerminated by Octane by @riasvdv in https://github.com/spatie/laravel-ignition/pull/131
+
+### New Contributors
+
+- @patinthehat made their first contribution in https://github.com/spatie/laravel-ignition/pull/124
+- @dependabot made their first contribution in https://github.com/spatie/laravel-ignition/pull/127
+- @riasvdv made their first contribution in https://github.com/spatie/laravel-ignition/pull/131
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.6.1...1.6.2
+
 ## 1.6.1 - 2022-10-26
 
 - do not fail when recorders are set to `null`
