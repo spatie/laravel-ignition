@@ -20,7 +20,7 @@ beforeEach(function () {
     $this->fakeClient = new FakeClient();
 
     app()->singleton(Flare::class, function () {
-        $flare =  new Flare($this->fakeClient);
+        $flare = new Flare($this->fakeClient);
 
         $flare->sendReportsImmediately();
 
