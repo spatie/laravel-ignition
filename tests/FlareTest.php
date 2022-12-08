@@ -19,7 +19,13 @@ beforeEach(function () {
 
     $this->fakeClient = new FakeClient();
 
-    app()->singleton(Flare::class, fn () => new Flare($this->fakeClient));
+    app()->singleton(Flare::class, function () {
+        $flare = new Flare($this->fakeClient);
+
+        $flare->sendReportsImmediately();
+
+        return $flare;
+    });
 
     $this->useTime('2019-01-01 12:34:56');
 

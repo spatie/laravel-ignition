@@ -20,6 +20,8 @@ beforeEach(function () {
     app()->singleton(Flare::class, function () use ($middleware) {
         $flare = new Flare($this->fakeClient, null, []);
 
+        $flare->sendReportsImmediately();
+
         foreach ($middleware as $singleMiddleware) {
             $flare->registerMiddleware($singleMiddleware);
         }
