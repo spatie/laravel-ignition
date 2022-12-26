@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.6.3 - 2022-12-26
+
+- make sure reports from queues get sent immediately
+
 ## 1.6.2 - 2022-12-08
 
 ### What's Changed
