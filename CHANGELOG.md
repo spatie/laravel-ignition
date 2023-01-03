@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.6.4 - 2023-01-03
+
+### What's Changed
+
+- fix: finding original file using compiled filepath by @SocolaDaiCa in https://github.com/spatie/laravel-ignition/pull/132
+
+### New Contributors
+
+- @SocolaDaiCa made their first contribution in https://github.com/spatie/laravel-ignition/pull/132
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.6.3...1.6.4
+
 ## 1.6.3 - 2022-12-26
 
 - make sure reports from queues get sent immediately
