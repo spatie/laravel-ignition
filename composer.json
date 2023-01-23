@@ -30,9 +30,8 @@
     },
     "require-dev": {
         "filp/whoops": "^2.14",
-        "livewire/livewire": "dev-develop",
+        "livewire/livewire": "^2.0",
         "mockery/mockery": "^1.4",
-        "nunomaduro/larastan": "^3.0",
         "orchestra/testbench": "^8.0",
         "pestphp/pest": "^1.20",
         "phpstan/extension-installer": "^1.1",
