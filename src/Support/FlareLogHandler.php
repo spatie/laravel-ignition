@@ -6,6 +6,7 @@ use InvalidArgumentException;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Level;
 use Monolog\Logger;
+use Monolog\LogRecord;
 use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\Report;
 use Throwable;
@@ -36,12 +37,12 @@ class FlareLogHandler extends AbstractProcessingHandler
         $this->minimumReportLogLevel = $level;
     }
 
-    protected function write(array $record): void
+    protected function write(LogRecord $record): void
     {
-        if (! $this->shouldReport($record)) {
+        if (! $this->shouldReport($record->toArray())) {
             return;
         }
-        if ($this->hasException($record)) {
+        if ($this->hasException($record->toArray())) {
             $report = $this->flare->report($record['context']['exception']);
 
             if ($report) {
@@ -52,7 +53,7 @@ class FlareLogHandler extends AbstractProcessingHandler
         }
 
         if (config('flare.send_logs_as_events')) {
-            if ($this->hasValidLogLevel($record)) {
+            if ($this->hasValidLogLevel($record->toArray())) {
                 $this->flare->reportMessage(
                     $record['message'],
                     'Log ' . Logger::toMonologLevel($record['level'])->getName(),
