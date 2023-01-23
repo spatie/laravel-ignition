@@ -1,6 +1,5 @@
 <?php
 
-use Flare as FlareFacade;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\View;
 use Spatie\FlareClient\Flare;
@@ -28,7 +27,9 @@ beforeEach(function () {
 });
 
 it('can manually report exceptions', function () {
-    FlareFacade::report(new Exception());
+    \Spatie\LaravelIgnition\Facades\Flare::sendReportsImmediately();
+
+    \Spatie\LaravelIgnition\Facades\Flare::report(new Exception());
 
     $this->fakeClient->assertRequestsSent(1);
 });
