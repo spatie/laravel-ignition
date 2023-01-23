@@ -17,11 +17,13 @@ class FlareLogHandler extends AbstractProcessingHandler
 
     protected SentReports $sentReports;
 
-    protected int $minimumReportLogLevel = Level::Error;
+    protected int $minimumReportLogLevel;
 
     public function __construct(Flare $flare, SentReports $sentReports, $level = Level::Debug, $bubble = true)
     {
         $this->flare = $flare;
+
+        $this->minimumReportLogLevel = Level::Error->value;
 
         $this->sentReports = $sentReports;
 

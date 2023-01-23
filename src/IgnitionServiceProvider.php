@@ -2,6 +2,7 @@
 
 namespace Spatie\LaravelIgnition;
 
+use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Log;
@@ -276,13 +277,18 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function getLogLevel(string $logLevelString): int
     {
-        $logLevel = Level::VALUES[strtoupper($logLevelString)] ?? null;
+        try {
+            $logLevel = Level::fromName($logLevelString);
+
+        } catch (Exception $exception) {
+            $logLevel = null;
+        }
 
         if (! $logLevel) {
             throw InvalidConfig::invalidLogLevel($logLevelString);
         }
 
-        return $logLevel;
+        return $logLevel->value;
     }
 
     protected function getFlareMiddleware(): array
