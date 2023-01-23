@@ -37,7 +37,7 @@ class FlareLogHandler extends AbstractProcessingHandler
         $this->minimumReportLogLevel = $level;
     }
 
-    protected function write(array|LogRecord $record): void
+    protected function write(array $record): void
     {
         if (! $this->shouldReport($record)) {
             return;
