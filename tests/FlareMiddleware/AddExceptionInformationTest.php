@@ -7,6 +7,7 @@ it('will add query information with a query exception', function () {
     $sql = 'select * from users where emai = "ruben@spatie.be"';
 
     $report = Flare::createReport(new QueryException(
+        'default',
         '' . $sql . '',
         [],
         new Exception()
