@@ -279,7 +279,6 @@ class IgnitionServiceProvider extends ServiceProvider
     {
         try {
             $logLevel = Level::fromName($logLevelString);
-
         } catch (Exception $exception) {
             $logLevel = null;
         }
