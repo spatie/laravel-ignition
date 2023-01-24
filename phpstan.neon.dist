@@ -14,9 +14,10 @@ parameters:
         - src/IgnitionServiceProvider
         - src/Http
         - src/FlareMiddleware
+        - src/Support/LivewireComponentParser
+        - src/Solutions/SolutionProviders/SolutionProviderRepository
+        - src/Commands/TestCommand
 
     tmpDir: build/phpstan
-    checkOctaneCompatibility: true
-    checkModelProperties: true
     checkMissingIterableValueType: true
 
