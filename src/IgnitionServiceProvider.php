@@ -34,7 +34,6 @@ use Spatie\LaravelIgnition\Recorders\JobRecorder\JobRecorder;
 use Spatie\LaravelIgnition\Recorders\LogRecorder\LogRecorder;
 use Spatie\LaravelIgnition\Recorders\QueryRecorder\QueryRecorder;
 use Spatie\LaravelIgnition\Renderers\IgnitionExceptionRenderer;
-use Spatie\LaravelIgnition\Renderers\IgnitionWhoopsHandler;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\SolutionProviderRepository;
 use Spatie\LaravelIgnition\Support\FlareLogHandler;
 use Spatie\LaravelIgnition\Support\SentReports;
@@ -102,19 +101,10 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function registerRenderer(): void
     {
-        if (interface_exists('Whoops\Handler\HandlerInterface')) {
-            $this->app->bind(
-                'Whoops\Handler\HandlerInterface',
-                fn (Application $app) => $app->make(IgnitionWhoopsHandler::class)
-            );
-        }
-
-        if (interface_exists('Illuminate\Contracts\Foundation\ExceptionRenderer')) {
-            $this->app->bind(
-                'Illuminate\Contracts\Foundation\ExceptionRenderer',
-                fn (Application $app) => $app->make(IgnitionExceptionRenderer::class)
-            );
-        }
+        $this->app->bind(
+            'Illuminate\Contracts\Foundation\ExceptionRenderer',
+            fn (Application $app) => $app->make(IgnitionExceptionRenderer::class)
+        );
     }
 
     protected function registerFlare(): void

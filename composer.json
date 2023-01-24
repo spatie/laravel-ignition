@@ -28,7 +28,6 @@
         "symfony/var-dumper": "^6.2.3"
     },
     "require-dev": {
-        "filp/whoops": "^2.14.6",
         "livewire/livewire": "^2.11",
         "mockery/mockery": "^1.5.1",
         "orchestra/testbench": "^8.0",

@@ -84,7 +84,7 @@ it('adds log messages to the report', function () {
         Log::debug('debug log');
         Log::notice('notice log');
 
-        whoops();
+        nonExistingFunction();
     });
 
     $this->get('/exception');
@@ -104,7 +104,7 @@ it('can report an exception with logs', function ($logLevel) {
     Log::log($logLevel, 'log');
 
     Route::get('exception', function () {
-        whoops();
+        nonExistingFunction();
     });
 
     $this->get('/exception');
@@ -127,7 +127,7 @@ it('can report an exception with logs with metadata', function () {
     ]);
 
     Route::get('exception', function () {
-        whoops();
+        nonExistingFunction();
     });
 
     $this->get('/exception');
