@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.0.0 - 2023-01-25
+
+### What's Changed
+
+- [10.x] Laravel v10 development by @driesvints in https://github.com/spatie/laravel-ignition/pull/38
+- Update composer.json by @driesvints in https://github.com/spatie/laravel-ignition/pull/39
+- Update composer.json by @driesvints in https://github.com/spatie/laravel-ignition/pull/40
+- Update to Monolog v3 by @driesvints in https://github.com/spatie/laravel-ignition/pull/91
+- Support Laravel 10 by @freekmurze in https://github.com/spatie/laravel-ignition/pull/134
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.6.4...2.0.0
+
 ## 1.6.4 - 2023-01-03
 
 ### What's Changed
