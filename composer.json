@@ -51,9 +51,6 @@
             "aliases": {
                 "Flare": "Spatie\\LaravelIgnition\\Facades\\Flare"
             }
-        },
-        "branch-alias": {
-            "dev-main": "2.0-dev"
         }
     },
     "autoload": {
