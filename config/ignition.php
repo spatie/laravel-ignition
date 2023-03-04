@@ -22,6 +22,7 @@ use Spatie\LaravelIgnition\Solutions\SolutionProviders\TableNotFoundSolutionProv
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\UndefinedViewVariableSolutionProvider;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\UnknownValidationSolutionProvider;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\ViewNotFoundSolutionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\OpenAiSolutionProvider;
 
 return [
 
@@ -115,6 +116,7 @@ return [
         MissingLivewireComponentSolutionProvider::class,
         UndefinedViewVariableSolutionProvider::class,
         GenericLaravelExceptionSolutionProvider::class,
+        OpenAiSolutionProvider::class,
     ],
 
     /*
