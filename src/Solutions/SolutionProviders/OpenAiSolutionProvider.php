@@ -16,7 +16,6 @@ class OpenAiSolutionProvider implements HasSolutionsForThrowable
         }
 
         if (config('ignition.open_ai_key') === null) {
-
             return false;
         }
 
