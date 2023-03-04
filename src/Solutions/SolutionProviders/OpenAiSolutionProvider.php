@@ -2,7 +2,6 @@
 
 namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
-use Illuminate\Support\Facades\Cache;
 use \Spatie\Ignition\Solutions\OpenAi\OpenAiSolutionProvider as BaseOpenAiSolutionProvider;
 use Throwable;
 
