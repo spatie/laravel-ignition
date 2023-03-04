@@ -28,7 +28,7 @@ class OpenAiSolutionProvider implements HasSolutionsForThrowable
         $solutionProvider = new BaseOpenAiSolutionProvider(
             openAiKey: config('ignition.open_ai_key'),
             cache: cache()->store(config('cache.default')),
-            cacheTtlInSeconds: 60 * 60,
+            cacheTtlInSeconds: 60,
             applicationType: 'Laravel ' . app()->version(),
             applicationPath: app_path(),
         );
