@@ -2,22 +2,31 @@
 
 namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
-use Illuminate\Support\Facades\Cache;
-use \Spatie\Ignition\Solutions\OpenAi\OpenAiSolutionProvider as BaseOpenAiSolutionProvider;
+use OpenAi\Client;
+use Spatie\Ignition\Contracts\HasSolutionsForThrowable;
+use Spatie\Ignition\Solutions\OpenAi\OpenAiSolutionProvider as BaseOpenAiSolutionProvider;
 use Throwable;
 
-class OpenAiSolutionProvider extends BaseOpenAiSolutionProvider
+class OpenAiSolutionProvider implements HasSolutionsForThrowable
 {
     public function canSolve(Throwable $throwable): bool
     {
-        return config('ignition.open_ai_key') !== null;
+        if (! class_exists(Client::class)) {
+            return false;
+        }
+
+        if (config('ignition.open_ai_key') === null) {
+            return false;
+        }
+
+        return true;
     }
 
     public function getSolutions(Throwable $throwable): array
     {
-        $solutionProvider = new OpenAiSolutionProvider(
+        $solutionProvider = new BaseOpenAiSolutionProvider(
             openAiKey: config('ignition.open_ai_key'),
-            cache: app('cache'),
+            cache: cache()->store(config('cache.default')),
             cacheTtlInSeconds: 60 * 60,
             applicationType: 'Laravel ' . app()->version(),
         );

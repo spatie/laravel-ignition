@@ -30,11 +30,16 @@
     "require-dev": {
         "livewire/livewire": "^2.11",
         "mockery/mockery": "^1.5.1",
+        "openai-php/client": "^0.3.4",
         "orchestra/testbench": "^8.0",
         "pestphp/pest": "^1.22.3",
         "phpstan/extension-installer": "^1.2",
         "phpstan/phpstan-deprecation-rules": "^1.1.1",
         "phpstan/phpstan-phpunit": "^1.3.3"
+    },
+    "suggest": {
+        "openai-php/client": "Require get solutions from OpenAI",
+        "psr/simple-cache-implementation": "Needed to cache solutions from OpenAI"
     },
     "config": {
         "sort-packages": true,
