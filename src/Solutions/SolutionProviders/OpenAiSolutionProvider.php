@@ -2,6 +2,7 @@
 
 namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
+use Illuminate\Support\Str;
 use OpenAI\Client;
 use Spatie\Ignition\Contracts\HasSolutionsForThrowable;
 use Spatie\Ignition\Solutions\OpenAi\OpenAiSolutionProvider as BaseOpenAiSolutionProvider;
@@ -28,7 +29,7 @@ class OpenAiSolutionProvider implements HasSolutionsForThrowable
             openAiKey: config('ignition.open_ai_key'),
             cache: cache()->store(config('cache.default')),
             cacheTtlInSeconds: 60,
-            applicationType: 'Laravel ' . app()->version(),
+            applicationType: 'Laravel ' . Str::before(app()->version(), '.'),
             applicationPath: base_path(),
         );
 
