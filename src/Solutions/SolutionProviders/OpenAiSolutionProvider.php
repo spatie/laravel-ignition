@@ -29,7 +29,7 @@ class OpenAiSolutionProvider implements HasSolutionsForThrowable
             cache: cache()->store(config('cache.default')),
             cacheTtlInSeconds: 60,
             applicationType: 'Laravel ' . app()->version(),
-            applicationPath: app_path(),
+            applicationPath: base_path(),
         );
 
         return $solutionProvider->getSolutions($throwable);
