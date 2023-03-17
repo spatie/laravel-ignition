@@ -18,6 +18,7 @@ use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingLivewireComponentS
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingMixManifestSolutionProvider;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\MissingViteManifestSolutionProvider;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\RunningLaravelDuskInProductionProvider;
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\RouteNotDefinedSolutionProvider;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\TableNotFoundSolutionProvider;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\UndefinedViewVariableSolutionProvider;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\UnknownValidationSolutionProvider;
@@ -113,6 +114,7 @@ return [
         MissingMixManifestSolutionProvider::class,
         MissingViteManifestSolutionProvider::class,
         MissingLivewireComponentSolutionProvider::class,
+        RouteNotDefinedSolutionProvider::class,
         UndefinedViewVariableSolutionProvider::class,
         GenericLaravelExceptionSolutionProvider::class,
     ],

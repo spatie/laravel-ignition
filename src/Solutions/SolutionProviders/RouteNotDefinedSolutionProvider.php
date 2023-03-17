@@ -5,6 +5,8 @@ namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 use Illuminate\Support\Facades\Route;
 use Spatie\Ignition\Contracts\BaseSolution;
 use Spatie\Ignition\Contracts\HasSolutionsForThrowable;
+use Spatie\LaravelIgnition\Exceptions\ViewException;
+use Spatie\LaravelIgnition\Solutions\RunRouteCacheSolution;
 use Spatie\LaravelIgnition\Support\StringComparator;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Throwable;
@@ -15,11 +17,15 @@ class RouteNotDefinedSolutionProvider implements HasSolutionsForThrowable
 
     public function canSolve(Throwable $throwable): bool
     {
+        if ($throwable instanceof ViewException) {
+            return $this->matchMessageError($throwable);
+        }
+
         if (! $throwable instanceof RouteNotFoundException) {
             return false;
         }
 
-        return (bool)preg_match(self::REGEX, $throwable->getMessage(), $matches);
+        return $this->matchMessageError($throwable);
     }
 
     public function getSolutions(Throwable $throwable): array
@@ -32,15 +38,11 @@ class RouteNotDefinedSolutionProvider implements HasSolutionsForThrowable
 
         if ($suggestedRoute) {
             return [
-                BaseSolution::create("{$missingRoute} was not defined.")
-                    ->setSolutionDescription("Did you mean `{$suggestedRoute}`?"),
+                new RunRouteCacheSolution('The route is cached?')
             ];
         }
 
-        return [
-            BaseSolution::create("{$missingRoute} was not defined.")
-                ->setSolutionDescription('Are you sure that the route is defined'),
-        ];
+        return [new RunRouteCacheSolution('The route is cached?')];
     }
 
     protected function findRelatedRoute(string $missingRoute): ?string
@@ -48,5 +50,10 @@ class RouteNotDefinedSolutionProvider implements HasSolutionsForThrowable
         Route::getRoutes()->refreshNameLookups();
 
         return StringComparator::findClosestMatch(array_keys(Route::getRoutes()->getRoutesByName()), $missingRoute);
+    }
+
+    protected function matchMessageError(Throwable $throwable):bool
+    {
+        return (bool)preg_match(self::REGEX, $throwable->getMessage(), $matches);
     }
 }
