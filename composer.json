@@ -35,7 +35,8 @@
         "pestphp/pest": "^1.22.3",
         "phpstan/extension-installer": "^1.2",
         "phpstan/phpstan-deprecation-rules": "^1.1.1",
-        "phpstan/phpstan-phpunit": "^1.3.3"
+        "phpstan/phpstan-phpunit": "^1.3.3",
+        "vlucas/phpdotenv": "^5.5"
     },
     "suggest": {
         "openai-php/client": "Require get solutions from OpenAI",

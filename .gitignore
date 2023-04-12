@@ -9,3 +9,4 @@ phpstan.neon
 tests/stubs/Controllers/GitConflictController.php
 package-lock.json
 .php-cs-fixer.cache
+.env
