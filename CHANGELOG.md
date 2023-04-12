@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.1.0 - 2023-04-12
+
+### What's Changed
+
+- Bump dependabot/fetch-metadata from 1.3.5 to 1.3.6 by @dependabot in https://github.com/spatie/laravel-ignition/pull/135
+- Update run-tests.yml by @tvbeek in https://github.com/spatie/laravel-ignition/pull/136
+- Add AI solutions by @freekmurze in https://github.com/spatie/laravel-ignition/pull/142
+
+### New Contributors
+
+- @tvbeek made their first contribution in https://github.com/spatie/laravel-ignition/pull/136
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/2.0.0...2.1.0
+
 ## 2.0.0 - 2023-01-25
 
 ### What's Changed
