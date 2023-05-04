@@ -237,5 +237,5 @@ return [
     /*
      * When a key is set, we'll send your exceptions to Open AI to generate a solution
      */
-    'open_ai_key' => null,
+    'open_ai_key' => env('IGNITION_OPEN_AI_KEY'),
 ];
