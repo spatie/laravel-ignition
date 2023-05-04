@@ -2,6 +2,17 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.1.1 - 2023-05-04
+
+- Set 'open_ai_key' to use environment variable in 'ignition.php'.
+- 
+
+### What's Changed
+
+- Bump dependabot/fetch-metadata from 1.3.6 to 1.4.0 by @dependabot in https://github.com/spatie/laravel-ignition/pull/144
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/2.1.0...2.1.1
+
 ## 2.1.0 - 2023-04-12
 
 ### What's Changed
