@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.1.2 - 2023-05-09
+
+- fix regex pattern in `MissingImportSolutionProvider`
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/2.1.1...2.1.2
+
 ## 2.1.1 - 2023-05-04
 
 - Set 'open_ai_key' to use environment variable in 'ignition.php'.
