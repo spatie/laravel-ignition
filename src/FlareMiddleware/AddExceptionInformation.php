@@ -3,6 +3,7 @@
 namespace Spatie\LaravelIgnition\FlareMiddleware;
 
 use Illuminate\Database\QueryException;
+use Spatie\FlareClient\Contracts\ProvidesFlareContext;
 use Spatie\FlareClient\FlareMiddleware\FlareMiddleware;
 use Spatie\FlareClient\Report;
 
@@ -30,6 +31,10 @@ class AddExceptionInformation implements FlareMiddleware
         $throwable = $report->getThrowable();
 
         if ($throwable === null) {
+            return;
+        }
+
+        if ($throwable instanceof ProvidesFlareContext) {
             return;
         }
 
