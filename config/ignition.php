@@ -35,7 +35,7 @@ return [
     |
     | Supported: "phpstorm", "vscode", "vscode-insiders", "textmate", "emacs",
     |            "sublime", "atom", "nova", "macvim", "idea", "netbeans",
-    |            "xdebug"
+    |            "xdebug", "phpstorm-remote"
     |
     */
 
