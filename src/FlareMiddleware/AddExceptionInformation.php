@@ -35,6 +35,7 @@ class AddExceptionInformation implements FlareMiddleware
         }
 
         if ($throwable instanceof ProvidesFlareContext) {
+            // ProvidesFlareContext writes directly to context groups and is handled in the flare-client-php package.
             return;
         }
 
@@ -48,8 +49,10 @@ class AddExceptionInformation implements FlareMiddleware
             return;
         }
 
+        $exceptionContextGroup = [];
         foreach ($context as $key => $value) {
-            $report->context($key, $value);
+            $exceptionContextGroup[$key] = $value;
         }
+        $report->group('exception', $exceptionContextGroup);
     }
 }
