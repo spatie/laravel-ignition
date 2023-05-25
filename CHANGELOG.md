@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.1.3 - 2023-05-25
+
+### What's Changed
+
+- Better support for custom context and exception context by @rubenvanassche in https://github.com/spatie/laravel-ignition/pull/146
+- Support for PhpStorm Remote editor
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/2.1.2...2.1.3
+
 ## 2.1.2 - 2023-05-09
 
 - fix regex pattern in `MissingImportSolutionProvider`
