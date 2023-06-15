@@ -16,6 +16,7 @@
     ],
     "homepage": "https://flareapp.io/ignition",
     "license": "MIT",
+    "repositories" : [{"type" : "path", "url":  "../flare-client-php"}],
     "require": {
         "php": "^8.1",
         "ext-curl": "*",
