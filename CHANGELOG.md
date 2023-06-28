@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.2.0 - 2023-06-28
+
+- Add support arguments and argument reducers
+
 ## 2.1.3 - 2023-05-25
 
 ### What's Changed
