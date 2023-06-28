@@ -249,7 +249,7 @@ return [
     |
     */
 
-    'show_stack_trace_arguments' => true,
+    'with_stack_frame_arguments' => true,
 
     /*
     |--------------------------------------------------------------------------

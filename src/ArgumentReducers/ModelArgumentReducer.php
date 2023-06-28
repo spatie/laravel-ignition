@@ -17,7 +17,7 @@ class ModelArgumentReducer implements ArgumentReducer
         }
 
         return new ReducedArgument(
-            "{$argument->getKeyName()}|{$argument->getKey()}",
+            "{$argument->getKeyName()}:{$argument->getKey()}",
             get_class($argument)
         );
     }

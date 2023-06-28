@@ -119,7 +119,7 @@ class IgnitionServiceProvider extends ServiceProvider
                 ->registerMiddleware($this->getFlareMiddleware())
                 ->registerMiddleware(new AddSolutions(new SolutionProviderRepository($this->getSolutionProviders())))
                 ->argumentReducers(config('ignition.argument_reducers', []))
-                ->withStackFrameArguments(config('ignition.show_stack_trace_arguments', true));
+                ->withStackFrameArguments(config('ignition.with_stack_frame_arguments', true));
         });
 
         $this->app->singleton(SentReports::class);
