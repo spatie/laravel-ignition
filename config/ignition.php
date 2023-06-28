@@ -231,11 +231,47 @@ return [
         DumpRecorder::class,
         JobRecorder::class,
         LogRecorder::class,
-        QueryRecorder::class
+        QueryRecorder::class,
     ],
 
     /*
      * When a key is set, we'll send your exceptions to Open AI to generate a solution
      */
     'open_ai_key' => env('IGNITION_OPEN_AI_KEY'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Include arguments
+    |--------------------------------------------------------------------------
+    |
+    | Ignition show you stack traces of exceptions with the arguments that were
+    | passed to each method. This feature can be disabled here.
+    |
+    */
+
+    'with_stack_frame_arguments' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Argument reducers
+    |--------------------------------------------------------------------------
+    |
+    | Ignition show you stack traces of exceptions with the arguments that were
+    | passed to each method. To make these variables more readable, you can
+    | specify a list of classes here which summarize the variables.
+    |
+    */
+    'argument_reducers' => [
+        \Spatie\Backtrace\Arguments\Reducers\BaseTypeArgumentReducer::class,
+        \Spatie\Backtrace\Arguments\Reducers\ArrayArgumentReducer::class,
+        \Spatie\Backtrace\Arguments\Reducers\StdClassArgumentReducer::class,
+        \Spatie\Backtrace\Arguments\Reducers\EnumArgumentReducer::class,
+        \Spatie\Backtrace\Arguments\Reducers\ClosureArgumentReducer::class,
+        \Spatie\Backtrace\Arguments\Reducers\DateTimeArgumentReducer::class,
+        \Spatie\Backtrace\Arguments\Reducers\DateTimeZoneArgumentReducer::class,
+        \Spatie\Backtrace\Arguments\Reducers\SymphonyRequestArgumentReducer::class,
+        \Spatie\LaravelIgnition\ArgumentReducers\ModelArgumentReducer::class,
+        \Spatie\LaravelIgnition\ArgumentReducers\CollectionArgumentReducer::class,
+        \Spatie\Backtrace\Arguments\Reducers\StringableArgumentReducer::class,
+    ],
 ];
