@@ -39,7 +39,7 @@ it('will add user context when provided on a custom exception', function () {
 
     $context = $report->toArray()['context'];
 
-    expect($context['context']['hello'])->toBe('world');
+    expect($context['exception']['hello'])->toBe('world');
 });
 
 it('will only add arrays as user provided context', function () {
