@@ -2,7 +2,6 @@
 
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Collection;
-use Orchestra\Testbench\Factories\UserFactory;
 use Spatie\LaravelIgnition\Facades\Flare;
 use Spatie\LaravelIgnition\Tests\TestClasses\FakeArgumentsReducer;
 
@@ -28,7 +27,7 @@ it('can reduce a collection', function () {
     ]);
 });
 
-it('can reduce a model', function (){
+it('can reduce a model', function () {
     $user = new User();
     $user->id = 10;
 
@@ -49,7 +48,7 @@ it('can reduce a model', function (){
     ]);
 });
 
-it('can disable the use of arguments', function(){
+it('can disable the use of arguments', function () {
     function exceptionWithArgumentsDisabled(string $string)
     {
         return new Exception('Whoops');
@@ -62,14 +61,14 @@ it('can disable the use of arguments', function(){
     expect($report->toArray()['stacktrace'][1]['arguments'])->toBeNull();
 });
 
-it('can set a custom arguments reducer', function (){
+it('can set a custom arguments reducer', function () {
     function exceptionWithCustomArgumentReducer(string $string)
     {
         return new Exception('Whoops');
     }
 
     config()->set('ignition.argument_reducers', [
-        FakeArgumentsReducer::class
+        FakeArgumentsReducer::class,
     ]);
 
     $report = Flare::createReport(exceptionWithCustomArgumentReducer('Hello World'));
