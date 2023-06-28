@@ -262,16 +262,16 @@ return [
     |
     */
     'argument_reducers' => [
-        \Spatie\FlareClient\Arguments\Reducers\BaseTypeArgumentReducer::class,
-        \Spatie\FlareClient\Arguments\Reducers\ArrayArgumentReducer::class,
-        \Spatie\FlareClient\Arguments\Reducers\StdClassArgumentReducer::class,
-        \Spatie\FlareClient\Arguments\Reducers\EnumArgumentReducer::class,
-        \Spatie\FlareClient\Arguments\Reducers\ClosureArgumentReducer::class,
-        \Spatie\FlareClient\Arguments\Reducers\DateTimeArgumentReducer::class,
-        \Spatie\FlareClient\Arguments\Reducers\DateTimeZoneArgumentReducer::class,
-        \Spatie\FlareClient\Arguments\Reducers\SymphonyRequestArgumentReducer::class,
+        \Spatie\Backtrace\Arguments\Reducers\BaseTypeArgumentReducer::class,
+        \Spatie\Backtrace\Arguments\Reducers\ArrayArgumentReducer::class,
+        \Spatie\Backtrace\Arguments\Reducers\StdClassArgumentReducer::class,
+        \Spatie\Backtrace\Arguments\Reducers\EnumArgumentReducer::class,
+        \Spatie\Backtrace\Arguments\Reducers\ClosureArgumentReducer::class,
+        \Spatie\Backtrace\Arguments\Reducers\DateTimeArgumentReducer::class,
+        \Spatie\Backtrace\Arguments\Reducers\DateTimeZoneArgumentReducer::class,
+        \Spatie\Backtrace\Arguments\Reducers\SymphonyRequestArgumentReducer::class,
         \Spatie\LaravelIgnition\ArgumentReducers\ModelArgumentReducer::class,
         \Spatie\LaravelIgnition\ArgumentReducers\CollectionArgumentReducer::class,
-        \Spatie\FlareClient\Arguments\Reducers\StringableArgumentReducer::class,
+        \Spatie\Backtrace\Arguments\Reducers\StringableArgumentReducer::class,
     ],
 ];

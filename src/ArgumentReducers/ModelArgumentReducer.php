@@ -3,10 +3,10 @@
 namespace Spatie\LaravelIgnition\ArgumentReducers;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\FlareClient\Arguments\ReducedArgument\ReducedArgument;
-use Spatie\FlareClient\Arguments\ReducedArgument\ReducedArgumentContract;
-use Spatie\FlareClient\Arguments\ReducedArgument\UnReducedArgument;
-use Spatie\FlareClient\Arguments\Reducers\ArgumentReducer;
+use Spatie\Backtrace\Arguments\ReducedArgument\ReducedArgument;
+use Spatie\Backtrace\Arguments\ReducedArgument\ReducedArgumentContract;
+use Spatie\Backtrace\Arguments\ReducedArgument\UnReducedArgument;
+use Spatie\Backtrace\Arguments\Reducers\ArgumentReducer;
 
 class ModelArgumentReducer implements ArgumentReducer
 {

@@ -3,13 +3,14 @@
 namespace Spatie\LaravelIgnition\ArgumentReducers;
 
 use Illuminate\Support\Collection;
-use Spatie\FlareClient\Arguments\ReducedArgument\ReducedArgument;
-use Spatie\FlareClient\Arguments\ReducedArgument\UnReducedArgument;
-use Spatie\FlareClient\Arguments\Reducers\ArrayArgumentReducer;
+use Spatie\Backtrace\Arguments\ReducedArgument\ReducedArgument;
+use Spatie\Backtrace\Arguments\ReducedArgument\ReducedArgumentContract;
+use Spatie\Backtrace\Arguments\ReducedArgument\UnReducedArgument;
+use Spatie\Backtrace\Arguments\Reducers\ArrayArgumentReducer;
 
 class CollectionArgumentReducer extends ArrayArgumentReducer
 {
-    public function execute(mixed $argument): ReducedArgument|UnReducedArgument
+    public function execute(mixed $argument): ReducedArgumentContract
     {
         if (! $argument instanceof Collection) {
             return UnReducedArgument::create();
