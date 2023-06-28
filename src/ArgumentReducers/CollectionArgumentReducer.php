@@ -3,7 +3,6 @@
 namespace Spatie\LaravelIgnition\ArgumentReducers;
 
 use Illuminate\Support\Collection;
-use Spatie\Backtrace\Arguments\ReducedArgument\ReducedArgument;
 use Spatie\Backtrace\Arguments\ReducedArgument\ReducedArgumentContract;
 use Spatie\Backtrace\Arguments\ReducedArgument\UnReducedArgument;
 use Spatie\Backtrace\Arguments\Reducers\ArrayArgumentReducer;
