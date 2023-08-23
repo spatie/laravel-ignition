@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.3.0 - 2023-08-23
+
+### What's Changed
+
+- Bump dependabot/fetch-metadata from 1.5.1 to 1.6.0 by @dependabot in https://github.com/spatie/laravel-ignition/pull/154
+- Help Sail users when they forget to run an Artisan command using `sail` by @jessarcher in https://github.com/spatie/laravel-ignition/pull/156
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/2.2.0...2.3.0
+
 ## 2.2.0 - 2023-06-28
 
 - Add support arguments and argument reducers
