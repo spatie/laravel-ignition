@@ -239,6 +239,7 @@ return [
     /*
      * When a key is set, we'll send your exceptions to Open AI to generate a solution
      */
+
     'open_ai_key' => env('IGNITION_OPEN_AI_KEY'),
 
     /*
@@ -263,6 +264,7 @@ return [
     | specify a list of classes here which summarize the variables.
     |
     */
+
     'argument_reducers' => [
         \Spatie\Backtrace\Arguments\Reducers\BaseTypeArgumentReducer::class,
         \Spatie\Backtrace\Arguments\Reducers\ArrayArgumentReducer::class,
@@ -276,4 +278,5 @@ return [
         \Spatie\LaravelIgnition\ArgumentReducers\CollectionArgumentReducer::class,
         \Spatie\Backtrace\Arguments\Reducers\StringableArgumentReducer::class,
     ],
+
 ];
