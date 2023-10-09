@@ -90,7 +90,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | You may specify a list of solution providers (as fully qualified class
-    | names) that shouldn't be loaded. Ignition will ignore these classes
+    | names) that should be loaded. Ignition will ignore these classes
     | and possible solutions provided by them will never be displayed.
     |
     */
