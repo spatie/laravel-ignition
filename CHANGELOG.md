@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.3.1 - 2023-10-09
+
+- fix config description
+
 ## 2.3.0 - 2023-08-23
 
 ### What's Changed
