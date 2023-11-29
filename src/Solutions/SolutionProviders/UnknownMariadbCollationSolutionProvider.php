@@ -4,9 +4,7 @@ namespace Spatie\LaravelIgnition\Solutions\SolutionProviders;
 
 use Illuminate\Database\QueryException;
 use Spatie\Ignition\Contracts\HasSolutionsForThrowable;
-use Spatie\LaravelIgnition\Solutions\SuggestUsingCorrectDbNameSolution;
 use Spatie\LaravelIgnition\Solutions\SuggestUsingMariadbDatabaseSolution;
-use Spatie\LaravelIgnition\Solutions\SuggestUsingMysql8DatabaseSolution;
 use Throwable;
 
 class UnknownMariadbCollationSolutionProvider implements HasSolutionsForThrowable
