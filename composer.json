@@ -28,9 +28,9 @@
         "symfony/var-dumper": "^6.2.3|^7.0"
     },
     "require-dev": {
-        "livewire/livewire": "^2.11|dev-feat/l11",
+        "livewire/livewire": "^2.11|^3.0|dev-feat/l11",
         "mockery/mockery": "^1.5.1",
-        "openai-php/client": "^0.7.3",
+        "openai-php/client": "^0.8.0",
         "orchestra/testbench": "^8.0|^9.0",
         "pestphp/pest": "^1.22.3|^2.0",
         "phpstan/extension-installer": "^1.2",

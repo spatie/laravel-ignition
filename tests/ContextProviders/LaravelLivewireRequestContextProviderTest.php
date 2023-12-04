@@ -166,7 +166,7 @@ function createRequestContext(array $fingerprint, array $updates = [], array $se
         'fingerprint' => $fingerprint,
         'serverMemo' => $serverMemo,
         'updates' => $updates,
-    ]);
+    ], ['X-Livewire' => 1]);
 
     return new LaravelLivewireRequestContextProvider($providedRequest, test()->livewireManager);
 }
