@@ -182,7 +182,7 @@ class IgnitionServiceProvider extends ServiceProvider
 
     public function configureTinker(): void
     {
-        if (! $this->app->runningInConsole()) {
+        if ($this->app->runningInConsole()) {
             if (isset($_SERVER['argv']) && ['artisan', 'tinker'] === $_SERVER['argv']) {
                 app(Flare::class)->sendReportsImmediately();
             }
