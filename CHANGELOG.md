@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.3.2 - 2023-12-15
+
+- Fix issue where sending Flare reports from tinker was impossible (especially logging)
+
 ## 2.3.1 - 2023-10-09
 
 - fix config description
