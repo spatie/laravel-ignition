@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.3.3 - 2023-12-21
+
+- decode job payload data if it is a string
+
 ## 2.3.2 - 2023-12-15
 
 - Fix issue where sending Flare reports from tinker was impossible (especially logging)
