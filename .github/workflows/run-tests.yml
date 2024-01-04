@@ -17,7 +17,6 @@ jobs:
                 exclude:
                   - php: 8.1
                     laravel: 11.*
-                exclude:
                   - laravel: 11.*
                     livewire: 2.11
 
