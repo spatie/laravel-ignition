@@ -30,7 +30,7 @@
     "require-dev": {
         "livewire/livewire": "^2.11|^3.0",
         "mockery/mockery": "^1.5.1",
-        "openai-php/client": "^0.8.0",
+        "openai-php/client": "^0.8.1",
         "orchestra/testbench": "^8.0|^9.0",
         "pestphp/pest": "^2.30",
         "phpstan/extension-installer": "^1.2",
