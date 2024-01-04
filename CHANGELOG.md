@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.4.0 - 2024-01-04
+
+### What's Changed
+
+* [2.x] Adds L11 support by @nunomaduro in https://github.com/spatie/laravel-ignition/pull/167
+
+### New Contributors
+
+* @nunomaduro made their first contribution in https://github.com/spatie/laravel-ignition/pull/167
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/2.3.3...2.4.0
+
 ## 2.3.3 - 2023-12-21
 
 - decode job payload data if it is a string
