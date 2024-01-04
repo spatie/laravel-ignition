@@ -7,7 +7,7 @@ use Spatie\LaravelIgnition\Tests\TestClasses\FakeLivewireManager;
 
 beforeEach(function () {
     $this->livewireManager = FakeLivewireManager::setUp();
-});
+})->skip(LIVEWIRE_VERSION_3, 'Missing Livewire 3 support.');
 
 it('returns the referer url and method', function () {
     $context = createRequestContext([
@@ -166,7 +166,7 @@ function createRequestContext(array $fingerprint, array $updates = [], array $se
         'fingerprint' => $fingerprint,
         'serverMemo' => $serverMemo,
         'updates' => $updates,
-    ]);
+    ], ['X-Livewire' => 1]);
 
     return new LaravelLivewireRequestContextProvider($providedRequest, test()->livewireManager);
 }

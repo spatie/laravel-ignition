@@ -19,7 +19,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function setUp(): void
     {
-        ray()->newScreen($this->getName());
+        // ray()->newScreen($this->getName());
 
         parent::setUp();
     }
