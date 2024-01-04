@@ -1,7 +1,10 @@
 <?php
 
 use Dotenv\Dotenv;
+use Livewire\Mechanisms\ComponentRegistry;
 use Spatie\LaravelIgnition\Tests\TestCase;
+
+define('LIVEWIRE_VERSION_3', class_exists(ComponentRegistry::class));
 
 uses(TestCase::class)->in(__DIR__);
 
