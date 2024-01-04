@@ -47,7 +47,7 @@ jobs:
 
             -  name: Install dependencies
                run: |
-                    composer require "laravel/framework:${{ matrix.laravel }}" "nesbot/carbon:^2.62.1" --no-interaction --no-update
+                    composer require "laravel/framework:${{ matrix.laravel }}" "nesbot/carbon:^2.72.1" --no-interaction --no-update
                     composer update --with="livewire/livewire:^${{ matrix.livewire }}" --${{ matrix.stability }} --prefer-dist --no-interaction --no-suggest
 
             - name: Execute tests
