@@ -19,7 +19,7 @@ jobs:
                     laravel: 11.*
                 exclude:
                   - laravel: 11.*
-                  - livewire: 2.11
+                    livewire: 2.11
 
         name: P${{ matrix.php }} - L${{ matrix.laravel }} - LW${{ matrix.livewire }} -${{ matrix.stability }} - ${{ matrix.os }}
 
