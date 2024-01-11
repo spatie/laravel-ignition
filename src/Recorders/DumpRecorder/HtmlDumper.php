@@ -8,7 +8,7 @@ use Symfony\Component\VarDumper\Dumper\HtmlDumper as BaseHtmlDumper;
 
 class HtmlDumper extends BaseHtmlDumper
 {
-    protected $dumpHeader = '';
+    protected ?string $dumpHeader = '';
 
     public function dumpVariable($variable): string
     {
