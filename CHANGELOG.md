@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.4.1 - 2024-01-12
+
+### What's Changed
+
+* [2.x] Fixes dump header on different symfony versions by @nunomaduro in https://github.com/spatie/laravel-ignition/pull/177
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/2.4.0...2.4.1
+
 ## 2.4.0 - 2024-01-04
 
 ### What's Changed
