@@ -39,7 +39,7 @@ jobs:
               run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
             - name: Cache composer dependencies
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: ${{ steps.composer-cache.outputs.dir }}
                   key: ${{ matrix.os }}-php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-composer-${{ matrix.stability }}-${{ hashFiles('**/composer.json') }}
