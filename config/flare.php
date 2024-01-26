@@ -62,6 +62,11 @@ return [
         CensorRequestHeaders::class => [
             'headers' => [
                 'API-KEY',
+                'Authorization',
+                'Cookie',
+                'Set-Cookie',
+                'X-CSRF-TOKEN',
+                'X-XSRF-TOKEN',
             ]
         ]
     ],
