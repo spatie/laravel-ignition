@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Livewire\LivewireManager;
+use Livewire\Mechanisms\ComponentRegistry;
 
 class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvider
 {
@@ -40,6 +41,23 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
     /** @return array<string, mixed> */
     protected function getLivewireInformation(): array
     {
+        if ($this->request->has('components')) {
+            $component = $this->request->get('components')[0];
+
+
+            $snapshot = json_decode($component['snapshot'], true);
+
+            $class = app(ComponentRegistry::class)->getClass($snapshot['memo']['name']);
+
+            return [
+                'component_class' => $class ?? null,
+                'data' => $snapshot['data'],
+                'memo' => $snapshot['memo'],
+                'updates' => $this->resolveUpdates($component['updates']),
+                'calls' => $component['calls'],
+            ];
+        }
+
         /** @phpstan-ignore-next-line */
         $componentId = $this->request->input('fingerprint.id');
 
@@ -56,12 +74,15 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
             $componentClass = null;
         }
 
+        /** @phpstan-ignore-next-line */
+        $updates = $this->request->input('updates') ?? [];
+
         return [
             'component_class' => $componentClass,
             'component_alias' => $componentAlias,
             'component_id' => $componentId,
             'data' => $this->resolveData(),
-            'updates' => $this->resolveUpdates(),
+            'updates' => $this->resolveUpdates($updates),
         ];
     }
 
@@ -86,11 +107,8 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
     }
 
     /** @return array<string, mixed> */
-    protected function resolveUpdates(): array
+    protected function resolveUpdates(array $updates): array
     {
-        /** @phpstan-ignore-next-line */
-        $updates = $this->request->input('updates') ?? [];
-
         return array_map(function (array $update) {
             $update['payload'] = Arr::except($update['payload'] ?? [], ['id']);
 
