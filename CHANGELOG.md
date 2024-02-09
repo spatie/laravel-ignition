@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.4.2 - 2024-02-09
+
+### What's Changed
+
+* Bump actions/cache from 3 to 4 by @dependabot in https://github.com/spatie/laravel-ignition/pull/178
+* Add some sensible defaults for headers that should be sensored. by @timvandijck in https://github.com/spatie/laravel-ignition/pull/180
+
+### New Contributors
+
+* @timvandijck made their first contribution in https://github.com/spatie/laravel-ignition/pull/180
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/2.4.1...2.4.2
+
 ## 2.4.1 - 2024-01-12
 
 ### What's Changed
