@@ -1,5 +1,6 @@
 <?php
 
+use Spatie\FlareClient\Flare;
 use Spatie\LaravelIgnition\Renderers\ErrorPageRenderer;
 
 if (! function_exists('ddd')) {
@@ -20,5 +21,19 @@ if (! function_exists('ddd')) {
         $renderer->render($exception);
 
         die();
+    }
+}
+
+if (! function_exists('flare')) {
+    function flare(Throwable $e, array $context = []): void
+    {
+        /** @var Flare $flare */
+        $flare = app(Flare::class);
+
+        foreach ($context as $key => $value) {
+            $flare->context($key, $value);
+        }
+
+        $flare->report($e);
     }
 }
