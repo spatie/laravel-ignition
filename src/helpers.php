@@ -27,6 +27,10 @@ if (! function_exists('ddd')) {
 if (! function_exists('flare')) {
     function flare(Throwable $e, array $context = []): void
     {
+        if (!config('flare.key')) {
+            return;
+        }
+
         /** @var Flare $flare */
         $flare = app(Flare::class);
 
