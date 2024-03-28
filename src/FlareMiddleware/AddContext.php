@@ -2,11 +2,11 @@
 
 namespace Spatie\LaravelIgnition\FlareMiddleware;
 
+use Closure;
 use Illuminate\Log\Context\Repository;
 use Illuminate\Support\Facades\Context;
 use Spatie\FlareClient\FlareMiddleware\FlareMiddleware;
 use Spatie\FlareClient\Report;
-use Closure;
 
 class AddContext implements FlareMiddleware
 {
