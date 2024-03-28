@@ -16,7 +16,11 @@ class AddContext implements FlareMiddleware
             return $report;
         }
 
-        $report->group('laravel_context', Context::all());
+        $allContext = Context::all();
+
+        if (count($allContext)) {
+            $report->group('laravel_context', Context::all());
+        }
 
         return $report;
     }
