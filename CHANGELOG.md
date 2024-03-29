@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.5.0 - 2024-03-29
+
+### What's Changed
+
+* Add unknown collations for MySQL 8 and MariaDB by @Jubeki in https://github.com/spatie/laravel-ignition/pull/171
+* Add support for context by @freekmurze in https://github.com/spatie/laravel-ignition/pull/184
+* Bump dependabot/fetch-metadata from 1 to 2 by @dependabot in https://github.com/spatie/laravel-ignition/pull/183
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/2.4.2...2.5.0
+
 ## 2.4.2 - 2024-02-09
 
 ### What's Changed
