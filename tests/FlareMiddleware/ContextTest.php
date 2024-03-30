@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Context;
 use Spatie\LaravelIgnition\Facades\Flare;
 
 beforeEach(function () {
-    Context::flush();
+    // We need to duplicate the class check here because this runs before the skip check
+    class_exists(Context::class) && Context::flush();
 })->skip(
     !class_exists(Context::class),
     'Context facade not available (introduced in Laravel 11)',
