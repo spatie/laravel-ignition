@@ -72,13 +72,13 @@ class JobRecorder
         foreach ($payload as $key => $value) {
             if (! in_array($key, ['job', 'data', 'displayName'])) {
                 $properties[$key] = $value;
+            }
+        }
 
-                if (is_string($payload['data'])) {
-                    try {
-                        $properties['data'] = json_decode($payload['data'], true, 512, JSON_THROW_ON_ERROR);
-                    } catch (Exception $exception) {
-                    }
-                }
+        if (is_string($payload['data'])) {
+            try {
+                $properties['data'] = json_decode($payload['data'], true, 512, JSON_THROW_ON_ERROR);
+            } catch (Exception $exception) {
             }
         }
 
