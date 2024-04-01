@@ -7,7 +7,7 @@ beforeEach(function () {
     // We need to duplicate the class check here because this runs before the skip check
     class_exists(Context::class) && Context::flush();
 })->skip(
-    !class_exists(Context::class),
+    ! class_exists(Context::class),
     'Context facade not available (introduced in Laravel 11)',
 );
 
