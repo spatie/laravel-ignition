@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.5.1 - 2024-04-02
+
+### What's Changed
+
+* Update Context middleware by @stayallive in https://github.com/spatie/laravel-ignition/pull/185
+* fix: move string check/decode for data in payload by @jryd in https://github.com/spatie/laravel-ignition/pull/186
+
+### New Contributors
+
+* @stayallive made their first contribution in https://github.com/spatie/laravel-ignition/pull/185
+* @jryd made their first contribution in https://github.com/spatie/laravel-ignition/pull/186
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/2.5.0...2.5.1
+
 ## 2.5.0 - 2024-03-29
 
 ### What's Changed
