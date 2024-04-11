@@ -42,20 +42,23 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
     protected function getLivewireInformation(): array
     {
         if ($this->request->has('components')) {
-            $component = $this->request->get('components')[0];
+            $data = [];
 
+            foreach ($this->request->get('components') as $component) {
+                $snapshot = json_decode($component['snapshot'], true);
 
-            $snapshot = json_decode($component['snapshot'], true);
+                $class = app(ComponentRegistry::class)->getClass($snapshot['memo']['name']);
 
-            $class = app(ComponentRegistry::class)->getClass($snapshot['memo']['name']);
+                $data[] = [
+                    'component_class' => $class ?? null,
+                    'data' => $snapshot['data'],
+                    'memo' => $snapshot['memo'],
+                    'updates' => $this->resolveUpdates($component['updates']),
+                    'calls' => $component['calls'],
+                ];
+            }
 
-            return [
-                'component_class' => $class ?? null,
-                'data' => $snapshot['data'],
-                'memo' => $snapshot['memo'],
-                'updates' => $this->resolveUpdates($component['updates']),
-                'calls' => $component['calls'],
-            ];
+            return $data;
         }
 
         /** @phpstan-ignore-next-line */
@@ -78,11 +81,13 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
         $updates = $this->request->input('updates') ?? [];
 
         return [
-            'component_class' => $componentClass,
-            'component_alias' => $componentAlias,
-            'component_id' => $componentId,
-            'data' => $this->resolveData(),
-            'updates' => $this->resolveUpdates($updates),
+            [
+                'component_class' => $componentClass,
+                'component_alias' => $componentAlias,
+                'component_id' => $componentId,
+                'data' => $this->resolveData(),
+                'updates' => $this->resolveUpdates($updates),
+            ]
         ];
     }
 
