@@ -87,7 +87,7 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
                 'component_id' => $componentId,
                 'data' => $this->resolveData(),
                 'updates' => $this->resolveUpdates($updates),
-            ]
+            ],
         ];
     }
 
