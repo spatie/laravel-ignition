@@ -145,8 +145,7 @@ class IgnitionServiceProvider extends ServiceProvider
 
         $this->app->singleton(
             Ignition::class,
-            fn () => (new Ignition())
-                ->applicationPath(base_path())
+            fn () => (new Ignition($this->app->make(Flare::class)))->applicationPath(base_path())
         );
     }
 
