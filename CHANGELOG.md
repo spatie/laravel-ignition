@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.5.2 - 2024-04-16
+
+### What's Changed
+
+* Fix octane by @rubenvanassche in https://github.com/spatie/laravel-ignition/pull/187
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/2.5.1...2.5.2
+
 ## 2.5.1 - 2024-04-02
 
 ### What's Changed
