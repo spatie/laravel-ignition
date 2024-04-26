@@ -16,7 +16,7 @@ class Flare extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Spatie\FlareClient\Flare::class;
+        return \Spatie\LaravelIgnition\Support\LaravelFlare::class;
     }
 
     public static function sentReports(): SentReports

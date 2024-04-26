@@ -2,13 +2,21 @@
 
 namespace Spatie\LaravelIgnition\Commands;
 
+use Closure;
 use Composer\InstalledVersions;
 use Exception;
 use Illuminate\Config\Repository;
 use Illuminate\Console\Command;
+use Illuminate\Foundation\Exceptions\Handler;
+use Illuminate\Foundation\Exceptions\ReportableHandler;
 use Illuminate\Log\LogManager;
+use Laravel\SerializableClosure\Support\ReflectionClosure;
+use ReflectionException;
+use ReflectionNamedType;
+use ReflectionProperty;
 use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\Http\Exceptions\BadResponseCode;
+use Spatie\LaravelIgnition\Support\LaravelFlare;
 
 class TestCommand extends Command
 {
@@ -44,24 +52,26 @@ class TestCommand extends Command
 
     public function checkFlareLogger(): self
     {
-        $defaultLogChannel = $this->config->get('logging.default');
+        if (! $this->hasFlareReportableCallback()) {
+            $defaultLogChannel = $this->config->get('logging.default');
 
-        $activeStack = $this->config->get("logging.channels.{$defaultLogChannel}");
+            $activeStack = $this->config->get("logging.channels.{$defaultLogChannel}");
 
-        if (is_null($activeStack)) {
-            $this->info("❌ The default logging channel `{$defaultLogChannel}` is not configured in the `logging` config file");
-        }
+            if (is_null($activeStack)) {
+                $this->info("❌ The default logging channel `{$defaultLogChannel}` is not configured in the `logging` config file");
+            }
 
-        if (! isset($activeStack['channels']) || ! in_array('flare', $activeStack['channels'])) {
-            $this->info("❌ The logging channel `{$defaultLogChannel}` does not contain the 'flare' channel");
-        }
+            if (! isset($activeStack['channels']) || ! in_array('flare', $activeStack['channels'])) {
+                $this->info("❌ The logging channel `{$defaultLogChannel}` does not contain the 'flare' channel");
+            }
 
-        if (is_null($this->config->get('logging.channels.flare'))) {
-            $this->info('❌ There is no logging channel named `flare` in the `logging` config file');
-        }
+            if (is_null($this->config->get('logging.channels.flare'))) {
+                $this->info('❌ There is no logging channel named `flare` in the `logging` config file');
+            }
 
-        if ($this->config->get('logging.channels.flare.driver') !== 'flare') {
-            $this->info('❌ The `flare` logging channel defined in the `logging` config file is not set to `flare`.');
+            if ($this->config->get('logging.channels.flare.driver') !== 'flare') {
+                $this->info('❌ The `flare` logging channel defined in the `logging` config file is not set to `flare`.');
+            }
         }
 
         if ($this->config->get('ignition.with_stack_frame_arguments') && ini_get('zend.exception_ignore_args')) {
@@ -71,6 +81,46 @@ class TestCommand extends Command
         $this->info('✅ The Flare logging driver was configured correctly.');
 
         return $this;
+    }
+
+    protected function hasFlareReportableCallback(): bool
+    {
+        if (version_compare(app()->version(), '11.0.0', '<')) {
+            return false;
+        }
+
+        try {
+            $handler = app(Handler::class);
+
+            $reflection = new ReflectionProperty($handler, 'reportCallbacks');
+            $reportCallbacks = $reflection->getValue($handler);
+
+            foreach ($reportCallbacks as $reportCallback) {
+                if (! $reportCallback instanceof ReportableHandler) {
+                    continue;
+                }
+
+                $reflection = new ReflectionProperty($reportCallback, 'callback');
+                $callback = $reflection->getValue($reportCallback);
+
+                if (! $callback instanceof Closure) {
+                    return false;
+                }
+
+                $reflection = new ReflectionClosure($callback);
+                $closureReturnTypeReflection = $reflection->getReturnType();
+
+                if(! $closureReturnTypeReflection instanceof ReflectionNamedType){
+                    return false;
+                }
+
+                return $closureReturnTypeReflection->getName() === Flare::class;
+            }
+        } catch (ReflectionException $exception) {
+            return false;
+        }
+
+        return false;
     }
 
     protected function sendTestException(): void
