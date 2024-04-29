@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Spatie\LaravelIgnition\ContextProviders\LaravelLivewireRequestContextProvider;
-use Spatie\LaravelIgnition\Tests\TestClasses\FakeLivewireManager;
 
 it('returns the referer url and method', function () {
     $context = createRequestContext([
