@@ -117,7 +117,7 @@ class TestCommand extends Command
             return true;
         }
 
-        if(empty($this->resolveFlareConfigLoggerFailures())){
+        if(empty($this->resolveFlareConfigLoggerFailures())) {
             return true;
         }
 
