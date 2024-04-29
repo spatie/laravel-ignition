@@ -26,6 +26,6 @@ class InvalidConfig extends Exception implements ProvidesSolution
 
         return BaseSolution::create()
             ->setSolutionTitle('You provided an invalid log level')
-            ->setSolutionDescription("Please change the log level in your `config/logging.php` file. Valid log levels are {$validLogLevelsString}.");
+            ->setSolutionDescription("Please change the log level in your `config/logging.php` file or in `bootstrap/app.php`. Valid log levels are {$validLogLevelsString}.");
     }
 }

@@ -5,6 +5,7 @@ namespace Spatie\LaravelIgnition\Facades;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Support\Facades\Facade;
 use Spatie\FlareClient\Flare as FlareClient;
+use Spatie\Ignition\Ignition;
 use Spatie\LaravelIgnition\Support\SentReports;
 use Throwable;
 
@@ -24,10 +25,10 @@ class Flare extends Facade
 
     public static function handles(Exceptions $exceptions): void
     {
-        $exceptions->reportable(static function (Throwable $exception): FlareClient {
-            $flare = app(FlareClient::class);
+        $exceptions->reportable(static function (Throwable $exception): Ignition {
+            $flare = app(Ignition::class);
 
-            $flare->report($exception);
+            $flare->handleException($exception);
 
             return $flare;
         });

@@ -16,6 +16,7 @@ use ReflectionNamedType;
 use ReflectionProperty;
 use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\Http\Exceptions\BadResponseCode;
+use Spatie\Ignition\Ignition;
 
 class TestCommand extends Command
 {
@@ -114,11 +115,19 @@ class TestCommand extends Command
 
     protected function isValidReportableCallbackFlareLogger(): bool
     {
-        if ($this->hasReportableCallbackFlareLogger()) {
+        $configLoggerFailures = $this->resolveConfigFlareLoggerFailures();
+
+        $hasReportableCallbackFlareLogger = $this->hasReportableCallbackFlareLogger();
+
+        if(empty($configLoggerFailures) && $hasReportableCallbackFlareLogger) {
+            $this->info('❌ The Flare logger was defined in your Laravel `logging.php` config file and `bootstrap/app.php` file which can cause duplicate errors. Please remove the Flare logger from your `logging.php` config file.');
+        }
+
+        if ($hasReportableCallbackFlareLogger) {
             return true;
         }
 
-        if(empty($this->resolveConfigFlareLoggerFailures())) {
+        if(empty($configLoggerFailures)) {
             return true;
         }
 
@@ -160,7 +169,7 @@ class TestCommand extends Command
                     return false;
                 }
 
-                return $closureReturnTypeReflection->getName() === Flare::class;
+                return $closureReturnTypeReflection->getName() === Ignition::class;
             }
         } catch (ReflectionException $exception) {
             return false;

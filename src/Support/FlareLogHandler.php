@@ -44,6 +44,7 @@ class FlareLogHandler extends AbstractProcessingHandler
         if (! $this->shouldReport($record->toArray())) {
             return;
         }
+
         if ($this->hasException($record->toArray())) {
             $report = $this->flare->report($record['context']['exception']);
 
