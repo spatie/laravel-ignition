@@ -16,7 +16,6 @@ use ReflectionNamedType;
 use ReflectionProperty;
 use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\Http\Exceptions\BadResponseCode;
-use Spatie\LaravelIgnition\Support\LaravelFlare;
 
 class TestCommand extends Command
 {
@@ -52,26 +51,12 @@ class TestCommand extends Command
 
     public function checkFlareLogger(): self
     {
-        if (! $this->hasFlareReportableCallback()) {
-            $defaultLogChannel = $this->config->get('logging.default');
+        $configuredCorrectly = $this->shouldUseReportableCallbackLogger()
+            ? $this->checkFlareReportableCallbackLogger()
+            : $this->checkFlareConfigLogger();
 
-            $activeStack = $this->config->get("logging.channels.{$defaultLogChannel}");
-
-            if (is_null($activeStack)) {
-                $this->info("❌ The default logging channel `{$defaultLogChannel}` is not configured in the `logging` config file");
-            }
-
-            if (! isset($activeStack['channels']) || ! in_array('flare', $activeStack['channels'])) {
-                $this->info("❌ The logging channel `{$defaultLogChannel}` does not contain the 'flare' channel");
-            }
-
-            if (is_null($this->config->get('logging.channels.flare'))) {
-                $this->info('❌ There is no logging channel named `flare` in the `logging` config file');
-            }
-
-            if ($this->config->get('logging.channels.flare.driver') !== 'flare') {
-                $this->info('❌ The `flare` logging channel defined in the `logging` config file is not set to `flare`.');
-            }
+        if($configuredCorrectly === false) {
+            die();
         }
 
         if ($this->config->get('ignition.with_stack_frame_arguments') && ini_get('zend.exception_ignore_args')) {
@@ -83,12 +68,72 @@ class TestCommand extends Command
         return $this;
     }
 
-    protected function hasFlareReportableCallback(): bool
+    protected function shouldUseReportableCallbackLogger(): bool
     {
-        if (version_compare(app()->version(), '11.0.0', '<')) {
-            return false;
+        return version_compare(app()->version(), '11.0.0', '>=');
+    }
+
+    protected function checkFlareConfigLogger(): bool
+    {
+        $failures = $this->resolveFlareConfigLoggerFailures();
+
+        foreach ($failures as $failure) {
+            $this->info($failure);
         }
 
+        return empty($failures);
+    }
+
+    protected function resolveFlareConfigLoggerFailures(): array
+    {
+        $defaultLogChannel = $this->config->get('logging.default');
+
+        $activeStack = $this->config->get("logging.channels.{$defaultLogChannel}");
+
+        $failures = [];
+
+        if (is_null($activeStack)) {
+            $failures[] = "❌ The default logging channel `{$defaultLogChannel}` is not configured in the `logging` config file";
+        }
+
+        if (! isset($activeStack['channels']) || ! in_array('flare', $activeStack['channels'])) {
+            $failures[] = "❌ The logging channel `{$defaultLogChannel}` does not contain the 'flare' channel";
+        }
+
+        if (is_null($this->config->get('logging.channels.flare'))) {
+            $failures[] = '❌ There is no logging channel named `flare` in the `logging` config file';
+        }
+
+        if ($this->config->get('logging.channels.flare.driver') !== 'flare') {
+            $failures[] = '❌ The `flare` logging channel defined in the `logging` config file is not set to `flare`.';
+        }
+
+        return $failures;
+    }
+
+    protected function checkFlareReportableCallbackLogger(): bool
+    {
+        if ($this->hasFlareReportableCallbackLogger()) {
+            return true;
+        }
+
+        if(empty($this->resolveFlareConfigLoggerFailures())){
+            return true;
+        }
+
+        $this->info('❌ The Flare logging driver was not configured correctly.');
+        $this->newLine();
+        $this->info('<fg=default;bg=default>Please ensure the following code is present in your `<fg=green>bootstrap/app.php</>` file:</>');
+        $this->newLine();
+        $this->info('<fg=default;bg=default>-><fg=green>withExceptions</>(<fg=blue>function</> (<fg=red>Exceptions</> $exceptions) {</>');
+        $this->info('<fg=default;bg=default>    <fg=red>Flare</>::<fg=green>handles</>($exceptions);</>');
+        $this->info('<fg=default;bg=default>})-><fg=green>create</>();</>');
+
+        return false;
+    }
+
+    protected function hasFlareReportableCallbackLogger(): bool
+    {
         try {
             $handler = app(Handler::class);
 
@@ -110,7 +155,7 @@ class TestCommand extends Command
                 $reflection = new ReflectionClosure($callback);
                 $closureReturnTypeReflection = $reflection->getReturnType();
 
-                if(! $closureReturnTypeReflection instanceof ReflectionNamedType){
+                if (! $closureReturnTypeReflection instanceof ReflectionNamedType) {
                     return false;
                 }
 
