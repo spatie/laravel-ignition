@@ -10,7 +10,7 @@ beforeEach(function () {
 })->skip(LIVEWIRE_VERSION_3, 'Only test Livewire 2.');
 
 it('returns the referer url and method', function () {
-    $context = createRequestContext([
+    $context = createLegacyRequestContext([
         'path' => 'referred',
         'method' => 'GET',
     ]);
@@ -27,7 +27,7 @@ it('returns livewire component information', function () {
 
     $this->livewireManager->fakeAliases[$alias] = $class;
 
-    $context = createRequestContext([
+    $context = createLegacyRequestContext([
         'path' => 'http://localhost/referred',
         'method' => 'GET',
         'id' => $id = uniqid(),
@@ -42,7 +42,7 @@ it('returns livewire component information', function () {
 });
 
 it('returns livewire component information when it does not exist', function () {
-    $context = createRequestContext([
+    $context = createLegacyRequestContext([
         'path' => 'http://localhost/referred',
         'method' => 'GET',
         'id' => $id = uniqid(),
@@ -57,7 +57,7 @@ it('returns livewire component information when it does not exist', function () 
 });
 
 it('removes ids from update payloads', function () {
-    $context = createRequestContext([
+    $context = createLegacyRequestContext([
         'path' => 'http://localhost/referred',
         'method' => 'GET',
         'id' => $id = uniqid(),
@@ -81,7 +81,7 @@ it('removes ids from update payloads', function () {
 });
 
 it('combines data into one payload', function () {
-    $context = createRequestContext([
+    $context = createLegacyRequestContext([
         'path' => 'http://localhost/referred',
         'method' => 'GET',
         'id' => uniqid(),
@@ -154,7 +154,7 @@ it('combines data into one payload', function () {
 });
 
 // Helpers
-function createRequestContext(array $fingerprint, array $updates = [], array $serverMemo = []): LaravelLivewireRequestContextProvider
+function createLegacyRequestContext(array $fingerprint, array $updates = [], array $serverMemo = []): LaravelLivewireRequestContextProvider
 {
     $providedRequest = null;
 
