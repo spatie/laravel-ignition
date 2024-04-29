@@ -30,7 +30,7 @@ jobs:
               uses: shivammathur/setup-php@v2
               with:
                   php-version: ${{ matrix.php }}
-                  extensions: mbstring, fileinfo
+                  extensions: mbstring, fileinfo, pdo_sqlite
                   coverage: none
                   tools: composer:v2
 

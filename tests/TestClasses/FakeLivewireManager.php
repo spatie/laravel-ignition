@@ -3,6 +3,7 @@
 namespace Spatie\LaravelIgnition\Tests\TestClasses;
 
 use Livewire\LivewireManager;
+use Livewire\Mechanisms\ComponentRegistry;
 
 class FakeLivewireManager extends LivewireManager
 {
@@ -24,7 +25,7 @@ class FakeLivewireManager extends LivewireManager
 
     public function getClass($alias)
     {
-        return $this->fakeAliases[$alias] ?? parent::getClass($alias);
+        return $this->fakeAliases[$alias] ?? app(ComponentRegistry::class)->getClass($alias);
     }
 
     public function addAlias(string $alias, string $class): void
