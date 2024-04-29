@@ -40,6 +40,26 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
     /** @return array<string, mixed> */
     protected function getLivewireInformation(): array
     {
+        if ($this->request->has('components')) {
+            $data = [];
+
+            foreach ($this->request->get('components') as $component) {
+                $snapshot = json_decode($component['snapshot'], true);
+
+                $class = app(ComponentRegistry::class)->getClass($snapshot['memo']['name']);
+
+                $data[] = [
+                    'component_class' => $class ?? null,
+                    'data' => $snapshot['data'],
+                    'memo' => $snapshot['memo'],
+                    'updates' => $this->resolveUpdates($component['updates']),
+                    'calls' => $component['calls'],
+                ];
+            }
+
+            return $data;
+        }
+
         /** @phpstan-ignore-next-line */
         $componentId = $this->request->input('fingerprint.id');
 
@@ -56,12 +76,20 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
             $componentClass = null;
         }
 
+        /** @phpstan-ignore-next-line */
+        $updates = $this->request->input('updates') ?? [];
+
+        /** @phpstan-ignore-next-line */
+        $updates = $this->request->input('updates') ?? [];
+
         return [
-            'component_class' => $componentClass,
-            'component_alias' => $componentAlias,
-            'component_id' => $componentId,
-            'data' => $this->resolveData(),
-            'updates' => $this->resolveUpdates(),
+            [
+                'component_class' => $componentClass,
+                'component_alias' => $componentAlias,
+                'component_id' => $componentId,
+                'data' => $this->resolveData(),
+                'updates' => $this->resolveUpdates($updates),
+            ],
         ];
     }
 
@@ -86,7 +114,7 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
     }
 
     /** @return array<string, mixed> */
-    protected function resolveUpdates(): array
+    protected function resolveUpdates(array $updates): array
     {
         /** @phpstan-ignore-next-line */
         $updates = $this->request->input('updates') ?? [];
