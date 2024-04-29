@@ -6,28 +6,28 @@ use Spatie\LaravelIgnition\ContextProviders\LaravelLivewireRequestContextProvide
 use Spatie\LaravelIgnition\Tests\TestClasses\FakeLivewireManager;
 
 beforeEach(function () {
-    $this->livewireManager = resolve(FakeLivewireManager::class);
-})->skip(LIVEWIRE_VERSION_2, 'Only test Livewire 3.');
+    $this->livewireManager = FakeLivewireManager::setUp();
+})->skip(LIVEWIRE_VERSION_3, 'Only test Livewire 2.');
 
 it('returns the referer url and method', function () {
-    $context = createRequestContext([
+    $context = createLegacyRequestContext([
         'path' => 'referred',
         'method' => 'GET',
     ]);
 
     $request = $context->getRequest();
 
-    expect($request['url'])->toBe('http://localhost/POST');
-    expect($request['method'])->toBe('POST');
+    expect($request['url'])->toBe('http://localhost/referred');
+    expect($request['method'])->toBe('GET');
 });
 
 it('returns livewire component information', function () {
     $alias = 'fake-component';
     $class = 'fake-class';
 
-    $this->livewireManager->addAlias($alias, $class);
+    $this->livewireManager->fakeAliases[$alias] = $class;
 
-    $context = createRequestContext([
+    $context = createLegacyRequestContext([
         'path' => 'http://localhost/referred',
         'method' => 'GET',
         'id' => $id = uniqid(),
@@ -38,10 +38,11 @@ it('returns livewire component information', function () {
 
     expect($livewire[0]['component_id'])->toBe($id);
     expect($livewire[0]['component_alias'])->toBe($alias);
+    expect($livewire[0]['component_class'])->toBe($class);
 });
 
 it('returns livewire component information when it does not exist', function () {
-    $context = createRequestContext([
+    $context = createLegacyRequestContext([
         'path' => 'http://localhost/referred',
         'method' => 'GET',
         'id' => $id = uniqid(),
@@ -56,7 +57,7 @@ it('returns livewire component information when it does not exist', function () 
 });
 
 it('removes ids from update payloads', function () {
-    $context = createRequestContext([
+    $context = createLegacyRequestContext([
         'path' => 'http://localhost/referred',
         'method' => 'GET',
         'id' => $id = uniqid(),
@@ -80,7 +81,7 @@ it('removes ids from update payloads', function () {
 });
 
 it('combines data into one payload', function () {
-    $context = createRequestContext([
+    $context = createLegacyRequestContext([
         'path' => 'http://localhost/referred',
         'method' => 'GET',
         'id' => uniqid(),
@@ -153,7 +154,7 @@ it('combines data into one payload', function () {
 });
 
 // Helpers
-function createRequestContext(array $fingerprint, array $updates = [], array $serverMemo = []): LaravelLivewireRequestContextProvider
+function createLegacyRequestContext(array $fingerprint, array $updates = [], array $serverMemo = []): LaravelLivewireRequestContextProvider
 {
     $providedRequest = null;
 
