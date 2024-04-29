@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.6.0 - 2024-04-29
+
+### What's Changed
+
+* Livewire 3 by @timvandijck en @riasvdv in https://github.com/spatie/laravel-ignition/pull/193
+
 ## 2.5.2 - 2024-04-16
 
 ### What's Changed
