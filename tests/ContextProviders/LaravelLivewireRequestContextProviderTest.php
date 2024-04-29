@@ -3,9 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Spatie\LaravelIgnition\ContextProviders\LaravelLivewireRequestContextProvider;
+use Spatie\LaravelIgnition\Tests\TestClasses\FakeLivewireManager;
 
 beforeEach(function () {
-    $this->livewireManager = FakeLivewireManager::setUp();
+    $this->livewireManager = resolve(FakeLivewireManager::class);
 })->skip(LIVEWIRE_VERSION_2, 'Only test Livewire 3.');
 
 it('returns the referer url and method', function () {
@@ -24,7 +25,7 @@ it('returns livewire component information', function () {
     $alias = 'fake-component';
     $class = 'fake-class';
 
-    resolve(FakeLivewireManager::class)->addAlias($alias, $class);
+    $this->livewireManager->addAlias($alias, $class);
 
     $context = createRequestContext([
         'path' => 'http://localhost/referred',
@@ -166,5 +167,5 @@ function createRequestContext(array $fingerprint, array $updates = [], array $se
         'updates' => $updates,
     ], ['X-Livewire' => 1]);
 
-    return new LaravelLivewireRequestContextProvider($providedRequest, new FakeLivewireManager());
+    return new LaravelLivewireRequestContextProvider($providedRequest, test()->livewireManager);
 }
