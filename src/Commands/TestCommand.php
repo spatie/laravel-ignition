@@ -52,8 +52,8 @@ class TestCommand extends Command
     public function checkFlareLogger(): self
     {
         $configuredCorrectly = $this->shouldUseReportableCallbackLogger()
-            ? $this->checkFlareReportableCallbackLogger()
-            : $this->checkFlareConfigLogger();
+            ? $this->isValidReportableCallbackFlareLogger()
+            : $this->isValidConfigFlareLogger();
 
         if($configuredCorrectly === false) {
             die();
@@ -73,9 +73,9 @@ class TestCommand extends Command
         return version_compare(app()->version(), '11.0.0', '>=');
     }
 
-    protected function checkFlareConfigLogger(): bool
+    protected function isValidConfigFlareLogger(): bool
     {
-        $failures = $this->resolveFlareConfigLoggerFailures();
+        $failures = $this->resolveConfigFlareLoggerFailures();
 
         foreach ($failures as $failure) {
             $this->info($failure);
@@ -84,7 +84,8 @@ class TestCommand extends Command
         return empty($failures);
     }
 
-    protected function resolveFlareConfigLoggerFailures(): array
+    /** @return string[] */
+    protected function resolveConfigFlareLoggerFailures(): array
     {
         $defaultLogChannel = $this->config->get('logging.default');
 
@@ -111,13 +112,13 @@ class TestCommand extends Command
         return $failures;
     }
 
-    protected function checkFlareReportableCallbackLogger(): bool
+    protected function isValidReportableCallbackFlareLogger(): bool
     {
-        if ($this->hasFlareReportableCallbackLogger()) {
+        if ($this->hasReportableCallbackFlareLogger()) {
             return true;
         }
 
-        if(empty($this->resolveFlareConfigLoggerFailures())) {
+        if(empty($this->resolveConfigFlareLoggerFailures())) {
             return true;
         }
 
@@ -132,7 +133,7 @@ class TestCommand extends Command
         return false;
     }
 
-    protected function hasFlareReportableCallbackLogger(): bool
+    protected function hasReportableCallbackFlareLogger(): bool
     {
         try {
             $handler = app(Handler::class);
