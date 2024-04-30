@@ -83,10 +83,10 @@ class ViewExceptionMapper
     {
         $viewIndex = null;
 
-
         $trace = Collection::make($exception->getPrevious()->getTrace())
             ->map(function ($trace, $index) use (&$viewIndex) {
                 if ($originalPath = $this->findCompiledView(Arr::get($trace, 'file', ''))) {
+
                     $trace['file'] = $originalPath;
                     $trace['line'] = $this->getBladeLineNumber($trace['file'], $trace['line']);
 
@@ -98,7 +98,7 @@ class ViewExceptionMapper
                 return $trace;
             })
             ->when(
-                $viewIndex !== null,
+                $viewIndex !== null && str_ends_with($exception->getFile(), '.blade.php'),
                 fn (Collection $trace) => $trace->slice($viewIndex + 1)  // Remove all traces before the view
             )
             ->toArray();
