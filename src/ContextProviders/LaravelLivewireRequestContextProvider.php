@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Livewire\LivewireManager;
+use Livewire\Mechanisms\ComponentRegistry;
 
 class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvider
 {
