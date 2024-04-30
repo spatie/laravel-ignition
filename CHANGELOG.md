@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.6.2 - 2024-04-30
+
+### What's Changed
+
+* Fix for some middlewares not being executed by @rubenvanassche in https://github.com/spatie/laravel-ignition/pull/199
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/2.6.1...2.6.2
+
 ## 2.6.1 - 2024-04-30
 
 ### What's Changed
