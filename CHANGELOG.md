@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.6.1 - 2024-04-30
+
+### What's Changed
+
+* Adding missing ComponentRegistry import by @matthewscalf in https://github.com/spatie/laravel-ignition/pull/196
+* Fix view traces by @rubenvanassche in https://github.com/spatie/laravel-ignition/pull/189
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/2.6.0...2.6.1
+
 ## 2.6.0 - 2024-04-29
 
 ### What's Changed
