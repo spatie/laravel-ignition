@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.7.0 - 2024-05-02
+
+### What's Changed
+
+* Handling errors by @rubenvanassche in https://github.com/spatie/laravel-ignition/pull/200
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/2.6.2...2.7.0
+
 ## 2.6.2 - 2024-04-30
 
 ### What's Changed
