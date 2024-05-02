@@ -5,7 +5,7 @@ use Orchestra\Testbench\Exceptions\Handler;
 use Spatie\FlareClient\Report;
 use Spatie\LaravelIgnition\Facades\Flare;
 
-it('can see when an exception is handled, meaning it is reported', function (){
+it('can see when an exception is handled, meaning it is reported', function () {
     $handler = new class(app()) extends Handler {
         public static Report $report;
 
@@ -15,7 +15,7 @@ it('can see when an exception is handled, meaning it is reported', function (){
         }
     };
 
-    app()->bind(ExceptionHandler::class, fn() => $handler);
+    app()->bind(ExceptionHandler::class, fn () => $handler);
 
     $someTriggeredException = new Exception('This is a test exception');
 
@@ -26,7 +26,7 @@ it('can see when an exception is handled, meaning it is reported', function (){
         ->toHaveKey('handled', true);
 });
 
-it('will not mark an exception handled when it is not', function (){
+it('will not mark an exception handled when it is not', function () {
     $someTriggeredException = new Exception('This is a test exception');
 
     $report = Flare::createReport($someTriggeredException);
