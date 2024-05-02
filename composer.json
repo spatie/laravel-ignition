@@ -16,14 +16,13 @@
     ],
     "homepage": "https://flareapp.io/ignition",
     "license": "MIT",
-    "repositories" : [{"type" : "path", "url": "../flare-client-php"}],
     "require": {
         "php": "^8.1",
         "ext-curl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
         "illuminate/support": "^10.0|^11.0",
-        "spatie/flare-client-php": "dev-main as 1.4.4",
+        "spatie/flare-client-php": "^1.5",
         "spatie/ignition": "^1.14",
         "symfony/console": "^6.2.3|^7.0",
         "symfony/var-dumper": "^6.2.3|^7.0"
