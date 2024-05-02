@@ -6,7 +6,7 @@ use Spatie\FlareClient\FlareMiddleware\CensorRequestBodyFields;
 use Spatie\FlareClient\FlareMiddleware\CensorRequestHeaders;
 use Spatie\LaravelIgnition\FlareMiddleware\AddDumps;
 use Spatie\LaravelIgnition\FlareMiddleware\AddEnvironmentInformation;
-use Spatie\LaravelIgnition\FlareMiddleware\AddExceptionHandled;
+use Spatie\LaravelIgnition\FlareMiddleware\AddExceptionHandledStatus;
 use Spatie\LaravelIgnition\FlareMiddleware\AddExceptionInformation;
 use Spatie\LaravelIgnition\FlareMiddleware\AddJobs;
 use Spatie\LaravelIgnition\FlareMiddleware\AddLogs;
@@ -56,7 +56,7 @@ return [
             'max_chained_job_reporting_depth' => 5,
         ],
         AddContext::class,
-        AddExceptionHandled::class,
+        AddExceptionHandledStatus::class,
         CensorRequestBodyFields::class => [
             'censor_fields' => [
                 'password',
