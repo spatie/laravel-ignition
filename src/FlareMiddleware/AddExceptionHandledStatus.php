@@ -10,7 +10,7 @@ use Throwable;
 
 class AddExceptionHandledStatus implements FlareMiddleware
 {
-    public function handle(Report $report, Closure $next): Closure
+    public function handle(Report $report, Closure $next)
     {
         $frames = Backtrace::create()->limit(40)->frames();
         $frameCount = count($frames);
