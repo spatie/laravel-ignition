@@ -38,7 +38,7 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
         return $properties;
     }
 
-    /** @return array<string, mixed> */
+    /** @return array<int, mixed> */
     protected function getLivewireInformation(): array
     {
         if ($this->request->has('components')) {

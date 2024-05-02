@@ -1,6 +1,26 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Call to an undefined method Livewire\\\\LivewireManager\\:\\:getClass\\(\\)\\.$#"
+			count: 1
+			path: src/ContextProviders/LaravelLivewireRequestContextProvider.php
+
+		-
+			message: "#^Cannot call method get\\(\\) on Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#"
+			count: 1
+			path: src/ContextProviders/LaravelLivewireRequestContextProvider.php
+
+		-
+			message: "#^Cannot call method has\\(\\) on Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#"
+			count: 1
+			path: src/ContextProviders/LaravelLivewireRequestContextProvider.php
+
+		-
+			message: "#^Method Spatie\\\\LaravelIgnition\\\\ContextProviders\\\\LaravelLivewireRequestContextProvider\\:\\:resolveUpdates\\(\\) has parameter \\$updates with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ContextProviders/LaravelLivewireRequestContextProvider.php
+
+		-
 			message: "#^Cannot call method toFlare\\(\\) on class\\-string\\|object\\.$#"
 			count: 1
 			path: src/ContextProviders/LaravelRequestContextProvider.php
@@ -26,6 +46,11 @@ parameters:
 			path: src/Exceptions/InvalidConfig.php
 
 		-
+			message: "#^Class Livewire\\\\LivewireComponentsFinder not found\\.$#"
+			count: 1
+			path: src/Solutions/LivewireDiscoverSolution.php
+
+		-
 			message: "#^Parameter \\#1 \\$invalidController of method Spatie\\\\LaravelIgnition\\\\Solutions\\\\SolutionProviders\\\\InvalidRouteActionSolutionProvider\\:\\:findRelatedController\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/Solutions/SolutionProviders/InvalidRouteActionSolutionProvider.php
@@ -46,7 +71,7 @@ parameters:
 			path: src/Solutions/SolutionProviders/UnknownValidationSolutionProvider.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,ReflectionMethod\\>\\:\\:filter\\(\\) expects \\(callable\\(ReflectionMethod, int\\)\\: bool\\)\\|null, Closure\\(ReflectionMethod\\)\\: 0\\|1\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,ReflectionMethod\\>\\:\\:filter\\(\\) expects \\(callable\\(ReflectionMethod, int\\)\\: bool\\)\\|null, Closure\\(ReflectionMethod\\)\\: \\(0\\|1\\|false\\) given\\.$#"
 			count: 1
 			path: src/Solutions/SolutionProviders/UnknownValidationSolutionProvider.php
 
