@@ -5,6 +5,8 @@ it('can execute solutions on a local environment with debugging enabled', functi
     config()->set('app.debug', true);
     config()->set('ignition.enable_runnable_solutions', true);
 
+    $this->withoutExceptionHandling();
+
     $this
         ->postJson(route('ignition.executeSolution'), solutionPayload())
         ->assertSuccessful();
