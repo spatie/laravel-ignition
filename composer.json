@@ -22,9 +22,7 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "illuminate/support": "^10.0|^11.0",
-        "spatie/error-solutions": "dev-main",
-        "spatie/flare-client-php" : "dev-solutions-refactor",
-        "spatie/ignition": "dev-solutions-refactor",
+        "spatie/ignition": "^1.15",
         "symfony/console": "^6.2.3|^7.0",
         "symfony/var-dumper": "^6.2.3|^7.0"
     },
