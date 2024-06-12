@@ -10,7 +10,7 @@ use Illuminate\View\Engines\PhpEngine;
 use Illuminate\View\ViewException;
 use ReflectionClass;
 use ReflectionProperty;
-use Spatie\Ignition\Contracts\ProvidesSolution;
+use Spatie\ErrorSolutions\Contracts\ProvidesSolution;
 use Spatie\LaravelIgnition\Exceptions\ViewException as IgnitionViewException;
 use Spatie\LaravelIgnition\Exceptions\ViewExceptionWithSolution;
 use Throwable;
