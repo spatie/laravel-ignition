@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.7.0 - 2024-06-13
+
+- Lock Ignition to a version where the solutions aren't refactored
+
 ## 2.8.0 - 2024-06-12
 
 ### What's Changed
