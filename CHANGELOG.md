@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.9.0 - 2024-12-02
+
+### What's Changed
+
+* Bump ramsey/composer-install from 1 to 3 by @dependabot in https://github.com/spatie/laravel-ignition/pull/201
+* Fix PHP 8.4 deprecation warning by @eusonlito in https://github.com/spatie/laravel-ignition/pull/213
+* Add explicit nulls for PHP 8.4 by @rforced in https://github.com/spatie/laravel-ignition/pull/211
+
+### New Contributors
+
+* @eusonlito made their first contribution in https://github.com/spatie/laravel-ignition/pull/213
+* @rforced made their first contribution in https://github.com/spatie/laravel-ignition/pull/211
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/2.8.0...2.9.0
+
 ## 1.7.0 - 2024-06-13
 
 - Lock Ignition to a version where the solutions aren't refactored
