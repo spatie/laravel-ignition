@@ -80,7 +80,7 @@ it('can record a closure job', function () {
     $recorder = (new JobRecorder(app()));
 
     $job = function () {
-        throw new Exception('Die');
+        throw new \Exception('Die');
     };
 
     $recorder->record(createEvent(function () use ($job) {
