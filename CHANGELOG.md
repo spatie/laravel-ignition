@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.9.1 - 2025-02-20
+
+### What's Changed
+
+* Laravel 12.x Compatibility by @laravel-shift in https://github.com/spatie/laravel-ignition/pull/218
+
+### New Contributors
+
+* @laravel-shift made their first contribution in https://github.com/spatie/laravel-ignition/pull/218
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/2.9.0...2.9.1
+
 ## 2.9.0 - 2024-12-02
 
 ### What's Changed
