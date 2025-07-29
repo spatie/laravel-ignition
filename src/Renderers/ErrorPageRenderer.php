@@ -25,6 +25,10 @@ class ErrorPageRenderer
             }
         }
 
+        if(method_exists($throwable, 'setDataAsHtml')) {
+            $throwable->setDataAsHtml();
+        }
+
         app(Ignition::class)
             ->resolveDocumentationLink(
                 fn (Throwable $throwable) => (new LaravelDocumentationLinkFinder())->findLinkForThrowable($throwable)

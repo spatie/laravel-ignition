@@ -11,6 +11,8 @@ class ViewException extends ErrorException implements ProvidesFlareContext
     /** @var array<string, mixed> */
     protected array $viewData = [];
 
+    protected bool $dataAsHtml = false;
+
     protected string $view = '';
 
     /**
@@ -34,6 +36,11 @@ class ViewException extends ErrorException implements ProvidesFlareContext
         $this->view = $path;
     }
 
+    public function setDataAsHtml(bool $asHtml = true): void
+    {
+        $this->dataAsHtml = $asHtml;
+    }
+
     protected function dumpViewData(mixed $variable): string
     {
         return (new HtmlDumper())->dumpVariable($variable);
@@ -48,7 +55,11 @@ class ViewException extends ErrorException implements ProvidesFlareContext
             ],
         ];
 
-        $context['view']['data'] = array_map([$this, 'dumpViewData'], $this->viewData);
+        if ($this->dataAsHtml) {
+            $context['view']['data'] = array_map([$this, 'dumpViewData'], $this->viewData);
+        } else {
+            $context['view']['data'] = $this->viewData;
+        }
 
         return $context;
     }
