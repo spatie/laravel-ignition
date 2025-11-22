@@ -23,8 +23,8 @@
         "ext-mbstring": "*",
         "illuminate/support": "^10.0|^11.0|^12.0",
         "spatie/ignition": "^1.15",
-        "symfony/console": "^6.2.3|^7.0",
-        "symfony/var-dumper": "^6.2.3|^7.0"
+        "symfony/console": "^6.2.3|^7.0|^8.0",
+        "symfony/var-dumper": "^6.2.3|^7.0|^8.0"
     },
     "require-dev": {
         "livewire/livewire": "^2.11|^3.3.5",
