@@ -44,7 +44,13 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
         if ($this->request->has('components')) {
             $data = [];
 
-            foreach ($this->request->get('components') as $component) {
+            $components = $this->request->input('components');
+
+            if (! is_array($components)) {
+                return [];
+            }
+
+            foreach ($components as $component) {
                 $snapshot = json_decode($component['snapshot'], true);
 
                 $class = app(ComponentRegistry::class)->getClass($snapshot['memo']['name']);
