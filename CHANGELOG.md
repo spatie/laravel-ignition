@@ -2,6 +2,28 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.10.0 - 2026-01-20
+
+### What's Changed
+
+* Update PHP & Laravel documentation by @Disservin in https://github.com/spatie/laravel-ignition/pull/222
+* Remove Reflection*::setAccessible() usage by @Disservin in https://github.com/spatie/laravel-ignition/pull/223
+* Update issue template by @AlexVanderbist in https://github.com/spatie/laravel-ignition/pull/229
+* Bump actions/checkout from 4 to 5 by @dependabot[bot] in https://github.com/spatie/laravel-ignition/pull/227
+* Bump stefanzweifel/git-auto-commit-action from 5 to 6 by @dependabot[bot] in https://github.com/spatie/laravel-ignition/pull/220
+* Test PHP 8.5 by @erikn69 in https://github.com/spatie/laravel-ignition/pull/230
+* Bump stefanzweifel/git-auto-commit-action from 6 to 7 by @dependabot[bot] in https://github.com/spatie/laravel-ignition/pull/232
+* Added Symfony 8 support to all symfony/* packages. by @thecaliskan in https://github.com/spatie/laravel-ignition/pull/236
+* Bump actions/checkout from 5 to 6 by @dependabot[bot] in https://github.com/spatie/laravel-ignition/pull/237
+* Fix Symfony 7.4 deprecation: stop using Request::get() by @joelpittet in https://github.com/spatie/laravel-ignition/pull/243
+* Add support for Livewire v4 by @joshhanley in https://github.com/spatie/laravel-ignition/pull/247
+* Bump actions/cache from 4 to 5 by @dependabot[bot] in https://github.com/spatie/laravel-ignition/pull/242
+* Fix deprecation msg on tests by @erikn69 in https://github.com/spatie/laravel-ignition/pull/231
+* Dependency fixes by @rubenvanassche in https://github.com/spatie/laravel-ignition/pull/249
+* Dropped support for Laravel 10 & Livewire 2
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/2.9.1...2.10.0
+
 ## 2.9.1 - 2025-02-20
 
 ### What's Changed
