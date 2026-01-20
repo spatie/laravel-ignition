@@ -14,6 +14,11 @@
             "role": "Developer"
         }
     ],
+    "repositories" : [
+        {"type": "path", "url" : "../flare-client-php"},
+        {"type": "path", "url": "../laravel-flare"},
+        {"type": "path", "url": "../ignition"}
+    ],
     "homepage": "https://flareapp.io/ignition",
     "license": "MIT",
     "require": {
@@ -21,8 +26,10 @@
         "ext-curl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
+        "spatie/flare-client-php": "@dev",
+        "spatie/laravel-flare": "@dev",
         "illuminate/support": "^10.0|^11.0|^12.0",
-        "spatie/ignition": "^1.15",
+        "spatie/ignition": "@dev",
         "symfony/console": "^6.2.3|^7.0",
         "symfony/var-dumper": "^6.2.3|^7.0"
     },
