@@ -22,6 +22,9 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "illuminate/support": "^11.0|^12.0",
+        "laravel/framework": "12.*",
+        "nesbot/carbon": "^2.72|^3.0",
+        "orchestra/testbench": "^10.6",
         "spatie/ignition": "^1.15.1",
         "symfony/console": "^7.4|^8.0",
         "symfony/var-dumper": "^7.4|^8.0"
@@ -30,7 +33,6 @@
         "livewire/livewire": "^3.7.0|^4.0",
         "mockery/mockery": "^1.6.12",
         "openai-php/client": "^0.10.3",
-        "orchestra/testbench": "^9.16|^10.6",
         "pestphp/pest": "^3.7",
         "phpstan/extension-installer": "^1.4.3",
         "phpstan/phpstan-deprecation-rules": "^2.0.3",
