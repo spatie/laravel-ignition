@@ -13,7 +13,7 @@ jobs:
       matrix:
         php: [8.1, 8.2, 8.3, 8.4, 8.5]
         laravel: ['10.*', '11.*', '12.*']
-        livewire: [3.*, 4.*]
+        livewire: [3.7, 4.0]
         stability: [prefer-lowest, prefer-stable]
         os: [ubuntu-latest, windows-latest]
         exclude:
@@ -22,9 +22,9 @@ jobs:
           - php: 8.1
             laravel: 11.*
           - php: 8.1
-            livewire: 4.*
+            livewire: 4.0
           - laravel: 10.*
-            livewire: 4.*
+            livewire: 4.0
           - laravel: 12.*
             php: 8.1
 
