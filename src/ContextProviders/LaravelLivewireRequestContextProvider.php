@@ -6,7 +6,6 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Livewire\LivewireManager;
-use Livewire\Mechanisms\ComponentRegistry;
 
 class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvider
 {
@@ -15,6 +14,19 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
         protected LivewireManager $livewireManager
     ) {
         parent::__construct($request);
+    }
+
+    protected function resolveComponentClass(string $name): ?string
+    {
+        if (app()->bound('livewire.finder')) {
+            return app('livewire.finder')->resolveClassComponentClassName($name);
+        }
+
+        if (class_exists(\Livewire\Mechanisms\ComponentRegistry::class)) {
+            return app(\Livewire\Mechanisms\ComponentRegistry::class)->getClass($name);
+        }
+
+        return null;
     }
 
     /** @return array<string, string> */
@@ -53,7 +65,7 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
             foreach ($components as $component) {
                 $snapshot = json_decode($component['snapshot'], true);
 
-                $class = app(ComponentRegistry::class)->getClass($snapshot['memo']['name']);
+                $class = $this->resolveComponentClass($snapshot['memo']['name']);
 
                 $data[] = [
                     'component_class' => $class ?? null,
@@ -78,7 +90,7 @@ class LaravelLivewireRequestContextProvider extends LaravelRequestContextProvide
         }
 
         try {
-            $componentClass = $this->livewireManager->getClass($componentAlias);
+            $componentClass = $this->resolveComponentClass($componentAlias);
         } catch (Exception $e) {
             $componentClass = null;
         }
