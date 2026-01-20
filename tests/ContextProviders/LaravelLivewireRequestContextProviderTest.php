@@ -7,7 +7,7 @@ use Spatie\LaravelIgnition\Tests\TestClasses\FakeLivewireManager;
 
 beforeEach(function () {
     $this->livewireManager = resolve(FakeLivewireManager::class);
-})->skip(LIVEWIRE_VERSION_2, 'Only test Livewire 3.');
+});
 
 it('returns the referer url and method', function () {
     $context = createRequestContext([
