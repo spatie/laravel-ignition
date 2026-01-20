@@ -27,7 +27,7 @@
         "symfony/var-dumper": "^7.4|^8.0"
     },
     "require-dev": {
-        "livewire/livewire": "^3.7.0",
+        "livewire/livewire": "^3.7.0|^4.0",
         "mockery/mockery": "^1.6.12",
         "openai-php/client": "^0.10.3",
         "orchestra/testbench": "^10.6",
