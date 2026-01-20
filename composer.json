@@ -21,7 +21,7 @@
         "ext-curl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "illuminate/support": "^12.0",
+        "illuminate/support": "^11.0|^12.0",
         "spatie/ignition": "^1.15.1",
         "symfony/console": "^7.4|^8.0",
         "symfony/var-dumper": "^7.4|^8.0"
