@@ -3,9 +3,7 @@
 namespace Spatie\LaravelIgnition\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Spatie\Ignition\Config\IgnitionConfig;
 use Spatie\Ignition\Ignition;
-use Spatie\LaravelIgnition\Http\Requests\UpdateConfigRequest;
 
 class UpdateConfigController
 {
