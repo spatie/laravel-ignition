@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.11.0 - 2026-02-22
+
+Add Laravel 13.x support
+
 ## 2.10.0 - 2026-01-20
 
 ### What's Changed
