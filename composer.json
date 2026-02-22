@@ -28,10 +28,10 @@
         "symfony/var-dumper": "^7.4|^8.0"
     },
     "require-dev": {
-        "livewire/livewire": "^3.7.0|^4.0|dev-josh/v3-laravel-13-support",
+        "livewire/livewire": "^3.7.0|^4.0",
         "mockery/mockery": "^1.6.12",
         "openai-php/client": "^0.10.3|^0.19",
-        "orchestra/testbench": "^v9.16.0|^10.6|^11.0",
+        "orchestra/testbench": "^9.16|^10.6|^11.0",
         "pestphp/pest": "^3.7|^4.0",
         "phpstan/extension-installer": "^1.4.3",
         "phpstan/phpstan-deprecation-rules": "^2.0.3",

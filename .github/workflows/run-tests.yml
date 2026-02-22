@@ -12,7 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         php: [8.2, 8.3, 8.4, 8.5]
-        laravel: ['11.*', '12.*', '13.*']
+        laravel: ['11.*', '12.*']
         livewire: [3.7, 4.0]
         stability: [prefer-lowest, prefer-stable]
         os: [ubuntu-latest, windows-latest]
@@ -20,12 +20,7 @@ jobs:
           - laravel: 11.*
             testbench: ^9.16
           - laravel: 12.*
-            testbench: ^10.9
-          - laravel: 13.*
-            testbench: ^11.0
-        exclude:
-          - laravel: 13.*
-            php: 8.2
+            testbench: ^10.6
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - LW${{ matrix.livewire }} -${{ matrix.stability }} - ${{ matrix.os }}
 
@@ -56,6 +51,51 @@ jobs:
       - name: Install dependencies
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "livewire/livewire:^${{ matrix.livewire }}" "nesbot/carbon:^2.72|^3.0" --no-interaction --no-update
+          composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-suggest
+
+      - name: Execute tests
+        run: vendor/bin/pest
+
+  php-tests-laravel13:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [8.3, 8.4, 8.5]
+        stability: [prefer-lowest, prefer-stable]
+        os: [ubuntu-latest, windows-latest]
+
+    name: P${{ matrix.php }} - L13.* -${{ matrix.stability }} - ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, fileinfo, pdo_sqlite
+          coverage: none
+          tools: composer:v2
+
+      - name: Get composer cache directory
+        id: composer-cache
+        shell: bash
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v5
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ matrix.os }}-php-${{ matrix.php }}-laravel-13.*-composer-${{ matrix.stability }}-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ matrix.os }}-php-${{ matrix.php }}-laravel-13.*-composer-${{ matrix.stability }}-
+
+      - name: Install dependencies
+        run: |
+          composer require "laravel/framework:13.*" "orchestra/testbench:^11.0" "nesbot/carbon:^2.72|^3.0" --no-interaction --no-update
+          composer remove livewire/livewire --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
