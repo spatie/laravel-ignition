@@ -20,7 +20,7 @@ jobs:
           - laravel: 11.*
             testbench: ^9.16
           - laravel: 12.*
-            testbench: ^10.6
+            testbench: ^10.9
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - LW${{ matrix.livewire }} -${{ matrix.stability }} - ${{ matrix.os }}
 
@@ -94,8 +94,8 @@ jobs:
 
       - name: Install dependencies
         run: |
+          composer remove livewire/livewire --no-interaction --no-update --dev
           composer require "laravel/framework:13.*" "orchestra/testbench:^11.0" "nesbot/carbon:^2.72|^3.0" --no-interaction --no-update
-          composer remove livewire/livewire --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
