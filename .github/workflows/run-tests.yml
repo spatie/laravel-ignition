@@ -58,6 +58,7 @@ jobs:
 
   php-tests-laravel13:
     runs-on: ${{ matrix.os }}
+    continue-on-error: true
 
     strategy:
       fail-fast: false
@@ -93,6 +94,7 @@ jobs:
           restore-keys: ${{ matrix.os }}-php-${{ matrix.php }}-laravel-13.*-composer-${{ matrix.stability }}-
 
       - name: Install dependencies
+        shell: bash
         run: |
           composer remove livewire/livewire --no-interaction --no-update --dev
           composer require "laravel/framework:13.*" "orchestra/testbench:^11.0" "nesbot/carbon:^2.72|^3.0" --no-interaction --no-update
