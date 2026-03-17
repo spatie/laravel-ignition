@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.7.2 - 2026-03-17
+
+- Fix a dependency issue
+
 ## 2.12.0 - 2026-03-17
 
 ### What's Changed
