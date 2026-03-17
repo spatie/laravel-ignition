@@ -41,6 +41,7 @@ jobs:
 
             -  name: Install dependencies
                run: |
+                    composer config audit.block-insecure false
                     composer require "laravel/framework:${{ matrix.laravel }}" "nesbot/carbon:^2.62.1" --no-interaction --no-update
                     composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-suggest
 
