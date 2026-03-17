@@ -23,7 +23,7 @@
         "ext-mbstring": "*",
         "illuminate/support": "^11.0|^12.0|^13.0",
         "nesbot/carbon": "^2.72|^3.0",
-        "spatie/ignition": "^1.15.1",
+        "spatie/ignition": "^1.16",
         "symfony/console": "^7.4|^8.0",
         "symfony/var-dumper": "^7.4|^8.0"
     },
