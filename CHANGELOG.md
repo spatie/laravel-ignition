@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.7.1 - 2026-03-17
+
+### What's Changed
+
+* Fix HTML view data leaking into `laravel.log` (#224)
+
+ViewException's `context()` method HTML-dumped all view data, which Laravel's exception handler then included in log entries. Moved the HTML dumping into the Flare middleware so it only applies when rendering the error page or reporting to Flare.
+
 ## 2.11.0 - 2026-02-22
 
 Add Laravel 13.x support
