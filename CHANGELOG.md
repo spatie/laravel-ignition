@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.12.0 - 2026-03-17
+
+### What's Changed
+
+* Fix HTML view data leaking into `laravel.log` (#224)
+* Bump spatie/ignition to ^1.16 for Symfony 8 / Laravel 13 support (#253)
+* Bump ramsey/composer-install from 3 to 4
+
 ## 1.7.1 - 2026-03-17
 
 ### What's Changed
