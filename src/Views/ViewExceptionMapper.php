@@ -134,8 +134,18 @@ class ViewExceptionMapper
         $compilerEngineReflection = new ReflectionClass($this->compilerEngine);
 
         if (! $compilerEngineReflection->hasProperty('lastCompiled') && $compilerEngineReflection->hasProperty('engine')) {
-            $compilerEngine = $compilerEngineReflection->getProperty('engine');
-            $compilerEngine = $compilerEngine->getValue($this->compilerEngine);
+            $depth = 3;
+
+            $compilerEngine = $this->compilerEngine;
+            
+            // If the engine is wrapped by multiple decorators then we need to traverse the decorators to find the lastCompiled property
+            while($depth-- > 0 && $compilerEngine && ! $compilerEngineReflection->hasProperty('lastCompiled') && $compilerEngineReflection->hasProperty('engine')) {
+                $engineProperty = $compilerEngineReflection->getProperty('engine');
+                $compilerEngine = $engineProperty->getValue($compilerEngine);
+
+                $compilerEngineReflection = new ReflectionClass($compilerEngine);
+            }
+            
             $lastCompiled = new ReflectionProperty($compilerEngine, 'lastCompiled');
             $lastCompiled = $lastCompiled->getValue($compilerEngine);
         } else {
