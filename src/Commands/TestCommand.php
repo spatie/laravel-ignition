@@ -113,9 +113,7 @@ class TestCommand extends Command
                 ['spatie/ignition', InstalledVersions::getVersion('spatie/ignition')],
                 ['spatie/laravel-ignition', InstalledVersions::getVersion('spatie/laravel-ignition')],
                 ['spatie/flare-client-php', InstalledVersions::getVersion('spatie/flare-client-php')],
-                /** @phpstan-ignore-next-line */
                 ['Curl', curl_version()['version'] ?? 'Unknown'],
-                /** @phpstan-ignore-next-line */
                 ['SSL', curl_version()['ssl_version'] ?? 'Unknown'],
             ]);
 

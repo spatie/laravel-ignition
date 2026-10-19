@@ -463,12 +463,6 @@ parameters:
 			path: src/Views/ViewExceptionMapper.php
 
 		-
-			message: '#^Offset ''path'' might not exist on array\{0\?\: string, path\?\: string, 1\?\: string\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: src/Views/ViewExceptionMapper.php
-
-		-
 			message: '#^Property Spatie\\LaravelIgnition\\Views\\ViewExceptionMapper\:\:\$knownPaths type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -479,4 +473,3 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: src/helpers.php
-
