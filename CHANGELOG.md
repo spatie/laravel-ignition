@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.12.1 - 2026-10-19
+
+### What’s Changed
+
+* Fix Blade exception mapping with multiple nested view-engine decorators, including Sentry and OpenTelemetry combinations, in #257.
+* Resolve compiled paths through the underlying compiler instead of requiring decorators to forward `getCompiler()`.
+* Preserve the original exception for cyclic or unsupported decorator chains and view exceptions without a view-path suffix.
+* Add regression coverage and fix stale PHPStan suppressions.
+
+No breaking changes or changes to supported PHP/Laravel versions.
+
+Thanks to @hayleyberryl2s for the original fix.
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/2.12.0...2.12.1
+
 ## 1.7.2 - 2026-03-17
 
 - Fix a dependency issue
