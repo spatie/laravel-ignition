@@ -110,6 +110,25 @@ it('renders the original line number in view exceptions with utf8 characters', f
         ->assertSee('on line 11');
 });
 
+it('maps exceptions around php and verbatim blocks to the original blade line', function (string $view, int $line) {
+    try {
+        view($view)->render();
+    } catch (ViewException $exception) {
+        $mapped = app(ViewExceptionMapper::class)->map($exception);
+
+        expect($mapped->getFile())->toBe(realpath(__DIR__ . "/../stubs/views/{$view}.blade.php"))
+            ->and($mapped->getLine())->toBe($line);
+
+        return;
+    }
+
+    $this->fail('The view should throw an exception.');
+})->with([
+    'inside a php block' => ['blade-exception-php-block', 7],
+    'after a verbatim block containing php' => ['blade-exception-after-verbatim-php', 11],
+    'after a php block containing a verbatim block' => ['blade-exception-after-php-block-with-verbatim', 9],
+]);
+
 it('renders the base exception solutions', function () {
     $this->get('/solution-exception')
         ->assertSee('This is a solution');
