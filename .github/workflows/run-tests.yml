@@ -47,6 +47,7 @@ jobs:
           restore-keys: ${{ matrix.os }}-php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-composer-${{ matrix.stability }}-
 
       - name: Install dependencies
+        shell: bash
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "livewire/livewire:^${{ matrix.livewire }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
