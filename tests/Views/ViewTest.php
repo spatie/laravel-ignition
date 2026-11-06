@@ -110,6 +110,88 @@ it('renders the original line number in view exceptions with utf8 characters', f
         ->assertSee('on line 11');
 });
 
+it('maps exceptions around php and verbatim blocks to the original blade line', function (string $view, int $line) {
+    try {
+        view($view)->render();
+    } catch (ViewException $exception) {
+        $mapped = app(ViewExceptionMapper::class)->map($exception);
+
+        expect($mapped->getFile())->toBe(realpath(__DIR__ . "/../stubs/views/{$view}.blade.php"))
+            ->and($mapped->getLine())->toBe($line);
+
+        return;
+    }
+
+    $this->fail('The view should throw an exception.');
+})->with([
+    'inside a php block' => ['blade-exception-php-block', 7],
+    'after a verbatim block containing php' => ['blade-exception-after-verbatim-php', 11],
+    'after a php block containing a verbatim block' => ['blade-exception-after-php-block-with-verbatim', 9],
+]);
+
+it('maps php block failures without changing Blade compilation boundaries', function (string $source, int $line) {
+    $path = sys_get_temp_dir() . '/ignition-' . bin2hex(random_bytes(8)) . '.blade.php';
+    file_put_contents($path, $source);
+
+    try {
+        view()->file($path)->render();
+    } catch (ViewException $exception) {
+        $mapped = app(ViewExceptionMapper::class)->map($exception);
+
+        expect($mapped->getFile())->toBe(realpath($path))
+            ->and($mapped->getLine())->toBe($line)
+            ->and($mapped->getMessage())->toBe('Call to undefined function somethingBadHappens()');
+
+        return;
+    } finally {
+        unlink($path);
+    }
+
+    $this->fail('The view should throw an exception.');
+})->with([
+    'unicode, CRLF, blank lines and multiple blocks' => [
+        "雪\r\n@php\r\n    \$value = 'é';\r\n@endphp\r\n\r\n@php\r\n\r\n    somethingBadHappens();\r\n@endphp",
+        8,
+    ],
+    'escaped directive before a block' => [
+        "@@php\n<p>Before</p>\n@php\n    \$value = 1;\n    somethingBadHappens();\n@endphp",
+        5,
+    ],
+    'multiline strings, comments, heredocs and nowdocs' => [
+        <<<'BLADE'
+<p>Before</p>
+@php
+    $quoted = "first
+second";
+    /* comment
+       continuation */
+    $heredoc = <<<TEXT
+    first
+    second
+    TEXT;
+    $nowdoc = <<<'TEXT'
+    first
+    second
+    TEXT;
+    somethingBadHappens();
+@endphp
+BLADE,
+        15,
+    ],
+    'failure after a component and verbatim containing an escaped block' => [
+        "<p>Before</p>\n@verbatim\n@@php\nignored\n@endphp\n@endverbatim\n<x-title title=\"雪\" />\n@php\n    \$value = 1;\n    somethingBadHappens();\n@endphp",
+        10,
+    ],
+    'failure on a multiline expression inside a block' => [
+        "<p>Before</p>\n@php\n    \$value = strlen(\n        somethingBadHappens()\n    );\n@endphp",
+        4,
+    ],
+    'echo after a block with multiline content' => [
+        "@php\n    \$value = 'first\nsecond';\n@endphp\n\n{!! somethingBadHappens() !!}",
+        6,
+    ],
+]);
+
 it('renders the base exception solutions', function () {
     $this->get('/solution-exception')
         ->assertSee('This is a solution');

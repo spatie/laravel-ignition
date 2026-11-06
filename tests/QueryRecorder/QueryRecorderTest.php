@@ -4,6 +4,16 @@ use Illuminate\Database\Connection;
 use Illuminate\Database\Events\QueryExecuted;
 use Spatie\LaravelIgnition\Recorders\QueryRecorder\QueryRecorder;
 
+it('preserves query durations from Laravel events', function (?float $duration) {
+    $recorder = (new QueryRecorder(app()))->start();
+
+    app(Connection::class)->logQuery('select 1', [], $duration);
+
+    expect($recorder->getQueries())->toHaveCount(1)
+        ->and($recorder->getQueries()[0]['sql'])->toBe('select 1')
+        ->and($recorder->getQueries()[0]['time'])->toBe($duration);
+})->with([null, 0.0, 12.75]);
+
 it('limits the amount of recorded queries', function () {
     $recorder = new QueryRecorder(app(), true, 200);
     $connection = app(Connection::class);

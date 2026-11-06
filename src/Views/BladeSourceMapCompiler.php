@@ -30,6 +30,8 @@ class BladeSourceMapCompiler
 
             $value = $this->addBladeComponentLineNumbers($value);
 
+            $value = $this->addPhpBlockLineNumbers($value);
+
             $value = $this->bladeCompiler->compileString($value);
 
             return $this->trimEmptyLines($value);
@@ -96,6 +98,39 @@ class BladeSourceMapCompiler
                 $position = mb_strlen(substr($value, 0, $match[1]));
 
                 $value = $this->insertLineNumberAtPosition($position, $value);
+            }
+        }
+
+        return $value;
+    }
+
+    protected function addPhpBlockLineNumbers(string $value): string
+    {
+        // Blade stores @verbatim blocks before it looks for @php blocks, so they are blanked out
+        // here (keeping every byte offset) to never match or add line numbers inside them
+        $valueWithoutVerbatimBlocks = (string) preg_replace_callback(
+            '/(?<!@)@verbatim(\s*)(.*?)@endverbatim/s',
+            fn (array $matches) => str_repeat(' ', strlen($matches[0])),
+            $value
+        );
+
+        // Matches the contents of @php ... @endphp blocks, which Blade copies to the compiled view line by line
+        $shouldInsertLineNumbers = preg_match_all(
+            '/(?<!@)@php(.*?)@endphp/s',
+            $valueWithoutVerbatimBlocks,
+            $matches,
+            PREG_OFFSET_CAPTURE
+        );
+
+        if ($shouldInsertLineNumbers) {
+            foreach (array_reverse($matches[1]) as $match) {
+                preg_match_all('/\n/', $match[0], $newLines, PREG_OFFSET_CAPTURE);
+
+                foreach (array_reverse($newLines[0]) as $newLine) {
+                    $position = mb_strlen(substr($value, 0, $match[1] + $newLine[1] + 1));
+
+                    $value = $this->insertLineNumberAtPosition($position, $value);
+                }
             }
         }
 
