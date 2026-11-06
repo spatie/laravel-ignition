@@ -2,6 +2,23 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 2.13.0 - 2026-11-06
+
+### What's Changed
+
+* Map exceptions inside multiline Blade `@php ... @endphp` blocks to the line that actually failed, while respecting Blade's verbatim and escaped-directive boundaries (#258).
+* Add rendering regressions for Unicode, CRLF, multiple PHP blocks, multiline strings/comments/heredocs/nowdocs, components and subsequent echoes.
+* Preserve unknown query durations from Laravel events as `null`, instead of throwing a `TypeError`; measured zero and fractional durations are unchanged.
+* Ensure compatibility with PHP 8.5 and 8.6, including Windows dependency resolution, and require Carbon 3.13.3 or newer (#259).
+
+### Supported Versions
+
+This release requires **PHP 8.4 or newer and Laravel 13**. Applications using older PHP or Laravel versions should remain on the compatible 2.12.x releases. CI covers PHP 8.4, 8.5 and 8.6, Livewire 3 and 4, and lowest/stable dependencies on Linux and Windows.
+
+Thanks to @mkantautas for the original Blade source-map fix.
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/2.12.1...2.13.0
+
 ## 2.12.1 - 2026-10-19
 
 ### What’s Changed
