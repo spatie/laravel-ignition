@@ -8,7 +8,7 @@ class Query
 {
     protected string $sql;
 
-    protected float $time;
+    protected ?float $time;
 
     protected string $connectionName;
 
@@ -30,14 +30,14 @@ class Query
 
     /**
      * @param string $sql
-     * @param float $time
+     * @param float|null $time
      * @param string $connectionName
      * @param array<string, string>|null $bindings
      * @param float|null $microtime
      */
     protected function __construct(
         string $sql,
-        float $time,
+        ?float $time,
         string $connectionName,
         ?array $bindings = null,
         ?float $microtime = null
